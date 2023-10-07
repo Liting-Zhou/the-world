@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class represents the game "The World", based on the classical board game <i>Kill Doctor Lucky<i/>."
+ * This class represents the game "The World", based on the classical board game Kill Doctor Lucky.
  */
 public final class World {
   private Target target;
@@ -15,7 +15,8 @@ public final class World {
   private int startingRoom = 16;
 
   /**
-   * Constructs a new "The World" game, initializing the world map and players from a configuration file.
+   * Constructs a new "The World" game, initializing the world map and players
+   * from a configuration file.
    *
    * @param conFile           The configuration file containing game setup information.
    * @param listOfPlayerNames The list of the names of players in clockwise order.
@@ -145,7 +146,8 @@ public final class World {
   }
 
   /**
-   * Initializes the game's target character, who has health 30 and starting location room number 16.
+   * Initializes the game's target character,
+   * who has health 30 and starting location room number 16.
    */
   private void initializeTarget(List<String> lines) {
     String targetInfo = lines.get(1); // Line 1 contains target information.
@@ -267,6 +269,8 @@ public final class World {
 
   /**
    * Updates the target after actions.
+   *
+   * @param target the target
    */
   public void updateTarget(Target target) {
     this.target = target;
@@ -284,7 +288,7 @@ public final class World {
     System.out.println("Please enter 'move' or 'stay': ");
     String action = scanner.nextLine();
     int roomNumber;
-    if (action.equals("move")) {
+    if ("move".equals(action)) {
       System.out.println("Which room are you going to (enter a number between 0-21): ");
       roomNumber = Integer.valueOf(scanner.nextLine());
     } else {
@@ -310,6 +314,8 @@ public final class World {
 
   /**
    * Updates the room information for a specific player after actions.
+   *
+   * @param newLocation the new location of player
    */
   public void updatePlayer(RoomInfo newLocation) {
     players.get(indexOfPlayer).updateRoomInfo(newLocation);

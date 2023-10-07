@@ -103,6 +103,7 @@ public class RoomInfo {
   /**
    * Returns neighbors of this room. Spaces that share a "wall" are neighbors.
    *
+   * @param listOfRooms The list of all rooms
    * @return A list of integers representing neighboring room numbers.
    */
   public List<Integer> getNeighbors(List<RoomInfo> listOfRooms) {
@@ -110,8 +111,8 @@ public class RoomInfo {
 
     int lenOfWidthThisRoom = x2 - x1;
     int lenOfHeightThisRoom = y2 - y1;
-    double centerXOfThisRoom = (x1 + x2) * 0.5;
-    double centerYOfThisRoom = (y1 + y2) * 0.5;
+    double centerXofThisRoom = (x1 + x2) * 0.5;
+    double centerYofThisRoom = (y1 + y2) * 0.5;
     // Iterate through all rooms to find neighbors based on shared "walls."
     for (RoomInfo otherRoom : listOfRooms) {
       if (this != otherRoom) {
@@ -121,10 +122,10 @@ public class RoomInfo {
         double maxLen = Math.pow((Math.pow((lenOfWidthThisRoom + lenOfWidthOtherRoom) * 0.5, 2)
             + Math.pow((lenOfHeightThisRoom + lenOfHeightOtherRoom) * 0.5, 2)), 0.5);
         //calculate the real length of center points of the two rooms.
-        double centerXOfOtherRoom = (otherRoom.getX1() + otherRoom.getX2()) * 0.5;
-        double centerYOfOtherRoom = (otherRoom.getY1() + otherRoom.getY2()) * 0.5;
-        double horizontalLen = Math.abs(centerXOfOtherRoom - centerXOfThisRoom);
-        double verticalLen = Math.abs(centerYOfOtherRoom - centerYOfThisRoom);
+        double centerXofOtherRoom = (otherRoom.getX1() + otherRoom.getX2()) * 0.5;
+        double centerYofOtherRoom = (otherRoom.getY1() + otherRoom.getY2()) * 0.5;
+        double horizontalLen = Math.abs(centerXofOtherRoom - centerXofThisRoom);
+        double verticalLen = Math.abs(centerYofOtherRoom - centerYofThisRoom);
         double realLen = Math.pow((Math.pow(horizontalLen, 2)
             + Math.pow(verticalLen, 2)), 0.5);
 

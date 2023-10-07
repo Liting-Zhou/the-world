@@ -12,6 +12,9 @@ import org.junit.Test;
 public class MansionTest {
   private Mansion mansion;
   private List<RoomInfo> rooms;
+  /**
+   * Sets up the test environment before each test case.
+   */
 
   @Before
   public void setUp() {

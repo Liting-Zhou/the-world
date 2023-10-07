@@ -2,7 +2,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Represents the target character in the game. The target has health and move to the next room each round.
+ * Represents the target character in the game.
+ * The target has health and move to the next room each round.
  */
 public class Target extends Character {
 
@@ -46,6 +47,7 @@ public class Target extends Character {
    *
    * @param mansion The mansion.
    * @param players The list of all players in the game.
+   * @param listOfRooms The list of all rooms
    * @return The updated target character with new location and health.
    */
   public Target move(Mansion mansion, List<Player> players, List<RoomInfo> listOfRooms) {
@@ -62,8 +64,8 @@ public class Target extends Character {
 
     Target updatedTarget = this;
     System.out.println(
-        "Target moves and now is in room " + updatedTarget.getCurrentLocation().getRoomNumber() +
-            ".");
+        "Target moves and now is in room " + updatedTarget.getCurrentLocation().getRoomNumber()
+            + ".");
     //if any player is in the same room with target, raise actions.
     for (Player player : players) {
       if (newLocation == player.getCurrentLocation()) {
@@ -84,7 +86,7 @@ public class Target extends Character {
               player.getName() + "! You are now with target in the same room. "
                   + "And no one can see you. Do you want to attack? Enter yes or no: ");
           String attackTarget = scanner.nextLine();
-          if (attackTarget.equals("yes")) {
+          if ("yes".equals(attackTarget)) {
             updatedTarget = player.attack(newLocation, this);
           }
         }

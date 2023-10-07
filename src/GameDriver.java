@@ -22,10 +22,8 @@ public class GameDriver {
 
     // Create and initialize the game world
     World world = initializeGameWorld("./res/mansion.txt", listOfPlayerNames);
-    System.out.println("Game started!");
-
-    System.out.println("In each round, target moves first, and then one player can act.");
-    System.out.println("The target starts from room 16.");
+    System.out.println("Game started!\nIn each round, target moves first, "
+        + "and then one player can act.\nThe target starts from room 16.");
     // Run the game loop
     while (!world.ifGameOver()) {
       // Perform game actions for each round

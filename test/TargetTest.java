@@ -15,6 +15,9 @@ public class TargetTest {
   private Mansion mansion;
   private List<Player> players;
   private List<RoomInfo> listOfRooms;
+  /**
+   * Sets up the test environment before each test case.
+   */
 
   @Before
   public void setUp() {

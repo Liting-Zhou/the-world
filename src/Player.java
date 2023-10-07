@@ -58,14 +58,15 @@ public class Player extends Character {
    * @param newLocation The new location to move to (if action is "move").
    * @param target      The target character in the game.
    * @param players     The list of all players in the game.
+   * @param listOfRooms The list of all rooms.
    * @return The updated target character.
    */
   public Target action(String action, RoomInfo newLocation, Target target, List<Player> players,
                        List<RoomInfo> listOfRooms) {
     Target updatedTarget = target;
-    if (action.equals("stay")) {
+    if ("stay".equals(action)) {
       // TODO if stay, what to do?
-    } else if (action.equals("move")) {
+    } else if ("move".equals(action)) {
       //move to the new location
       setCurrentLocation(newLocation);
       //check if target in the same room
@@ -87,7 +88,7 @@ public class Player extends Character {
           Scanner scanner = new Scanner(System.in);
           System.out.println("No one can see you. Do you want to attack? Enter yes or no: ");
           String attackTarget = scanner.nextLine();
-          if (attackTarget.equals("yes")) {
+          if ("yes".equals(attackTarget)) {
             updatedTarget = attack(newLocation, target);
           }
         }
