@@ -12,8 +12,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-//TODO
-
 /**
  * This class contains test cases for the {@link World} class.
  */
