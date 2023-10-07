@@ -1,0 +1,31 @@
+(base) yolanda@Yolandas-MacBook-Pro milestone01-the-world % java -jar ./res/milestone01-the-world.jar jack rose
+Mansion map image saved successfully.
+Game started!
+In each round, target moves first, and then one player can act.
+The target starts from room 16.
+Now play the next round!
+Target moves and now is in room 17.
+jack's turn!
+Please enter 'move' or 'stay':
+move
+Which room are you going to (enter a number between 0-21):
+19
+jack is now in room 19.
+Target is in room 17 with health 30.
+---------------
+Game continues.
+Now play the next round!
+Target moves and now is in room 18.
+rose's turn!
+Please enter 'move' or 'stay':
+move
+Which room are you going to (enter a number between 0-21):
+8
+rose is now in room 8.
+Target is in room 18 with health 30.
+---------------
+Game continues.
+Now play the next round!
+Target moves and now is in room 19.
+jack! You are now with target in the same room. And no one can see you. Do you want to attack? Enter yes or no:
+yes
