@@ -13,6 +13,7 @@ public class RoomInfoTest {
   private RoomInfo thisRoom;
   private List<Weapon> weapons = new ArrayList<>();
   private List<RoomInfo> listOfRooms = new ArrayList<>();
+
   /**
    * Sets up the test environment before each test case.
    */

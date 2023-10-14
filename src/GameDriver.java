@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * The main class that drives and controls the execution of the game "The World".
@@ -25,13 +26,45 @@ public class GameDriver {
     System.out.println("Game started!\nIn each round, target moves first, "
         + "and then one player can act.\nThe target starts from room 16.");
     // Run the game loop
-    while (!world.ifGameOver()) {
-      // Perform game actions for each round
-      world.playNextRound();
-    }
+//    while (!world.ifGameOver()) {
+//      // Perform game actions for each round
+//      world.playNextRound();
+//    }
 
-    // Determine the winner and display the result
-    System.out.println(world.getWinner().getName());
+    Scanner scanner = new Scanner(System.in);
+    while (!world.ifGameOver()) {
+      printOptions();
+      int option = scanner.nextInt();
+      switch (option) {
+        case 1:
+          world.displayMap();
+          break;
+        case 2:
+          world.displayInformation();
+          break;
+        case 3:
+          world.playNextRound();
+          if (world.ifGameOver()) {
+            System.out.println("Game over!");
+            System.out.println("The winner is " + world.getWinner().getName());
+          }
+          break;
+        default:
+          System.out.println("Invalid option.");
+      }
+    }
+  }
+
+  /**
+   * Display options for players.
+   */
+  private static void printOptions() {
+    System.out.println("Options:");
+    System.out.println("1. Display the map.");
+    System.out.println("2. Get information about the target and players.");
+    System.out.println("3. Continue the game.");
+
+    System.out.println("Please choose an option (enter the corresponding number): ");
   }
 
   /**

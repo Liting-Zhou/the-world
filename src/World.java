@@ -41,8 +41,8 @@ public final class World {
     initializeMansion(lines);
     initializeTarget(lines);
     initializePlayers(listOfPlayerNames);
-    //create a graphical representation of the world map.
-    mansion.getBufferedImage();
+    //create a graphical representation of the world map OR NOT!
+    //mansion.getBufferedImage();
   }
 
   /**
@@ -249,10 +249,11 @@ public final class World {
    */
   public void playNextRound() {
     if (ifGameOver() == false) {
+      System.out.println("***************");
       System.out.println("Now play the next round!");
       roundOfTargetCharacter();
       roundOfPlayers();
-      System.out.println("---------------");
+      System.out.println("***************");
       System.out.println("Game continues.");
     }
 
@@ -321,5 +322,35 @@ public final class World {
     players.get(indexOfPlayer).updateRoomInfo(newLocation);
   }
 
+  /**
+   * Displays the map of the mansion.
+   */
+  public void displayMap() {
+    mansion.getBufferedImage();
+  }
+
+  /**
+   * Displays information about the target and players.
+   */
+  public void displayInformation() {
+    // Display information about the target
+    System.out.println("Target Information:");
+    System.out.println("Name: " + target.getName());
+    System.out.println("Current Location: Room " + target.getCurrentLocation().getRoomNumber());
+    System.out.println("Health: " + target.getHealth());
+
+    // Display information about the players
+    System.out.println("\nPlayers Information:");
+    for (Player player : players) {
+      System.out.println("Name: " + player.getName());
+      System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
+      List<Weapon> weapons = player.getCurrentLocation().getWeapons();
+      for (Weapon weapon : weapons) {
+        System.out.println(
+            "Weapon " + weapon.getName() + " with power " + weapon.getPower() + " in the room.");
+      }
+      System.out.println("--------------");
+    }
+  }
 
 }

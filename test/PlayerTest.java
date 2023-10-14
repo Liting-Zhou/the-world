@@ -15,6 +15,7 @@ public class PlayerTest extends Character {
   private Target target;
   private List<Player> players;
   private List<RoomInfo> listOfRooms;
+
   /**
    * Sets up the test environment before each test case.
    */

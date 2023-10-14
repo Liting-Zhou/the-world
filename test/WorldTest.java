@@ -17,6 +17,7 @@ import org.junit.Test;
  */
 public class WorldTest {
   private World world;
+
   /**
    * Sets up the test environment before each test case.
    */

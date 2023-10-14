@@ -45,8 +45,8 @@ public class Target extends Character {
   /**
    * Moves the target character to the next room. If encounter players, might get attacked.
    *
-   * @param mansion The mansion.
-   * @param players The list of all players in the game.
+   * @param mansion     The mansion.
+   * @param players     The list of all players in the game.
    * @param listOfRooms The list of all rooms
    * @return The updated target character with new location and health.
    */

@@ -13,6 +13,7 @@ public class WeaponTest {
   private Weapon weapon1;
   private Weapon weapon2;
   private Weapon weapon3;
+
   /**
    * Sets up the test environment before each test case.
    */
