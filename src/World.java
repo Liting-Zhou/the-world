@@ -6,13 +6,39 @@ import java.util.Scanner;
  * This class represents the game "The World", based on the classical board game Kill Doctor Lucky.
  */
 public final class World {
-  private static List<Player> players;
+  private static List<Player> players = new ArrayList<>();
   private final int startingRoom = 16;
   private Target target;
   private List<RoomInfo> listOfRooms;
   private Mansion mansion;
   private List<Weapon> weapons;
   private int indexOfPlayer = 0;
+
+  /**
+   * Constructs a new "The World" game, initializing the world map from a configuration file.
+   *
+   * @param conFile           The configuration file containing game setup information.
+   * @throws IllegalArgumentException if the provided configuration file is invalid.
+   */
+  public World(Readable conFile) {
+    // Read configuration file
+    if (conFile == null) {
+      throw new IllegalArgumentException("Invalid configuration file.");
+    }
+    // Read and process the configuration file to set up the game world.
+    // TODO Maybe refactor to construct a parser for conFile first
+    List<String> lines = new ArrayList<>();
+    Scanner scan = new Scanner(conFile);
+    while (scan.hasNextLine()) {
+      lines.add(scan.nextLine());
+    }
+    scan.close();
+    // Parse and set up the game components, including target, rooms, mansion, and players.
+    initializeWeapons(lines);
+    initializeRooms(lines);
+    initializeMansion(lines);
+    initializeTarget(lines);
+  }
 
   /**
    * Constructs a new "The World" game, initializing the world map and players
@@ -40,10 +66,12 @@ public final class World {
     initializeRooms(lines);
     initializeMansion(lines);
     initializeTarget(lines);
-    initializePlayers(listOfPlayerNames);
+    //initializePlayers(listOfPlayerNames);
     //create a graphical representation of the world map OR NOT!
     //mansion.getBufferedImage();
   }
+
+
 
   /**
    * Gets the players.
@@ -74,6 +102,16 @@ public final class World {
       int roomNumber = Integer.parseInt(weaponData[0]);
       int weaponPower = Integer.parseInt(weaponData[1]);
       String weaponName = weaponData[2];
+
+      //if there is only single word for the name of weapon
+      if (weaponData.length == 3) {
+        weaponName = weaponData[2];
+      } else {
+        //if more than one word for the name of weapon
+        String[] restOfWeaponData = new String[weaponData.length - 2];
+        System.arraycopy(weaponData, 2, restOfWeaponData, 0, weaponData.length - 2);
+        weaponName = String.join(" ", restOfWeaponData);
+      }
 
       // Create a Weapon object with the parsed data and add it to the list of weapons.
       Weapon weapon = new Weapon(weaponPower, weaponName, roomNumber);
@@ -118,7 +156,7 @@ public final class World {
       List<Weapon> listOfWeaponsSpecificRoom = new ArrayList<>();
       for (Weapon item : weapons) {
         int roomNumber = item.getBelongRoomNumber();
-        if (roomNumber == lineIndex) {
+        if (roomNumber == lineIndex-3) {
           listOfWeaponsSpecificRoom.add(item);
         }
       }
@@ -180,22 +218,43 @@ public final class World {
     target = new Target(targetName, targetHealth, currentLocation);
   }
 
+//  /**
+//   * Initializes the list of players in the game.
+//   */
+//  private void initializePlayers(List<String> listOfPlayerNames) {
+//    int totalPlayers = listOfPlayerNames.size();
+//
+//    // Initialize the list of players.
+//    players = new ArrayList<>();
+//    RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
+//
+//    for (int i = 0; i < totalPlayers; i++) {
+//      Player player;
+//      player = new Player(i, listOfPlayerNames.get(i), currentLocation);
+//      // Add the created Player object to the list of players.
+//      players.add(player);
+//    }
+//  }
+
   /**
-   * Initializes the list of players in the game.
+   * Initializes player.
    */
-  private void initializePlayers(List<String> listOfPlayerNames) {
-    int totalPlayers = listOfPlayerNames.size();
-
-    // Initialize the list of players.
-    players = new ArrayList<>();
+  private void initializePlayer(int indexOfPlayer,int typeOfPlayer, String playerName) {
     RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
-
-    for (int i = 0; i < totalPlayers; i++) {
-      Player player;
-      player = new Player(i, listOfPlayerNames.get(i), currentLocation);
+      Player player = new Player(indexOfPlayer, typeOfPlayer,playerName, currentLocation);
       // Add the created Player object to the list of players.
       players.add(player);
     }
+
+
+  /**
+   * Adds human-controlled player to the game.
+   *
+   * @param playerName The name of the player to add.
+   */
+  public void addHumanPlayer(String playerName) {
+    int indexOfNewPlayer = players.size();
+    initializePlayer(indexOfNewPlayer,0, playerName);
   }
 
   /**
@@ -253,7 +312,8 @@ public final class World {
       roundOfPlayers();
       System.out.println();
       System.out.println("This turn has finished. And the target is now in room "
-          + target.getCurrentLocation().getRoomNumber() + " with health "+ target.getHealth() +".");
+          + target.getCurrentLocation().getRoomNumber() + " with health " + target.getHealth() +
+          ".");
       System.out.println("***************");
       System.out.println("Game continues.");
     }
@@ -291,7 +351,10 @@ public final class World {
 
     //display the current location of player
     System.out.println("You are now in room " + player.getCurrentLocation()
-        .getRoomNumber() + ".\n");
+        .getRoomNumber() + ".");
+    System.out.print("And you");
+    player.displayWeaponInformation();
+    System.out.println();
 
     //display weapons in the current room
     player.getCurrentLocation().displayWeapons();
@@ -365,5 +428,28 @@ public final class World {
 //      System.out.println("--------------");
 //    }
   }
+  /**
+   * Displays information about the target and players.
+   */
+  public void displayRoomInformation() {
+    // 1.Display list of rooms
+    System.out.println();
+    mansion.displayListOfRooms();
+    System.out.println();
 
+    // 2.Ask which room to display
+    System.out.println("Which room do you want to display? Please enter the room number: ");
+    Scanner scanner = new Scanner(System.in);
+    Integer roomNumber = scanner.nextInt();
+    RoomInfo room = mansion.getRoomInfoByRoomNumber(roomNumber);
+    System.out.println();
+
+    // 3.Display the room information
+    System.out.println("Room " +roomNumber+ " information: ");
+    room.displayWeapons();
+    room.displayTarget(target);
+    room.displayPlayers(players);
+
+    System.out.println("--------------");
+  }
 }

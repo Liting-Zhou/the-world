@@ -9,6 +9,7 @@ import java.util.Scanner;
  */
 public class Player extends Character {
   private int indexOfPlayer;
+  private int typeOfPlayer; // 0 for human, 1 for computer
   private List<Weapon> weaponsCarried;
 
   /**
@@ -18,9 +19,10 @@ public class Player extends Character {
    * @param name            The name of the player.
    * @param currentLocation The initial current location of the player.
    */
-  public Player(int indexOfPlayer, String name, RoomInfo currentLocation) {
+  public Player(int indexOfPlayer, int typeOfPlayer,String name, RoomInfo currentLocation) {
     super(); // Call the constructor of the superclass (Character).
     this.indexOfPlayer = indexOfPlayer;
+    this.typeOfPlayer = typeOfPlayer;
     this.weaponsCarried = new ArrayList<>();
     setName(name); // Set the name of the player using the inherited setName method.
     setCurrentLocation(
@@ -120,9 +122,9 @@ public class Player extends Character {
     player.getCurrentLocation().displayNeighbors();
   }
 
-  private void displayWeaponInformation() {
+  public void displayWeaponInformation() {
     if (weaponsCarried.isEmpty()) {
-      System.out.println(" has no weapon.");
+      System.out.println(" has/have no weapon.");
     } else {
       for (Weapon weapon : weaponsCarried) {
         System.out.println(" has/have the following weapon(s):");

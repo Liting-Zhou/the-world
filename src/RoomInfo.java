@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents information about a room in Doctor Lucky's Mansion, including its position, name,
@@ -120,7 +121,6 @@ public class RoomInfo {
         i += 1;
       }
     }
-    System.out.println();
   }
 
   /**
@@ -136,7 +136,7 @@ public class RoomInfo {
   /**
    * Decide if the given room is neighbor of this room.
    *
-   * @param otherRoom   The room to be decided if neighbors
+   * @param otherRoom The room to be decided if neighbors
    * @return true if the given room is neighbor of this room, false otherwise
    */
   public boolean isNeighbor(RoomInfo otherRoom) {
@@ -198,5 +198,51 @@ public class RoomInfo {
    */
   public void removeWeapon(Weapon weapon) {
     this.weapons.remove(weapon);
+  }
+
+  /**
+   * Finds out if target is here, if yes, display target information.
+   */
+  public void displayTarget(Target target) {
+    if(this.equals(target.getCurrentLocation())){
+      System.out.println("Target is here!");
+    }else{
+      System.out.println("Target is not here!");
+    }
+  }
+
+  /**
+   * Finds out if any player is here, if yes, display player information.
+   */
+  public void displayPlayers(List<Player> players) {
+    int i=0;
+    for (Player player : players) {
+      if (this.equals(player.getCurrentLocation())) {
+        System.out.println("Player " + player.getName() + " is here!");
+        i+=1;
+      }
+    }
+    if(i==0){
+      System.out.println("No player is here!");
+    }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof RoomInfo)) {
+      return false;
+    }
+    RoomInfo roomInfo = (RoomInfo) o;
+    return getRoomNumber() == roomInfo.getRoomNumber() && getX1() == roomInfo.getX1() &&
+        getY1() == roomInfo.getY1() && getX2() == roomInfo.getX2() && getY2() == roomInfo.getY2() &&
+        Objects.equals(getRoomName(), roomInfo.getRoomName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getRoomNumber(), getX1(), getY1(), getX2(), getY2(), getRoomName());
   }
 }

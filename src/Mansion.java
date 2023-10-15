@@ -116,4 +116,14 @@ public class Mansion {
     }
   }
 
+  /**
+   * Dislays the list of rooms in the mansion.
+   */
+  public void displayListOfRooms() {
+    System.out.println("The mansion has the following rooms: ");
+    for (RoomInfo room : rooms) {
+      System.out.println(room.getRoomNumber() + ": " + room.getRoomName());
+    }
+  }
+
 }
