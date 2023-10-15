@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -41,16 +39,22 @@ public class GameDriver {
         case 3:
           // Add a human-controlled player to the game
           System.out.println("Please enter the name: ");
-          String playerName = scanner.next();
-          world.addHumanPlayer(playerName);
+          String humanPlayerName = scanner.next();
+          world.addHumanPlayer(humanPlayerName);
+          System.out.println("***************");
+          break;
+        case 4:
+          // Add a computer-controlled player to the game
+          System.out.println("Please enter the name: ");
+          String computerPlayerName = scanner.next();
+          world.addComputerPlayer(computerPlayerName);
           System.out.println("***************");
           break;
 
 
-
-          case 10:
-            world.displayTargetInformation();
-            break;
+        case 10:
+          world.displayTargetInformation();
+          break;
         case 11:
           world.playNextRound();
           if (world.ifGameOver()) {
@@ -72,7 +76,7 @@ public class GameDriver {
     System.out.println("1. Get information about a specified room.");
     System.out.println("2. Generate the mansion_map.png.");
     System.out.println("3. Add a human-controlled player to the game.");
-
+    System.out.println("4. Add a computer-controlled player to the game.");
 
 
     System.out.println("10. Get information about the target.");
@@ -84,7 +88,7 @@ public class GameDriver {
   /**
    * Initializes the game world based on a configuration file and a list of player names.
    *
-   * @param configFile        The path to the configuration file.
+   * @param configFile The path to the configuration file.
    * @return The initialized game world.
    */
   private static World initializeGameWorld(String configFile) {

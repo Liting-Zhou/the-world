@@ -17,7 +17,7 @@ public final class World {
   /**
    * Constructs a new "The World" game, initializing the world map from a configuration file.
    *
-   * @param conFile           The configuration file containing game setup information.
+   * @param conFile The configuration file containing game setup information.
    * @throws IllegalArgumentException if the provided configuration file is invalid.
    */
   public World(Readable conFile) {
@@ -70,7 +70,6 @@ public final class World {
     //create a graphical representation of the world map OR NOT!
     //mansion.getBufferedImage();
   }
-
 
 
   /**
@@ -156,7 +155,7 @@ public final class World {
       List<Weapon> listOfWeaponsSpecificRoom = new ArrayList<>();
       for (Weapon item : weapons) {
         int roomNumber = item.getBelongRoomNumber();
-        if (roomNumber == lineIndex-3) {
+        if (roomNumber == lineIndex - 3) {
           listOfWeaponsSpecificRoom.add(item);
         }
       }
@@ -239,12 +238,12 @@ public final class World {
   /**
    * Initializes player.
    */
-  private void initializePlayer(int indexOfPlayer,int typeOfPlayer, String playerName) {
+  private void initializePlayer(int indexOfPlayer, int typeOfPlayer, String playerName) {
     RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
-      Player player = new Player(indexOfPlayer, typeOfPlayer,playerName, currentLocation);
-      // Add the created Player object to the list of players.
-      players.add(player);
-    }
+    Player player = new Player(indexOfPlayer, typeOfPlayer, playerName, currentLocation);
+    // Add the created Player object to the list of players.
+    players.add(player);
+  }
 
 
   /**
@@ -254,7 +253,17 @@ public final class World {
    */
   public void addHumanPlayer(String playerName) {
     int indexOfNewPlayer = players.size();
-    initializePlayer(indexOfNewPlayer,0, playerName);
+    initializePlayer(indexOfNewPlayer, 0, playerName);
+  }
+
+  /**
+   * Adds computer-controlled player to the game.
+   *
+   * @param playerName The name of the player to add.
+   */
+  public void addComputerPlayer(String playerName) {
+    int indexOfNewPlayer = players.size();
+    initializePlayer(indexOfNewPlayer, 1, playerName);
   }
 
   /**
@@ -312,8 +321,8 @@ public final class World {
       roundOfPlayers();
       System.out.println();
       System.out.println("This turn has finished. And the target is now in room "
-          + target.getCurrentLocation().getRoomNumber() + " with health " + target.getHealth() +
-          ".");
+          + target.getCurrentLocation().getRoomNumber() + " with health " + target.getHealth()
+          + ".");
       System.out.println("***************");
       System.out.println("Game continues.");
     }
@@ -428,6 +437,7 @@ public final class World {
 //      System.out.println("--------------");
 //    }
   }
+
   /**
    * Displays information about the target and players.
    */
@@ -445,7 +455,7 @@ public final class World {
     System.out.println();
 
     // 3.Display the room information
-    System.out.println("Room " +roomNumber+ " information: ");
+    System.out.println("Room " + roomNumber + " information: ");
     room.displayWeapons();
     room.displayTarget(target);
     room.displayPlayers(players);

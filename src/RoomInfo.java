@@ -204,9 +204,9 @@ public class RoomInfo {
    * Finds out if target is here, if yes, display target information.
    */
   public void displayTarget(Target target) {
-    if(this.equals(target.getCurrentLocation())){
+    if (this.equals(target.getCurrentLocation())) {
       System.out.println("Target is here!");
-    }else{
+    } else {
       System.out.println("Target is not here!");
     }
   }
@@ -215,14 +215,14 @@ public class RoomInfo {
    * Finds out if any player is here, if yes, display player information.
    */
   public void displayPlayers(List<Player> players) {
-    int i=0;
+    int i = 0;
     for (Player player : players) {
       if (this.equals(player.getCurrentLocation())) {
         System.out.println("Player " + player.getName() + " is here!");
-        i+=1;
+        i += 1;
       }
     }
-    if(i==0){
+    if (i == 0) {
       System.out.println("No player is here!");
     }
   }

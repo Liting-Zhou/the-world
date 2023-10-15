@@ -19,7 +19,7 @@ public class Player extends Character {
    * @param name            The name of the player.
    * @param currentLocation The initial current location of the player.
    */
-  public Player(int indexOfPlayer, int typeOfPlayer,String name, RoomInfo currentLocation) {
+  public Player(int indexOfPlayer, int typeOfPlayer, String name, RoomInfo currentLocation) {
     super(); // Call the constructor of the superclass (Character).
     this.indexOfPlayer = indexOfPlayer;
     this.typeOfPlayer = typeOfPlayer;
