@@ -70,11 +70,11 @@ public class Target extends Character {
     for (Player player : players) {
       if (newLocation == player.getCurrentLocation()) {
         //check if they can be seen
-        List<Integer> neighbors = newLocation.getNeighbors(listOfRooms);
+        List<RoomInfo> neighbors = newLocation.getNeighbors(listOfRooms);
         boolean canBeSeen = false;
         for (Player people : players) {
-          int roomNumber = people.getCurrentLocation().getRoomNumber();
-          if (neighbors.contains(roomNumber)) {
+          RoomInfo currentRoom = people.getCurrentLocation();
+          if (neighbors.contains(currentRoom)) {
             canBeSeen = true;
             System.out.println("You can be seen, no attack.");
             break;

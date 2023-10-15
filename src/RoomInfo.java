@@ -13,7 +13,7 @@ public class RoomInfo {
   private final int x2; //right bottom corner
   private final int y2; //right bottom corner
   private final String roomName;
-  private List<Weapon> weapons;
+  private final List<Weapon> weapons;
 
   /**
    * Constructs a new RoomInfo object.
@@ -101,46 +101,43 @@ public class RoomInfo {
   }
 
   /**
+   * Decide if two rooms share a coordinate, either x or y.
+   *
+   * @param otherRoom The room to be decided if neighbors
+   */
+  private boolean shareCoordinate(RoomInfo otherRoom) {
+
+    return this.x1 == otherRoom.x1 || this.x1 == otherRoom.x2 || this.x2 == otherRoom.x1
+        || this.x2 == otherRoom.x2 || this.y1 == otherRoom.y1 || this.y1 == otherRoom.y2
+        || this.y2 == otherRoom.y1 || this.y2 == otherRoom.y2;
+  }
+
+  /**
    * Returns neighbors of this room. Spaces that share a "wall" are neighbors.
    *
    * @param listOfRooms The list of all rooms
    * @return A list of integers representing neighboring room numbers.
    */
-  public List<Integer> getNeighbors(List<RoomInfo> listOfRooms) {
-    List<Integer> neighboringRoomNumbers = new ArrayList<>();
+  public List<RoomInfo> getNeighbors(List<RoomInfo> listOfRooms) {
+    List<RoomInfo> neighbors = new ArrayList<>();
 
-    int lenOfWidthThisRoom = x2 - x1;
-    int lenOfHeightThisRoom = y2 - y1;
-    double centerXofThisRoom = (x1 + x2) * 0.5;
-    double centerYofThisRoom = (y1 + y2) * 0.5;
-    // Iterate through all rooms to find neighbors based on shared "walls."
+    // 1. when (this.y2 == other.y1, or this.y1 == other.y2), check if this.x2 > other.x1 and this.x1 < other.x2
+    // 2. when (this.x2 == other.x1, or this.x1 == other.x2), check if this.y1 < other.y2 and this.y2 > other.y1
     for (RoomInfo otherRoom : listOfRooms) {
-      if (this != otherRoom) {
-        // calculate the max length of center points of the two rooms to be neighbors.
-        int lenOfWidthOtherRoom = otherRoom.getX2() - otherRoom.getX1();
-        int lenOfHeightOtherRoom = otherRoom.getY2() - otherRoom.getY1();
-        double maxLen = Math.pow((Math.pow((lenOfWidthThisRoom + lenOfWidthOtherRoom) * 0.5, 2)
-            + Math.pow((lenOfHeightThisRoom + lenOfHeightOtherRoom) * 0.5, 2)), 0.5);
-        //calculate the real length of center points of the two rooms.
-        double centerXofOtherRoom = (otherRoom.getX1() + otherRoom.getX2()) * 0.5;
-        double centerYofOtherRoom = (otherRoom.getY1() + otherRoom.getY2()) * 0.5;
-        double horizontalLen = Math.abs(centerXofOtherRoom - centerXofThisRoom);
-        double verticalLen = Math.abs(centerYofOtherRoom - centerYofThisRoom);
-        double realLen = Math.pow((Math.pow(horizontalLen, 2)
-            + Math.pow(verticalLen, 2)), 0.5);
-
-        boolean sharesWall = false;
-        // share wall if the real length of center points is less than the maximal length
-        if (realLen < maxLen) {
-          sharesWall = true;
+      if (this != otherRoom && shareCoordinate(otherRoom)) {
+        if (this.y2 == otherRoom.y1 || this.y1 == otherRoom.y2) {
+          if (this.x2 > otherRoom.x1 && this.x1 < otherRoom.x2) {
+            neighbors.add(otherRoom);
+            continue;
+          }
         }
-
-        if (sharesWall) {
-          neighboringRoomNumbers.add(otherRoom.getRoomNumber());
+        if (this.x2 == otherRoom.x1 || this.x1 == otherRoom.x2) {
+          if (this.y1 < otherRoom.y2 && this.y2 > otherRoom.y1) {
+            neighbors.add(otherRoom);
+          }
         }
       }
     }
-
-    return neighboringRoomNumbers;
+    return neighbors;
   }
 }

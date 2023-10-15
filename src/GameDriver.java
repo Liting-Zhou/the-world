@@ -24,15 +24,11 @@ public class GameDriver {
     // Create and initialize the game world
     World world = initializeGameWorld("./res/mansion.txt", listOfPlayerNames);
     System.out.println("Game started!\nIn each round, target moves first, "
-        + "and then one player can act.\nThe target starts from room 16.");
-    // Run the game loop
-//    while (!world.ifGameOver()) {
-//      // Perform game actions for each round
-//      world.playNextRound();
-//    }
+        + "and then one player can act.\nEveryone starts from room 16.\n***************");
 
     Scanner scanner = new Scanner(System.in);
     while (!world.ifGameOver()) {
+      System.out.println(world.getCurrentPlayer().getName() + "'s turn!");
       printOptions();
       int option = scanner.nextInt();
       switch (option) {
@@ -59,7 +55,7 @@ public class GameDriver {
    * Display options for players.
    */
   private static void printOptions() {
-    System.out.println("Options:");
+    System.out.println("You have the following options:");
     System.out.println("1. Display the map.");
     System.out.println("2. Get information about the target and players.");
     System.out.println("3. Continue the game.");

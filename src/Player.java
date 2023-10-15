@@ -52,7 +52,7 @@ public class Player extends Character {
   }
 
   /**
-   * Performs an action for the player, either move to a specific room or stay.
+   * Performs an action for the player, either move to a neighbor room or stay.
    *
    * @param action      The action to perform ("move" or "stay").
    * @param newLocation The new location to move to (if action is "move").
@@ -74,11 +74,11 @@ public class Player extends Character {
       targetLocation = target.getCurrentLocation();
       if (newLocation == targetLocation) {
         //check if they can be seen
-        List<Integer> neighbors = newLocation.getNeighbors(listOfRooms);
+        List<RoomInfo> neighbors = newLocation.getNeighbors(listOfRooms);
         boolean canBeSeen = false;
         for (Player player : players) {
-          int roomNumber = player.getCurrentLocation().getRoomNumber();
-          if (neighbors.contains(roomNumber)) {
+          RoomInfo currentRoom = player.getCurrentLocation();
+          if (neighbors.contains(currentRoom)) {
             canBeSeen = true;
             System.out.println("You can be seen, no attack.");
             break;

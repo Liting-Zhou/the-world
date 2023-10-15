@@ -213,6 +213,10 @@ public final class World {
     return players;
   }
 
+  public Player getCurrentPlayer() {
+    return players.get(indexOfPlayer);
+  }
+
   /**
    * Gets the Mansion.
    *
@@ -283,15 +287,24 @@ public final class World {
   public void roundOfPlayers() {
     Player player;
     player = players.get(indexOfPlayer);
-    System.out.println(player.getName() + "'s turn!");
+    System.out.println("What do you want to do, " + player.getName() + "?");
     //ask which action the player choose
     Scanner scanner = new Scanner(System.in);
     System.out.println("Please enter 'move' or 'stay': ");
     String action = scanner.nextLine();
     int roomNumber;
     if ("move".equals(action)) {
-      System.out.println("Which room are you going to (enter a number between 0-21): ");
+      //1. get neighbor rooms
+      List<RoomInfo> neighbors = player.getCurrentLocation().getNeighbors(listOfRooms);
+      //2. ask which room to move
+      System.out.println("You can move to the following rooms: ");
+      for (RoomInfo neighbor : neighbors) {
+        System.out.println(neighbor.getRoomNumber() + ": " + neighbor.getRoomName());
+      }
+      System.out.println();
+      System.out.println("Which room are you going to: ");
       roomNumber = Integer.valueOf(scanner.nextLine());
+      //TODO check valid room number
     } else {
       roomNumber = player.getCurrentLocation().getRoomNumber();
     }
