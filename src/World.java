@@ -12,7 +12,7 @@ public final class World {
   private List<RoomInfo> listOfRooms;
   private Mansion mansion;
   private List<Weapon> weapons;
-  private int indexOfPlayer = 0;
+  private int indexOfCurrentPlayer = 0;
 
   /**
    * Constructs a new "The World" game, initializing the world map from a configuration file.
@@ -238,9 +238,9 @@ public final class World {
   /**
    * Initializes player.
    */
-  private void initializePlayer(int indexOfPlayer, int typeOfPlayer, String playerName) {
+  private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName) {
     RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
-    Player player = new Player(indexOfPlayer, typeOfPlayer, playerName, currentLocation);
+    Player player = new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation);
     // Add the created Player object to the list of players.
     players.add(player);
   }
@@ -254,6 +254,7 @@ public final class World {
   public void addHumanPlayer(String playerName) {
     int indexOfNewPlayer = players.size();
     initializePlayer(indexOfNewPlayer, 0, playerName);
+    System.out.println("Human-controlled player " + playerName + " is in the game!");
   }
 
   /**
@@ -264,6 +265,7 @@ public final class World {
   public void addComputerPlayer(String playerName) {
     int indexOfNewPlayer = players.size();
     initializePlayer(indexOfNewPlayer, 1, playerName);
+    System.out.println("Computer-controlled player " + playerName + " is in the game!");
   }
 
   /**
@@ -276,7 +278,7 @@ public final class World {
   }
 
   public Player getCurrentPlayer() {
-    return players.get(indexOfPlayer);
+    return players.get(indexOfCurrentPlayer);
   }
 
   /**
@@ -304,7 +306,7 @@ public final class World {
    */
   public Player getWinner() {
     if (ifGameOver()) {
-      return players.get(indexOfPlayer - 1);
+      return players.get(indexOfCurrentPlayer - 1);
     }
     System.out.println("Game is not over yet.");
     return null;
@@ -356,8 +358,9 @@ public final class World {
    */
   public void roundOfPlayers() {
     Player player;
-    player = players.get(indexOfPlayer);
+    player = players.get(indexOfCurrentPlayer);
 
+    System.out.println("It's " + player.getName() + "'s turn!");
     //display the current location of player
     System.out.println("You are now in room " + player.getCurrentLocation()
         .getRoomNumber() + ".");
@@ -394,10 +397,10 @@ public final class World {
     }
 
     //finds out which player acts next turn
-    if (indexOfPlayer == players.size() - 1) {
-      indexOfPlayer = 0;
+    if (indexOfCurrentPlayer == players.size() - 1) {
+      indexOfCurrentPlayer = 0;
     } else {
-      indexOfPlayer++;
+      indexOfCurrentPlayer++;
     }
   }
 
@@ -407,7 +410,7 @@ public final class World {
    * @param newLocation the new location of player
    */
   public void updatePlayer(RoomInfo newLocation) {
-    players.get(indexOfPlayer).updateRoomInfo(newLocation);
+    players.get(indexOfCurrentPlayer).updateRoomInfo(newLocation);
   }
 
   /**
@@ -418,7 +421,7 @@ public final class World {
   }
 
   /**
-   * Displays information about the target and players.
+   * Displays information about the target.
    */
   public void displayTargetInformation() {
     // Display information about the target
@@ -427,15 +430,48 @@ public final class World {
     System.out.println("Current Location: Room " + target.getCurrentLocation().getRoomNumber());
     System.out.println("Health: " + target.getHealth());
     System.out.println("--------------");
+  }
 
-//    // Display information about the players
-//    System.out.println("\nPlayers Information:");
-//    for (Player player : players) {
-//      System.out.println("Name: " + player.getName());
-//      System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
-//      player.getCurrentLocation().displayWeapons();
-//      System.out.println("--------------");
-//    }
+  /**
+   * Displays information about the specified player.
+   */
+  public void displayPlayerInformation() {
+    System.out.println();
+    if(players.isEmpty()){
+      System.out.println("No player is added in the game yet");
+      return;
+    }
+
+// 1.Display list of players
+    System.out.println("List of players: ");
+    for (Player player : players) {
+      System.out.println(player.getName());
+    }
+    //2.Ask which player to display
+    System.out.println();
+    System.out.println("Which player do you want to display? Please enter the name: ");
+    Scanner scanner = new Scanner(System.in);
+    String playerName = scanner.nextLine();
+    Player playerToBeDisplayed;
+    for(Player player:players){
+      if(player.getName().equalsIgnoreCase(playerName)){
+        //3.Display the player information
+        System.out.println("Information of player "+player.getName()+": ");
+        System.out.print(player.getName());
+        player.displayWeaponInformation();
+        if(player.getTypeOfPlayer()==0){
+          System.out.println("This is a human player.");
+        }else{
+          System.out.println("This is a computer player.");
+        }
+        System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
+        player.getCurrentLocation().displayWeapons();
+        System.out.println("--------------");
+        break;
+      }
+    }
+
+
   }
 
   /**

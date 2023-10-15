@@ -111,7 +111,7 @@ public class RoomInfo {
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
       System.out.println(
-          "Weapon " + weapons.get(0).getName() + " with power" + weapons.get(0).getPower()
+          "Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
               + " is in this room.");
     } else {
       System.out.println("There are " + weapons.size() + " weapons in this room: ");

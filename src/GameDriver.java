@@ -50,18 +50,20 @@ public class GameDriver {
           world.addComputerPlayer(computerPlayerName);
           System.out.println("***************");
           break;
-
-
-        case 10:
-          world.displayTargetInformation();
-          break;
-        case 11:
+        case 5:
           world.playNextRound();
           if (world.ifGameOver()) {
             System.out.println("Game over!");
             System.out.println("The winner is " + world.getWinner().getName());
           }
           break;
+        case 6:
+          world.displayPlayerInformation();
+          break;
+        case 7:
+          world.displayTargetInformation();
+          break;
+
         default:
           System.out.println("Invalid option.");
       }
@@ -77,10 +79,9 @@ public class GameDriver {
     System.out.println("2. Generate the mansion_map.png.");
     System.out.println("3. Add a human-controlled player to the game.");
     System.out.println("4. Add a computer-controlled player to the game.");
-
-
-    System.out.println("10. Get information about the target.");
-    System.out.println("11. Continue the game.");
+    System.out.println("5. Continue the game."); //Move a player.
+    System.out.println("6. Get information about a specified player."); //Move a player.
+    System.out.println("7. Get information about the target.");
 
     System.out.println("Please choose an option (enter the corresponding number): ");
   }

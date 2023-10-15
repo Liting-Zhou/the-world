@@ -39,6 +39,15 @@ public class Player extends Character {
   }
 
   /**
+   * Gets the type of the player.
+   *
+   * @return The type of the player. 0 for human, 1 for computer.
+   */
+  public int getTypeOfPlayer() {
+    return typeOfPlayer;
+  }
+
+  /**
    * Sets the index of the player.
    *
    * @param indexOfPlayer The index of the player to set.
