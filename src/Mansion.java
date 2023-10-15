@@ -11,10 +11,10 @@ import javax.imageio.ImageIO;
  * Represents the mansion in the game, which consists of rooms and has a graphical representation.
  */
 public class Mansion {
+  private static List<RoomInfo> rooms;
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
-  private List<RoomInfo> rooms;
 
   /**
    * Constructs a new Mansion object.
@@ -29,6 +29,11 @@ public class Mansion {
     this.mansionHeight = mansionHeight;
     this.mansionWidth = mansionWidth;
     this.mansionName = mansionName;
+
+    //initialize the neighbors of each room
+    for (RoomInfo room : rooms) {
+      room.setNeighbors(room.getNeighbors(rooms));
+    }
   }
 
   private static void drawRoom(Graphics2D g2d, RoomInfo room, int scaleFactor) {
@@ -56,21 +61,12 @@ public class Mansion {
   }
 
   /**
-   * Gets the list of rooms in the mansion.
-   *
-   * @return The list of rooms.
-   */
-  public List<RoomInfo> getListOfRooms() {
-    return rooms;
-  }
-
-  /**
    * Returns room information given a room number.
    *
    * @param roomNumber The room number.
    * @return An object containing all information of the specified room.
    */
-  public RoomInfo getRoomInfoByRoomNumber(int roomNumber) {
+  public static RoomInfo getRoomInfoByRoomNumber(int roomNumber) {
     // Find the right RoomInfo based on the roomNumber and return it
     for (RoomInfo room : rooms) {
       if (room.getRoomNumber() == roomNumber) {
@@ -78,6 +74,15 @@ public class Mansion {
       }
     }
     return null; // Return null if no matching room is found.
+  }
+
+  /**
+   * Gets the list of rooms in the mansion.
+   *
+   * @return The list of rooms.
+   */
+  public List<RoomInfo> getListOfRooms() {
+    return rooms;
   }
 
   /**

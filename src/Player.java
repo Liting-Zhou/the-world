@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,6 +9,7 @@ import java.util.Scanner;
  */
 public class Player extends Character {
   private int indexOfPlayer;
+  private List<Weapon> weaponsCarried;
 
   /**
    * Constructs a new Player object.
@@ -19,6 +21,7 @@ public class Player extends Character {
   public Player(int indexOfPlayer, String name, RoomInfo currentLocation) {
     super(); // Call the constructor of the superclass (Character).
     this.indexOfPlayer = indexOfPlayer;
+    this.weaponsCarried = new ArrayList<>();
     setName(name); // Set the name of the player using the inherited setName method.
     setCurrentLocation(
         currentLocation); // Set the current location using the inherited setCurrentLocation method.
@@ -49,6 +52,83 @@ public class Player extends Character {
    */
   public void updateRoomInfo(RoomInfo newLocation) {
     setCurrentLocation(newLocation);
+  }
+
+  /**
+   * Player moves to a specific room.
+   */
+  public void move() {
+    //move to a neighboring space
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Which neighboring room do you want to enter? Enter the room number: ");
+    Integer roomNumber = scanner.nextInt();
+    //TODO check if the room is a neighbor
+    this.setCurrentLocation(Mansion.getRoomInfoByRoomNumber(roomNumber));
+    System.out.println("You are now in room " + roomNumber + ".");
+  }
+
+  /**
+   * Player pick up a weapon.
+   */
+  public void pickUpWeapon() {
+    List<Weapon> weapons = this.getCurrentLocation().getWeapons();
+    if (weapons.isEmpty()) {
+      System.out.println("No weapons in this room.");
+    } else if (weapons.size() == 1) {
+      weaponsCarried.add(weapons.get(0));
+      System.out.println(
+          "You picked up " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower() +
+              ".");
+      System.out.print("Now you");
+      displayWeaponInformation();
+      //update the room information with weapons removed
+      this.getCurrentLocation().removeWeapon(weapons.get(0));
+    } else {
+      Scanner scanner = new Scanner(System.in);
+      System.out.println("Which one do you want to pick up? Enter the corresponding number: ");
+      Integer weaponNumber = scanner.nextInt();
+      Weapon weapon = weapons.get(weaponNumber - 1);
+      weaponsCarried.add(weapon);
+      System.out.println("You picked up " + weapon.getName() + " with power " + weapon.getPower()
+          + ".");
+      System.out.print("Now you");
+      displayWeaponInformation();
+      //update the room information with weapons removed
+      this.getCurrentLocation().removeWeapon(weapon);
+    }
+  }
+
+  public void lookAround() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Which player do you want to look around? Please enter the name: ");
+    String playerName = scanner.nextLine();
+
+    //find the player by player name
+    for (Player player : World.getPlayers()) {
+      if (player.getName().equalsIgnoreCase(playerName)) {
+        player.displayPlayerInformation(player);
+      }
+    }
+  }
+
+  private void displayPlayerInformation(Player player) {
+    System.out.println("--------------");
+    System.out.print("Player " + player.getName());
+    player.displayWeaponInformation();
+    System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
+    System.out.println("The neighbors of the room are: ");
+    player.getCurrentLocation().displayNeighbors();
+  }
+
+  private void displayWeaponInformation() {
+    if (weaponsCarried.isEmpty()) {
+      System.out.println(" has no weapon.");
+    } else {
+      for (Weapon weapon : weaponsCarried) {
+        System.out.println(" has/have the following weapon(s):");
+        System.out.println(weapon.getName() + " with power" + weapon.getPower());
+      }
+    }
   }
 
   /**

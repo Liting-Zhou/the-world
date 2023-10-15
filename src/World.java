@@ -6,13 +6,13 @@ import java.util.Scanner;
  * This class represents the game "The World", based on the classical board game Kill Doctor Lucky.
  */
 public final class World {
+  private static List<Player> players;
+  private final int startingRoom = 16;
   private Target target;
-  private List<Player> players;
   private List<RoomInfo> listOfRooms;
   private Mansion mansion;
   private List<Weapon> weapons;
   private int indexOfPlayer = 0;
-  private int startingRoom = 16;
 
   /**
    * Constructs a new "The World" game, initializing the world map and players
@@ -43,6 +43,15 @@ public final class World {
     initializePlayers(listOfPlayerNames);
     //create a graphical representation of the world map OR NOT!
     //mansion.getBufferedImage();
+  }
+
+  /**
+   * Gets the players.
+   *
+   * @return a list of players
+   */
+  public static List<Player> getPlayers() {
+    return players;
   }
 
   /**
@@ -100,9 +109,7 @@ public final class World {
       } else {
         //if more than one word for the name of room
         String[] restOfRoomData = new String[roomData.length - 4];
-        for (int j = 4; j < roomData.length; j++) {
-          restOfRoomData[j - 4] = roomData[j];
-        }
+        System.arraycopy(roomData, 4, restOfRoomData, 0, roomData.length - 4);
         roomName = String.join(" ", restOfRoomData);
       }
 
@@ -162,9 +169,7 @@ public final class World {
     } else {
       //if the name contains more than one word
       String[] restOfTargetData = new String[targetData.length - 1];
-      for (int j = 1; j < targetData.length; j++) {
-        restOfTargetData[j - 1] = targetData[j];
-      }
+      System.arraycopy(targetData, 1, restOfTargetData, 0, targetData.length - 1);
       targetName = String.join(" ", restOfTargetData);
     }
 
@@ -174,7 +179,6 @@ public final class World {
     // Create the target character.
     target = new Target(targetName, targetHealth, currentLocation);
   }
-
 
   /**
    * Initializes the list of players in the game.
@@ -194,7 +198,6 @@ public final class World {
     }
   }
 
-
   /**
    * Gets the target.
    *
@@ -202,15 +205,6 @@ public final class World {
    */
   public Target getTarget() {
     return target;
-  }
-
-  /**
-   * Gets the players.
-   *
-   * @return a list of players
-   */
-  public List<Player> getPlayers() {
-    return players;
   }
 
   public Player getCurrentPlayer() {
@@ -252,11 +246,14 @@ public final class World {
    * Plays the next round, in each round, target moves and then one player moves.
    */
   public void playNextRound() {
-    if (ifGameOver() == false) {
+    if (!ifGameOver()) {
       System.out.println("***************");
       System.out.println("Now play the next round!");
       roundOfTargetCharacter();
       roundOfPlayers();
+      System.out.println();
+      System.out.println("This turn has finished. And the target is now in room "
+          + target.getCurrentLocation().getRoomNumber() + " with health "+ target.getHealth() +".");
       System.out.println("***************");
       System.out.println("Game continues.");
     }
@@ -282,43 +279,49 @@ public final class World {
   }
 
   /**
-   * Player moves.
+   * Player's turn. Player can choose three actions:
+   * 1.move to a neighboring space.
+   * 2.pick up an item.
+   * 3.look around by displaying information about where a specific player is in the world
+   * including what spaces that can be seen from where they are.
    */
   public void roundOfPlayers() {
     Player player;
     player = players.get(indexOfPlayer);
-    System.out.println("What do you want to do, " + player.getName() + "?");
-    //ask which action the player choose
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Please enter 'move' or 'stay': ");
-    String action = scanner.nextLine();
-    int roomNumber;
-    if ("move".equals(action)) {
-      //1. get neighbor rooms
-      List<RoomInfo> neighbors = player.getCurrentLocation().getNeighbors(listOfRooms);
-      //2. ask which room to move
-      System.out.println("You can move to the following rooms: ");
-      for (RoomInfo neighbor : neighbors) {
-        System.out.println(neighbor.getRoomNumber() + ": " + neighbor.getRoomName());
-      }
-      System.out.println();
-      System.out.println("Which room are you going to: ");
-      roomNumber = Integer.valueOf(scanner.nextLine());
-      //TODO check valid room number
-    } else {
-      roomNumber = player.getCurrentLocation().getRoomNumber();
-    }
-    //get the new location of player
-    RoomInfo newLocation = mansion.getRoomInfoByRoomNumber(roomNumber);
-    //player acts.
-    Target updatedTarget = player.action(action, newLocation, target, players, listOfRooms);
-    updatePlayer(newLocation);
-    System.out.println(player.getName() + " is now in room " + newLocation.getRoomNumber() + ".");
-    updateTarget(updatedTarget);
-    System.out.println("Target is in room " + updatedTarget.getCurrentLocation().getRoomNumber()
-        + " with health " + updatedTarget.getHealth() + ".");
 
-    //finds out which player's turn
+    //display the current location of player
+    System.out.println("You are now in room " + player.getCurrentLocation()
+        .getRoomNumber() + ".\n");
+
+    //display weapons in the current room
+    player.getCurrentLocation().displayWeapons();
+
+    //display neighbor rooms
+    System.out.println("You can move to the following rooms: ");
+    player.getCurrentLocation().displayNeighbors();
+    //ask which action the player choose
+    System.out.println();
+    System.out.println(
+        "You have 3 options:\n1.move to a neighboring space.\n2.pick up a weapon if there is any.\n" +
+            "3.look around.\nWhat do you want to do, " + player.getName() + "?");
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Please enter the corresponding number: ");
+    Integer action = scanner.nextInt();
+    //TODO check valid action, throw exception
+    if (action == 1) {
+      //move to a neighboring space
+      player.move();
+    } else if (action == 2) {
+      //pick up a weapon if there is any
+      player.pickUpWeapon();
+    } else if (action == 3) {
+      //look around
+      player.lookAround();
+    } else {
+      System.out.println("Invalid action.");
+    }
+
+    //finds out which player acts next turn
     if (indexOfPlayer == players.size() - 1) {
       indexOfPlayer = 0;
     } else {
@@ -345,25 +348,22 @@ public final class World {
   /**
    * Displays information about the target and players.
    */
-  public void displayInformation() {
+  public void displayTargetInformation() {
     // Display information about the target
     System.out.println("Target Information:");
     System.out.println("Name: " + target.getName());
     System.out.println("Current Location: Room " + target.getCurrentLocation().getRoomNumber());
     System.out.println("Health: " + target.getHealth());
+    System.out.println("--------------");
 
-    // Display information about the players
-    System.out.println("\nPlayers Information:");
-    for (Player player : players) {
-      System.out.println("Name: " + player.getName());
-      System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
-      List<Weapon> weapons = player.getCurrentLocation().getWeapons();
-      for (Weapon weapon : weapons) {
-        System.out.println(
-            "Weapon " + weapon.getName() + " with power " + weapon.getPower() + " in the room.");
-      }
-      System.out.println("--------------");
-    }
+//    // Display information about the players
+//    System.out.println("\nPlayers Information:");
+//    for (Player player : players) {
+//      System.out.println("Name: " + player.getName());
+//      System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
+//      player.getCurrentLocation().displayWeapons();
+//      System.out.println("--------------");
+//    }
   }
 
 }

@@ -14,6 +14,7 @@ public class RoomInfo {
   private final int y2; //right bottom corner
   private final String roomName;
   private final List<Weapon> weapons;
+  private List<RoomInfo> neighbors = new ArrayList<>();
 
   /**
    * Constructs a new RoomInfo object.
@@ -101,6 +102,48 @@ public class RoomInfo {
   }
 
   /**
+   * Displays the weapon information in the room.
+   */
+  public void displayWeapons() {
+    if (weapons.isEmpty()) {
+      System.out.println("No weapons in this room.");
+    } else if (weapons.size() == 1) {
+      //there are numbers of weapons in this room
+      System.out.println(
+          "Weapon " + weapons.get(0).getName() + " with power" + weapons.get(0).getPower()
+              + " is in this room.");
+    } else {
+      System.out.println("There are " + weapons.size() + " weapons in this room: ");
+      int i = 1;
+      for (Weapon weapon : weapons) {
+        System.out.println(i + "." + weapon.getName() + " with power " + weapon.getPower());
+        i += 1;
+      }
+    }
+    System.out.println();
+  }
+
+  /**
+   * Displays the neighbors of the room.
+   */
+  public void displayNeighbors() {
+    for (RoomInfo neighbor : neighbors) {
+      System.out.println(neighbor.getRoomNumber() + ": " + neighbor.getRoomName());
+    }
+  }
+
+
+  /**
+   * Decide if the given room is neighbor of this room.
+   *
+   * @param otherRoom   The room to be decided if neighbors
+   * @return true if the given room is neighbor of this room, false otherwise
+   */
+  public boolean isNeighbor(RoomInfo otherRoom) {
+    return this.neighbors.contains(otherRoom);
+  }
+
+  /**
    * Decide if two rooms share a coordinate, either x or y.
    *
    * @param otherRoom The room to be decided if neighbors
@@ -139,5 +182,21 @@ public class RoomInfo {
       }
     }
     return neighbors;
+  }
+
+  /**
+   * Saves the neighbors of this room.
+   *
+   * @param neighbors The list of neighbors
+   */
+  public void setNeighbors(List<RoomInfo> neighbors) {
+    this.neighbors = neighbors;
+  }
+
+  /**
+   * Removes the given weapon from the room.
+   */
+  public void removeWeapon(Weapon weapon) {
+    this.weapons.remove(weapon);
   }
 }

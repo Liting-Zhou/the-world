@@ -36,7 +36,7 @@ public class GameDriver {
           world.displayMap();
           break;
         case 2:
-          world.displayInformation();
+          world.displayTargetInformation();
           break;
         case 3:
           world.playNextRound();
@@ -57,7 +57,7 @@ public class GameDriver {
   private static void printOptions() {
     System.out.println("You have the following options:");
     System.out.println("1. Display the map.");
-    System.out.println("2. Get information about the target and players.");
+    System.out.println("2. Get information about the target.");
     System.out.println("3. Continue the game.");
 
     System.out.println("Please choose an option (enter the corresponding number): ");

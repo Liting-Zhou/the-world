@@ -42,6 +42,6 @@
 18 3 Duck Decoy
 18 2 Monkey Hand
 19 2 Rat Poison
-19 2 Painting
+19 1 Painting
 21 4 Big Red Hammer
 
