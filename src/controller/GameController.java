@@ -9,7 +9,7 @@ public class GameController implements Controller {
 
   private final Appendable out;
   private final Scanner scan;
-  private final World w;
+  private final World world;
 
   /**
    * Constructor for the controller.
@@ -24,15 +24,82 @@ public class GameController implements Controller {
     }
     this.out = out;
     scan = new Scanner(in);
-    this.w=world;
+    this.world=world;
   }
 
 
   @Override
-  public void playGame(World w, int maxNumOfTurns) throws IllegalArgumentException {
+  public void playGame(World w, int maxNumOfTurns) throws IllegalArgumentException, IOException {
     if (w == null || maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");
     }
     //TODO implement the controller
+
+    out.append("Game started!\nIn each round, target moves first, "
+        + "and then one player can act.\nEveryone starts from room 16.\n***************");
+
+    int numOfTurns = 1;
+    while (!world.ifGameOver()&&numOfTurns<=maxNumOfTurns) {
+      printOptions();
+      int option = scan.nextInt();
+      switch (option) {
+        case 1:
+          world.displayRoomInformation();
+          break;
+        case 2:
+          world.displayMap();
+          break;
+        case 3:
+          // Add a human-controlled player to the game
+          System.out.println("Please enter the name: ");
+          String humanPlayerName = scan.next();
+          world.addHumanPlayer(humanPlayerName);
+          System.out.println("***************");
+          break;
+        case 4:
+          // Add a computer-controlled player to the game
+          System.out.println("Please enter the name: ");
+          String computerPlayerName = scan.next();
+          world.addComputerPlayer(computerPlayerName);
+          System.out.println("***************");
+          break;
+        case 5:
+          world.playNextRound();
+          if (world.ifGameOver()) {
+            System.out.println("Game over!");
+            System.out.println("The winner is " + world.getWinner().getName());
+          }
+          break;
+        case 6:
+          world.displayPlayerInformation();
+          break;
+        case 7:
+          world.displayTargetInformation();
+          break;
+
+        default:
+          System.out.println("Invalid option.");
+      }
+      numOfTurns+=1;
+    }
+    if(!world.ifGameOver()&&numOfTurns>maxNumOfTurns){
+      System.out.println("You run out of the maximum number of turns! Game over!");
+    }
+  }
+
+  /**
+   * Display options for players.
+   */
+  private static void printOptions() {
+    System.out.println("You have the following options:");
+    System.out.println("1. Get information about a specified room.");
+    System.out.println("2. Generate the mansion_map.png.");
+    System.out.println("3. Add a human-controlled player to the game.");
+    System.out.println("4. Add a computer-controlled player to the game.");
+    System.out.println("5. Continue the game."); //Move a player.
+    System.out.println("6. Get information about a specified player."); //Move a player.
+    System.out.println("7. Get information about the target.");
+
+    System.out.println("Please choose an option (enter the corresponding number): ");
   }
 }

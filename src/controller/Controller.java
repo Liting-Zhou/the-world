@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.io.IOException;
 import model.World;
 
 /**
@@ -14,6 +15,6 @@ public interface Controller {
    * @param maxNumOfTurns The maximum number of turns for the game.
    * @throws IllegalArgumentException for invalid arguments.
    */
-  void playGame(World w, int maxNumOfTurns)throws IllegalArgumentException;
+  void playGame(World w, int maxNumOfTurns) throws IllegalArgumentException, IOException;
 
 }

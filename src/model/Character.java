@@ -46,7 +46,7 @@ abstract class Character {
    *
    * @return The name of the character.
    */
-  protected String getName() {
+  public String getName() {
     return name;
   }
 

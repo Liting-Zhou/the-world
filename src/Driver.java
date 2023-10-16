@@ -3,6 +3,7 @@ import controller.GameController;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringReader;
 import model.World;
 
@@ -34,6 +35,8 @@ public class Driver {
     } catch (FileNotFoundException e) {
       System.out.println("File not found exception raised");
       System.exit(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 }
