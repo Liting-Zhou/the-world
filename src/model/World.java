@@ -415,7 +415,7 @@ public final class World {
    */
   public void displayTargetInformation() {
     // Display information about the target
-    System.out.println("model.Target Information:");
+    System.out.println("Target Information:");
     System.out.println("Name: " + target.getName());
     System.out.println("Current Location: Room " + target.getCurrentLocation().getRoomNumber());
     System.out.println("Health: " + target.getHealth());

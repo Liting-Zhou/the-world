@@ -1,5 +1,6 @@
 import controller.Controller;
-import controller.GameController;
+import controller.GameControllerCommands;
+import controller.GameControllerSimple;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,10 +26,16 @@ public class Driver {
 
       Readable readable = new BufferedReader(new StringReader(maxNumOfTurns));
       Appendable appendable = new StringBuilder();
-      //create a controller
-      Controller gameController = new GameController(readable, appendable, world);
+
+//      //1.create a controller
+//      Controller gameController = new GameControllerSimple(readable, appendable, world);
+
+      //2.create a controller with commands
+      Controller gameController = new GameControllerCommands(readable, appendable, world);
+
       //pass control to the controller
       gameController.playGame(world);
+      //print the output
       System.out.println(appendable.toString());
 
     } catch (IllegalArgumentException e) {

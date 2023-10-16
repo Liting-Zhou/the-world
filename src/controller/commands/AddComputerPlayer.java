@@ -4,10 +4,11 @@ import controller.Command;
 import java.util.Scanner;
 import model.World;
 
-public class AddHumanPlayer implements Command {
+public class AddComputerPlayer implements Command {
+
   private Scanner scan;
 
-  public AddHumanPlayer(Scanner s) {
+  public AddComputerPlayer(Scanner s) {
     this.scan = s;
   }
 
@@ -15,7 +16,7 @@ public class AddHumanPlayer implements Command {
   public void execute(World w) {
     System.out.println("Please enter the name: ");
     String name = scan.next();
-    w.addHumanPlayer(name);
+    w.addComputerPlayer(name);
     System.out.println("***************");
   }
 }

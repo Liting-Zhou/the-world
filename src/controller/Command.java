@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import model.World;
 
 public interface Command {
@@ -8,5 +9,5 @@ public interface Command {
    *
    * @param w the World model to use.
    */
-  void execute(World w);
+  void execute(World w) throws IOException;
 }

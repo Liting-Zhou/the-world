@@ -5,7 +5,7 @@ import model.World;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class GameController implements Controller {
+public class GameControllerSimple implements Controller {
 
   private final Appendable out;
   private final Scanner scan;
@@ -18,7 +18,7 @@ public class GameController implements Controller {
    * @param out the output to print
    * @throws IllegalArgumentException for invalid arguments.
    */
-  public GameController(Readable in, Appendable out,World world) throws IllegalArgumentException {
+  public GameControllerSimple(Readable in, Appendable out,World world) throws IllegalArgumentException {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");
     }
@@ -34,7 +34,6 @@ public class GameController implements Controller {
     if (w == null || maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");
     }
-    //TODO implement the controller
 
     Scanner s = new Scanner(System.in);
     System.out.println("Game started!\nIn each round, target moves first, "
@@ -68,8 +67,8 @@ public class GameController implements Controller {
         case 5:
           world.playNextRound();
           if (world.ifGameOver()) {
-            System.out.println("Game over!");
-            System.out.println("The winner is " + world.getWinner().getName());
+            out.append("Game over!");
+            out.append("The winner is " + world.getWinner().getName());
           }
           break;
         case 6:
@@ -85,7 +84,7 @@ public class GameController implements Controller {
       numOfTurns+=1;
     }
     if(!world.ifGameOver()&&numOfTurns>maxNumOfTurns){
-      System.out.println("You run out of the maximum number of turns! Game over!");
+      out.append("You run out of the maximum number of turns! Game over!");
     }
   }
 
@@ -98,7 +97,7 @@ public class GameController implements Controller {
     System.out.println("2. Generate the mansion_map.png.");
     System.out.println("3. Add a human-controlled player to the game.");
     System.out.println("4. Add a computer-controlled player to the game.");
-    System.out.println("5. Continue the game."); //Move a player.
+    System.out.println("5. Play next round."); //Move a player.
     System.out.println("6. Get information about a specified player."); //Move a player.
     System.out.println("7. Get information about the target.");
 

@@ -1,8 +1,12 @@
 package controller;
 
+import controller.commands.AddComputerPlayer;
 import controller.commands.AddHumanPlayer;
 import controller.commands.DisplayMap;
+import controller.commands.DisplayPlayerInfo;
 import controller.commands.DisplayRoomInfo;
+import controller.commands.DisplayTargetInfo;
+import controller.commands.PlayNextRound;
 import java.util.function.Function;
 import model.World;
 
@@ -21,27 +25,7 @@ public class GameControllerCommands implements Controller{
     this.world = world;
     this.scan = new Scanner(in);
     this.out = out;
-    //setupCommands();
   }
-
-  //private void setupCommands() {
-
-//    knownCommands.put(4, w -> {
-//      System.out.println("Please enter the name: ");
-//      String computerPlayerName = scan.next();
-//      world.addComputerPlayer(computerPlayerName);
-//      System.out.println("***************");
-//    });
-//    knownCommands.put(5, w -> {
-//      world.playNextRound();
-//      if (world.ifGameOver()) {
-//        System.out.println("Game over!");
-//        System.out.println("The winner is " + world.getWinner().getName());
-//      }
-//    });
-//    knownCommands.put(6, w -> world.displayPlayerInformation());
-//    knownCommands.put(7, w -> world.displayTargetInformation());
- // }
 
   public void playGame(World w) throws IllegalArgumentException, IOException {
     int maxNumOfTurns= scan.nextInt();
@@ -53,19 +37,24 @@ public class GameControllerCommands implements Controller{
     Map<Integer, Function<Scanner, Command>> knownCommands = new HashMap<>();
     knownCommands.put(1, s -> new DisplayRoomInfo());
     knownCommands.put(2, s -> new DisplayMap());
-    knownCommands.put(3, (Scanner s) -> {return new AddHumanPlayer(s.next());});
+    knownCommands.put(3, s -> new AddHumanPlayer(s));
+    knownCommands.put(4, s -> new AddComputerPlayer(s));
+    knownCommands.put(5, s -> new PlayNextRound(out));
+    knownCommands.put(6, s -> new DisplayPlayerInfo());
+    knownCommands.put(7, s -> new DisplayTargetInfo());
 
+    Scanner s = new Scanner(System.in);
     System.out.println("Game started!\nIn each round, target moves first, "
         + "and then one player can act.\nEveryone starts from room 16.\n***************");
 
     int numOfTurns = 1;
     while (!world.ifGameOver() && numOfTurns <= maxNumOfTurns) {
       printOptions();
-      int option = scan.nextInt();
+      int option = s.nextInt();
       Function<Scanner, Command> cmd = knownCommands.getOrDefault(option, null);
       
         if (cmd != null) {
-          Command c = cmd.apply(scan);
+          Command c = cmd.apply(s);
           commands.add(c);
           c.execute(w);
         } else {
@@ -74,7 +63,7 @@ public class GameControllerCommands implements Controller{
       numOfTurns += 1;
     }
     if (!world.ifGameOver() && numOfTurns > maxNumOfTurns) {
-      System.out.println("You have run out of the maximum number of turns! Game over!");
+      out.append("You have run out of the maximum number of turns! Game over!");
     }
   }
 
@@ -84,7 +73,7 @@ public class GameControllerCommands implements Controller{
     System.out.println("2. Generate the mansion_map.png.");
     System.out.println("3. Add a human-controlled player to the game.");
     System.out.println("4. Add a computer-controlled player to the game.");
-    System.out.println("5. Continue the game."); // Move a player.
+    System.out.println("5. Play next round.");
     System.out.println("6. Get information about a specified player."); // Move a player.
     System.out.println("7. Get information about the target.");
 
