@@ -1,10 +1,12 @@
+package model;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * The main class that drives and controls the execution of the game "The World".
+ * The main class that drives and controls the execution of the game "The model.World".
  * This class initializes the game world, runs the game loop, and determines the winner.
  */
 public class GameDriver {
@@ -14,19 +16,17 @@ public class GameDriver {
    * @param args Command-line arguments containing player names.
    */
   public static void main(String[] args) {
-//    List<String> listOfPlayerNames = new ArrayList<>();
-//    for (String arg : args) {
-//      listOfPlayerNames.add(arg);
-//    }
+    //get the max number of turns
+    int maxNumOfTurns=Integer.parseInt(args[0]);
 
     // Create and initialize the game world
-    //World world = initializeGameWorld("./res/mansion.txt", listOfPlayerNames);
     World world = initializeGameWorld("./res/mansion.txt");
     System.out.println("Game started!\nIn each round, target moves first, "
         + "and then one player can act.\nEveryone starts from room 16.\n***************");
 
+    int numOfTurns = 1;
     Scanner scanner = new Scanner(System.in);
-    while (!world.ifGameOver()) {
+    while (!world.ifGameOver()&&numOfTurns<=maxNumOfTurns) {
       printOptions();
       int option = scanner.nextInt();
       switch (option) {
@@ -67,6 +67,10 @@ public class GameDriver {
         default:
           System.out.println("Invalid option.");
       }
+      numOfTurns+=1;
+    }
+    if(!world.ifGameOver()&&numOfTurns>maxNumOfTurns){
+        System.out.println("You run out of the maximum number of turns! Game over!");
     }
   }
 

@@ -1,3 +1,5 @@
+package model;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,7 +12,7 @@ public class Target extends Character {
   private int health;
 
   /**
-   * Constructs a new Target object.
+   * Constructs a new model.Target object.
    *
    * @param name            The name of the target.
    * @param health          The initial health of the target.
@@ -64,7 +66,7 @@ public class Target extends Character {
 
     Target updatedTarget = this;
     System.out.println(
-        "Target moves and now is in room " + updatedTarget.getCurrentLocation().getRoomNumber()
+        "model.Target moves and now is in room " + updatedTarget.getCurrentLocation().getRoomNumber()
             + ".");
     //if any player is in the same room with target, raise actions.
     for (Player player : players) {

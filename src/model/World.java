@@ -1,9 +1,11 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class represents the game "The World", based on the classical board game Kill Doctor Lucky.
+ * This class represents the game "The model.World", based on the classical board game Kill Doctor Lucky.
  */
 public final class World {
   private static List<Player> players = new ArrayList<>();
@@ -15,7 +17,7 @@ public final class World {
   private int indexOfCurrentPlayer = 0;
 
   /**
-   * Constructs a new "The World" game, initializing the world map from a configuration file.
+   * Constructs a new "The model.World" game, initializing the world map from a configuration file.
    *
    * @param conFile The configuration file containing game setup information.
    * @throws IllegalArgumentException if the provided configuration file is invalid.
@@ -41,7 +43,7 @@ public final class World {
   }
 
   /**
-   * Constructs a new "The World" game, initializing the world map and players
+   * Constructs a new "The model.World" game, initializing the world map and players
    * from a configuration file.
    *
    * @param conFile           The configuration file containing game setup information.
@@ -112,7 +114,7 @@ public final class World {
         weaponName = String.join(" ", restOfWeaponData);
       }
 
-      // Create a Weapon object with the parsed data and add it to the list of weapons.
+      // Create a model.Weapon object with the parsed data and add it to the list of weapons.
       Weapon weapon = new Weapon(weaponPower, weaponName, roomNumber);
       weapons.add(weapon);
 
@@ -184,7 +186,7 @@ public final class World {
     int mansionHeight = Integer.parseInt(mansionData[1]);
     String mansionName = mansionData[2];
 
-    // Create the Mansion object with the parsed data.
+    // Create the model.Mansion object with the parsed data.
     mansion = new Mansion(mansionName, mansionHeight, mansionWidth, listOfRooms);
 
   }
@@ -225,12 +227,12 @@ public final class World {
 //
 //    // Initialize the list of players.
 //    players = new ArrayList<>();
-//    RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
+//    model.RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
 //
 //    for (int i = 0; i < totalPlayers; i++) {
-//      Player player;
-//      player = new Player(i, listOfPlayerNames.get(i), currentLocation);
-//      // Add the created Player object to the list of players.
+//      model.Player player;
+//      player = new model.Player(i, listOfPlayerNames.get(i), currentLocation);
+//      // Add the created model.Player object to the list of players.
 //      players.add(player);
 //    }
 //  }
@@ -241,7 +243,7 @@ public final class World {
   private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName) {
     RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
     Player player = new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation);
-    // Add the created Player object to the list of players.
+    // Add the created model.Player object to the list of players.
     players.add(player);
   }
 
@@ -282,7 +284,7 @@ public final class World {
   }
 
   /**
-   * Gets the Mansion.
+   * Gets the model.Mansion.
    *
    * @return the mansion
    */
@@ -350,7 +352,7 @@ public final class World {
   }
 
   /**
-   * Player's turn. Player can choose three actions:
+   * model.Player's turn. model.Player can choose three actions:
    * 1.move to a neighboring space.
    * 2.pick up an item.
    * 3.look around by displaying information about where a specific player is in the world
@@ -425,7 +427,7 @@ public final class World {
    */
   public void displayTargetInformation() {
     // Display information about the target
-    System.out.println("Target Information:");
+    System.out.println("model.Target Information:");
     System.out.println("Name: " + target.getName());
     System.out.println("Current Location: Room " + target.getCurrentLocation().getRoomNumber());
     System.out.println("Health: " + target.getHealth());

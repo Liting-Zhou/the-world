@@ -1,3 +1,5 @@
+package model;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -9,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,16 +44,16 @@ public class WorldTest {
   @Test
   public void testGetTarget() {
     assertNotNull(world.getTarget());
-    assertEquals("Doctor Lucky", world.getTarget().getName());
+    Assert.assertEquals("Doctor Lucky", world.getTarget().getName());
   }
 
   @Test
   public void testGetPlayers() {
     assertNotNull(world.getPlayers());
-    assertEquals(3, world.getPlayers().size());
-    assertEquals("Player1", world.getPlayers().get(0).getName());
-    assertEquals("Player2", world.getPlayers().get(1).getName());
-    assertEquals("Player3", world.getPlayers().get(2).getName());
+    Assert.assertEquals(3, world.getPlayers().size());
+    Assert.assertEquals("Player1", world.getPlayers().get(0).getName());
+    Assert.assertEquals("Player2", world.getPlayers().get(1).getName());
+    Assert.assertEquals("Player3", world.getPlayers().get(2).getName());
   }
 
   @Test
@@ -65,7 +68,7 @@ public class WorldTest {
     RoomInfo initialLocation = world.getTarget().getCurrentLocation();
     world.roundOfTargetCharacter();
     RoomInfo updatedLocation = world.getTarget().getCurrentLocation();
-    assertNotEquals(initialLocation, updatedLocation);
+    Assert.assertNotEquals(initialLocation, updatedLocation);
   }
 
 
@@ -73,9 +76,9 @@ public class WorldTest {
   public void testUpdateTarget() {
     Target newTarget = new Target("NewTarget", 10, world.getMansion().getRoomInfoByRoomNumber(0));
     world.updateTarget(newTarget);
-    assertEquals("NewTarget", world.getTarget().getName());
-    assertEquals(10, world.getTarget().getHealth());
-    assertEquals(0, world.getTarget().getCurrentLocation().getRoomNumber());
+    Assert.assertEquals("NewTarget", world.getTarget().getName());
+    Assert.assertEquals(10, world.getTarget().getHealth());
+    Assert.assertEquals(0, world.getTarget().getCurrentLocation().getRoomNumber());
   }
 
 }

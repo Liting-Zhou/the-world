@@ -1,9 +1,11 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents information about a room in Doctor Lucky's Mansion, including its position, name,
+ * Represents information about a room in Doctor Lucky's model.Mansion, including its position, name,
  * weapons present, and neighbors.
  */
 public class RoomInfo {
@@ -18,7 +20,7 @@ public class RoomInfo {
   private List<RoomInfo> neighbors = new ArrayList<>();
 
   /**
-   * Constructs a new RoomInfo object.
+   * Constructs a new model.RoomInfo object.
    *
    * @param roomNumber The unique room number.
    * @param x1         The x-coordinate of the left-upper corner.
@@ -111,7 +113,7 @@ public class RoomInfo {
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
       System.out.println(
-          "Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
+          "model.Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
               + " is in this room.");
     } else {
       System.out.println("There are " + weapons.size() + " weapons in this room: ");
@@ -205,9 +207,9 @@ public class RoomInfo {
    */
   public void displayTarget(Target target) {
     if (this.equals(target.getCurrentLocation())) {
-      System.out.println("Target is here!");
+      System.out.println("model.Target is here!");
     } else {
-      System.out.println("Target is not here!");
+      System.out.println("model.Target is not here!");
     }
   }
 
@@ -218,7 +220,7 @@ public class RoomInfo {
     int i = 0;
     for (Player player : players) {
       if (this.equals(player.getCurrentLocation())) {
-        System.out.println("Player " + player.getName() + " is here!");
+        System.out.println("model.Player " + player.getName() + " is here!");
         i += 1;
       }
     }

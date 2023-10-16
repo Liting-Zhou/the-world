@@ -1,8 +1,11 @@
+package model;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,10 +29,10 @@ public class PlayerTest extends Character {
     initialLocation = new RoomInfo(0, 0, 0, 2, 2, "Initial Room", new ArrayList<>());
 
     // Initialize the player object for testing
-    player = new Player(0, "Test Player", initialLocation);
+    player = new Player(0, 0,"Test model.Player", initialLocation);
 
     // Initialize the target character for testing
-    target = new Target("Test Target", 20, initialLocation);
+    target = new Target("Test model.Target", 20, initialLocation);
 
     // Initialize a list of players for testing
     players = new ArrayList<>();
@@ -58,7 +61,7 @@ public class PlayerTest extends Character {
     RoomInfo newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
     player.updateRoomInfo(newLocation);
     RoomInfo updatedLocation = player.getCurrentLocation();
-    assertEquals(newLocation, updatedLocation);
+    Assert.assertEquals(newLocation, updatedLocation);
   }
 
   @Test
@@ -72,7 +75,7 @@ public class PlayerTest extends Character {
   @Test
   public void testAttack() {
     RoomInfo room = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
-    Target initialTarget = new Target("Test Target", 20, room);
+    Target initialTarget = new Target("Test model.Target", 20, room);
     Target updatedTarget = player.attack(room, initialTarget);
     assertNotNull(updatedTarget);
   }

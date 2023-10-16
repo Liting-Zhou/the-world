@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,14 +15,14 @@ public class Player extends Character {
   private List<Weapon> weaponsCarried;
 
   /**
-   * Constructs a new Player object.
+   * Constructs a new model.Player object.
    *
    * @param indexOfPlayer   The index of the player.
    * @param name            The name of the player.
    * @param currentLocation The initial current location of the player.
    */
   public Player(int indexOfPlayer, int typeOfPlayer, String name, RoomInfo currentLocation) {
-    super(); // Call the constructor of the superclass (Character).
+    super(); // Call the constructor of the superclass (model.Character).
     this.indexOfPlayer = indexOfPlayer;
     this.typeOfPlayer = typeOfPlayer;
     this.weaponsCarried = new ArrayList<>();
@@ -66,7 +68,7 @@ public class Player extends Character {
   }
 
   /**
-   * Player moves to a specific room.
+   * model.Player moves to a specific room.
    */
   public void move() {
     //move to a neighboring space
@@ -79,7 +81,7 @@ public class Player extends Character {
   }
 
   /**
-   * Player pick up a weapon.
+   * model.Player pick up a weapon.
    */
   public void pickUpWeapon() {
     List<Weapon> weapons = this.getCurrentLocation().getWeapons();
@@ -124,7 +126,7 @@ public class Player extends Character {
 
   private void displayPlayerInformation(Player player) {
     System.out.println("--------------");
-    System.out.print("Player " + player.getName());
+    System.out.print("model.Player " + player.getName());
     player.displayWeaponInformation();
     System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
     System.out.println("The neighbors of the room are: ");
@@ -212,7 +214,7 @@ public class Player extends Character {
       int power = weapon.getPower();
       target.setHealth(power);
       System.out.println(
-          "Target's health is deduced by " + power + " and now is " + target.getHealth() + ".");
+          "model.Target's health is deduced by " + power + " and now is " + target.getHealth() + ".");
     }
 
     return target;

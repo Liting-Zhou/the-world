@@ -1,8 +1,11 @@
+package model;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,9 +23,9 @@ public class WeaponTest {
 
   @Before
   public void setUp() {
-    weapon1 = new Weapon(10, "Weapon A", 1);
-    weapon2 = new Weapon(10, "Weapon A", 1);
-    weapon3 = new Weapon(20, "Weapon B", 2);
+    weapon1 = new Weapon(10, "model.Weapon A", 1);
+    weapon2 = new Weapon(10, "model.Weapon A", 1);
+    weapon3 = new Weapon(20, "model.Weapon B", 2);
   }
 
   @Test
@@ -34,7 +37,7 @@ public class WeaponTest {
   @Test
   public void testGetName() {
     String name = weapon1.getName();
-    assertEquals("Weapon A", name);
+    assertEquals("model.Weapon A", name);
   }
 
   @Test
@@ -51,7 +54,7 @@ public class WeaponTest {
 
   @Test
   public void testHashCode() {
-    assertEquals(weapon1.hashCode(), weapon2.hashCode());
-    assertNotEquals(weapon1.hashCode(), weapon3.hashCode());
+    Assert.assertEquals(weapon1.hashCode(), weapon2.hashCode());
+    Assert.assertNotEquals(weapon1.hashCode(), weapon3.hashCode());
   }
 }

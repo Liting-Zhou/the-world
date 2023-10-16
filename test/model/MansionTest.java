@@ -1,10 +1,14 @@
+package model;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 
 /**
  * This class contains test cases for the {@link Mansion} class.
@@ -24,8 +28,8 @@ public class MansionTest {
     rooms.add(new RoomInfo(0, 0, 0, 2, 2, "Room A", new ArrayList<>()));
     rooms.add(new RoomInfo(1, 3, 0, 5, 2, "Room B", new ArrayList<>()));
 
-    // Initialize the Mansion object for testing
-    mansion = new Mansion("Test Mansion", 3, 6, rooms);
+    // Initialize the model.Mansion object for testing
+    mansion = new Mansion("Test model.Mansion", 3, 6, rooms);
   }
 
   @Test
@@ -43,8 +47,8 @@ public class MansionTest {
     assertNotNull(roomA);
     assertNotNull(roomB);
 
-    assertEquals("Room A", roomA.getRoomName());
-    assertEquals("Room B", roomB.getRoomName());
+    Assert.assertEquals("Room A", roomA.getRoomName());
+    Assert.assertEquals("Room B", roomB.getRoomName());
   }
 
 }

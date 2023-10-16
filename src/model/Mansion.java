@@ -1,3 +1,5 @@
+package model;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -17,7 +19,7 @@ public class Mansion {
   private int mansionWidth;
 
   /**
-   * Constructs a new Mansion object.
+   * Constructs a new model.Mansion object.
    *
    * @param mansionName   The name of the mansion.
    * @param mansionHeight The length of the mansion map.
@@ -67,7 +69,7 @@ public class Mansion {
    * @return An object containing all information of the specified room.
    */
   public static RoomInfo getRoomInfoByRoomNumber(int roomNumber) {
-    // Find the right RoomInfo based on the roomNumber and return it
+    // Find the right model.RoomInfo based on the roomNumber and return it
     for (RoomInfo room : rooms) {
       if (room.getRoomNumber() == roomNumber) {
         return room;
@@ -110,7 +112,7 @@ public class Mansion {
     try {
       File outputImageFile = new File("./res/mansion_map.png");
       ImageIO.write(mapImage, "png", outputImageFile);
-      System.out.println("Mansion map image saved successfully.");
+      System.out.println("model.Mansion map image saved successfully.");
     } catch (IOException e) {
       e.printStackTrace();
     }

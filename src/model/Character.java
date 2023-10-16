@@ -1,8 +1,10 @@
+package model;
+
 import java.util.Objects;
 
 /**
  * An abstract class representing a character in the game.
- * This class serves as a base class for the `Target` and `Player` classes.
+ * This class serves as a base class for the `model.Target` and `model.Player` classes.
  */
 abstract class Character {
   private String name;

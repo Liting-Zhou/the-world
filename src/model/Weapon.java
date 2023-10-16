@@ -1,7 +1,9 @@
+package model;
+
 import java.util.Objects;
 
 /**
- * Represents a weapon in the game "The World."
+ * Represents a weapon in the game "The model.World."
  */
 public final class Weapon {
   private final int power;
@@ -9,7 +11,7 @@ public final class Weapon {
   private final int belongRoomNumber;
 
   /**
-   * Constructs a new Weapon object.
+   * Constructs a new model.Weapon object.
    *
    * @param power            The power of the weapon.
    * @param name             The name of the weapon.
