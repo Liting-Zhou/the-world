@@ -219,24 +219,6 @@ public final class World {
     target = new Target(targetName, targetHealth, currentLocation);
   }
 
-//  /**
-//   * Initializes the list of players in the game.
-//   */
-//  private void initializePlayers(List<String> listOfPlayerNames) {
-//    int totalPlayers = listOfPlayerNames.size();
-//
-//    // Initialize the list of players.
-//    players = new ArrayList<>();
-//    model.RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
-//
-//    for (int i = 0; i < totalPlayers; i++) {
-//      model.Player player;
-//      player = new model.Player(i, listOfPlayerNames.get(i), currentLocation);
-//      // Add the created model.Player object to the list of players.
-//      players.add(player);
-//    }
-//  }
-
   /**
    * Initializes player.
    */
@@ -256,7 +238,7 @@ public final class World {
   public void addHumanPlayer(String playerName) {
     int indexOfNewPlayer = players.size();
     initializePlayer(indexOfNewPlayer, 0, playerName);
-    System.out.println("Human-controlled player " + playerName + " is in the game!");
+    System.out.println("Human-controlled player " + playerName + " is added to the game!");
   }
 
   /**
@@ -318,6 +300,11 @@ public final class World {
    * Plays the next round, in each round, target moves and then one player moves.
    */
   public void playNextRound() {
+    //check if players are added
+    if (players.isEmpty()) {
+      System.out.println("No player is added in the game yet.");
+      return;
+    }
     if (!ifGameOver()) {
       System.out.println("***************");
       System.out.println("Now play the next round!");
@@ -372,6 +359,7 @@ public final class World {
 
     //display weapons in the current room
     player.getCurrentLocation().displayWeapons();
+    System.out.println();
 
     //display neighbor rooms
     System.out.println("You can move to the following rooms: ");

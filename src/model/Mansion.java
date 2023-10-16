@@ -112,7 +112,7 @@ public class Mansion {
     try {
       File outputImageFile = new File("./res/mansion_map.png");
       ImageIO.write(mapImage, "png", outputImageFile);
-      System.out.println("model.Mansion map image saved successfully.");
+      System.out.println("mansion_map.png saved successfully.");
     } catch (IOException e) {
       e.printStackTrace();
     }

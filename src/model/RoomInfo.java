@@ -113,7 +113,7 @@ public class RoomInfo {
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
       System.out.println(
-          "model.Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
+          "Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
               + " is in this room.");
     } else {
       System.out.println("There are " + weapons.size() + " weapons in this room: ");
@@ -207,9 +207,9 @@ public class RoomInfo {
    */
   public void displayTarget(Target target) {
     if (this.equals(target.getCurrentLocation())) {
-      System.out.println("model.Target is here!");
+      System.out.println("Target is here!");
     } else {
-      System.out.println("model.Target is not here!");
+      System.out.println("Target is not here!");
     }
   }
 
@@ -220,7 +220,7 @@ public class RoomInfo {
     int i = 0;
     for (Player player : players) {
       if (this.equals(player.getCurrentLocation())) {
-        System.out.println("model.Player " + player.getName() + " is here!");
+        System.out.println("Player " + player.getName() + " is here!");
         i += 1;
       }
     }

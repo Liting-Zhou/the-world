@@ -25,8 +25,10 @@ public class Driver {
 
       Readable readable = new BufferedReader(new StringReader(maxNumOfTurns));
       Appendable appendable = new StringBuilder();
+      //create a controller
       Controller gameController = new GameController(readable, appendable, world);
-      gameController.playGame(world, Integer.parseInt(maxNumOfTurns));
+      //pass control to the controller
+      gameController.playGame(world);
       System.out.println(appendable.toString());
 
     } catch (IllegalArgumentException e) {

@@ -66,7 +66,7 @@ public class Target extends Character {
 
     Target updatedTarget = this;
     System.out.println(
-        "model.Target moves and now is in room " + updatedTarget.getCurrentLocation().getRoomNumber()
+        "Target moves and now is in room " + updatedTarget.getCurrentLocation().getRoomNumber()
             + ".");
     //if any player is in the same room with target, raise actions.
     for (Player player : players) {

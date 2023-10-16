@@ -22,26 +22,28 @@ public class GameController implements Controller {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");
     }
-    this.out = out;
-    scan = new Scanner(in);
     this.world=world;
+    scan = new Scanner(in);
+    this.out = out;
   }
 
 
   @Override
-  public void playGame(World w, int maxNumOfTurns) throws IllegalArgumentException, IOException {
+  public void playGame(World w) throws IllegalArgumentException, IOException {
+    int maxNumOfTurns=scan.nextInt();
     if (w == null || maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");
     }
     //TODO implement the controller
 
-    out.append("Game started!\nIn each round, target moves first, "
+    Scanner s = new Scanner(System.in);
+    System.out.println("Game started!\nIn each round, target moves first, "
         + "and then one player can act.\nEveryone starts from room 16.\n***************");
 
     int numOfTurns = 1;
     while (!world.ifGameOver()&&numOfTurns<=maxNumOfTurns) {
       printOptions();
-      int option = scan.nextInt();
+      int option = s.nextInt();
       switch (option) {
         case 1:
           world.displayRoomInformation();
@@ -52,14 +54,14 @@ public class GameController implements Controller {
         case 3:
           // Add a human-controlled player to the game
           System.out.println("Please enter the name: ");
-          String humanPlayerName = scan.next();
+          String humanPlayerName = s.next();
           world.addHumanPlayer(humanPlayerName);
           System.out.println("***************");
           break;
         case 4:
           // Add a computer-controlled player to the game
           System.out.println("Please enter the name: ");
-          String computerPlayerName = scan.next();
+          String computerPlayerName = s.next();
           world.addComputerPlayer(computerPlayerName);
           System.out.println("***************");
           break;

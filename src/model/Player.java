@@ -126,7 +126,7 @@ public class Player extends Character {
 
   private void displayPlayerInformation(Player player) {
     System.out.println("--------------");
-    System.out.print("model.Player " + player.getName());
+    System.out.print("Player " + player.getName());
     player.displayWeaponInformation();
     System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
     System.out.println("The neighbors of the room are: ");

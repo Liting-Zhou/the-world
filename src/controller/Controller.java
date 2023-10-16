@@ -12,9 +12,8 @@ public interface Controller {
    * Starts the game.
    *
    * @param w The game world to be controlled.
-   * @param maxNumOfTurns The maximum number of turns for the game.
    * @throws IllegalArgumentException for invalid arguments.
    */
-  void playGame(World w, int maxNumOfTurns) throws IllegalArgumentException, IOException;
+  void playGame(World w) throws IllegalArgumentException, IOException;
 
 }
