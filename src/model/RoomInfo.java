@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents information about a room in Doctor Lucky's model.Mansion, including its position, name,
  * weapons present, and neighbors.
  */
-public class RoomInfo {
+public final class RoomInfo {
 
   private final int roomNumber;
   private final int x1; //left up corner

@@ -3,7 +3,7 @@ package controller.commands;
 import controller.Command;
 import model.World;
 
-public class DisplayMap implements Command {
+public final class DisplayMap implements Command {
   /**
    * Executes the command.
    *

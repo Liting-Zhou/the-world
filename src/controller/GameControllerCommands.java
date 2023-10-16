@@ -14,7 +14,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 import model.World;
 
-public class GameControllerCommands implements Controller {
+public final class GameControllerCommands implements Controller {
   private final Appendable out;
   private final Scanner scan;
   private final World world;

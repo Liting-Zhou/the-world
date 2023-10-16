@@ -10,7 +10,7 @@ import model.World;
 /**
  * The Driver class handles the command-line arguments and gives control to the controller.
  */
-public class Driver {
+public final class Driver {
   /**
    * Runs the driver class.
    *

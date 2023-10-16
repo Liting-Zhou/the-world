@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import model.World;
 
-public class GameControllerSimple implements Controller {
+public final class GameControllerSimple implements Controller {
 
   private final Appendable out;
   private final Scanner scan;

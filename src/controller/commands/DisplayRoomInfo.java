@@ -3,7 +3,7 @@ package controller.commands;
 import controller.Command;
 import model.World;
 
-public class DisplayRoomInfo implements Command {
+public final class DisplayRoomInfo implements Command {
 
 
   @Override

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 /**
  * Represents the mansion in the game, which consists of rooms and has a graphical representation.
  */
-public class Mansion {
+public final class Mansion {
   private static List<RoomInfo> rooms;
   private String mansionName;
   private int mansionHeight;

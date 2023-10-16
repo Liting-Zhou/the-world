@@ -4,7 +4,7 @@ import controller.Command;
 import java.io.IOException;
 import model.World;
 
-public class PlayNextRound implements Command {
+public final class PlayNextRound implements Command {
 
   private Appendable out;
 

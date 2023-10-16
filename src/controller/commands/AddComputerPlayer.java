@@ -4,7 +4,7 @@ import controller.Command;
 import java.util.Scanner;
 import model.World;
 
-public class AddComputerPlayer implements Command {
+public final class AddComputerPlayer implements Command {
 
   private Scanner scan;
 
