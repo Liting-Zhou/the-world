@@ -6,11 +6,11 @@ import model.World;
 
 public class PlayNextRound implements Command {
 
-private Appendable out;
+  private Appendable out;
 
-    public PlayNextRound(Appendable out) {
-        this.out = out;
-    }
+  public PlayNextRound(Appendable out) {
+    this.out = out;
+  }
 
   /**
    * Executes the command.

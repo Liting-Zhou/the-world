@@ -7,38 +7,48 @@ import controller.commands.DisplayPlayerInfo;
 import controller.commands.DisplayRoomInfo;
 import controller.commands.DisplayTargetInfo;
 import controller.commands.PlayNextRound;
-import java.util.function.Function;
-import model.World;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Stack;
+import java.util.function.Function;
+import model.World;
 
-public class GameControllerCommands implements Controller{
+public class GameControllerCommands implements Controller {
   private final Appendable out;
   private final Scanner scan;
   private final World world;
 
-  public GameControllerCommands(Readable in, Appendable out,World world) {
+  /**
+   * Constructor for the controller.
+   *
+   * @param in    the source to read from
+   * @param out   the output to print
+   * @param world the world model to use
+   * @throws IllegalArgumentException for invalid arguments.
+   */
+  public GameControllerCommands(Readable in, Appendable out, World world)
+      throws IllegalArgumentException {
+    if (in == null || out == null) {
+      throw new IllegalArgumentException("Either Readable or Appendable is null");
+    }
     this.world = world;
     this.scan = new Scanner(in);
     this.out = out;
   }
 
+  @Override
   public void playGame(World w) throws IllegalArgumentException, IOException {
-    int maxNumOfTurns= scan.nextInt();
+    int maxNumOfTurns = scan.nextInt();
     if (maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");
     }
 
-    Stack<Command> commands = new Stack<>();
     Map<Integer, Function<Scanner, Command>> knownCommands = new HashMap<>();
     knownCommands.put(1, s -> new DisplayRoomInfo());
     knownCommands.put(2, s -> new DisplayMap());
-    knownCommands.put(3, s -> new AddHumanPlayer(s));
-    knownCommands.put(4, s -> new AddComputerPlayer(s));
+    knownCommands.put(3, AddHumanPlayer::new);
+    knownCommands.put(4, AddComputerPlayer::new);
     knownCommands.put(5, s -> new PlayNextRound(out));
     knownCommands.put(6, s -> new DisplayPlayerInfo());
     knownCommands.put(7, s -> new DisplayTargetInfo());
@@ -52,14 +62,13 @@ public class GameControllerCommands implements Controller{
       printOptions();
       int option = s.nextInt();
       Function<Scanner, Command> cmd = knownCommands.getOrDefault(option, null);
-      
-        if (cmd != null) {
-          Command c = cmd.apply(s);
-          commands.add(c);
-          c.execute(w);
-        } else {
-            System.out.println("Invalid option.");
-        }
+
+      if (cmd != null) {
+        Command c = cmd.apply(s);
+        c.execute(w);
+      } else {
+        System.out.println("Invalid option.");
+      }
       numOfTurns += 1;
     }
     if (!world.ifGameOver() && numOfTurns > maxNumOfTurns) {
@@ -67,6 +76,9 @@ public class GameControllerCommands implements Controller{
     }
   }
 
+  /**
+   * Display options for players.
+   */
   private void printOptions() {
     System.out.println("You have the following options:");
     System.out.println("1. Get information about a specified room.");

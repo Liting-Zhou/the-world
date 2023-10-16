@@ -1,9 +1,8 @@
 package controller;
 
-import model.World;
-
 import java.io.IOException;
 import java.util.Scanner;
+import model.World;
 
 public class GameControllerSimple implements Controller {
 
@@ -14,23 +13,40 @@ public class GameControllerSimple implements Controller {
   /**
    * Constructor for the controller.
    *
-   * @param in  the source to read from
-   * @param out the output to print
+   * @param in    the source to read from
+   * @param out   the output to print
+   * @param world the world model to use
    * @throws IllegalArgumentException for invalid arguments.
    */
-  public GameControllerSimple(Readable in, Appendable out,World world) throws IllegalArgumentException {
+  public GameControllerSimple(Readable in, Appendable out, World world)
+      throws IllegalArgumentException {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");
     }
-    this.world=world;
+    this.world = world;
     scan = new Scanner(in);
     this.out = out;
   }
 
+  /**
+   * Display options for players.
+   */
+  private static void printOptions() {
+    System.out.println("You have the following options:");
+    System.out.println("1. Get information about a specified room.");
+    System.out.println("2. Generate the mansion_map.png.");
+    System.out.println("3. Add a human-controlled player to the game.");
+    System.out.println("4. Add a computer-controlled player to the game.");
+    System.out.println("5. Play next round."); //Move a player.
+    System.out.println("6. Get information about a specified player."); //Move a player.
+    System.out.println("7. Get information about the target.");
+
+    System.out.println("Please choose an option (enter the corresponding number): ");
+  }
 
   @Override
   public void playGame(World w) throws IllegalArgumentException, IOException {
-    int maxNumOfTurns=scan.nextInt();
+    int maxNumOfTurns = scan.nextInt();
     if (w == null || maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");
     }
@@ -40,7 +56,7 @@ public class GameControllerSimple implements Controller {
         + "and then one player can act.\nEveryone starts from room 16.\n***************");
 
     int numOfTurns = 1;
-    while (!world.ifGameOver()&&numOfTurns<=maxNumOfTurns) {
+    while (!world.ifGameOver() && numOfTurns <= maxNumOfTurns) {
       printOptions();
       int option = s.nextInt();
       switch (option) {
@@ -81,26 +97,10 @@ public class GameControllerSimple implements Controller {
         default:
           System.out.println("Invalid option.");
       }
-      numOfTurns+=1;
+      numOfTurns += 1;
     }
-    if(!world.ifGameOver()&&numOfTurns>maxNumOfTurns){
+    if (!world.ifGameOver() && numOfTurns > maxNumOfTurns) {
       out.append("You run out of the maximum number of turns! Game over!");
     }
-  }
-
-  /**
-   * Display options for players.
-   */
-  private static void printOptions() {
-    System.out.println("You have the following options:");
-    System.out.println("1. Get information about a specified room.");
-    System.out.println("2. Generate the mansion_map.png.");
-    System.out.println("3. Add a human-controlled player to the game.");
-    System.out.println("4. Add a computer-controlled player to the game.");
-    System.out.println("5. Play next round."); //Move a player.
-    System.out.println("6. Get information about a specified player."); //Move a player.
-    System.out.println("7. Get information about the target.");
-
-    System.out.println("Please choose an option (enter the corresponding number): ");
   }
 }

@@ -10,36 +10,6 @@ abstract class Character {
   private String name;
   private RoomInfo currentLocation;
 
-  /**
-   * Checks if this character is equal to another object.
-   *
-   * @param o The object to compare for equality.
-   * @return true if the objects are equal, false otherwise.
-   */
-  @Override
-  public boolean equals(Object o) {
-    // Fast path for pointer equality:
-    if (this == o) { // backward compatibility with default equals
-      return true;
-    }
-    // If o isn't the right class then it can't be equal:
-    if (!(o instanceof Character)) {
-      return false;
-    }
-    // The successful instanceof check means our cast will succeed:
-    Character that = (Character) o;
-    return Objects.equals(getName(), that.getName());
-  }
-
-  /**
-   * Returns a hash code value for this character.
-   *
-   * @return The hash code value for this character.
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(getName());
-  }
 
   /**
    * Gets the name of this character.
@@ -75,5 +45,36 @@ abstract class Character {
    */
   protected void setCurrentLocation(RoomInfo currentLocation) {
     this.currentLocation = currentLocation;
+  }
+
+  /**
+   * Checks if this character is equal to another object.
+   *
+   * @param o The object to compare for equality.
+   * @return true if the objects are equal, false otherwise.
+   */
+  @Override
+  public boolean equals(Object o) {
+    // Fast path for pointer equality:
+    if (this == o) { // backward compatibility with default equals
+      return true;
+    }
+    // If o isn't the right class then it can't be equal:
+    if (!(o instanceof Character)) {
+      return false;
+    }
+    // The successful instanceof check means our cast will succeed:
+    Character that = (Character) o;
+    return Objects.equals(getName(), that.getName());
+  }
+
+  /**
+   * Returns a hash code value for this character.
+   *
+   * @return The hash code value for this character.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName());
   }
 }

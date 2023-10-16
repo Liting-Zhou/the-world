@@ -29,7 +29,7 @@ public class PlayerTest extends Character {
     initialLocation = new RoomInfo(0, 0, 0, 2, 2, "Initial Room", new ArrayList<>());
 
     // Initialize the player object for testing
-    player = new Player(0, 0,"Test model.Player", initialLocation);
+    player = new Player(0, 0, "Test model.Player", initialLocation);
 
     // Initialize the target character for testing
     target = new Target("Test model.Target", 20, initialLocation);

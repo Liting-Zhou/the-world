@@ -28,7 +28,6 @@ public final class World {
       throw new IllegalArgumentException("Invalid configuration file.");
     }
     // Read and process the configuration file to set up the game world.
-    // TODO Maybe refactor to construct a parser for conFile first
     List<String> lines = new ArrayList<>();
     Scanner scan = new Scanner(conFile);
     while (scan.hasNextLine()) {
@@ -40,37 +39,6 @@ public final class World {
     initializeRooms(lines);
     initializeMansion(lines);
     initializeTarget(lines);
-  }
-
-  /**
-   * Constructs a new "The model.World" game, initializing the world map and players
-   * from a configuration file.
-   *
-   * @param conFile           The configuration file containing game setup information.
-   * @param listOfPlayerNames The list of the names of players in clockwise order.
-   * @throws IllegalArgumentException if the provided configuration file is invalid.
-   */
-  public World(Readable conFile, List<String> listOfPlayerNames) {
-    // Read configuration file
-    if (conFile == null) {
-      throw new IllegalArgumentException("Invalid configuration file.");
-    }
-    // Read and process the configuration file to set up the game world.
-    // TODO Maybe refactor to construct a parser for conFile first
-    List<String> lines = new ArrayList<>();
-    Scanner scan = new Scanner(conFile);
-    while (scan.hasNextLine()) {
-      lines.add(scan.nextLine());
-    }
-    scan.close();
-    // Parse and set up the game components, including target, rooms, mansion, and players.
-    initializeWeapons(lines);
-    initializeRooms(lines);
-    initializeMansion(lines);
-    initializeTarget(lines);
-    //initializePlayers(listOfPlayerNames);
-    //create a graphical representation of the world map OR NOT!
-    //mansion.getBufferedImage();
   }
 
 
@@ -261,7 +229,7 @@ public final class World {
     return target;
   }
 
-  public Player getCurrentPlayer() {
+  private Player getCurrentPlayer() {
     return players.get(indexOfCurrentPlayer);
   }
 
@@ -399,7 +367,7 @@ public final class World {
    *
    * @param newLocation the new location of player
    */
-  public void updatePlayer(RoomInfo newLocation) {
+  private void updatePlayer(RoomInfo newLocation) {
     players.get(indexOfCurrentPlayer).updateRoomInfo(newLocation);
   }
 
@@ -427,7 +395,7 @@ public final class World {
    */
   public void displayPlayerInformation() {
     System.out.println();
-    if(players.isEmpty()){
+    if (players.isEmpty()) {
       System.out.println("No player is added in the game yet");
       return;
     }
@@ -443,15 +411,15 @@ public final class World {
     Scanner scanner = new Scanner(System.in);
     String playerName = scanner.nextLine();
     Player playerToBeDisplayed;
-    for(Player player:players){
-      if(player.getName().equalsIgnoreCase(playerName)){
+    for (Player player : players) {
+      if (player.getName().equalsIgnoreCase(playerName)) {
         //3.Display the player information
-        System.out.println("Information of player "+player.getName()+": ");
+        System.out.println("Information of player " + player.getName() + ": ");
         System.out.print(player.getName());
         player.displayWeaponInformation();
-        if(player.getTypeOfPlayer()==0){
+        if (player.getTypeOfPlayer() == 0) {
           System.out.println("This is a human player.");
-        }else{
+        } else {
           System.out.println("This is a computer player.");
         }
         System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());

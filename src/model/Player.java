@@ -41,21 +41,21 @@ public class Player extends Character {
   }
 
   /**
-   * Gets the type of the player.
-   *
-   * @return The type of the player. 0 for human, 1 for computer.
-   */
-  public int getTypeOfPlayer() {
-    return typeOfPlayer;
-  }
-
-  /**
    * Sets the index of the player.
    *
    * @param indexOfPlayer The index of the player to set.
    */
   public void setIndexOfPlayer(int indexOfPlayer) {
     this.indexOfPlayer = indexOfPlayer;
+  }
+
+  /**
+   * Gets the type of the player.
+   *
+   * @return The type of the player. 0 for human, 1 for computer.
+   */
+  public int getTypeOfPlayer() {
+    return typeOfPlayer;
   }
 
   /**
@@ -139,7 +139,7 @@ public class Player extends Character {
     } else {
       for (Weapon weapon : weaponsCarried) {
         System.out.println(" has/have the following weapon(s):");
-        System.out.println(weapon.getName() + " with power" + weapon.getPower());
+        System.out.println(weapon.getName() + " with power " + weapon.getPower());
       }
     }
   }
@@ -214,7 +214,8 @@ public class Player extends Character {
       int power = weapon.getPower();
       target.setHealth(power);
       System.out.println(
-          "model.Target's health is deduced by " + power + " and now is " + target.getHealth() + ".");
+          "model.Target's health is deduced by " + power + " and now is " + target.getHealth() +
+              ".");
     }
 
     return target;
