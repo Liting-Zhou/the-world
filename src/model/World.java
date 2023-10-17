@@ -363,15 +363,6 @@ public final class World {
   }
 
   /**
-   * Updates the room information for a specific player after actions.
-   *
-   * @param newLocation the new location of player
-   */
-  private void updatePlayer(RoomInfo newLocation) {
-    players.get(indexOfCurrentPlayer).updateRoomInfo(newLocation);
-  }
-
-  /**
    * Displays the map of the mansion.
    */
   public void displayMap() {

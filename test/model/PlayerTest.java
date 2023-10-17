@@ -2,9 +2,13 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +33,10 @@ public class PlayerTest extends Character {
     initialLocation = new RoomInfo(0, 0, 0, 2, 2, "Initial Room", new ArrayList<>());
 
     // Initialize the player object for testing
-    player = new Player(0, 0, "Test model.Player", initialLocation);
+    player = new Player(0, 0, "Test Player", initialLocation);
 
     // Initialize the target character for testing
-    target = new Target("Test model.Target", 20, initialLocation);
+    target = new Target("Test Target", 20, initialLocation);
 
     // Initialize a list of players for testing
     players = new ArrayList<>();
@@ -57,12 +61,21 @@ public class PlayerTest extends Character {
   }
 
   @Test
+  public void testGetTypeOfPlayer() {
+    // Test for the getTypeOfPlayer() method
+    int type = player.getTypeOfPlayer();
+    // Check if the player type is either 0 or 1
+    assertTrue(type == 0 || type == 1);
+  }
+
+  @Test
   public void testUpdateRoomInfo() {
     RoomInfo newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
     player.updateRoomInfo(newLocation);
     RoomInfo updatedLocation = player.getCurrentLocation();
     Assert.assertEquals(newLocation, updatedLocation);
   }
+
 
   @Test
   public void testAction() {
@@ -79,4 +92,5 @@ public class PlayerTest extends Character {
     Target updatedTarget = player.attack(room, initialTarget);
     assertNotNull(updatedTarget);
   }
+
 }

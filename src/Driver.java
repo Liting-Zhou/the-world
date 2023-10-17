@@ -26,7 +26,7 @@ public final class Driver {
       Readable readable = new BufferedReader(new StringReader(maxNumOfTurns));
       Appendable appendable = new StringBuilder();
 
-//      //1.create a controller
+//      //1.create a simple controller
 //      Controller gameController = new GameControllerSimple(readable, appendable, world);
 
       //2.create a controller with commands

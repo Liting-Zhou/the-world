@@ -104,46 +104,16 @@ public final class RoomInfo {
     return weapons;
   }
 
-  /**
-   * Displays the weapon information in the room.
-   */
-  public void displayWeapons() {
-    if (weapons.isEmpty()) {
-      System.out.println("No weapons in this room.");
-    } else if (weapons.size() == 1) {
-      //there are numbers of weapons in this room
-      System.out.println(
-          "Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
-              + " is in this room.");
-    } else {
-      System.out.println("There are " + weapons.size() + " weapons in this room: ");
-      int i = 1;
-      for (Weapon weapon : weapons) {
-        System.out.println(i + "." + weapon.getName() + " with power " + weapon.getPower());
-        i += 1;
-      }
-    }
-  }
 
-  /**
-   * Displays the neighbors of the room.
-   */
-  public void displayNeighbors() {
-    for (RoomInfo neighbor : neighbors) {
-      System.out.println(neighbor.getRoomNumber() + ": " + neighbor.getRoomName());
-    }
-  }
-
-
-  /**
-   * Decide if the given room is neighbor of this room.
-   *
-   * @param otherRoom The room to be decided if neighbors
-   * @return true if the given room is neighbor of this room, false otherwise
-   */
-  public boolean isNeighbor(RoomInfo otherRoom) {
-    return this.neighbors.contains(otherRoom);
-  }
+//  /**
+//   * Decide if the given room is neighbor of this room.
+//   *
+//   * @param otherRoom The room to be decided if neighbors
+//   * @return true if the given room is neighbor of this room, false otherwise
+//   */
+//  public boolean isNeighbor(RoomInfo otherRoom) {
+//    return this.neighbors.contains(otherRoom);
+//  }
 
   /**
    * Decide if two rooms share a coordinate, either x or y.
@@ -226,6 +196,41 @@ public final class RoomInfo {
     }
     if (i == 0) {
       System.out.println("No player is here!");
+    }
+  }
+
+  /**
+   * Displays the weapon information in the room.
+   */
+  public void displayWeapons() {
+    if (weapons.isEmpty()) {
+      System.out.println("No weapons in this room.");
+    } else if (weapons.size() == 1) {
+      //there are numbers of weapons in this room
+      System.out.println(
+          "Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
+              + " is in this room.");
+    } else {
+      System.out.println("There are " + weapons.size() + " weapons in this room: ");
+      int i = 1;
+      for (Weapon weapon : weapons) {
+        System.out.println(i + "." + weapon.getName() + " with power " + weapon.getPower());
+        i += 1;
+      }
+    }
+  }
+
+  /**
+   * Displays the neighbors of the room.
+   */
+  public void displayNeighbors() {
+    if(neighbors.isEmpty()){
+      System.out.println("This room has no neighboring room.");
+    }else{
+      System.out.println("The neighbors of the room are: ");
+      for (RoomInfo neighbor : neighbors) {
+        System.out.println(neighbor.getRoomNumber() + ": " + neighbor.getRoomName());
+      }
     }
   }
 

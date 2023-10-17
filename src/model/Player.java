@@ -68,7 +68,7 @@ public class Player extends Character {
   }
 
   /**
-   * model.Player moves to a specific room.
+   * Player moves to a specific room.
    */
   public void move() {
     //move to a neighboring space
@@ -81,7 +81,7 @@ public class Player extends Character {
   }
 
   /**
-   * model.Player pick up a weapon.
+   * Player pick up a weapon.
    */
   public void pickUpWeapon() {
     List<Weapon> weapons = this.getCurrentLocation().getWeapons();
@@ -111,6 +111,9 @@ public class Player extends Character {
     }
   }
 
+  /**
+   * Player look around.
+   */
   public void lookAround() {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Which player do you want to look around? Please enter the name: ");
@@ -119,20 +122,25 @@ public class Player extends Character {
     //find the player by player name
     for (Player player : World.getPlayers()) {
       if (player.getName().equalsIgnoreCase(playerName)) {
-        player.displayPlayerInformation(player);
+        player.displayPlayerInformation();
       }
     }
   }
 
-  private void displayPlayerInformation(Player player) {
+  /**
+   * Displays the player information, including name, weapon carried, current location, and neighbors.
+   */
+  public void displayPlayerInformation() {
     System.out.println("--------------");
-    System.out.print("Player " + player.getName());
-    player.displayWeaponInformation();
-    System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
-    System.out.println("The neighbors of the room are: ");
-    player.getCurrentLocation().displayNeighbors();
+    System.out.print("Player " + getName());
+    displayWeaponInformation();
+    System.out.println("Current Location: Room " + getCurrentLocation().getRoomNumber());
+    getCurrentLocation().displayNeighbors();
   }
-
+  /**
+   * Displays the weapon carried by the player.
+   *
+   */
   public void displayWeaponInformation() {
     if (weaponsCarried.isEmpty()) {
       System.out.println(" has/have no weapon.");
