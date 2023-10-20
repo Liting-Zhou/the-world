@@ -64,11 +64,11 @@ abstract class AbstractCharacter implements Character {
       return true;
     }
     // If o isn't the right class then it can't be equal:
-    if (!(o instanceof Character)) {
+    if (!(o instanceof AbstractCharacter)) {
       return false;
     }
     // The successful instanceof check means our cast will succeed:
-    Character that = (Character) o;
+    AbstractCharacter that = (AbstractCharacter) o;
     return Objects.equals(getName(), that.getName());
   }
 

@@ -250,6 +250,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     }
   }
 
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -257,12 +258,13 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     if (!(o instanceof RoomInfo)) {
       return false;
     }
-    Room roomInfo = (Room) o;
+    RoomInfo roomInfo = (RoomInfo) o;
     return getRoomNumber() == roomInfo.getRoomNumber() && getX1() == roomInfo.getX1() &&
         getY1() == roomInfo.getY1() && getX2() == roomInfo.getX2() && getY2() == roomInfo.getY2() &&
         Objects.equals(getRoomName(), roomInfo.getRoomName());
   }
 
+  @Override
   public int hashCode() {
     return Objects.hash(getRoomNumber(), getX1(), getY1(), getX2(), getY2(), getRoomName());
   }
