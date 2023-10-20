@@ -181,8 +181,8 @@ public final class MyWorld implements World {
   /**
    * Initializes player.
    */
-  private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName) {
-    Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
+  private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,int startingRoomNumber) {
+    Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoomNumber);
     Player player = new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation);
     // Add the created model.Player object to the list of players.
     players.add(player);
@@ -195,9 +195,9 @@ public final class MyWorld implements World {
    * @param playerName The name of the player to add.
    */
   @Override
-  public void addHumanPlayer(String playerName) {
+  public void addHumanPlayer(String playerName,int startingRoomNumber) {
     int indexOfNewPlayer = players.size();
-    initializePlayer(indexOfNewPlayer, 0, playerName);
+    initializePlayer(indexOfNewPlayer, 0, playerName,startingRoomNumber);
     System.out.println(String.format("Human-controlled player %s is added to the game!", playerName));
   }
 
@@ -207,9 +207,9 @@ public final class MyWorld implements World {
    * @param playerName The name of the player to add.
    */
   @Override
-  public void addComputerPlayer(String playerName) {
+  public void addComputerPlayer(String playerName,int startingRoomNumber) {
     int indexOfNewPlayer = players.size();
-    initializePlayer(indexOfNewPlayer, 1, playerName);
+    initializePlayer(indexOfNewPlayer, 1, playerName,startingRoomNumber);
     System.out.println(String.format("Computer-controlled player %s is added to the game!", playerName));
   }
 
@@ -445,7 +445,7 @@ public final class MyWorld implements World {
     System.out.println();
 
     // 2.Ask which room to display
-    System.out.println("Which room do you want to display? Please enter the room number: ");
+    System.out.println("Which room do you want to display? Please enter the room number (0-21): ");
     Scanner scanner = new Scanner(System.in);
     Integer roomNumber = scanner.nextInt();
     Room room = mansion.getRoomInfoByRoomNumber(roomNumber);

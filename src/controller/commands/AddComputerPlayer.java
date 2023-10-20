@@ -16,7 +16,9 @@ public final class AddComputerPlayer implements Command {
   public void execute(MyWorld w) {
     System.out.println("Please enter the name: ");
     String name = scan.next();
-    w.addComputerPlayer(name);
+    System.out.println("Which room do you want to start from? Enter the room number (0-21): ");
+    int roomNumber = scan.nextInt();
+    w.addComputerPlayer(name,roomNumber);
     System.out.println("***************");
   }
 }

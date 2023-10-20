@@ -70,14 +70,18 @@ public final class GameControllerSimple implements Controller {
           // Add a human-controlled player to the game
           System.out.println("Please enter the name: ");
           String humanPlayerName = s.next();
-          world.addHumanPlayer(humanPlayerName);
+          System.out.println("Which room do you want to start from? Enter the room number (0-21): ");
+          int roomNumber1 = scan.nextInt();
+          world.addHumanPlayer(humanPlayerName, roomNumber1);
           System.out.println("***************");
           break;
         case 4:
           // Add a computer-controlled player to the game
           System.out.println("Please enter the name: ");
           String computerPlayerName = s.next();
-          world.addComputerPlayer(computerPlayerName);
+          System.out.println("Which room do you want to start from? Enter the room number (0-21): ");
+          int roomNumber2 = scan.nextInt();
+          world.addComputerPlayer(computerPlayerName, roomNumber2);
           System.out.println("***************");
           break;
         case 5:

@@ -7,15 +7,17 @@ public interface World {
    * Adds human-controlled player to the game.
    *
    * @param playerName The name of the player to add.
+   * @param startingRoomNumber The starting room number of the player.
    */
-  void addHumanPlayer(String playerName);
+  void addHumanPlayer(String playerName, int startingRoomNumber);
 
   /**
    * Adds computer-controlled player to the game.
    *
    * @param playerName The name of the player to add.
+   * @param startingRoomNumber The starting room number of the player.
    */
-  void addComputerPlayer(String playerName);
+  void addComputerPlayer(String playerName,int startingRoomNumber);
 
   /**
    * Gets the target.
