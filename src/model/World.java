@@ -136,7 +136,7 @@ public final class World {
               listOfWeaponsSpecificRoom);
 
       // Add the created Room object to the list of rooms.
-      listOfRooms.add(room);
+      listOfRooms.add((RoomInfo) room);
 
       lineIndex++;
     }

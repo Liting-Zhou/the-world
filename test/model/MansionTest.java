@@ -43,8 +43,8 @@ public class MansionTest {
 
   @Test
   public void testGetRoomInfoByRoomNumber() {
-    RoomInfo roomA = mansion.getRoomInfoByRoomNumber(0);
-    RoomInfo roomB = mansion.getRoomInfoByRoomNumber(1);
+    Room roomA = mansion.getRoomInfoByRoomNumber(0);
+    Room roomB = mansion.getRoomInfoByRoomNumber(1);
 
     assertNotNull(roomA);
     assertNotNull(roomB);

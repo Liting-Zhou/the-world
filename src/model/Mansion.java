@@ -38,6 +38,7 @@ public final class Mansion {
     }
   }
 
+  // TODO add Player info
   private static void drawRoom(Graphics2D g2d, RoomInfo room, int scaleFactor) {
     int roomX = room.getX1() * scaleFactor;
     int roomY = room.getY1() * scaleFactor;
@@ -127,5 +128,6 @@ public final class Mansion {
       System.out.println(room.getRoomNumber() + ": " + room.getRoomName());
     }
   }
+
 
 }

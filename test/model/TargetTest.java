@@ -30,7 +30,7 @@ public class TargetTest {
 
     players = new ArrayList<>();
     listOfRooms = new ArrayList<>();
-    listOfRooms.add(firstRoom);
+    listOfRooms.add((RoomInfo) firstRoom);
   }
 
   @Test
@@ -52,8 +52,8 @@ public class TargetTest {
     RoomInfo thirdRoom = new RoomInfo(3, 3, 5, 8, 9, "Third Room", new ArrayList<>());
     players.add(new Player(1, 0, "model.Player 1", secondRoom));
     players.add(new Player(2, 0, "model.Player 2", thirdRoom));
-    listOfRooms.add(secondRoom);
-    listOfRooms.add(thirdRoom);
+    listOfRooms.add((RoomInfo) secondRoom);
+    listOfRooms.add((RoomInfo) thirdRoom);
     mansion = new Mansion("Test model.Mansion", 10, 10, listOfRooms);
 
     Target updatedTarget = target.move(mansion, players, listOfRooms);

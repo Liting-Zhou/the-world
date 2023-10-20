@@ -9,7 +9,7 @@ import java.util.Scanner;
  * Represents a player character in the game. Players can take actions, move between rooms,
  * and interact with other characters and objects.
  */
-public class Player extends Character {
+public class Player extends AbstractCharacter {
   private int indexOfPlayer;
   private int typeOfPlayer; // 0 for human, 1 for computer
   private List<Weapon> weaponsCarried;
@@ -22,7 +22,7 @@ public class Player extends Character {
    * @param currentLocation The initial current location of the player.
    */
   public Player(int indexOfPlayer, int typeOfPlayer, String name, RoomInfo currentLocation) {
-    super(); // Call the constructor of the superclass (model.Character).
+    super(); // Call the constructor of the superclass (model.AbstractCharacter).
     this.indexOfPlayer = indexOfPlayer;
     this.typeOfPlayer = typeOfPlayer;
     this.weaponsCarried = new ArrayList<>();

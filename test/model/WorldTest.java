@@ -17,6 +17,7 @@ import org.junit.Test;
  * This class contains test cases for the {@link World} class.
  */
 public class WorldTest {
+  //TODO re-implement this!
 //  private World world;
 //
 //  /**

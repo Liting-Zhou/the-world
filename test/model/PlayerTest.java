@@ -4,11 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +13,7 @@ import org.junit.Test;
 /**
  * This class contains test cases for the {@link Player} class.
  */
-public class PlayerTest extends Character {
+public class PlayerTest extends AbstractCharacter {
   private Player player;
   private RoomInfo initialLocation;
   private Target target;

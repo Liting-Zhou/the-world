@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents information about a room in Doctor Lucky's model.Mansion, including its position, name,
  * weapons present, and neighbors.
  */
-public final class RoomInfo {
+public final class RoomInfo{
 
   private final int roomNumber;
   private final int x1; //left up corner
@@ -115,23 +115,12 @@ public final class RoomInfo {
 //    return this.neighbors.contains(otherRoom);
 //  }
 
-  /**
-   * Decide if two rooms share a coordinate, either x or y.
-   *
-   * @param otherRoom The room to be decided if neighbors
-   */
-  private boolean shareCoordinate(RoomInfo otherRoom) {
-
-    return this.x1 == otherRoom.x1 || this.x1 == otherRoom.x2 || this.x2 == otherRoom.x1
-        || this.x2 == otherRoom.x2 || this.y1 == otherRoom.y1 || this.y1 == otherRoom.y2
-        || this.y2 == otherRoom.y1 || this.y2 == otherRoom.y2;
-  }
 
   /**
    * Returns neighbors of this room. Spaces that share a "wall" are neighbors.
    *
    * @param listOfRooms The list of all rooms
-   * @return A list of integers representing neighboring room numbers.
+   * @return A list of Room representing neighbors.
    */
   public List<RoomInfo> getNeighbors(List<RoomInfo> listOfRooms) {
     List<RoomInfo> neighbors = new ArrayList<>();
@@ -154,6 +143,18 @@ public final class RoomInfo {
       }
     }
     return neighbors;
+  }
+
+  /**
+   * Decide if two rooms share a coordinate, either x or y.
+   *
+   * @param otherRoom The room to be decided if neighbors
+   */
+private boolean shareCoordinate(RoomInfo otherRoom) {
+
+    return this.x1 == otherRoom.x1 || this.x1 == otherRoom.x2 || this.x2 == otherRoom.x1
+        || this.x2 == otherRoom.x2 || this.y1 == otherRoom.y1 || this.y1 == otherRoom.y2
+        || this.y2 == otherRoom.y1 || this.y2 == otherRoom.y2;
   }
 
   /**
@@ -234,7 +235,6 @@ public final class RoomInfo {
     }
   }
 
-  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -248,7 +248,6 @@ public final class RoomInfo {
         Objects.equals(getRoomName(), roomInfo.getRoomName());
   }
 
-  @Override
   public int hashCode() {
     return Objects.hash(getRoomNumber(), getX1(), getY1(), getX2(), getY2(), getRoomName());
   }

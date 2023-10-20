@@ -40,7 +40,7 @@ public final class GameControllerSimple implements Controller {
     System.out.println("5. Play next round."); //Move a player.
     System.out.println("6. Get information about a specified player."); //Move a player.
     System.out.println("7. Get information about the target.");
-
+    System.out.println();
     System.out.println("Please choose an option (enter the corresponding number): ");
   }
 

@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Represents the target character in the game.
  * The target has health and move to the next room each round.
  */
-public final class Target extends Character {
+public final class Target extends AbstractCharacter {
 
   private int health;
 
