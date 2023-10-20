@@ -120,7 +120,7 @@ public class Player extends AbstractCharacter {
     String playerName = scanner.nextLine();
 
     //find the player by player name
-    for (Player player : World.getPlayers()) {
+    for (Player player : MyWorld.getPlayers()) {
       if (player.getName().equalsIgnoreCase(playerName)) {
         player.displayPlayerInformation();
       }

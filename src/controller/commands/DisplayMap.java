@@ -1,16 +1,16 @@
 package controller.commands;
 
 import controller.Command;
-import model.World;
+import model.MyWorld;
 
 public final class DisplayMap implements Command {
   /**
    * Executes the command.
    *
-   * @param w the World model to use.
+   * @param w the MyWorld model to use.
    */
   @Override
-  public void execute(World w) {
+  public void execute(MyWorld w) {
     w.displayMap();
   }
 }

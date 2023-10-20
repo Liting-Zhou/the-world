@@ -2,7 +2,7 @@ package controller.commands;
 
 import controller.Command;
 import java.io.IOException;
-import model.World;
+import model.MyWorld;
 
 public final class PlayNextRound implements Command {
 
@@ -15,10 +15,10 @@ public final class PlayNextRound implements Command {
   /**
    * Executes the command.
    *
-   * @param w the World model to use.
+   * @param w the MyWorld model to use.
    */
   @Override
-  public void execute(World w) throws IOException {
+  public void execute(MyWorld w) throws IOException {
     w.playNextRound();
     if (w.ifGameOver()) {
       out.append("Game over!");

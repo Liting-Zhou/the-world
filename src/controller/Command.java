@@ -1,13 +1,13 @@
 package controller;
 
 import java.io.IOException;
-import model.World;
+import model.MyWorld;
 
 public interface Command {
   /**
    * Executes the command.
    *
-   * @param w the World model to use.
+   * @param w the MyWorld model to use.
    */
-  void execute(World w) throws IOException;
+  void execute(MyWorld w) throws IOException;
 }

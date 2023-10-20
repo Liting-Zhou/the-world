@@ -1,12 +1,11 @@
 import controller.Controller;
-import controller.GameControllerCommands;
 import controller.GameControllerSimple;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
-import model.World;
+import model.MyWorld;
 
 /**
  * The Driver class handles the command-line arguments and gives control to the controller.
@@ -22,7 +21,7 @@ public final class Driver {
       String configFile = args[0];
       String maxNumOfTurns = args[1];
       Readable reader = new BufferedReader(new FileReader(configFile));
-      World world = new World(reader);
+      MyWorld world = new MyWorld(reader);
 
       Readable readable = new BufferedReader(new StringReader(maxNumOfTurns));
       Appendable appendable = new StringBuilder();

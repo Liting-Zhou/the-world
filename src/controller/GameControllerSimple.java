@@ -2,13 +2,13 @@ package controller;
 
 import java.io.IOException;
 import java.util.Scanner;
-import model.World;
+import model.MyWorld;
 
 public final class GameControllerSimple implements Controller {
 
   private final Appendable out;
   private final Scanner scan;
-  private final World world;
+  private final MyWorld world;
 
   /**
    * Constructor for the controller.
@@ -18,7 +18,7 @@ public final class GameControllerSimple implements Controller {
    * @param world the world model to use
    * @throws IllegalArgumentException for invalid arguments.
    */
-  public GameControllerSimple(Readable in, Appendable out, World world)
+  public GameControllerSimple(Readable in, Appendable out, MyWorld world)
       throws IllegalArgumentException {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");
@@ -45,7 +45,7 @@ public final class GameControllerSimple implements Controller {
   }
 
   @Override
-  public void playGame(World w) throws IllegalArgumentException, IOException {
+  public void playGame(MyWorld w) throws IllegalArgumentException, IOException {
     int maxNumOfTurns = scan.nextInt();
     if (w == null || maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");

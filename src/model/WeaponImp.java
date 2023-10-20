@@ -3,7 +3,7 @@ package model;
 import java.util.Objects;
 
 /**
- * Represents a weapon in the game "The model.World."
+ * Represents a weapon in the game "The model.MyWorld."
  */
 public final class WeaponImp implements Weapon {
   private final int power;

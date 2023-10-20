@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
@@ -17,6 +18,7 @@ public final class Mansion {
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
+  private static List<Player> players;
 
   /**
    * Constructs a new model.Mansion object.
@@ -31,6 +33,7 @@ public final class Mansion {
     this.mansionHeight = mansionHeight;
     this.mansionWidth = mansionWidth;
     this.mansionName = mansionName;
+    this.players = new ArrayList<>();
 
     //initialize the neighbors of each room
     for (Room room : rooms) {

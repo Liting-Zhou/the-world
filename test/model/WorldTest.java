@@ -4,21 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 /**
- * This class contains test cases for the {@link World} class.
+ * This class contains test cases for the {@link MyWorld} class.
  */
 public class WorldTest {
   //TODO re-implement this!
-//  private World world;
+//  private MyWorld world;
 //
 //  /**
 //   * Sets up the test environment before each test case.
@@ -29,7 +20,7 @@ public class WorldTest {
 //
 //    try {
 //      Readable conFile = new BufferedReader(new FileReader("./res/mansion.txt"));
-//      world = new World(conFile);
+//      world = new MyWorld(conFile);
 //    } catch (IOException e) {
 //      System.err.println("Error reading configuration file: " + e.getMessage());
 //      world = null;

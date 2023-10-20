@@ -1,12 +1,12 @@
 package controller.commands;
 
 import controller.Command;
-import model.World;
+import model.MyWorld;
 
 public final class DisplayTargetInfo implements Command {
 
   @Override
-  public void execute(World w) {
+  public void execute(MyWorld w) {
     w.displayTargetInformation();
   }
 }

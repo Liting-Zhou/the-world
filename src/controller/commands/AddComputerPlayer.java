@@ -2,7 +2,7 @@ package controller.commands;
 
 import controller.Command;
 import java.util.Scanner;
-import model.World;
+import model.MyWorld;
 
 public final class AddComputerPlayer implements Command {
 
@@ -13,7 +13,7 @@ public final class AddComputerPlayer implements Command {
   }
 
   @Override
-  public void execute(World w) {
+  public void execute(MyWorld w) {
     System.out.println("Please enter the name: ");
     String name = scan.next();
     w.addComputerPlayer(name);
