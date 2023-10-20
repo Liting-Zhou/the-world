@@ -54,7 +54,7 @@ public final class GameControllerCommands implements Controller {
     knownCommands.put(7, s -> new DisplayTargetInfo());
 
     Scanner s = new Scanner(System.in);
-    System.out.println("Game started!\nIn each round, target moves first, "
+    System.out.println("Game started!\nIn each turn, target moves first, "
         + "and then one player can act.\nEveryone starts from room 16.\n***************");
 
     int numOfTurns = 1;

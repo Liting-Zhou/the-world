@@ -128,7 +128,7 @@ public final class Mansion {
   public void displayListOfRooms() {
     System.out.println("The mansion has the following rooms: ");
     for (Room room : rooms) {
-      System.out.println(room.getRoomNumber() + ": " + room.getRoomName());
+      System.out.println(String.format("%d: %s", room.getRoomNumber(), room.getRoomName()));
     }
   }
 

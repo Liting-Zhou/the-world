@@ -22,7 +22,7 @@ public final class PlayNextRound implements Command {
     w.playNextRound();
     if (w.ifGameOver()) {
       out.append("Game over!");
-      out.append("The winner is " + w.getWinner().getName());
+      out.append(String.format("The winner is %s", w.getWinner().getName()));
     }
   }
 }

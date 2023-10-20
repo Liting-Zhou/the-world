@@ -52,7 +52,7 @@ public final class GameControllerSimple implements Controller {
     }
 
     Scanner s = new Scanner(System.in);
-    System.out.println("Game started!\nIn each round, target moves first, "
+    System.out.println("Game started!\nIn each turn, target moves first, "
         + "and then one player can act.\nEveryone starts from room 16.\n***************");
 
     int numOfTurns = 1;
@@ -84,7 +84,7 @@ public final class GameControllerSimple implements Controller {
           world.playNextRound();
           if (world.ifGameOver()) {
             out.append("Game over!");
-            out.append("The winner is " + world.getWinner().getName());
+            out.append(String.format("The winner is %s", w.getWinner().getName()));
           }
           break;
         case 6:

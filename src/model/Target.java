@@ -66,8 +66,7 @@ public final class Target extends AbstractCharacter {
 
     Target updatedTarget = this;
     System.out.println(
-        "Target moves and now is in room " + updatedTarget.getCurrentLocation().getRoomNumber()
-            + ".");
+        String.format("Target moves and now is in room %d.", updatedTarget.getCurrentLocation().getRoomNumber()));
     //if any player is in the same room with target, raise actions.
     for (Player player : players) {
       if (newLocation == player.getCurrentLocation()) {
@@ -85,8 +84,8 @@ public final class Target extends AbstractCharacter {
         if (!canBeSeen) {
           Scanner scanner = new Scanner(System.in);
           System.out.println(
-              player.getName() + "! You are now with target in the same room. "
-                  + "And no one can see you. Do you want to attack? Enter yes or no: ");
+              String.format("%s! You are now with target in the same room. "
+                  + "And no one can see you. Do you want to attack? Enter yes or no: ", player.getName()));
           String attackTarget = scanner.nextLine();
           if ("yes".equals(attackTarget)) {
             updatedTarget = player.attack(newLocation, this);

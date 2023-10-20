@@ -85,7 +85,7 @@ public class PlayerTest extends AbstractCharacter {
   @Test
   public void testAttack() {
     Room room = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
-    Target initialTarget = new Target("Test model.Target", 20, room);
+    Target initialTarget = new Target("Test Target", 20, room);
     Target updatedTarget = player.attack(room, initialTarget);
     assertNotNull(updatedTarget);
   }

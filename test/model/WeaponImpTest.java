@@ -22,9 +22,9 @@ public class WeaponImpTest {
 
   @Before
   public void setUp() {
-    weapon1 = new WeaponImp(10, "model.WeaponImp A", 1);
-    weapon2 = new WeaponImp(10, "model.WeaponImp A", 1);
-    weapon3 = new WeaponImp(20, "model.WeaponImp B", 2);
+    weapon1 = new WeaponImp(10, "WeaponImp A", 1);
+    weapon2 = new WeaponImp(10, "WeaponImp A", 1);
+    weapon3 = new WeaponImp(20, "WeaponImp B", 2);
   }
 
   @Test
@@ -36,7 +36,7 @@ public class WeaponImpTest {
   @Test
   public void testGetName() {
     String name = weapon1.getName();
-    assertEquals("model.WeaponImp A", name);
+    assertEquals("WeaponImp A", name);
   }
 
   @Test

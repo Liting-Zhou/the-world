@@ -77,7 +77,7 @@ public class Player extends AbstractCharacter {
     Integer roomNumber = scanner.nextInt();
     //TODO check if the room is a neighbor
     this.setCurrentLocation(Mansion.getRoomInfoByRoomNumber(roomNumber));
-    System.out.println("You are now in room " + roomNumber + ".");
+    System.out.println(String.format("You are now in room %d.", roomNumber));
   }
 
   /**
@@ -90,8 +90,7 @@ public class Player extends AbstractCharacter {
     } else if (weapons.size() == 1) {
       weaponsCarried.add(weapons.get(0));
       System.out.println(
-          "You picked up " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower() +
-              ".");
+          String.format("You picked up %s with power %d.", weapons.get(0).getName(), weapons.get(0).getPower()));
       System.out.print("Now you");
       displayWeaponInformation();
       //update the room information with weapons removed
@@ -102,8 +101,7 @@ public class Player extends AbstractCharacter {
       Integer weaponNumber = scanner.nextInt();
       WeaponImp weapon = weapons.get(weaponNumber - 1);
       weaponsCarried.add(weapon);
-      System.out.println("You picked up " + weapon.getName() + " with power " + weapon.getPower()
-          + ".");
+      System.out.println(String.format("You picked up %s with power %d.", weapon.getName(), weapon.getPower()));
       System.out.print("Now you");
       displayWeaponInformation();
       //update the room information with weapons removed
@@ -132,9 +130,9 @@ public class Player extends AbstractCharacter {
    */
   public void displayPlayerInformation() {
     System.out.println("--------------");
-    System.out.print("Player " + getName());
+    System.out.print(String.format("Player %s", getName()));
     displayWeaponInformation();
-    System.out.println("Current Location: Room " + getCurrentLocation().getRoomNumber());
+    System.out.println(String.format("Current Location: Room %d", getCurrentLocation().getRoomNumber()));
     getCurrentLocation().displayNeighbors();
   }
   /**
@@ -147,7 +145,7 @@ public class Player extends AbstractCharacter {
     } else {
       for (WeaponImp weapon : weaponsCarried) {
         System.out.println(" has/have the following weapon(s):");
-        System.out.println(weapon.getName() + " with power " + weapon.getPower());
+        System.out.println(String.format("%s with power %s", weapon.getName(), weapon.getPower()));
       }
     }
   }
@@ -222,8 +220,7 @@ public class Player extends AbstractCharacter {
       int power = weapon.getPower();
       target.setHealth(power);
       System.out.println(
-          "model.Target's health is deduced by " + power + " and now is " + target.getHealth() +
-              ".");
+          String.format("Target's health is deduced by %d and now is %d.", power, target.getHealth()));
     }
 
     return target;

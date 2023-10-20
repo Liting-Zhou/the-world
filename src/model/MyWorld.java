@@ -198,7 +198,7 @@ public final class MyWorld implements World {
   public void addHumanPlayer(String playerName) {
     int indexOfNewPlayer = players.size();
     initializePlayer(indexOfNewPlayer, 0, playerName);
-    System.out.println("Human-controlled player " + playerName + " is added to the game!");
+    System.out.println(String.format("Human-controlled player %s is added to the game!", playerName));
   }
 
   /**
@@ -210,7 +210,7 @@ public final class MyWorld implements World {
   public void addComputerPlayer(String playerName) {
     int indexOfNewPlayer = players.size();
     initializePlayer(indexOfNewPlayer, 1, playerName);
-    System.out.println("Computer-controlled player " + playerName + " is in the game!");
+    System.out.println(String.format("Computer-controlled player %s is added to the game!", playerName));
   }
 
   /**
@@ -286,9 +286,9 @@ public final class MyWorld implements World {
       roundOfTargetCharacter();
       roundOfPlayers();
       System.out.println();
-      System.out.println("This turn has finished. And the target is now in room "
-          + target.getCurrentLocation().getRoomNumber() + " with health " + target.getHealth()
-          + ".");
+      System.out.println(String.format("This turn has finished. And the target is now in room %d with health %d.",
+            target.getCurrentLocation().getRoomNumber(), target.getHealth()));
+      System.out.println();
       System.out.println("***************");
       System.out.println("Game continues.");
     }
@@ -327,10 +327,9 @@ public final class MyWorld implements World {
     Player player;
     player = players.get(indexOfCurrentPlayer);
 
-    System.out.println("It's " + player.getName() + "'s turn!");
+    System.out.println(String.format("It's %s's turn!", player.getName()));
     //display the current location of player
-    System.out.println("You are now in room " + player.getCurrentLocation()
-        .getRoomNumber() + ".");
+    System.out.println(String.format("You are now in room %d.", player.getCurrentLocation().getRoomNumber()));
     System.out.print("And you");
     player.displayWeaponInformation();
     System.out.println();
@@ -345,8 +344,7 @@ public final class MyWorld implements World {
     //ask which action the player choose
     System.out.println();
     System.out.println(
-        "You have 3 options:\n1.move to a neighboring space.\n2.pick up a weapon if there is any.\n" +
-            "3.look around.\nWhat do you want to do, " + player.getName() + "?");
+        String.format("You have 3 options:%n1.move to a neighboring space.%n2.pick up a weapon if there is any.%n3.look around.%nWhat do you want to do, %s?", player.getName()));
     Scanner scanner = new Scanner(System.in);
     System.out.println("Please enter the corresponding number: ");
     Integer action = scanner.nextInt();
@@ -387,9 +385,9 @@ public final class MyWorld implements World {
   public void displayTargetInformation() {
     // Display information about the target
     System.out.println("Target Information:");
-    System.out.println("Name: " + target.getName());
-    System.out.println("Current Location: Room " + target.getCurrentLocation().getRoomNumber());
-    System.out.println("Health: " + target.getHealth());
+    System.out.println(String.format("Name: %s", target.getName()));
+    System.out.println(String.format("Current Location: Room %d", target.getCurrentLocation().getRoomNumber()));
+    System.out.println(String.format("Health: %d", target.getHealth()));
     System.out.println("--------------");
   }
 
@@ -418,7 +416,7 @@ public final class MyWorld implements World {
     for (Player player : players) {
       if (player.getName().equalsIgnoreCase(playerName)) {
         //3.Display the player information
-        System.out.println("Information of player " + player.getName() + ": ");
+        System.out.println(String.format("Information of player %s: ", player.getName()));
         System.out.print(player.getName());
         player.displayWeaponInformation();
         if (player.getTypeOfPlayer() == 0) {
@@ -426,7 +424,7 @@ public final class MyWorld implements World {
         } else {
           System.out.println("This is a computer player.");
         }
-        System.out.println("Current Location: Room " + player.getCurrentLocation().getRoomNumber());
+        System.out.println(String.format("Current Location: Room %d", player.getCurrentLocation().getRoomNumber()));
         player.getCurrentLocation().displayWeapons();
         System.out.println("--------------");
         break;
@@ -454,7 +452,7 @@ public final class MyWorld implements World {
     System.out.println();
 
     // 3.Display the room information
-    System.out.println("Room " + roomNumber + " information: ");
+    System.out.println(String.format("Room %d information:", roomNumber));
     room.displayWeapons();
     room.displayTarget(target);
     room.displayPlayers(players);

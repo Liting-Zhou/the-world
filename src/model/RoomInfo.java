@@ -204,7 +204,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     int i = 0;
     for (Player player : players) {
       if (this.equals(player.getCurrentLocation())) {
-        System.out.println("Player " + player.getName() + " is here!");
+        System.out.println(String.format("Player %s is here!", player.getName()));
         i += 1;
       }
     }
@@ -223,13 +223,12 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
       System.out.println(
-          "WeaponImp " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
-              + " is in this room.");
+          String.format("Weapon %s with power %d is in this room.", weapons.get(0).getName(), weapons.get(0).getPower()));
     } else {
-      System.out.println("There are " + weapons.size() + " weapons in this room: ");
+      System.out.println(String.format("There are %d weapons in this room: ", weapons.size()));
       int i = 1;
       for (WeaponImp weapon : weapons) {
-        System.out.println(i + "." + weapon.getName() + " with power " + weapon.getPower());
+        System.out.println(String.format("%d. %s with power %d", i, weapon.getName(), weapon.getPower()));
         i += 1;
       }
     }
@@ -245,7 +244,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     }else{
       System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
-        System.out.println(neighbor.getRoomNumber() + ": " + neighbor.getRoomName());
+        System.out.println(String.format("%d: %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
       }
     }
   }
