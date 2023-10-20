@@ -16,7 +16,7 @@ public final class RoomInfo{
   private final int x2; //right bottom corner
   private final int y2; //right bottom corner
   private final String roomName;
-  private final List<Weapon> weapons;
+  private final List<WeaponImp> weapons;
   private List<RoomInfo> neighbors = new ArrayList<>();
 
   /**
@@ -31,7 +31,7 @@ public final class RoomInfo{
    * @param weapons    The list of weapons present in the room.
    */
   public RoomInfo(int roomNumber, int x1, int y1, int x2, int y2, String roomName,
-                  List<Weapon> weapons) {
+                  List<WeaponImp> weapons) {
     this.roomNumber = roomNumber;
     this.x1 = x1;
     this.y1 = y1;
@@ -100,7 +100,7 @@ public final class RoomInfo{
    *
    * @return The list of weapons.
    */
-  public List<Weapon> getWeapons() {
+  public List<WeaponImp> getWeapons() {
     return weapons;
   }
 
@@ -169,7 +169,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
   /**
    * Removes the given weapon from the room.
    */
-  public void removeWeapon(Weapon weapon) {
+  public void removeWeapon(WeaponImp weapon) {
     this.weapons.remove(weapon);
   }
 
@@ -209,12 +209,12 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
       System.out.println(
-          "Weapon " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
+          "WeaponImp " + weapons.get(0).getName() + " with power " + weapons.get(0).getPower()
               + " is in this room.");
     } else {
       System.out.println("There are " + weapons.size() + " weapons in this room: ");
       int i = 1;
-      for (Weapon weapon : weapons) {
+      for (WeaponImp weapon : weapons) {
         System.out.println(i + "." + weapon.getName() + " with power " + weapon.getPower());
         i += 1;
       }

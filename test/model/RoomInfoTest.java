@@ -19,7 +19,7 @@ import org.junit.Test;
  */
 public class RoomInfoTest {
   private RoomInfo thisRoom;
-  private List<Weapon> weapons = new ArrayList<>();
+  private List<WeaponImp> weapons = new ArrayList<>();
   private List<RoomInfo> listOfRooms = new ArrayList<>();
 
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -31,7 +31,7 @@ public class RoomInfoTest {
 
   @Before
   public void setUp() {
-    weapons.add(new Weapon(3, "Test weapon", 1));
+    weapons.add(new WeaponImp(3, "Test weapon", 1));
 
     thisRoom = new RoomInfo(1, 9, 2, 19, 4, "Test Room", weapons);
     listOfRooms.add(thisRoom);
@@ -54,7 +54,7 @@ public class RoomInfoTest {
 
   @Test
   public void testGetWeapons() {
-    List<Weapon> roomWeapons = thisRoom.getWeapons();
+    List<WeaponImp> roomWeapons = thisRoom.getWeapons();
     assertNotNull(roomWeapons);
     assertEquals(1, roomWeapons.size());
   }
@@ -113,7 +113,7 @@ public class RoomInfoTest {
   @Test
   public void testDisplayWeapons() {
     thisRoom.displayWeapons();
-    String expectedOutputHere = "Weapon Test weapon with power 3 is in this room.\n";
+    String expectedOutputHere = "WeaponImp Test weapon with power 3 is in this room.\n";
     assertEquals(expectedOutputHere, outContent.toString());
   }
 

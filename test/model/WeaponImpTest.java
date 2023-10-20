@@ -9,12 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * This class contains test cases for the {@link Weapon} class.
+ * This class contains test cases for the {@link WeaponImp} class.
  */
-public class WeaponTest {
-  private Weapon weapon1;
-  private Weapon weapon2;
-  private Weapon weapon3;
+public class WeaponImpTest {
+  private WeaponImp weapon1;
+  private WeaponImp weapon2;
+  private WeaponImp weapon3;
 
   /**
    * Sets up the test environment before each test case.
@@ -22,9 +22,9 @@ public class WeaponTest {
 
   @Before
   public void setUp() {
-    weapon1 = new Weapon(10, "model.Weapon A", 1);
-    weapon2 = new Weapon(10, "model.Weapon A", 1);
-    weapon3 = new Weapon(20, "model.Weapon B", 2);
+    weapon1 = new WeaponImp(10, "model.WeaponImp A", 1);
+    weapon2 = new WeaponImp(10, "model.WeaponImp A", 1);
+    weapon3 = new WeaponImp(20, "model.WeaponImp B", 2);
   }
 
   @Test
@@ -36,7 +36,7 @@ public class WeaponTest {
   @Test
   public void testGetName() {
     String name = weapon1.getName();
-    assertEquals("model.Weapon A", name);
+    assertEquals("model.WeaponImp A", name);
   }
 
   @Test

@@ -13,7 +13,7 @@ public final class World {
   private Target target;
   private List<RoomInfo> listOfRooms;
   private Mansion mansion;
-  private List<Weapon> weapons;
+  private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
 
   /**
@@ -82,8 +82,8 @@ public final class World {
         weaponName = String.join(" ", restOfWeaponData);
       }
 
-      // Create a model.Weapon object with the parsed data and add it to the list of weapons.
-      Weapon weapon = new Weapon(weaponPower, weaponName, roomNumber);
+      // Create a model.WeaponImp object with the parsed data and add it to the list of weapons.
+      WeaponImp weapon = new WeaponImp(weaponPower, weaponName, roomNumber);
       weapons.add(weapon);
 
       lineIndex++;
@@ -122,8 +122,8 @@ public final class World {
 
 
       // find the list of weapons belong to a specific room
-      List<Weapon> listOfWeaponsSpecificRoom = new ArrayList<>();
-      for (Weapon item : weapons) {
+      List<WeaponImp> listOfWeaponsSpecificRoom = new ArrayList<>();
+      for (WeaponImp item : weapons) {
         int roomNumber = item.getBelongRoomNumber();
         if (roomNumber == lineIndex - 3) {
           listOfWeaponsSpecificRoom.add(item);

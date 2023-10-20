@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Player extends AbstractCharacter {
   private int indexOfPlayer;
   private int typeOfPlayer; // 0 for human, 1 for computer
-  private List<Weapon> weaponsCarried;
+  private List<WeaponImp> weaponsCarried;
 
   /**
    * Constructs a new model.Player object.
@@ -84,7 +84,7 @@ public class Player extends AbstractCharacter {
    * Player pick up a weapon.
    */
   public void pickUpWeapon() {
-    List<Weapon> weapons = this.getCurrentLocation().getWeapons();
+    List<WeaponImp> weapons = this.getCurrentLocation().getWeapons();
     if (weapons.isEmpty()) {
       System.out.println("No weapons in this room.");
     } else if (weapons.size() == 1) {
@@ -100,7 +100,7 @@ public class Player extends AbstractCharacter {
       Scanner scanner = new Scanner(System.in);
       System.out.println("Which one do you want to pick up? Enter the corresponding number: ");
       Integer weaponNumber = scanner.nextInt();
-      Weapon weapon = weapons.get(weaponNumber - 1);
+      WeaponImp weapon = weapons.get(weaponNumber - 1);
       weaponsCarried.add(weapon);
       System.out.println("You picked up " + weapon.getName() + " with power " + weapon.getPower()
           + ".");
@@ -145,7 +145,7 @@ public class Player extends AbstractCharacter {
     if (weaponsCarried.isEmpty()) {
       System.out.println(" has/have no weapon.");
     } else {
-      for (Weapon weapon : weaponsCarried) {
+      for (WeaponImp weapon : weaponsCarried) {
         System.out.println(" has/have the following weapon(s):");
         System.out.println(weapon.getName() + " with power " + weapon.getPower());
       }
@@ -206,8 +206,8 @@ public class Player extends AbstractCharacter {
    * @return The updated target character.
    */
   public Target attack(RoomInfo room, Target target) {
-    List<Weapon> weapons = room.getWeapons();
-    Weapon weapon = null;
+    List<WeaponImp> weapons = room.getWeapons();
+    WeaponImp weapon = null;
     // if there are more than one weapons in the room, pick one randomly
     if (weapons.size() > 1) {
       // Create a Random object
