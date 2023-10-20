@@ -23,12 +23,12 @@ public interface Character {
    *
    * @return The current location of the character.
    */
-  RoomInfo getCurrentLocation();
+  Room getCurrentLocation();
 
   /**
    * Sets the current location of this character.
    *
    * @param currentLocation The current location to set for the character.
    */
-  void setCurrentLocation(RoomInfo currentLocation);
+  void setCurrentLocation(Room currentLocation);
 }

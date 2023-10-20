@@ -17,7 +17,7 @@ import org.junit.Test;
  */
 public class MansionTest {
   private Mansion mansion;
-  private List<RoomInfo> rooms;
+  private List<Room> rooms;
 
   /**
    * Sets up the test environment before each test case.
@@ -36,15 +36,15 @@ public class MansionTest {
 
   @Test
   public void testGetListOfRooms() {
-    List<RoomInfo> roomList = mansion.getListOfRooms();
+    List<Room> roomList = mansion.getListOfRooms();
     assertNotNull(roomList);
     assertEquals(rooms.size(), roomList.size());
   }
 
   @Test
   public void testGetRoomInfoByRoomNumber() {
-    RoomInfo roomA = mansion.getRoomInfoByRoomNumber(0);
-    RoomInfo roomB = mansion.getRoomInfoByRoomNumber(1);
+    Room roomA = mansion.getRoomInfoByRoomNumber(0);
+    Room roomB = mansion.getRoomInfoByRoomNumber(1);
 
     assertNotNull(roomA);
     assertNotNull(roomB);

@@ -15,10 +15,10 @@ import org.junit.Test;
  */
 public class PlayerTest extends AbstractCharacter {
   private Player player;
-  private RoomInfo initialLocation;
+  private Room initialLocation;
   private Target target;
   private List<Player> players;
-  private List<RoomInfo> listOfRooms;
+  private List<Room> listOfRooms;
 
   /**
    * Sets up the test environment before each test case.
@@ -67,16 +67,16 @@ public class PlayerTest extends AbstractCharacter {
 
   @Test
   public void testUpdateRoomInfo() {
-    RoomInfo newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
+    Room newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
     player.updateRoomInfo(newLocation);
-    RoomInfo updatedLocation = player.getCurrentLocation();
+    Room updatedLocation = player.getCurrentLocation();
     Assert.assertEquals(newLocation, updatedLocation);
   }
 
 
   @Test
   public void testAction() {
-    RoomInfo newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
+    Room newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
     Target updatedTarget = player.action("move", newLocation, target, players, listOfRooms);
     assertNotNull(updatedTarget);
   }
@@ -84,7 +84,7 @@ public class PlayerTest extends AbstractCharacter {
 
   @Test
   public void testAttack() {
-    RoomInfo room = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
+    Room room = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
     Target initialTarget = new Target("Test model.Target", 20, room);
     Target updatedTarget = player.attack(room, initialTarget);
     assertNotNull(updatedTarget);

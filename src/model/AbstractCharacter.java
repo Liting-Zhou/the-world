@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 abstract class AbstractCharacter implements Character {
   private String name;
-  private RoomInfo currentLocation;
+  private Room currentLocation;
 
 
   /**
@@ -37,7 +37,7 @@ abstract class AbstractCharacter implements Character {
    * @return The current location of the character.
    */
   @Override
-  public RoomInfo getCurrentLocation() {
+  public Room getCurrentLocation() {
     return currentLocation;
   }
 
@@ -47,7 +47,7 @@ abstract class AbstractCharacter implements Character {
    * @param currentLocation The current location to set for the character.
    */
   @Override
-  public void setCurrentLocation(RoomInfo currentLocation) {
+  public void setCurrentLocation(Room currentLocation) {
     this.currentLocation = currentLocation;
   }
 

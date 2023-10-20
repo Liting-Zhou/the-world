@@ -18,7 +18,7 @@ public final class Target extends AbstractCharacter {
    * @param health          The initial health of the target.
    * @param currentLocation The initial current location of the target.
    */
-  public Target(String name, int health, RoomInfo currentLocation) {
+  public Target(String name, int health, Room currentLocation) {
     super();
     this.health = health;
     setName(name); // Set the name of the target using the inherited setName method.
@@ -52,7 +52,7 @@ public final class Target extends AbstractCharacter {
    * @param listOfRooms The list of all rooms
    * @return The updated target character with new location and health.
    */
-  public Target move(Mansion mansion, List<Player> players, List<RoomInfo> listOfRooms) {
+  public Target move(Mansion mansion, List<Player> players, List<Room> listOfRooms) {
     // get current location
     int currentLocation = getCurrentLocation().getRoomNumber();
     // if currently in room 21, move to room 0, otherwise move to the next room
@@ -61,7 +61,7 @@ public final class Target extends AbstractCharacter {
       moveToRoom = getCurrentLocation().getRoomNumber() + 1;
     }
     // move to next room
-    RoomInfo newLocation = mansion.getRoomInfoByRoomNumber(moveToRoom);
+    Room newLocation = mansion.getRoomInfoByRoomNumber(moveToRoom);
     setCurrentLocation(newLocation);
 
     Target updatedTarget = this;
@@ -72,10 +72,10 @@ public final class Target extends AbstractCharacter {
     for (Player player : players) {
       if (newLocation == player.getCurrentLocation()) {
         //check if they can be seen
-        List<RoomInfo> neighbors = newLocation.getNeighbors(listOfRooms);
+        List<Room> neighbors = newLocation.getNeighbors(listOfRooms);
         boolean canBeSeen = false;
         for (Player people : players) {
-          RoomInfo currentRoom = people.getCurrentLocation();
+          Room currentRoom = people.getCurrentLocation();
           if (neighbors.contains(currentRoom)) {
             canBeSeen = true;
             System.out.println("You can be seen, no attack.");

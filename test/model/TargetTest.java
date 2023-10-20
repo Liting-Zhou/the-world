@@ -13,10 +13,10 @@ import org.junit.Test;
  */
 public class TargetTest {
   private Target target;
-  private RoomInfo firstRoom;
+  private Room firstRoom;
   private Mansion mansion;
   private List<Player> players;
-  private List<RoomInfo> listOfRooms;
+  private List<Room> listOfRooms;
 
   /**
    * Sets up the test environment before each test case.
@@ -30,7 +30,7 @@ public class TargetTest {
 
     players = new ArrayList<>();
     listOfRooms = new ArrayList<>();
-    listOfRooms.add((RoomInfo) firstRoom);
+    listOfRooms.add(firstRoom);
   }
 
   @Test
@@ -48,12 +48,12 @@ public class TargetTest {
 
   @Test
   public void testMove() {
-    RoomInfo secondRoom = new RoomInfo(2, 3, 3, 5, 5, "Second Room", new ArrayList<>());
-    RoomInfo thirdRoom = new RoomInfo(3, 3, 5, 8, 9, "Third Room", new ArrayList<>());
+    Room secondRoom = new RoomInfo(2, 3, 3, 5, 5, "Second Room", new ArrayList<>());
+    Room thirdRoom = new RoomInfo(3, 3, 5, 8, 9, "Third Room", new ArrayList<>());
     players.add(new Player(1, 0, "model.Player 1", secondRoom));
     players.add(new Player(2, 0, "model.Player 2", thirdRoom));
-    listOfRooms.add((RoomInfo) secondRoom);
-    listOfRooms.add((RoomInfo) thirdRoom);
+    listOfRooms.add(secondRoom);
+    listOfRooms.add(thirdRoom);
     mansion = new Mansion("Test model.Mansion", 10, 10, listOfRooms);
 
     Target updatedTarget = target.move(mansion, players, listOfRooms);

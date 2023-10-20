@@ -11,7 +11,7 @@ public final class World {
   private static List<Player> players = new ArrayList<>();
   private final int startingRoom = 16;
   private Target target;
-  private List<RoomInfo> listOfRooms;
+  private List<Room> listOfRooms;
   private Mansion mansion;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
@@ -131,12 +131,12 @@ public final class World {
       }
 
       // Create a Room object with the parsed data.
-      RoomInfo room =
+      Room room =
           new RoomInfo(lineIndex - 3, topLeftX, topLeftY, bottomRightX, bottomRightY, roomName,
               listOfWeaponsSpecificRoom);
 
       // Add the created Room object to the list of rooms.
-      listOfRooms.add((RoomInfo) room);
+      listOfRooms.add(room);
 
       lineIndex++;
     }
@@ -181,7 +181,7 @@ public final class World {
     }
 
     // Initialize the starting location, which is the trophy room, number 16
-    RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
+    Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
 
     // Create the target character.
     target = new Target(targetName, targetHealth, currentLocation);
@@ -191,7 +191,7 @@ public final class World {
    * Initializes player.
    */
   private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName) {
-    RoomInfo currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
+    Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
     Player player = new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation);
     // Add the created model.Player object to the list of players.
     players.add(player);
@@ -436,7 +436,7 @@ public final class World {
     System.out.println("Which room do you want to display? Please enter the room number: ");
     Scanner scanner = new Scanner(System.in);
     Integer roomNumber = scanner.nextInt();
-    RoomInfo room = mansion.getRoomInfoByRoomNumber(roomNumber);
+    Room room = mansion.getRoomInfoByRoomNumber(roomNumber);
     System.out.println();
 
     // 3.Display the room information

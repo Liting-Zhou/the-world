@@ -21,7 +21,7 @@ public class Player extends AbstractCharacter {
    * @param name            The name of the player.
    * @param currentLocation The initial current location of the player.
    */
-  public Player(int indexOfPlayer, int typeOfPlayer, String name, RoomInfo currentLocation) {
+  public Player(int indexOfPlayer, int typeOfPlayer, String name, Room currentLocation) {
     super(); // Call the constructor of the superclass (model.AbstractCharacter).
     this.indexOfPlayer = indexOfPlayer;
     this.typeOfPlayer = typeOfPlayer;
@@ -63,7 +63,7 @@ public class Player extends AbstractCharacter {
    *
    * @param newLocation The new location to set for the player.
    */
-  public void updateRoomInfo(RoomInfo newLocation) {
+  public void updateRoomInfo(Room newLocation) {
     setCurrentLocation(newLocation);
   }
 
@@ -162,8 +162,8 @@ public class Player extends AbstractCharacter {
    * @param listOfRooms The list of all rooms.
    * @return The updated target character.
    */
-  public Target action(String action, RoomInfo newLocation, Target target, List<Player> players,
-                       List<RoomInfo> listOfRooms) {
+  public Target action(String action, Room newLocation, Target target, List<Player> players,
+                       List<Room> listOfRooms) {
     Target updatedTarget = target;
     if ("stay".equals(action)) {
       // TODO if stay, what to do?
@@ -171,14 +171,14 @@ public class Player extends AbstractCharacter {
       //move to the new location
       setCurrentLocation(newLocation);
       //check if target in the same room
-      RoomInfo targetLocation;
+      Room targetLocation;
       targetLocation = target.getCurrentLocation();
       if (newLocation == targetLocation) {
         //check if they can be seen
-        List<RoomInfo> neighbors = newLocation.getNeighbors(listOfRooms);
+        List<Room> neighbors = newLocation.getNeighbors(listOfRooms);
         boolean canBeSeen = false;
         for (Player player : players) {
-          RoomInfo currentRoom = player.getCurrentLocation();
+          Room currentRoom = player.getCurrentLocation();
           if (neighbors.contains(currentRoom)) {
             canBeSeen = true;
             System.out.println("You can be seen, no attack.");
@@ -205,7 +205,7 @@ public class Player extends AbstractCharacter {
    * @param target The target character to attack.
    * @return The updated target character.
    */
-  public Target attack(RoomInfo room, Target target) {
+  public Target attack(Room room, Target target) {
     List<WeaponImp> weapons = room.getWeapons();
     WeaponImp weapon = null;
     // if there are more than one weapons in the room, pick one randomly

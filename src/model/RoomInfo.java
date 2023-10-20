@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents information about a room in Doctor Lucky's model.Mansion, including its position, name,
  * weapons present, and neighbors.
  */
-public final class RoomInfo{
+public final class RoomInfo implements Room {
 
   private final int roomNumber;
   private final int x1; //left up corner
@@ -17,7 +17,7 @@ public final class RoomInfo{
   private final int y2; //right bottom corner
   private final String roomName;
   private final List<WeaponImp> weapons;
-  private List<RoomInfo> neighbors = new ArrayList<>();
+  private List<Room> neighbors = new ArrayList<>();
 
   /**
    * Constructs a new model.RoomInfo object.
@@ -46,6 +46,7 @@ public final class RoomInfo{
    *
    * @return x1
    */
+  @Override
   public int getX1() {
     return x1;
   }
@@ -55,6 +56,7 @@ public final class RoomInfo{
    *
    * @return y1
    */
+  @Override
   public int getY1() {
     return y1;
   }
@@ -64,6 +66,7 @@ public final class RoomInfo{
    *
    * @return x2
    */
+  @Override
   public int getX2() {
     return x2;
   }
@@ -73,6 +76,7 @@ public final class RoomInfo{
    *
    * @return y2
    */
+  @Override
   public int getY2() {
     return y2;
   }
@@ -82,6 +86,7 @@ public final class RoomInfo{
    *
    * @return The name of the room
    */
+  @Override
   public String getRoomName() {
     return roomName;
   }
@@ -91,6 +96,7 @@ public final class RoomInfo{
    *
    * @return The room number.
    */
+  @Override
   public int getRoomNumber() {
     return roomNumber;
   }
@@ -100,6 +106,7 @@ public final class RoomInfo{
    *
    * @return The list of weapons.
    */
+  @Override
   public List<WeaponImp> getWeapons() {
     return weapons;
   }
@@ -122,21 +129,23 @@ public final class RoomInfo{
    * @param listOfRooms The list of all rooms
    * @return A list of Room representing neighbors.
    */
-  public List<RoomInfo> getNeighbors(List<RoomInfo> listOfRooms) {
-    List<RoomInfo> neighbors = new ArrayList<>();
+  @Override
+  public List<Room> getNeighbors(List<Room> listOfRooms) {
+    List<Room> neighbors = new ArrayList<>();
 
     // 1. when (this.y2 == other.y1, or this.y1 == other.y2), check if this.x2 > other.x1 and this.x1 < other.x2
     // 2. when (this.x2 == other.x1, or this.x1 == other.x2), check if this.y1 < other.y2 and this.y2 > other.y1
-    for (RoomInfo otherRoom : listOfRooms) {
-      if (this != otherRoom && shareCoordinate(otherRoom)) {
-        if (this.y2 == otherRoom.y1 || this.y1 == otherRoom.y2) {
-          if (this.x2 > otherRoom.x1 && this.x1 < otherRoom.x2) {
+    for (Room otherRoom : listOfRooms) {
+      RoomInfo o=(RoomInfo) otherRoom;
+      if (this != otherRoom && shareCoordinate(o)) {
+        if (this.y2 == o.y1 || this.y1 == o.y2) {
+          if (this.x2 > o.x1 && this.x1 < o.x2) {
             neighbors.add(otherRoom);
             continue;
           }
         }
-        if (this.x2 == otherRoom.x1 || this.x1 == otherRoom.x2) {
-          if (this.y1 < otherRoom.y2 && this.y2 > otherRoom.y1) {
+        if (this.x2 == o.x1 || this.x1 == o.x2) {
+          if (this.y1 < o.y2 && this.y2 > o.y1) {
             neighbors.add(otherRoom);
           }
         }
@@ -162,13 +171,15 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
    *
    * @param neighbors The list of neighbors
    */
-  public void setNeighbors(List<RoomInfo> neighbors) {
+  @Override
+  public void setNeighbors(List<Room> neighbors) {
     this.neighbors = neighbors;
   }
 
   /**
    * Removes the given weapon from the room.
    */
+  @Override
   public void removeWeapon(WeaponImp weapon) {
     this.weapons.remove(weapon);
   }
@@ -176,6 +187,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
   /**
    * Finds out if target is here, if yes, display target information.
    */
+  @Override
   public void displayTarget(Target target) {
     if (this.equals(target.getCurrentLocation())) {
       System.out.println("Target is here!");
@@ -187,6 +199,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
   /**
    * Finds out if any player is here, if yes, display player information.
    */
+  @Override
   public void displayPlayers(List<Player> players) {
     int i = 0;
     for (Player player : players) {
@@ -203,6 +216,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
   /**
    * Displays the weapon information in the room.
    */
+  @Override
   public void displayWeapons() {
     if (weapons.isEmpty()) {
       System.out.println("No weapons in this room.");
@@ -224,12 +238,13 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
   /**
    * Displays the neighbors of the room.
    */
+  @Override
   public void displayNeighbors() {
     if(neighbors.isEmpty()){
       System.out.println("This room has no neighboring room.");
     }else{
       System.out.println("The neighbors of the room are: ");
-      for (RoomInfo neighbor : neighbors) {
+      for (Room neighbor : neighbors) {
         System.out.println(neighbor.getRoomNumber() + ": " + neighbor.getRoomName());
       }
     }
@@ -242,7 +257,7 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     if (!(o instanceof RoomInfo)) {
       return false;
     }
-    RoomInfo roomInfo = (RoomInfo) o;
+    Room roomInfo = (Room) o;
     return getRoomNumber() == roomInfo.getRoomNumber() && getX1() == roomInfo.getX1() &&
         getY1() == roomInfo.getY1() && getX2() == roomInfo.getX2() && getY2() == roomInfo.getY2() &&
         Objects.equals(getRoomName(), roomInfo.getRoomName());
