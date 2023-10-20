@@ -50,8 +50,8 @@ public class TargetTest {
   public void testMove() {
     Room secondRoom = new RoomInfo(2, 3, 3, 5, 5, "Second Room", new ArrayList<>());
     Room thirdRoom = new RoomInfo(3, 3, 5, 8, 9, "Third Room", new ArrayList<>());
-    players.add(new Player(1, 0, "Player 1", secondRoom));
-    players.add(new Player(2, 0, "Player 2", thirdRoom));
+    players.add(new Player(1, 0, "Player 1", secondRoom,3));
+    players.add(new Player(2, 0, "Player 2", thirdRoom,3));
     listOfRooms.add(secondRoom);
     listOfRooms.add(thirdRoom);
     mansion = new Mansion("Test Mansion", 10, 10, listOfRooms);

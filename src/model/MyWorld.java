@@ -181,9 +181,9 @@ public final class MyWorld implements World {
   /**
    * Initializes player.
    */
-  private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,int startingRoomNumber) {
+  private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,int startingRoomNumber,int maxNumOfWeapons) {
     Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoomNumber);
-    Player player = new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation);
+    Player player = new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation,maxNumOfWeapons);
     // Add the created model.Player object to the list of players.
     players.add(player);
   }
@@ -195,9 +195,9 @@ public final class MyWorld implements World {
    * @param playerName The name of the player to add.
    */
   @Override
-  public void addHumanPlayer(String playerName,int startingRoomNumber) {
+  public void addHumanPlayer(String playerName,int startingRoomNumber,int maxNumOfWeapons) {
     int indexOfNewPlayer = players.size();
-    initializePlayer(indexOfNewPlayer, 0, playerName,startingRoomNumber);
+    initializePlayer(indexOfNewPlayer, 0, playerName,startingRoomNumber,maxNumOfWeapons);
     System.out.println(String.format("Human-controlled player %s is added to the game!", playerName));
   }
 
@@ -207,9 +207,9 @@ public final class MyWorld implements World {
    * @param playerName The name of the player to add.
    */
   @Override
-  public void addComputerPlayer(String playerName,int startingRoomNumber) {
+  public void addComputerPlayer(String playerName,int startingRoomNumber,int maxNumOfWeapons) {
     int indexOfNewPlayer = players.size();
-    initializePlayer(indexOfNewPlayer, 1, playerName,startingRoomNumber);
+    initializePlayer(indexOfNewPlayer, 1, playerName,startingRoomNumber,maxNumOfWeapons);
     System.out.println(String.format("Computer-controlled player %s is added to the game!", playerName));
   }
 
@@ -419,6 +419,7 @@ public final class MyWorld implements World {
         System.out.println(String.format("Information of player %s: ", player.getName()));
         System.out.print(player.getName());
         player.displayWeaponInformation();
+        System.out.println(String.format("Maximum number of weapons can carry: %d", player.getMaxNumberOfWeapons()));
         if (player.getTypeOfPlayer() == 0) {
           System.out.println("This is a human player.");
         } else {

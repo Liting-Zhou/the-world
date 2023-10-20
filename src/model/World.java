@@ -8,16 +8,18 @@ public interface World {
    *
    * @param playerName The name of the player to add.
    * @param startingRoomNumber The starting room number of the player.
+   * @param maxNumOfWeapons The maximum number of weapons this player can carry.
    */
-  void addHumanPlayer(String playerName, int startingRoomNumber);
+  void addHumanPlayer(String playerName, int startingRoomNumber, int maxNumOfWeapons);
 
   /**
    * Adds computer-controlled player to the game.
    *
    * @param playerName The name of the player to add.
    * @param startingRoomNumber The starting room number of the player.
+   * @param maxNumOfWeapons The maximum number of weapons this player can carry.
    */
-  void addComputerPlayer(String playerName,int startingRoomNumber);
+  void addComputerPlayer(String playerName,int startingRoomNumber,int maxNumOfWeapons);
 
   /**
    * Gets the target.

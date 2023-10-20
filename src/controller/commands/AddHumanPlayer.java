@@ -15,9 +15,11 @@ public final class AddHumanPlayer implements Command {
   public void execute(MyWorld w) {
     System.out.println("Please enter the name: ");
     String name = scan.next();
-    System.out.println("Which room do you want to start from? Enter the room number (0-21): ");
+    System.out.println("Choose a room to start from. Enter the room number (0-21): ");
     int roomNumber = scan.nextInt();
-    w.addHumanPlayer(name, roomNumber);
+    System.out.println("The maximum number of weapons this player can carry is: ");
+    int maxNumOfWeapons = scan.nextInt();
+    w.addHumanPlayer(name, roomNumber,maxNumOfWeapons);
     System.out.println("***************");
   }
 }

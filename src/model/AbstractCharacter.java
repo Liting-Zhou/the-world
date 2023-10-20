@@ -9,6 +9,8 @@ import java.util.Objects;
 abstract class AbstractCharacter implements Character {
   private String name;
   private Room currentLocation;
+  protected int maxNumberOfWeapons=0;
+
 
 
   /**
