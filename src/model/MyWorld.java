@@ -153,7 +153,9 @@ public final class MyWorld implements World {
     // Parse mansion dimensions and name.
     int mansionWidth = Integer.parseInt(mansionData[0]);
     int mansionHeight = Integer.parseInt(mansionData[1]);
-    String mansionName = mansionData[2];
+    String[] restOfMansionData = new String[mansionData.length - 2];
+    System.arraycopy(mansionData, 2, restOfMansionData, 0, mansionData.length - 2);
+    String mansionName = String.join(" ", restOfMansionData);
 
     // Create the model.Mansion object with the parsed data.
     mansion = new Mansion(mansionName, mansionHeight, mansionWidth, listOfRooms);
@@ -170,16 +172,9 @@ public final class MyWorld implements World {
 
     // Parse the target's total health and name
     int targetHealth = Integer.parseInt(targetData[0]);
-
-    String targetName;
-    if (targetData.length == 2) {
-      targetName = targetData[1];
-    } else {
-      //if the name contains more than one word
-      String[] restOfTargetData = new String[targetData.length - 1];
-      System.arraycopy(targetData, 1, restOfTargetData, 0, targetData.length - 1);
-      targetName = String.join(" ", restOfTargetData);
-    }
+    String[] restOfTargetData = new String[targetData.length - 1];
+    System.arraycopy(targetData, 1, restOfTargetData, 0, targetData.length - 1);
+    String targetName = String.join(" ", restOfTargetData);
 
     // Initialize the starting location, which is the trophy room, number 16
     Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
