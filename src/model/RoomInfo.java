@@ -210,7 +210,7 @@ public final class RoomInfo implements Room {
     if (isTargetHere(target)) {
       System.out.println("Target is here!");
     } else {
-      System.out.println("Target is not here!");
+      System.out.println("Target is not here.");
     }
   }
 
@@ -277,12 +277,13 @@ public final class RoomInfo implements Room {
    */
   @Override
   public void displayNeighborsSimple() {
-    if(neighbors.isEmpty()){
+    if (neighbors.isEmpty()) {
       System.out.println("This room has no neighboring room.");
-    }else{
+    } else {
       System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
-        System.out.println(String.format("%d. %s.", neighbor.getRoomNumber(), neighbor.getRoomName()));
+        System.out.println(
+            String.format("%d. %s.", neighbor.getRoomNumber(), neighbor.getRoomName()));
       }
     }
   }
@@ -296,7 +297,7 @@ public final class RoomInfo implements Room {
       System.out.println("This room has no neighboring room.");
     } else {
       Target target = Mansion.getTarget();
-      List<Player> players=Mansion.getListOfPlayers();
+      List<Player> players = Mansion.getListOfPlayers();
       System.out.println("The neighbors of this room are: ");
       for (Room neighbor : neighbors) {
         System.out.print(
@@ -307,7 +308,7 @@ public final class RoomInfo implements Room {
           neighbor.displayTarget(target);
         }
         //check if any player in this room and display player information
-        if(neighbor.isAnyPlayerHere(players)){
+        if (neighbor.isAnyPlayerHere(players)) {
           neighbor.displayPlayers(players);
         }
       }

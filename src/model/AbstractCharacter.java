@@ -7,11 +7,9 @@ import java.util.Objects;
  * This class serves as a base class for the `model.Target` and `model.Player` classes.
  */
 abstract class AbstractCharacter implements Character {
+  protected int maxNumberOfWeapons = 0;
   private String name;
   private Room currentLocation;
-  protected int maxNumberOfWeapons=0;
-
-
 
   /**
    * Gets the name of this character.

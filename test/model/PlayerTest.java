@@ -30,7 +30,7 @@ public class PlayerTest extends AbstractCharacter {
     initialLocation = new RoomInfo(0, 0, 0, 2, 2, "Initial Room", new ArrayList<>());
 
     // Initialize the player object for testing
-    player = new Player(0, 0, "Test Player", initialLocation,3);
+    player = new Player(0, 0, "Test Player", initialLocation, 3);
 
     // Initialize the target character for testing
     target = new Target("Test Target", 20, initialLocation);

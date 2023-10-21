@@ -21,7 +21,8 @@ public class Player extends AbstractCharacter {
    * @param name            The name of the player.
    * @param currentLocation The initial current location of the player.
    */
-  public Player(int indexOfPlayer, int typeOfPlayer, String name, Room currentLocation,int maxNumberOfWeapons) {
+  public Player(int indexOfPlayer, int typeOfPlayer, String name, Room currentLocation,
+                int maxNumberOfWeapons) {
     super(); // Call the constructor of the superclass (model.AbstractCharacter).
     this.indexOfPlayer = indexOfPlayer;
     this.typeOfPlayer = typeOfPlayer;

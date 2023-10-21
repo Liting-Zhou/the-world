@@ -74,7 +74,7 @@ public final class GameControllerSimple implements Controller {
           int roomNumber1 = s.nextInt();
           System.out.println("The maximum number of weapons this player can carry is: ");
           int maxNumOfWeapons1 = s.nextInt();
-          world.addHumanPlayer(humanPlayerName, roomNumber1,maxNumOfWeapons1);
+          world.addHumanPlayer(humanPlayerName, roomNumber1, maxNumOfWeapons1);
           System.out.println("***************");
           break;
         case 4:
@@ -85,7 +85,7 @@ public final class GameControllerSimple implements Controller {
           int roomNumber2 = s.nextInt();
           System.out.println("The maximum number of weapons this player can carry is: ");
           int maxNumOfWeapons2 = s.nextInt();
-          world.addComputerPlayer(computerPlayerName, roomNumber2,maxNumOfWeapons2);
+          world.addComputerPlayer(computerPlayerName, roomNumber2, maxNumOfWeapons2);
           System.out.println("***************");
           break;
         case 5:

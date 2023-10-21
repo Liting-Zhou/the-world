@@ -16,10 +16,10 @@ import javax.imageio.ImageIO;
 public final class Mansion {
   private static List<Room> rooms;
   private static List<Player> players;
+  private static Target target;
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
-  private static Target target;
 
   /**
    * Constructs a new model.Mansion object.
@@ -29,7 +29,7 @@ public final class Mansion {
    * @param mansionWidth  The width of the mansion map.
    * @param rooms         The list of rooms in the mansion.
    */
-  public Mansion(String mansionName, int mansionHeight, int mansionWidth, List<Room> rooms){
+  public Mansion(String mansionName, int mansionHeight, int mansionWidth, List<Room> rooms) {
     this.rooms = rooms;
     this.mansionHeight = mansionHeight;
     this.mansionWidth = mansionWidth;
@@ -85,6 +85,33 @@ public final class Mansion {
   }
 
   /**
+   * Gets the list of players in the mansion.
+   *
+   * @return The list of players.
+   */
+  public static List<Player> getListOfPlayers() {
+    return players;
+  }
+
+  /**
+   * Gets the target in the mansion.
+   *
+   * @return The target.
+   */
+  public static Target getTarget() {
+    return target;
+  }
+
+  /**
+   * sets the target in the mansion.
+   *
+   * @param target The target to be set.
+   */
+  public void setTarget(Target target) {
+    this.target = target;
+  }
+
+  /**
    * Gets the list of rooms in the mansion.
    *
    * @return The list of rooms.
@@ -133,37 +160,13 @@ public final class Mansion {
       System.out.println(String.format("%d: %s", room.getRoomNumber(), room.getRoomName()));
     }
   }
-  /**
-   * sets the target in the mansion.
-   *
-   * @param target The target to be set.
-   */
-    public void setTarget(Target target) {
-        this.target = target;
-    }
-
-    /**
-     * Adds a player to the mansion.
-     *
-     * @param player The player to be added.
-     */
-    public void addPlayer(Player player) {
-        players.add(player);}
-
-    /**
-     * Gets the list of players in the mansion.
-     *
-     * @return The list of players.
-     */
-    public static List<Player> getListOfPlayers() {
-        return players;
-    }
 
   /**
-   * Gets the target in the mansion.
+   * Adds a player to the mansion.
    *
-   * @return The target.
+   * @param player The player to be added.
    */
-    public static Target getTarget() {
-        return target;}
+  public void addPlayer(Player player) {
+    players.add(player);
+  }
 }
