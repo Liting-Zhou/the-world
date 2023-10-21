@@ -304,8 +304,7 @@ public final class MyWorld implements World {
   /**
    * Plays target move and update target information.
    */
-  @Override
-  public void roundOfTargetCharacter() {
+  private void roundOfTargetCharacter() {
     Target targetAfterMove = target.move(mansion, players, listOfRooms);
     updateTarget(targetAfterMove);
 
@@ -328,8 +327,7 @@ public final class MyWorld implements World {
    * 3.look around by displaying information about where a specific player is in the world
    * including what spaces that can be seen from where they are.
    */
-  @Override
-  public void roundOfPlayers() {
+  private void roundOfPlayers() {
     Player player;
     player = players.get(indexOfCurrentPlayer);
 

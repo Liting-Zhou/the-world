@@ -54,7 +54,7 @@ public class TargetTest {
     players.add(new Player(2, 0, "Player 2", thirdRoom, 3));
     listOfRooms.add(secondRoom);
     listOfRooms.add(thirdRoom);
-    mansion = new Mansion("Test Mansion", 10, 10, listOfRooms, target);
+    mansion = new Mansion("Test Mansion", 10, 10, listOfRooms);
 
     Target updatedTarget = target.move(mansion, players, listOfRooms);
     assertNotNull(updatedTarget);
