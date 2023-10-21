@@ -100,8 +100,8 @@ public class RoomInfoTest {
   @Test
   public void testDisplayPlayers() {
     List<Player> players = new ArrayList<>();
-    Player player1 = new Player(1, 0, "jack", thisRoom);
-    Player player2 = new Player(2, 1, "rose", thisRoom);
+    Player player1 = new Player(1,0,"jack",thisRoom,3);
+    Player player2 = new Player(2,1,"rose",thisRoom,3);
     players.add(player1);
     players.add(player2);
     thisRoom.displayPlayers(players);

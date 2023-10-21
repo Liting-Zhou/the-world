@@ -21,11 +21,12 @@ public class Player extends AbstractCharacter {
    * @param name            The name of the player.
    * @param currentLocation The initial current location of the player.
    */
-  public Player(int indexOfPlayer, int typeOfPlayer, String name, Room currentLocation) {
+  public Player(int indexOfPlayer, int typeOfPlayer, String name, Room currentLocation,int maxNumberOfWeapons) {
     super(); // Call the constructor of the superclass (model.AbstractCharacter).
     this.indexOfPlayer = indexOfPlayer;
     this.typeOfPlayer = typeOfPlayer;
     this.weaponsCarried = new ArrayList<>();
+    this.maxNumberOfWeapons = maxNumberOfWeapons;
     setName(name); // Set the name of the player using the inherited setName method.
     setCurrentLocation(
         currentLocation); // Set the current location using the inherited setCurrentLocation method.
@@ -59,6 +60,15 @@ public class Player extends AbstractCharacter {
   }
 
   /**
+   * Gets the maximum number of weapons the player can carry.
+   *
+   * @return The maximum number of weapons the player can carry.
+   */
+  public int getMaxNumberOfWeapons() {
+    return maxNumberOfWeapons;
+  }
+
+  /**
    * Updates the room information for the player based on their current location.
    *
    * @param newLocation The new location to set for the player.
@@ -84,9 +94,17 @@ public class Player extends AbstractCharacter {
    * Player pick up a weapon.
    */
   public void pickUpWeapon() {
+    //check if the player can carry more weapons
+    if (weaponsCarried.size() == maxNumberOfWeapons) {
+      System.out.println("You cannot carry more weapons.");
+      return;
+    }
+    //list the weapons in the room
     List<WeaponImp> weapons = this.getCurrentLocation().getWeapons();
+    //see if there is any weapon in the room
     if (weapons.isEmpty()) {
       System.out.println("No weapons in this room.");
+      //pick up the weapon
     } else if (weapons.size() == 1) {
       weaponsCarried.add(weapons.get(0));
       System.out.println(
