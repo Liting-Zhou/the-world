@@ -41,6 +41,14 @@ public final class MyWorld implements World {
     initializeTarget(lines);
   }
 
+  /**
+   * Gets the players.
+   *
+   * @return a list of players
+   */
+  public static List<Player> getPlayers() {
+    return players;
+  }
 
   /**
    * Initializes the list of weapons in the game.
@@ -176,18 +184,20 @@ public final class MyWorld implements World {
 
     // Create the target character.
     target = new Target(targetName, targetHealth, currentLocation);
+    mansion.setTarget(target);
   }
 
   /**
    * Initializes player.
    */
-  private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,int startingRoomNumber) {
+  private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,
+                                int startingRoomNumber) {
     Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoomNumber);
     Player player = new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation);
     // Add the created model.Player object to the list of players.
     players.add(player);
+    mansion.addPlayer(player);
   }
-
 
   /**
    * Adds human-controlled player to the game.
@@ -195,10 +205,11 @@ public final class MyWorld implements World {
    * @param playerName The name of the player to add.
    */
   @Override
-  public void addHumanPlayer(String playerName,int startingRoomNumber) {
+  public void addHumanPlayer(String playerName, int startingRoomNumber) {
     int indexOfNewPlayer = players.size();
-    initializePlayer(indexOfNewPlayer, 0, playerName,startingRoomNumber);
-    System.out.println(String.format("Human-controlled player %s is added to the game!", playerName));
+    initializePlayer(indexOfNewPlayer, 0, playerName, startingRoomNumber);
+    System.out.println(
+        String.format("Human-controlled player %s is added to the game!", playerName));
   }
 
   /**
@@ -207,10 +218,11 @@ public final class MyWorld implements World {
    * @param playerName The name of the player to add.
    */
   @Override
-  public void addComputerPlayer(String playerName,int startingRoomNumber) {
+  public void addComputerPlayer(String playerName, int startingRoomNumber) {
     int indexOfNewPlayer = players.size();
-    initializePlayer(indexOfNewPlayer, 1, playerName,startingRoomNumber);
-    System.out.println(String.format("Computer-controlled player %s is added to the game!", playerName));
+    initializePlayer(indexOfNewPlayer, 1, playerName, startingRoomNumber);
+    System.out.println(
+        String.format("Computer-controlled player %s is added to the game!", playerName));
   }
 
   /**
@@ -221,15 +233,6 @@ public final class MyWorld implements World {
   @Override
   public Target getTarget() {
     return target;
-  }
-
-  /**
-   * Gets the players.
-   *
-   * @return a list of players
-   */
-  public static List<Player> getPlayers() {
-    return players;
   }
 
   private Player getCurrentPlayer() {
@@ -286,8 +289,9 @@ public final class MyWorld implements World {
       roundOfTargetCharacter();
       roundOfPlayers();
       System.out.println();
-      System.out.println(String.format("This turn has finished. And the target is now in room %d with health %d.",
-            target.getCurrentLocation().getRoomNumber(), target.getHealth()));
+      System.out.println(
+          String.format("This turn has finished. And the target is now in room %d with health %d.",
+              target.getCurrentLocation().getRoomNumber(), target.getHealth()));
       System.out.println();
       System.out.println("***************");
       System.out.println("Game continues.");
@@ -329,7 +333,8 @@ public final class MyWorld implements World {
 
     System.out.println(String.format("It's %s's turn!", player.getName()));
     //display the current location of player
-    System.out.println(String.format("You are now in room %d.", player.getCurrentLocation().getRoomNumber()));
+    System.out.println(
+        String.format("You are now in room %d.", player.getCurrentLocation().getRoomNumber()));
     System.out.print("And you");
     player.displayWeaponInformation();
     System.out.println();
@@ -340,11 +345,13 @@ public final class MyWorld implements World {
 
     //display neighbor rooms
     System.out.println("You can move to the following rooms: ");
-    player.getCurrentLocation().displayNeighbors();
+    player.getCurrentLocation().displayNeighborsSimple();
     //ask which action the player choose
     System.out.println();
     System.out.println(
-        String.format("You have 3 options:%n1.move to a neighboring space.%n2.pick up a weapon if there is any.%n3.look around.%nWhat do you want to do, %s?", player.getName()));
+        String.format(
+            "You have 3 options:%n1. move to a neighboring space.%n2. pick up a weapon if there is any.%n3. look around.%nWhat do you want to do, %s?",
+            player.getName()));
     Scanner scanner = new Scanner(System.in);
     System.out.println("Please enter the corresponding number: ");
     Integer action = scanner.nextInt();
@@ -386,7 +393,8 @@ public final class MyWorld implements World {
     // Display information about the target
     System.out.println("Target Information:");
     System.out.println(String.format("Name: %s", target.getName()));
-    System.out.println(String.format("Current Location: Room %d", target.getCurrentLocation().getRoomNumber()));
+    System.out.println(
+        String.format("Current Location: Room %d", target.getCurrentLocation().getRoomNumber()));
     System.out.println(String.format("Health: %d", target.getHealth()));
     System.out.println("--------------");
   }
@@ -424,7 +432,8 @@ public final class MyWorld implements World {
         } else {
           System.out.println("This is a computer player.");
         }
-        System.out.println(String.format("Current Location: Room %d", player.getCurrentLocation().getRoomNumber()));
+        System.out.println(String.format("Current Location: Room %d",
+            player.getCurrentLocation().getRoomNumber()));
         player.getCurrentLocation().displayWeapons();
         System.out.println("--------------");
         break;

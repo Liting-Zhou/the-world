@@ -136,7 +136,7 @@ public final class RoomInfo implements Room {
     // 1. when (this.y2 == other.y1, or this.y1 == other.y2), check if this.x2 > other.x1 and this.x1 < other.x2
     // 2. when (this.x2 == other.x1, or this.x1 == other.x2), check if this.y1 < other.y2 and this.y2 > other.y1
     for (Room otherRoom : listOfRooms) {
-      RoomInfo o=(RoomInfo) otherRoom;
+      RoomInfo o = (RoomInfo) otherRoom;
       if (this != otherRoom && shareCoordinate(o)) {
         if (this.y2 == o.y1 || this.y1 == o.y2) {
           if (this.x2 > o.x1 && this.x1 < o.x2) {
@@ -159,7 +159,7 @@ public final class RoomInfo implements Room {
    *
    * @param otherRoom The room to be decided if neighbors
    */
-private boolean shareCoordinate(RoomInfo otherRoom) {
+  private boolean shareCoordinate(RoomInfo otherRoom) {
 
     return this.x1 == otherRoom.x1 || this.x1 == otherRoom.x2 || this.x2 == otherRoom.x1
         || this.x2 == otherRoom.x2 || this.y1 == otherRoom.y1 || this.y1 == otherRoom.y2
@@ -184,12 +184,30 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     this.weapons.remove(weapon);
   }
 
+
   /**
-   * Finds out if target is here, if yes, display target information.
+   * Finds out if target is here.
+   *
+   * @param target The target to be decided if here
+   * @return true if the target is here, false otherwise
+   */
+  @Override
+  public boolean isTargetHere(Target target) {
+    if (this.equals(target.getCurrentLocation())) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Displays target information.
+   *
+   * @param target The target to be displayed
    */
   @Override
   public void displayTarget(Target target) {
-    if (this.equals(target.getCurrentLocation())) {
+    if (isTargetHere(target)) {
       System.out.println("Target is here!");
     } else {
       System.out.println("Target is not here!");
@@ -197,19 +215,37 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
   }
 
   /**
-   * Finds out if any player is here, if yes, display player information.
+   * Finds out if any player is here.
+   *
+   * @param players The list of players
+   * @return true if any player is here, false otherwise
+   */
+  @Override
+  public boolean isAnyPlayerHere(List<Player> players) {
+    for (Player player : players) {
+      if (this.equals(player.getCurrentLocation())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  /**
+   * Displays information of all players in the room.
+   *
+   * @param players The list of players
    */
   @Override
   public void displayPlayers(List<Player> players) {
-    int i = 0;
-    for (Player player : players) {
-      if (this.equals(player.getCurrentLocation())) {
-        System.out.println(String.format("Player %s is here!", player.getName()));
-        i += 1;
+    if (isAnyPlayerHere(players)) {
+      for (Player player : players) {
+        if (this.equals(player.getCurrentLocation())) {
+          System.out.println(String.format("Player %s is here!", player.getName()));
+        }
       }
-    }
-    if (i == 0) {
-      System.out.println("No player is here!");
+    } else {
+      System.out.println("No player in this room.");
     }
   }
 
@@ -223,28 +259,57 @@ private boolean shareCoordinate(RoomInfo otherRoom) {
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
       System.out.println(
-          String.format("Weapon %s with power %d is in this room.", weapons.get(0).getName(), weapons.get(0).getPower()));
+          String.format("Weapon %s with power %d is in this room.", weapons.get(0).getName(),
+              weapons.get(0).getPower()));
     } else {
       System.out.println(String.format("There are %d weapons in this room: ", weapons.size()));
       int i = 1;
       for (WeaponImp weapon : weapons) {
-        System.out.println(String.format("%d. %s with power %d", i, weapon.getName(), weapon.getPower()));
+        System.out.println(
+            String.format("%d. %s with power %d", i, weapon.getName(), weapon.getPower()));
         i += 1;
       }
     }
   }
 
   /**
-   * Displays the neighbors of the room.
+   * Displays the room number and name of neighbors.
    */
   @Override
-  public void displayNeighbors() {
+  public void displayNeighborsSimple() {
     if(neighbors.isEmpty()){
       System.out.println("This room has no neighboring room.");
     }else{
       System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
-        System.out.println(String.format("%d: %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
+        System.out.println(String.format("%d. %s.", neighbor.getRoomNumber(), neighbor.getRoomName()));
+      }
+    }
+  }
+
+  /**
+   * Displays the neighbors of the room with all information.
+   */
+  @Override
+  public void displayNeighborsAllInfo() {
+    if (neighbors.isEmpty()) {
+      System.out.println("This room has no neighboring room.");
+    } else {
+      Target target = Mansion.getTarget();
+      List<Player> players=Mansion.getListOfPlayers();
+      System.out.println("The neighbors of this room are: ");
+      for (Room neighbor : neighbors) {
+        System.out.print(
+            String.format("%d. %s. ", neighbor.getRoomNumber(), neighbor.getRoomName()));
+        neighbor.displayWeapons();
+        //check if target in this room and display target information
+        if (neighbor.isTargetHere(target)) {
+          neighbor.displayTarget(target);
+        }
+        //check if any player in this room and display player information
+        if(neighbor.isAnyPlayerHere(players)){
+          neighbor.displayPlayers(players);
+        }
       }
     }
   }

@@ -73,12 +73,32 @@ public interface Room {
   void removeWeapon(WeaponImp weapon);
 
   /**
-   * Finds out if target is here, if yes, display target information.
+   * Finds out if target is here.
+   *
+   * @param target The target to be decided if here
+   * @return true if the target is here, false otherwise
+   */
+  boolean isTargetHere(Target target);
+
+  /**
+   * Displays target information.
+   *
+   * @param target The target to be displayed
    */
   void displayTarget(Target target);
 
   /**
-   * Finds out if any player is here, if yes, display player information.
+   * Finds out if any player is here.
+   *
+   * @param players The list of players
+   * @return true if any player is here, false otherwise
+   */
+  boolean isAnyPlayerHere(List<Player> players);
+
+  /**
+   * Displays information of all players in the room.
+   *
+   * @param players The list of players
    */
   void displayPlayers(List<Player> players);
 
@@ -88,7 +108,12 @@ public interface Room {
   void displayWeapons();
 
   /**
-   * Displays the neighbors of the room.
+   * Displays the room number and name of neighbors.
    */
-  void displayNeighbors();
+  void displayNeighborsSimple();
+
+  /**
+   * Displays the neighbors of the room with all information.
+   */
+  void displayNeighborsAllInfo();
 }

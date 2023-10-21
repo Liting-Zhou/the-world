@@ -18,7 +18,7 @@ public final class AddComputerPlayer implements Command {
     String name = scan.next();
     System.out.println("Which room do you want to start from? Enter the room number (0-21): ");
     int roomNumber = scan.nextInt();
-    w.addComputerPlayer(name,roomNumber);
+    w.addComputerPlayer(name, roomNumber);
     System.out.println("***************");
   }
 }

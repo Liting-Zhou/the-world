@@ -18,6 +18,7 @@ import org.junit.Test;
 public class MansionTest {
   private Mansion mansion;
   private List<Room> rooms;
+  private Target target;
 
   /**
    * Sets up the test environment before each test case.
@@ -29,9 +30,10 @@ public class MansionTest {
     rooms = new ArrayList<>();
     rooms.add(new RoomInfo(0, 0, 0, 2, 2, "Room A", new ArrayList<>()));
     rooms.add(new RoomInfo(1, 3, 0, 5, 2, "Room B", new ArrayList<>()));
+    target = new Target("Test Target", 20, rooms.get(0));
 
     // Initialize the model.Mansion object for testing
-    mansion = new Mansion("Test Mansion", 3, 6, rooms);
+    mansion = new Mansion("Test Mansion", 3, 6, rooms, target);
   }
 
   @Test

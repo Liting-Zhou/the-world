@@ -90,7 +90,8 @@ public class Player extends AbstractCharacter {
     } else if (weapons.size() == 1) {
       weaponsCarried.add(weapons.get(0));
       System.out.println(
-          String.format("You picked up %s with power %d.", weapons.get(0).getName(), weapons.get(0).getPower()));
+          String.format("You picked up %s with power %d.", weapons.get(0).getName(),
+              weapons.get(0).getPower()));
       System.out.print("Now you");
       displayWeaponInformation();
       //update the room information with weapons removed
@@ -101,7 +102,8 @@ public class Player extends AbstractCharacter {
       Integer weaponNumber = scanner.nextInt();
       WeaponImp weapon = weapons.get(weaponNumber - 1);
       weaponsCarried.add(weapon);
-      System.out.println(String.format("You picked up %s with power %d.", weapon.getName(), weapon.getPower()));
+      System.out.println(
+          String.format("You picked up %s with power %d.", weapon.getName(), weapon.getPower()));
       System.out.print("Now you");
       displayWeaponInformation();
       //update the room information with weapons removed
@@ -110,19 +112,10 @@ public class Player extends AbstractCharacter {
   }
 
   /**
-   * Player look around.
+   * Player look around. Displays all information about neighboring rooms.
    */
   public void lookAround() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Which player do you want to look around? Please enter the name: ");
-    String playerName = scanner.nextLine();
-
-    //find the player by player name
-    for (Player player : MyWorld.getPlayers()) {
-      if (player.getName().equalsIgnoreCase(playerName)) {
-        player.displayPlayerInformation();
-      }
-    }
+    displayPlayerInformation();
   }
 
   /**
@@ -132,12 +125,13 @@ public class Player extends AbstractCharacter {
     System.out.println("--------------");
     System.out.print(String.format("Player %s", getName()));
     displayWeaponInformation();
-    System.out.println(String.format("Current Location: Room %d", getCurrentLocation().getRoomNumber()));
-    getCurrentLocation().displayNeighbors();
+    System.out.println(
+        String.format("Current Location: Room %d", getCurrentLocation().getRoomNumber()));
+    getCurrentLocation().displayNeighborsAllInfo();
   }
+
   /**
    * Displays the weapon carried by the player.
-   *
    */
   public void displayWeaponInformation() {
     if (weaponsCarried.isEmpty()) {
@@ -220,7 +214,8 @@ public class Player extends AbstractCharacter {
       int power = weapon.getPower();
       target.setHealth(power);
       System.out.println(
-          String.format("Target's health is deduced by %d and now is %d.", power, target.getHealth()));
+          String.format("Target's health is deduced by %d and now is %d.", power,
+              target.getHealth()));
     }
 
     return target;

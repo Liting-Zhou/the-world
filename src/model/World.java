@@ -1,12 +1,10 @@
 package model;
 
-import java.util.List;
-
 public interface World {
   /**
    * Adds human-controlled player to the game.
    *
-   * @param playerName The name of the player to add.
+   * @param playerName         The name of the player to add.
    * @param startingRoomNumber The starting room number of the player.
    */
   void addHumanPlayer(String playerName, int startingRoomNumber);
@@ -14,10 +12,10 @@ public interface World {
   /**
    * Adds computer-controlled player to the game.
    *
-   * @param playerName The name of the player to add.
+   * @param playerName         The name of the player to add.
    * @param startingRoomNumber The starting room number of the player.
    */
-  void addComputerPlayer(String playerName,int startingRoomNumber);
+  void addComputerPlayer(String playerName, int startingRoomNumber);
 
   /**
    * Gets the target.
@@ -25,7 +23,6 @@ public interface World {
    * @return the target
    */
   Target getTarget();
-
 
 
   /**
