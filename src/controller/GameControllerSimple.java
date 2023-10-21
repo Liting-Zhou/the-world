@@ -92,7 +92,7 @@ public final class GameControllerSimple implements Controller {
           System.out.println("***************");
           break;
         case 5:
-          world.playNextRound();
+          world.playNextTurn();
           if (world.ifGameOver()) {
             out.append("Game over!");
             out.append(String.format("The winner is %s", w.getWinner().getName()));

@@ -280,10 +280,10 @@ public final class MyWorld implements World {
   }
 
   /**
-   * Plays the next round, in each round, target moves and then one player moves.
+   * Plays the next turn, in each turn, target moves and then one player moves.
    */
   @Override
-  public void playNextRound() {
+  public void playNextTurn() {
     //check if players are added
     if (players.isEmpty()) {
       System.out.println("No player is added in the game yet.");

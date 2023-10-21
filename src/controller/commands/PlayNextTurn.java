@@ -7,11 +7,11 @@ import model.MyWorld;
 /**
  * Represents the command to play the next round.
  */
-public final class PlayNextRound implements Command {
+public final class PlayNextTurn implements Command {
 
   private Appendable out;
 
-  public PlayNextRound(Appendable out) {
+  public PlayNextTurn(Appendable out) {
     this.out = out;
   }
 
@@ -22,7 +22,7 @@ public final class PlayNextRound implements Command {
    */
   @Override
   public void execute(MyWorld w) throws IOException {
-    w.playNextRound();
+    w.playNextTurn();
     if (w.ifGameOver()) {
       out.append("Game over!");
       out.append(String.format("The winner is %s", w.getWinner().getName()));

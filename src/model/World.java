@@ -54,14 +54,10 @@ public interface World {
   Player getWinner();
 
   /**
-   * Plays the next round, in each round, target moves and then one player moves.
+   * Plays the next turn, in each turn, target moves and then one player moves.
    */
-  void playNextRound();
+  void playNextTurn();
 
-//  /**
-//   * Plays target move and update target information.
-//   */
-//  void roundOfTargetCharacter();
 
   /**
    * Updates the target after actions.
@@ -70,14 +66,6 @@ public interface World {
    */
   void updateTarget(Target target);
 
-//  /**
-//   * model.Player's turn. model.Player can choose three actions:
-//   * 1.move to a neighboring space.
-//   * 2.pick up an item.
-//   * 3.look around by displaying information about where a specific player is in the world
-//   * including what spaces that can be seen from where they are.
-//   */
-//  void roundOfPlayers();
 
   /**
    * Displays the map of the mansion.

@@ -6,7 +6,7 @@ import controller.commands.DisplayMap;
 import controller.commands.DisplayPlayerInfo;
 import controller.commands.DisplayRoomInfo;
 import controller.commands.DisplayTargetInfo;
-import controller.commands.PlayNextRound;
+import controller.commands.PlayNextTurn;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +52,7 @@ public final class GameControllerCommands implements Controller {
     knownCommands.put(2, s -> new DisplayMap());
     knownCommands.put(3, AddHumanPlayer::new);
     knownCommands.put(4, AddComputerPlayer::new);
-    knownCommands.put(5, s -> new PlayNextRound(out));
+    knownCommands.put(5, s -> new PlayNextTurn(out));
     knownCommands.put(6, s -> new DisplayPlayerInfo());
     knownCommands.put(7, s -> new DisplayTargetInfo());
 
