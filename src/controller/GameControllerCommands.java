@@ -14,6 +14,9 @@ import java.util.Scanner;
 import java.util.function.Function;
 import model.MyWorld;
 
+/**
+ * Represents the controller for the game "MyWorld", which employs the command design pattern.
+ */
 public final class GameControllerCommands implements Controller {
   private final Appendable out;
   private final Scanner scan;
@@ -55,7 +58,7 @@ public final class GameControllerCommands implements Controller {
 
     Scanner s = new Scanner(System.in);
     System.out.println("Game started!\nIn each turn, target moves first, "
-        + "and then one player can act.\nEveryone starts from room 16.\n***************");
+        + "and then one player can act.\nTarget starts from room 16.\n***************");
 
     int numOfTurns = 1;
     while (!world.ifGameOver() && numOfTurns <= maxNumOfTurns) {
@@ -80,7 +83,7 @@ public final class GameControllerCommands implements Controller {
    * Display options for players.
    */
   private void printOptions() {
-    System.out.println("You have the following options:");
+    System.out.println("Options:");
     System.out.println("1. Get information about a specified room.");
     System.out.println("2. Generate the mansion_map.png.");
     System.out.println("3. Add a human-controlled player to the game.");

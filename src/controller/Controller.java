@@ -5,7 +5,8 @@ import java.io.IOException;
 import model.MyWorld;
 
 /**
- * An interface for the game controller, which handles interactions between the user and the game model.
+ * An interface for the game controller, which handles interactions between
+ * the user and the game model.
  */
 public interface Controller {
   /**

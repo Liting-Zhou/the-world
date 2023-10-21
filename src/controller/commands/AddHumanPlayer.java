@@ -4,6 +4,9 @@ import controller.Command;
 import java.util.Scanner;
 import model.MyWorld;
 
+/**
+ * Represents the command to add a computer player to the game.
+ */
 public final class AddHumanPlayer implements Command {
   private Scanner scan;
 

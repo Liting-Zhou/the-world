@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class represents the game "The model.MyWorld", based on the classical board game Kill Doctor Lucky.
+ * This class represents the game "The model.MyWorld", based on the classical board game
+ * Kill Doctor Lucky.
  */
 public final class MyWorld implements World {
   private static List<Player> players = new ArrayList<>();
@@ -17,7 +18,8 @@ public final class MyWorld implements World {
   private int indexOfCurrentPlayer = 0;
 
   /**
-   * Constructs a new "The model.MyWorld" game, initializing the world map from a configuration file.
+   * Constructs a new "MyWorld" game, initializing the world map from
+   * a configuration file.
    *
    * @param conFile The configuration file containing game setup information.
    * @throws IllegalArgumentException if the provided configuration file is invalid.
@@ -193,9 +195,16 @@ public final class MyWorld implements World {
   private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,
                                 int startingRoomNumber, int maxNumOfWeapons) {
     Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoomNumber);
-    Player player =
-        new Player(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation, maxNumOfWeapons);
-    // Add the created model.Player object to the list of players.
+    Player player;
+    if (typeOfPlayer == 0) {
+      player = new HumanPlayer(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation,
+              maxNumOfWeapons);
+    } else {
+      player = new ComputerPlayer(indexOfNewPlayer, typeOfPlayer, playerName,
+          currentLocation, maxNumOfWeapons);
+    }
+
+    // Add the created Player object to the list of players.
     players.add(player);
     mansion.addPlayer(player);
   }
@@ -287,18 +296,17 @@ public final class MyWorld implements World {
     }
     if (!ifGameOver()) {
       System.out.println("***************");
-      System.out.println("Now play the next round!");
+      System.out.println("Now play the next turn!");
       roundOfTargetCharacter();
       roundOfPlayers();
       System.out.println();
       System.out.println(
-          String.format("This turn has finished. And the target is now in room %d with health %d.",
+          String.format("This turn has ended. And the target is now in room %d with health %d.",
               target.getCurrentLocation().getRoomNumber(), target.getHealth()));
       System.out.println();
       System.out.println("***************");
       System.out.println("Game continues.");
     }
-
   }
 
   /**
@@ -321,17 +329,18 @@ public final class MyWorld implements World {
   }
 
   /**
-   * model.Player's turn. model.Player can choose three actions:
-   * 1.move to a neighboring space.
-   * 2.pick up an item.
-   * 3.look around by displaying information about where a specific player is in the world
-   * including what spaces that can be seen from where they are.
+   * Player's turn. Human player can choose from these three actions:
+   * 1. move to a neighboring space.
+   * 2. pick up an item.
+   * 3. look around by displaying information about where a specific player is in the world
+   *    including what spaces that can be seen from where they are.
+   * Computer player randomly choose an action.
    */
   private void roundOfPlayers() {
     Player player;
     player = players.get(indexOfCurrentPlayer);
-
     System.out.println(String.format("It's %s's turn!", player.getName()));
+
     //display the current location of player
     System.out.println(
         String.format("You are now in room %d.", player.getCurrentLocation().getRoomNumber()));
@@ -350,24 +359,39 @@ public final class MyWorld implements World {
     System.out.println();
     System.out.println(
         String.format(
-            "You have 3 options:%n1. move to a neighboring space.%n2. pick up a weapon if there is any.%n3. look around.%nWhat do you want to do, %s?",
+            "You have 3 options:%n1. move to a neighboring space.%n2. "
+                + "pick up a weapon if there is any.%n3. "
+                + "look around.%nWhat do you want to do, %s?",
             player.getName()));
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Please enter the corresponding number: ");
-    Integer action = scanner.nextInt();
-    //TODO check valid action, throw exception
-    if (action == 1) {
-      //move to a neighboring space
-      player.move();
-    } else if (action == 2) {
-      //pick up a weapon if there is any
-      player.pickUpWeapon();
-    } else if (action == 3) {
-      //look around
-      player.lookAround();
+
+    //check if the player is human or computer
+    if(player.getTypeOfPlayer() == 0){
+      HumanPlayer p = (HumanPlayer) player;
+      Scanner scanner = new Scanner(System.in);
+      System.out.println("Please enter the corresponding number: ");
+      Integer action = scanner.nextInt();
+      //TODO check valid action, throw exception
+      if (action == 1) {
+        //move to a neighboring space
+        p.move();
+      } else if (action == 2) {
+        //pick up a weapon if there is any
+        p.pickUpWeapon();
+      } else if (action == 3) {
+        //look around
+        p.lookAround();
+      } else {
+        System.out.println("Invalid action.");
+      }
     } else {
-      System.out.println("Invalid action.");
+      ComputerPlayer p = (ComputerPlayer) player;
+      if(p.getCurrentLocation().getWeapons().isEmpty()){
+        p.randomActionNoWeapon(listOfRooms);
+      }else{
+        p.randomAction(listOfRooms);}
     }
+
+
 
     //finds out which player acts next turn
     if (indexOfCurrentPlayer == players.size() - 1) {
@@ -410,7 +434,7 @@ public final class MyWorld implements World {
       return;
     }
 
-// 1.Display list of players
+    // 1.Display list of players
     System.out.println("List of players: ");
     for (Player player : players) {
       System.out.println(player.getName());

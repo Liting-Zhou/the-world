@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import model.MyWorld;
 
+/**
+ * Represents the controller for the game "MyWorld", without employing command design pattern.
+ */
 public final class GameControllerSimple implements Controller {
 
   private final Appendable out;
@@ -32,7 +35,7 @@ public final class GameControllerSimple implements Controller {
    * Display options for players.
    */
   private static void printOptions() {
-    System.out.println("You have the following options:");
+    System.out.println("Options:");
     System.out.println("1. Get information about a specified room.");
     System.out.println("2. Generate the mansion_map.png.");
     System.out.println("3. Add a human-controlled player to the game.");
@@ -53,7 +56,7 @@ public final class GameControllerSimple implements Controller {
 
     Scanner s = new Scanner(System.in);
     System.out.println("Game started!\nIn each turn, target moves first, "
-        + "and then one player can act.\nEveryone starts from room 16.\n***************");
+        + "and then one player can act.\nTarget starts from room 16.\n***************");
 
     int numOfTurns = 1;
     while (!world.ifGameOver() && numOfTurns <= maxNumOfTurns) {

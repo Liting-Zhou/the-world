@@ -2,6 +2,10 @@ package model;
 
 import java.util.List;
 
+/**
+ * Represents information about a room in Doctor Lucky's Mansion, including its position, name,
+ * weapons present, and neighbors.
+ */
 public interface Room {
   /**
    * Gets the x coordinate of upper left corner.
@@ -69,6 +73,8 @@ public interface Room {
 
   /**
    * Removes the given weapon from the room.
+   *
+   * @param weapon The weapon to be removed
    */
   void removeWeapon(WeaponImp weapon);
 

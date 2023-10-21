@@ -73,21 +73,4 @@ public class PlayerTest extends AbstractCharacter {
     Assert.assertEquals(newLocation, updatedLocation);
   }
 
-
-  @Test
-  public void testAction() {
-    Room newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
-    Target updatedTarget = player.action("move", newLocation, target, players, listOfRooms);
-    assertNotNull(updatedTarget);
-  }
-
-
-  @Test
-  public void testAttack() {
-    Room room = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
-    Target initialTarget = new Target("Test Target", 20, room);
-    Target updatedTarget = player.attack(room, initialTarget);
-    assertNotNull(updatedTarget);
-  }
-
 }

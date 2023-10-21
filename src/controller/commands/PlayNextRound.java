@@ -4,6 +4,9 @@ import controller.Command;
 import java.io.IOException;
 import model.MyWorld;
 
+/**
+ * Represents the command to play the next round.
+ */
 public final class PlayNextRound implements Command {
 
   private Appendable out;

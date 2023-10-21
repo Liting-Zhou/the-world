@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents information about a room in Doctor Lucky's model.Mansion, including its position, name,
- * weapons present, and neighbors.
+ * Represents information about a room in Doctor Lucky's model.Mansion,
+ * including its position, name, weapons present, and neighbors.
  */
 public final class RoomInfo implements Room {
 
@@ -133,8 +133,10 @@ public final class RoomInfo implements Room {
   public List<Room> getNeighbors(List<Room> listOfRooms) {
     List<Room> neighbors = new ArrayList<>();
 
-    // 1. when (this.y2 == other.y1, or this.y1 == other.y2), check if this.x2 > other.x1 and this.x1 < other.x2
-    // 2. when (this.x2 == other.x1, or this.x1 == other.x2), check if this.y1 < other.y2 and this.y2 > other.y1
+    // 1. when (this.y2 == other.y1, or this.y1 == other.y2),
+    //    check if this.x2 > other.x1 and this.x1 < other.x2
+    // 2. when (this.x2 == other.x1, or this.x1 == other.x2),
+    //    check if this.y1 < other.y2 and this.y2 > other.y1
     for (Room otherRoom : listOfRooms) {
       RoomInfo o = (RoomInfo) otherRoom;
       if (this != otherRoom && shareCoordinate(o)) {
@@ -208,7 +210,7 @@ public final class RoomInfo implements Room {
   @Override
   public void displayTarget(Target target) {
     if (isTargetHere(target)) {
-      System.out.println("Target is here!");
+      System.out.println(String.format("Target is in room %d!", this.getRoomNumber()));
     } else {
       System.out.println("Target is not here.");
     }
@@ -241,7 +243,8 @@ public final class RoomInfo implements Room {
     if (isAnyPlayerHere(players)) {
       for (Player player : players) {
         if (this.equals(player.getCurrentLocation())) {
-          System.out.println(String.format("Player %s is here!", player.getName()));
+          System.out.println(String.format(String.format("Player %s is in room %d!", player.getName(),
+              this.getRoomNumber())));
         }
       }
     } else {
@@ -280,10 +283,10 @@ public final class RoomInfo implements Room {
     if (neighbors.isEmpty()) {
       System.out.println("This room has no neighboring room.");
     } else {
-      System.out.println("The neighbors of the room are: ");
+      //System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
         System.out.println(
-            String.format("%d. %s.", neighbor.getRoomNumber(), neighbor.getRoomName()));
+            String.format("%d. %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
       }
     }
   }
@@ -324,9 +327,9 @@ public final class RoomInfo implements Room {
       return false;
     }
     RoomInfo roomInfo = (RoomInfo) o;
-    return getRoomNumber() == roomInfo.getRoomNumber() && getX1() == roomInfo.getX1() &&
-        getY1() == roomInfo.getY1() && getX2() == roomInfo.getX2() && getY2() == roomInfo.getY2() &&
-        Objects.equals(getRoomName(), roomInfo.getRoomName());
+    return getRoomNumber() == roomInfo.getRoomNumber() && getX1() == roomInfo.getX1()
+        && getY1() == roomInfo.getY1() && getX2() == roomInfo.getX2() && getY2() == roomInfo.getY2()
+        && Objects.equals(getRoomName(), roomInfo.getRoomName());
   }
 
   @Override

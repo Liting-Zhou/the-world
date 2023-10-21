@@ -1,5 +1,10 @@
 package model;
 
+import java.util.List;
+
+/**
+ * Represents the main body of the model of the World.
+ */
 public interface World {
   /**
    * Adds human-controlled player to the game.
