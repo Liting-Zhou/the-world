@@ -77,6 +77,19 @@ public class RoomInfoTest {
     assertEquals(0, thisRoom.getWeapons().size());
   }
 
+
+  @Test
+  public void testIsTargetHereWhenTargetIsPresent() {
+    Target target = new Target("Test Target", 20, thisRoom);
+    assertTrue(thisRoom.isTargetHere(target));
+  }
+
+  @Test
+  public void testIsTargetHereWhenTargetIsNotPresent() {
+    RoomInfo differentRoom = new RoomInfo(2, 1, 1, 3, 3, "Room B", new ArrayList<>());
+    assertFalse(thisRoom.isTargetHere(new Target("Test Target", 20, differentRoom)));
+  }
+
   @Test
   public void testDisplayTarget() {
     Target target =
@@ -85,16 +98,30 @@ public class RoomInfoTest {
     thisRoom.displayTarget(target);
 
     // Check if the output matches the expected value
-    String expectedOutput = "Target is not here!\n";
+    String expectedOutput = "Target is not here.\n";
     assertEquals(expectedOutput, outContent.toString());
 
     // Simulate target being in the room
     target.setCurrentLocation(thisRoom);
     thisRoom.displayTarget(target);
 
-    String expectedOutputHere = "Target is not here!\n" + "Target is here!\n";
+    String expectedOutputHere = "Target is not here.\n" + "Target is in room 1!\n";
     assertEquals(expectedOutputHere, outContent.toString());
 
+  }
+
+  @Test
+  public void testIsAnyPlayerHereWhenPlayerIsPresent() {
+    Player player1 = new HumanPlayer(1, 0, "jack", thisRoom, 3);
+    List<Player> players=new ArrayList<>();
+    players.add(player1);
+    assertTrue(thisRoom.isAnyPlayerHere(players));
+  }
+
+  @Test
+  public void testIsAnyPlayerHereWhenPlayerIsNotPresent() {
+    List<Player> emptyPlayers = new ArrayList<>();
+    assertFalse(thisRoom.isAnyPlayerHere(emptyPlayers));
   }
 
   @Test
@@ -106,14 +133,14 @@ public class RoomInfoTest {
     players.add(player2);
     thisRoom.displayPlayers(players);
 
-    String expectedOutputHere = "Player jack is here!\n" + "Player rose is here!\n";
+    String expectedOutputHere = "Player jack is in room 1!\n" + "Player rose is in room 1!\n";
     assertEquals(expectedOutputHere, outContent.toString());
   }
 
   @Test
   public void testDisplayWeapons() {
     thisRoom.displayWeapons();
-    String expectedOutputHere = "WeaponImp Test weapon with power 3 is in this room.\n";
+    String expectedOutputHere = "-> Weapon Test weapon with power 3 is in this room.\n";
     assertEquals(expectedOutputHere, outContent.toString());
   }
 
