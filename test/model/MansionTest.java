@@ -33,7 +33,7 @@ public class MansionTest {
     target = new Target("Test Target", 20, rooms.get(0));
 
     // Initialize the model.Mansion object for testing
-    mansion = new Mansion("Test Mansion", 3, 6, rooms, target);
+    mansion = new Mansion("Test Mansion", 3, 6, rooms);
   }
 
   @Test

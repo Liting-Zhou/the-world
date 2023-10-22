@@ -16,7 +16,7 @@ public final class RoomInfo implements Room {
   private final int x2; //right bottom corner
   private final int y2; //right bottom corner
   private final String roomName;
-  private final List<WeaponImp> weapons;
+  private List<WeaponImp> weapons;
   private List<Room> neighbors = new ArrayList<>();
 
   /**
