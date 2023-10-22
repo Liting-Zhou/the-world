@@ -8,9 +8,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import static org.junit.Assert.*;
 
-public class HumanPlayerTest extends AbstractCharacter {
+public class HumanPlayerTest{
   private HumanPlayer humanPlayer;
-  private RandomNumber random;
+  private Random random;
 
   @Before
   public void setUp() {
