@@ -23,12 +23,23 @@ public interface World {
   void addComputerPlayer(String playerName, int startingRoomNumber, int maxNumOfWeapons);
 
   /**
+   * Sets the maximum number of turns.
+   */
+  void setMaxNumOfTurns(int maxNumOfTurns);
+
+  /**
    * Gets the target.
    *
    * @return the target
    */
   Target getTarget();
 
+  /**
+   * Gets number of turns played.
+   *
+   * @return the number of turns played
+   */
+  int getNumOfTurnsPlayed();
 
   /**
    * Gets the model.Mansion.

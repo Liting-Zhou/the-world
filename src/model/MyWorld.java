@@ -10,12 +10,14 @@ import java.util.Scanner;
  */
 public final class MyWorld implements World {
   private static List<Player> players = new ArrayList<>();
-  private final int startingRoom = 16;
+  private final int startingRoom = 16; //default value
   private Target target;
   private List<Room> listOfRooms;
   private Mansion mansion;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
+  private int numOfTurnsPlayed= 1;
+  private int maxNumOfTurns = 100; //default value
 
   /**
    * Constructs a new "MyWorld" game, initializing the world map from
@@ -232,6 +234,14 @@ public final class MyWorld implements World {
   }
 
   /**
+   * Sets the maximum number of turns.
+   */
+    @Override
+    public void setMaxNumOfTurns(int maxNumOfTurns) {
+        this.maxNumOfTurns = maxNumOfTurns;
+    }
+
+  /**
    * Gets the target.
    *
    * @return the target
@@ -239,6 +249,16 @@ public final class MyWorld implements World {
   @Override
   public Target getTarget() {
     return target;
+  }
+
+  /**
+   * Gets number of turns played.
+   *
+   * @return the number of turns played
+   */
+  @Override
+  public int getNumOfTurnsPlayed() {
+    return numOfTurnsPlayed;
   }
 
   private Player getCurrentPlayer() {
@@ -295,12 +315,16 @@ public final class MyWorld implements World {
       roundOfTargetCharacter();
       roundOfPlayers();
       System.out.println();
-      System.out.println(
-          String.format("This turn has ended. And the target is now in room %d with health %d.",
-              target.getCurrentLocation().getRoomNumber(), target.getHealth()));
+      System.out.println(String.format("Turn %d has ended (%d turns left). And Target "
+              + "is now in room %d with health %d.", numOfTurnsPlayed,
+          maxNumOfTurns - numOfTurnsPlayed, target.getCurrentLocation().getRoomNumber(),
+          target.getHealth()));
+      numOfTurnsPlayed += 1;
       System.out.println();
       System.out.println("***************");
-      System.out.println("Game continues.");
+      if(numOfTurnsPlayed<=maxNumOfTurns){
+        System.out.println("Game continues.");
+      }
     }
   }
 
@@ -334,30 +358,30 @@ public final class MyWorld implements World {
   private void roundOfPlayers() {
     Player player;
     player = players.get(indexOfCurrentPlayer);
+    System.out.println();
     System.out.println(String.format("It's %s's turn!", player.getName()));
 
-    //display the current location of player
-    System.out.println(
-        String.format("You are now in room %d.", player.getCurrentLocation().getRoomNumber()));
-    System.out.print("And you");
+    System.out.println("USEFUL INFORMATION:");
+    System.out.print("-> You");
     player.displayWeaponInformation();
-    System.out.println();
+    System.out.println(
+        String.format("-> You are now in room %d.", player.getCurrentLocation().getRoomNumber()));
 
     //display weapons in the current room
     player.getCurrentLocation().displayWeapons();
-    System.out.println();
 
     //display neighbor rooms
-    System.out.println("You can move to the following rooms: ");
+    System.out.println("-> You can move to the following rooms: ");
     player.getCurrentLocation().displayNeighborsSimple();
     //ask which action the player choose
     System.out.println();
     System.out.println(
         String.format(
-            "You have 3 options:%n1. move to a neighboring space.%n2. "
+            "Now you have 3 options:%n1. move to a neighboring space.%n2. "
                 + "pick up a weapon if there is any.%n3. "
                 + "look around.%nWhat do you want to do, %s?",
             player.getName()));
+    System.out.println();
 
     //check if the player is human or computer
     if (player.getTypeOfPlayer() == 0) {

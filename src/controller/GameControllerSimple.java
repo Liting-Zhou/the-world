@@ -11,22 +11,19 @@ public final class GameControllerSimple implements Controller {
 
   private final Appendable out;
   private final Scanner scan;
-  private final MyWorld world;
 
   /**
    * Constructor for the controller.
    *
    * @param in    the source to read from
    * @param out   the output to print
-   * @param world the world model to use
    * @throws IllegalArgumentException for invalid arguments.
    */
-  public GameControllerSimple(Readable in, Appendable out, MyWorld world)
+  public GameControllerSimple(Readable in, Appendable out)
       throws IllegalArgumentException {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");
     }
-    this.world = world;
     scan = new Scanner(in);
     this.out = out;
   }
@@ -53,21 +50,21 @@ public final class GameControllerSimple implements Controller {
     if (w == null || maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");
     }
+    w.setMaxNumOfTurns(maxNumOfTurns);
 
     Scanner s = new Scanner(System.in);
     System.out.println("Game started!\nIn each turn, target moves first, "
         + "and then one player can act.\nTarget starts from room 16.\n***************");
 
-    int numOfTurns = 1;
-    while (!world.ifGameOver() && numOfTurns <= maxNumOfTurns) {
+    while (!w.ifGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
       printOptions();
       int option = s.nextInt();
       switch (option) {
         case 1:
-          world.displayRoomInformation();
+          w.displayRoomInformation();
           break;
         case 2:
-          world.displayMap();
+          w.displayMap();
           break;
         case 3:
           // Add a human-controlled player to the game
@@ -77,7 +74,7 @@ public final class GameControllerSimple implements Controller {
           int roomNumber1 = s.nextInt();
           System.out.println("The maximum number of weapons this player can carry is: ");
           int maxNumOfWeapons1 = s.nextInt();
-          world.addHumanPlayer(humanPlayerName, roomNumber1, maxNumOfWeapons1);
+          w.addHumanPlayer(humanPlayerName, roomNumber1, maxNumOfWeapons1);
           System.out.println("***************");
           break;
         case 4:
@@ -88,29 +85,28 @@ public final class GameControllerSimple implements Controller {
           int roomNumber2 = s.nextInt();
           System.out.println("The maximum number of weapons this player can carry is: ");
           int maxNumOfWeapons2 = s.nextInt();
-          world.addComputerPlayer(computerPlayerName, roomNumber2, maxNumOfWeapons2);
+          w.addComputerPlayer(computerPlayerName, roomNumber2, maxNumOfWeapons2);
           System.out.println("***************");
           break;
         case 5:
-          world.playNextTurn();
-          if (world.ifGameOver()) {
+          w.playNextTurn();
+          if (w.ifGameOver()) {
             out.append("Game over!");
             out.append(String.format("The winner is %s", w.getWinner().getName()));
           }
           break;
         case 6:
-          world.displayPlayerInformation();
+          w.displayPlayerInformation();
           break;
         case 7:
-          world.displayTargetInformation();
+          w.displayTargetInformation();
           break;
 
         default:
           System.out.println("Invalid option.");
       }
-      numOfTurns += 1;
     }
-    if (!world.ifGameOver() && numOfTurns > maxNumOfTurns) {
+    if (!w.ifGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
       out.append("You run out of the maximum number of turns! Game over!");
     }
   }

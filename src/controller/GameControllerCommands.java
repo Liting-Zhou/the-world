@@ -20,22 +20,19 @@ import model.MyWorld;
 public final class GameControllerCommands implements Controller {
   private final Appendable out;
   private final Scanner scan;
-  private final MyWorld world;
 
   /**
    * Constructor for the controller.
    *
    * @param in    the source to read from
    * @param out   the output to print
-   * @param world the world model to use
    * @throws IllegalArgumentException for invalid arguments.
    */
-  public GameControllerCommands(Readable in, Appendable out, MyWorld world)
+  public GameControllerCommands(Readable in, Appendable out)
       throws IllegalArgumentException {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");
     }
-    this.world = world;
     this.scan = new Scanner(in);
     this.out = out;
   }
@@ -46,6 +43,7 @@ public final class GameControllerCommands implements Controller {
     if (maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");
     }
+    w.setMaxNumOfTurns(maxNumOfTurns);
 
     Map<Integer, Function<Scanner, Command>> knownCommands = new HashMap<>();
     knownCommands.put(1, s -> new DisplayRoomInfo());
@@ -60,8 +58,7 @@ public final class GameControllerCommands implements Controller {
     System.out.println("Game started!\nIn each turn, target moves first, "
         + "and then one player can act.\nTarget starts from room 16.\n***************");
 
-    int numOfTurns = 1;
-    while (!world.ifGameOver() && numOfTurns <= maxNumOfTurns) {
+    while (!w.ifGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
       printOptions();
       int option = s.nextInt();
       Function<Scanner, Command> cmd = knownCommands.getOrDefault(option, null);
@@ -72,10 +69,9 @@ public final class GameControllerCommands implements Controller {
       } else {
         System.out.println("Invalid option.");
       }
-      numOfTurns += 1;
     }
-    if (!world.ifGameOver() && numOfTurns > maxNumOfTurns) {
-      out.append("You have run out of the maximum number of turns! Game over!");
+    if (!w.ifGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
+      out.append(String.format("You have run out of the maximum number of turns (%d)! Game over!",maxNumOfTurns));
     }
   }
 

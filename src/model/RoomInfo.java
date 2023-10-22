@@ -259,18 +259,18 @@ public final class RoomInfo implements Room {
   @Override
   public void displayWeapons() {
     if (weapons.isEmpty()) {
-      System.out.println("No weapons in this room.");
+      System.out.println("-> There is no weapon in this room.");
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
       System.out.println(
-          String.format("Weapon %s with power %d is in this room.", weapons.get(0).getName(),
+          String.format("-> Weapon %s with power %d is in this room.", weapons.get(0).getName(),
               weapons.get(0).getPower()));
     } else {
-      System.out.println(String.format("There are %d weapons in this room: ", weapons.size()));
+      System.out.println(String.format("-> There are %d weapons in this room: ", weapons.size()));
       int i = 1;
       for (WeaponImp weapon : weapons) {
         System.out.println(
-            String.format("%d. %s with power %d", i, weapon.getName(), weapon.getPower()));
+            String.format("   %d. %s with power %d", i, weapon.getName(), weapon.getPower()));
         i += 1;
       }
     }
@@ -287,7 +287,7 @@ public final class RoomInfo implements Room {
       //System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
         System.out.println(
-            String.format("%d. %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
+            String.format("   %d. %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
       }
     }
   }
