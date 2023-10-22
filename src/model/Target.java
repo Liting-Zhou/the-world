@@ -39,7 +39,7 @@ public final class Target extends AbstractCharacter {
    *
    * @param power The power of the weapon used in the attack.
    */
-  public void setHealth(int power) {
+  public void healthDamage(int power) {
     this.health -= power;
   }
 

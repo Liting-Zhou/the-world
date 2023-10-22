@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class represents the game "The model.MyWorld", based on the classical board game
+ * This class represents the game "The MyWorld", based on the classical board game
  * Kill Doctor Lucky.
  */
 public final class MyWorld implements World {
   private static List<Player> players = new ArrayList<>();
   private final int startingRoom = 0; //default value
+  int maxNumOfTurns = 100; //default value
   private Target target;
   private List<Room> listOfRooms;
   private Mansion mansion;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
   private int numOfTurnsPlayed = 1;
-  private int maxNumOfTurns = 100; //default value
 
   /**
    * Constructs a new "MyWorld" game, initializing the world map from
@@ -85,7 +85,7 @@ public final class MyWorld implements World {
         weaponName = String.join(" ", restOfWeaponData);
       }
 
-      // Create a model.WeaponImp object with the parsed data and add it to the list of weapons.
+      // Create a WeaponImp object with the parsed data and add it to the list of weapons.
       WeaponImp weapon = new WeaponImp(weaponPower, weaponName, roomNumber);
       weapons.add(weapon);
 
@@ -159,7 +159,7 @@ public final class MyWorld implements World {
     System.arraycopy(mansionData, 2, restOfMansionData, 0, mansionData.length - 2);
     String mansionName = String.join(" ", restOfMansionData);
 
-    // Create the model.Mansion object with the parsed data.
+    // Create the Mansion object with the parsed data.
     mansion = new Mansion(mansionName, mansionHeight, mansionWidth, listOfRooms);
 
   }
@@ -266,7 +266,7 @@ public final class MyWorld implements World {
   }
 
   /**
-   * Gets the model.Mansion.
+   * Gets the Mansion.
    *
    * @return the mansion
    */
@@ -411,7 +411,6 @@ public final class MyWorld implements World {
       }
     }
 
-
     //finds out which player acts next turn
     if (indexOfCurrentPlayer == players.size() - 1) {
       indexOfCurrentPlayer = 0;
@@ -484,8 +483,6 @@ public final class MyWorld implements World {
         break;
       }
     }
-
-
   }
 
   /**

@@ -113,7 +113,7 @@ public class RoomInfoTest {
   @Test
   public void testIsAnyPlayerHereWhenPlayerIsPresent() {
     Player player1 = new HumanPlayer(1, 0, "jack", thisRoom, 3);
-    List<Player> players=new ArrayList<>();
+    List<Player> players = new ArrayList<>();
     players.add(player1);
     assertTrue(thisRoom.isAnyPlayerHere(players));
   }

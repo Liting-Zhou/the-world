@@ -40,7 +40,7 @@ public class TargetTest {
 
   @Test
   public void testSetHealth() {
-    target.setHealth(2);
+    target.healthDamage(2);
     int health = target.getHealth();
     assertEquals(18, health);
   }

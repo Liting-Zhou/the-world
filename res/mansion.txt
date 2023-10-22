@@ -1,4 +1,4 @@
-27 20 Doctor Lucky's model.Mansion
+27 20 Doctor Lucky's Mansion
 30 Doctor Lucky
 22
 1 2 7 4 Billiards Room
