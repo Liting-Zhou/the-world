@@ -54,7 +54,7 @@ public final class GameControllerSimple implements Controller {
 
     Scanner s = new Scanner(System.in);
     System.out.println("Game started!\nIn each turn, target moves first, "
-        + "and then one player can act.\nTarget starts from room 16.\n***************");
+        + "and then one player can act.\nTarget starts from room 0.\n***************");
 
     while (!w.ifGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
       printOptions();

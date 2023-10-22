@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public final class MyWorld implements World {
   private static List<Player> players = new ArrayList<>();
-  private final int startingRoom = 16; //default value
+  private final int startingRoom = 0; //default value
   private Target target;
   private List<Room> listOfRooms;
   private Mansion mansion;

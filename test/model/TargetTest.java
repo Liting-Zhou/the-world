@@ -57,6 +57,6 @@ public class TargetTest {
     mansion = new Mansion("Test Mansion", 10, 10, listOfRooms);
 
     Target updatedTarget = target.move(mansion, players, listOfRooms);
-    assertNotNull(updatedTarget);
+    assertEquals(2,updatedTarget.getCurrentLocation().getRoomNumber());
   }
 }
