@@ -5,7 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
-
+/**
+ * This class contains test cases for the {@link ComputerPlayer} class.
+ */
 public class ComputerPlayerTest{
   private ComputerPlayer computerPlayer;
   private List<Room> rooms;

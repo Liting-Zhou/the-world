@@ -12,7 +12,7 @@ import org.junit.Test;
 /**
  * This class contains test cases for the {@link Player} class.
  */
-public class PlayerTest extends AbstractCharacter {
+public class PlayerTest{
   private Player player;
   private Room initialLocation;
   private Target target;

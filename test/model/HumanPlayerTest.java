@@ -8,6 +8,9 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import static org.junit.Assert.*;
 
+/**
+ * This class contains test cases for the {@link HumanPlayer} class.
+ */
 public class HumanPlayerTest{
   private HumanPlayer humanPlayer;
   private Random random;
