@@ -1,7 +1,6 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +56,6 @@ public class TargetTest {
     mansion = new Mansion("Test Mansion", 10, 10, listOfRooms);
 
     Target updatedTarget = target.move(mansion, players, listOfRooms);
-    assertEquals(2,updatedTarget.getCurrentLocation().getRoomNumber());
+    assertEquals(2, updatedTarget.getCurrentLocation().getRoomNumber());
   }
 }

@@ -16,7 +16,7 @@ public final class MyWorld implements World {
   private Mansion mansion;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
-  private int numOfTurnsPlayed= 1;
+  private int numOfTurnsPlayed = 1;
   private int maxNumOfTurns = 100; //default value
 
   /**
@@ -236,10 +236,10 @@ public final class MyWorld implements World {
   /**
    * Sets the maximum number of turns.
    */
-    @Override
-    public void setMaxNumOfTurns(int maxNumOfTurns) {
-        this.maxNumOfTurns = maxNumOfTurns;
-    }
+  @Override
+  public void setMaxNumOfTurns(int maxNumOfTurns) {
+    this.maxNumOfTurns = maxNumOfTurns;
+  }
 
   /**
    * Gets the target.
@@ -322,7 +322,7 @@ public final class MyWorld implements World {
       numOfTurnsPlayed += 1;
       System.out.println();
       System.out.println("***************");
-      if(numOfTurnsPlayed<=maxNumOfTurns){
+      if (numOfTurnsPlayed <= maxNumOfTurns) {
         System.out.println("Game continues.");
       }
     }
@@ -424,8 +424,8 @@ public final class MyWorld implements World {
    * Displays the map of the mansion.
    */
   @Override
-  public void displayMap() {
-    mansion.getBufferedImage();
+  public void SaveMansionMap() {
+    mansion.SaveMansionMap();
   }
 
   /**

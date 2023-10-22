@@ -1,9 +1,12 @@
 package model;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Objects;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 /**
  * This class contains test cases for the {@link AbstractCharacter} class.
  */
@@ -13,7 +16,7 @@ public class AbstractCharacterTest {
 
   @Before
   public void setUp() {
-    room = new RoomInfo(0,0,0,1,1,"Test Room 1",null);
+    room = new RoomInfo(0, 0, 0, 1, 1, "Test Room 1", null);
     character = new Player(0, 0, "Test Player", room, 3);
   }
 
@@ -35,10 +38,11 @@ public class AbstractCharacterTest {
 
   @Test
   public void testSetCurrentLocation() {
-    Room newRoom = new RoomInfo(1,4,4,5,5,"Test Room 2",null);
+    Room newRoom = new RoomInfo(1, 4, 4, 5, 5, "Test Room 2", null);
     character.setCurrentLocation(newRoom);
     assertEquals(newRoom, character.getCurrentLocation());
   }
+
   @Test
   public void testEquals() {
     character.setName("Character1");

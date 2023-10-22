@@ -3,6 +3,7 @@ package model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -31,16 +32,12 @@ public class MansionTest {
     rooms.add(new RoomInfo(0, 0, 0, 2, 2, "Room A", new ArrayList<>()));
     rooms.add(new RoomInfo(1, 3, 0, 5, 2, "Room B", new ArrayList<>()));
     target = new Target("Test Target", 20, rooms.get(0));
+    Player player = new HumanPlayer(0, 0, "Test Player", rooms.get(0), 3);
 
     // Initialize the model.Mansion object for testing
     mansion = new Mansion("Test Mansion", 3, 6, rooms);
-  }
-
-  @Test
-  public void testGetListOfRooms() {
-    List<Room> roomList = mansion.getListOfRooms();
-    assertNotNull(roomList);
-    assertEquals(rooms.size(), roomList.size());
+    mansion.addPlayer(player);
+    mansion.setTarget(target);
   }
 
   @Test
@@ -53,6 +50,38 @@ public class MansionTest {
 
     Assert.assertEquals("Room A", roomA.getRoomName());
     Assert.assertEquals("Room B", roomB.getRoomName());
+  }
+
+  @Test
+  public void testGetListOfPlayers() {
+    assertEquals("Test Player", mansion.getListOfPlayers().get(0).getName());
+  }
+
+  @Test
+  public void testGetTarget() {
+    assertEquals("Test Target", mansion.getTarget().getName());
+  }
+
+  @Test
+  public void testGetListOfRooms() {
+    List<Room> roomList = mansion.getListOfRooms();
+    assertNotNull(roomList);
+    assertEquals(rooms.size(), roomList.size());
+  }
+
+  @Test
+  public void testAddPlayer() {
+    Player player = new ComputerPlayer(1, 1, "Test Another Player", rooms.get(1), 2);
+    mansion.addPlayer(player);
+    assertEquals(2, mansion.getListOfPlayers().size());
+  }
+
+  @Test
+  public void testGetBufferedImage() {
+    BufferedImage image = mansion.getBufferedImage();
+    assertNotNull(image);
+    assertEquals(240, image.getWidth());
+    assertEquals(120, image.getHeight());
   }
 
   @Test

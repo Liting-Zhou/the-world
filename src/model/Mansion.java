@@ -123,7 +123,7 @@ public final class Mansion {
   /**
    * Creates a graphical representation of the world map and saves it as an image file.
    */
-  public void getBufferedImage() {
+  BufferedImage getBufferedImage() {
     int scaleFactor = 40;
     int buffer = 0;
     // Create a BufferedImage to represent the map
@@ -140,7 +140,11 @@ public final class Mansion {
     for (Room room : rooms) {
       drawRoom(g2d, room, scaleFactor);
     }
+    return mapImage;
+  }
 
+  public void SaveMansionMap() {
+    BufferedImage mapImage = getBufferedImage();
     // Save the generated map as an image file
     try {
       File outputImageFile = new File("./res/mansion_map.png");

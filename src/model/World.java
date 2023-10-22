@@ -79,7 +79,7 @@ public interface World {
   /**
    * Displays the map of the mansion.
    */
-  void displayMap();
+  void SaveMansionMap();
 
   /**
    * Displays information about the target.

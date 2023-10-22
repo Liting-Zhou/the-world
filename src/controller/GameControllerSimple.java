@@ -15,8 +15,8 @@ public final class GameControllerSimple implements Controller {
   /**
    * Constructor for the controller.
    *
-   * @param in    the source to read from
-   * @param out   the output to print
+   * @param in  the source to read from
+   * @param out the output to print
    * @throws IllegalArgumentException for invalid arguments.
    */
   public GameControllerSimple(Readable in, Appendable out)
@@ -64,7 +64,7 @@ public final class GameControllerSimple implements Controller {
           w.displayRoomInformation();
           break;
         case 2:
-          w.displayMap();
+          w.SaveMansionMap();
           break;
         case 3:
           // Add a human-controlled player to the game
@@ -107,7 +107,8 @@ public final class GameControllerSimple implements Controller {
       }
     }
     if (!w.ifGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
-      out.append(String.format("You have run out of the maximum number of turns (%d)! Game over!",maxNumOfTurns));
+      out.append(String.format("You have run out of the maximum number of turns (%d)! Game over!",
+          maxNumOfTurns));
     }
   }
 }

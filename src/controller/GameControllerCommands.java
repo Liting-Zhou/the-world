@@ -24,8 +24,8 @@ public final class GameControllerCommands implements Controller {
   /**
    * Constructor for the controller.
    *
-   * @param in    the source to read from
-   * @param out   the output to print
+   * @param in  the source to read from
+   * @param out the output to print
    * @throws IllegalArgumentException for invalid arguments.
    */
   public GameControllerCommands(Readable in, Appendable out)
@@ -71,7 +71,8 @@ public final class GameControllerCommands implements Controller {
       }
     }
     if (!w.ifGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
-      out.append(String.format("You have run out of the maximum number of turns (%d)! Game over!",maxNumOfTurns));
+      out.append(String.format("You have run out of the maximum number of turns (%d)! Game over!",
+          maxNumOfTurns));
     }
   }
 

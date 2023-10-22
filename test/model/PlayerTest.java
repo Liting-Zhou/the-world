@@ -1,7 +1,6 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import org.junit.Test;
 /**
  * This class contains test cases for the {@link Player} class.
  */
-public class PlayerTest{
+public class PlayerTest {
   private Player player;
   private Room initialLocation;
   private Target target;
