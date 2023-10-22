@@ -50,18 +50,20 @@ public class PlayerTest extends AbstractCharacter {
   }
 
   @Test
+  public void testGetTypeOfPlayer() {
+    assertEquals(0, player.getTypeOfPlayer());
+  }
+
+  @Test
+  public void testGetMaxNumberOfWeapons() {
+    assertEquals(3, player.getMaxNumberOfWeapons());
+  }
+
+  @Test
   public void testSetIndexOfPlayer() {
     player.setIndexOfPlayer(1);
     int indexOfPlayer = player.getIndexOfPlayer();
     assertEquals(1, indexOfPlayer);
-  }
-
-  @Test
-  public void testGetTypeOfPlayer() {
-    // Test for the getTypeOfPlayer() method
-    int type = player.getTypeOfPlayer();
-    // Check if the player type is either 0 or 1
-    assertTrue(type == 0 || type == 1);
   }
 
   @Test
