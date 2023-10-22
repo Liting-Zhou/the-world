@@ -193,7 +193,7 @@ public final class MyWorld implements World {
     Player player;
     if (typeOfPlayer == 0) {
       player = new HumanPlayer(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation,
-              maxNumOfWeapons);
+          maxNumOfWeapons);
     } else {
       player = new ComputerPlayer(indexOfNewPlayer, typeOfPlayer, playerName,
           currentLocation, maxNumOfWeapons);
@@ -328,7 +328,7 @@ public final class MyWorld implements World {
    * 1. move to a neighboring space.
    * 2. pick up an item.
    * 3. look around by displaying information about where a specific player is in the world
-   *    including what spaces that can be seen from where they are.
+   * including what spaces that can be seen from where they are.
    * Computer player randomly choose an action.
    */
   private void roundOfPlayers() {
@@ -360,7 +360,7 @@ public final class MyWorld implements World {
             player.getName()));
 
     //check if the player is human or computer
-    if(player.getTypeOfPlayer() == 0){
+    if (player.getTypeOfPlayer() == 0) {
       HumanPlayer p = (HumanPlayer) player;
       Scanner scanner = new Scanner(System.in);
       System.out.println("Please enter the corresponding number: ");
@@ -380,12 +380,12 @@ public final class MyWorld implements World {
       }
     } else {
       ComputerPlayer p = (ComputerPlayer) player;
-      if(p.getCurrentLocation().getWeapons().isEmpty()){
+      if (p.getCurrentLocation().getWeapons().isEmpty()) {
         p.randomActionNoWeapon(listOfRooms);
-      }else{
-        p.randomAction(listOfRooms);}
+      } else {
+        p.randomAction(listOfRooms);
+      }
     }
-
 
 
     //finds out which player acts next turn

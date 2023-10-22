@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Represents the target character in the game.

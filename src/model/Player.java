@@ -2,25 +2,23 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Represents a player character in the game. Players can take actions, move between rooms,
  * and interact with other characters and objects.
  */
 public class Player extends AbstractCharacter {
+  protected List<WeaponImp> weaponsCarried;
   private int indexOfPlayer;
   private int typeOfPlayer; // 0 for human, 1 for computer
-  protected List<WeaponImp> weaponsCarried;
 
   /**
    * Constructs a new Player object.
    *
-   * @param indexOfPlayer   The index of the player.
-   * @param typeOfPlayer    The type of the player. 0 for human, 1 for computer.
-   * @param name            The name of the player.
-   * @param currentLocation The initial current location of the player.
+   * @param indexOfPlayer      The index of the player.
+   * @param typeOfPlayer       The type of the player. 0 for human, 1 for computer.
+   * @param name               The name of the player.
+   * @param currentLocation    The initial current location of the player.
    * @param maxNumberOfWeapons The maximum number of weapons the player can carry.
    */
   public Player(int indexOfPlayer, int typeOfPlayer, String name, Room currentLocation,

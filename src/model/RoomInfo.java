@@ -243,8 +243,9 @@ public final class RoomInfo implements Room {
     if (isAnyPlayerHere(players)) {
       for (Player player : players) {
         if (this.equals(player.getCurrentLocation())) {
-          System.out.println(String.format(String.format("Player %s is in room %d!", player.getName(),
-              this.getRoomNumber())));
+          System.out.println(
+              String.format(String.format("Player %s is in room %d!", player.getName(),
+                  this.getRoomNumber())));
         }
       }
     } else {
