@@ -112,15 +112,16 @@ public final class RoomInfo implements Room {
   }
 
 
-//  /**
-//   * Decide if the given room is neighbor of this room.
-//   *
-//   * @param otherRoom The room to be decided if neighbors
-//   * @return true if the given room is neighbor of this room, false otherwise
-//   */
-//  public boolean isNeighbor(RoomInfo otherRoom) {
-//    return this.neighbors.contains(otherRoom);
-//  }
+  /**
+   * Decide if the given room is neighbor of this room.
+   *
+   * @param otherRoom The room to be decided if neighbors
+   * @return true if the given room is neighbor of this room, false otherwise
+   */
+  @Override
+  public boolean isNeighbor(Room otherRoom) {
+    return this.neighbors.contains(otherRoom);
+  }
 
 
   /**

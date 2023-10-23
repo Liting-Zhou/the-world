@@ -4,10 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import controller.GameControllerCommands;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -72,7 +75,29 @@ public class WorldTest {
     rooms = myWorld.getMansion().getListOfRooms();
 
     System.setOut(new PrintStream(outContent));
+  }
 
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testMyWorldConstructorInvalidFile() throws IllegalArgumentException, IOException {
+    new MyWorld(null);
+  }
+
+  /**
+   * A test that verifies the world specification is read successfully
+   */
+  @Test
+  public void testWorldSpecificationRead() {
+    // verify the list of rooms
+    assertEquals(22, myWorld.getMansion().getListOfRooms().size());
+
+    // verify the list of weapons
+    assertEquals("Knife", myWorld.getMansion().getListOfRooms().get(0).getWeapons().get(0).getName());
+
+    // verify the target
+    assertEquals("Target", myWorld.getTarget().getName());
+    assertEquals(20, myWorld.getTarget().getHealth());
+    assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
   }
 
   @Test
@@ -155,7 +180,45 @@ public class WorldTest {
   }
 
   @Test
-  public void testDisplayRoomInformation() {
+  public void testDisplayRoomInformationWithWeapon() {
+    String inputString = "0";
+    System.setIn(new ByteArrayInputStream(inputString.getBytes()));
+    myWorld.displayRoomInformation();
+    String expectedOutput = "\nThe mansion has the following rooms: \n" +
+        "0: Room A\n" +
+        "1: Room B\n" +
+        "2: Room C\n" +
+        "3: Room D\n" +
+        "4: Room E\n" +
+        "5: Room F\n" +
+        "6: Room G\n" +
+        "7: Room H\n" +
+        "8: Room I\n" +
+        "9: Room J\n" +
+        "10: Room K\n" +
+        "11: Room L\n" +
+        "12: Room M\n" +
+        "13: Room N\n" +
+        "14: Room O\n" +
+        "15: Room P\n" +
+        "16: Room Q\n" +
+        "17: Room R\n" +
+        "18: Room S\n" +
+        "19: Room T\n" +
+        "20: Room U\n" +
+        "21: Room V\n" +
+        "\n" +
+        "Which room do you want to display? Please enter the room number (0-21): \n" +
+        "\n" +
+        "Room 0 information:\n" +
+        "-> Weapon Knife with power 1 is in this room.\n" +
+        "Target is in room 0!\n" +
+        "No player in this room.\n--------------\n";
+    assertEquals(expectedOutput, outContent.toString());
+  }
+
+  @Test
+  public void testDisplayRoomInformationWithoutWeapon() {
     String inputString = "1";
     System.setIn(new ByteArrayInputStream(inputString.getBytes()));
     myWorld.displayRoomInformation();
@@ -188,8 +251,20 @@ public class WorldTest {
         "Room 1 information:\n" +
         "-> There is no weapon in this room.\n" +
         "Target is not here.\n" +
-        "Player Player2 is in room 1!\n--------------\n";
+        "No player in this room.\n--------------\n";
     assertEquals(expectedOutput, outContent.toString());
+  }
+
+  @Test
+  public void testTargetStartingRoom() {
+    assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
+  }
+
+  @Test
+  public void testEndStart() {
+    Target target = myWorld.getTarget();
+    target.setCurrentLocation(Mansion.getRoomInfoByRoomNumber(21));
+    assertEquals(0, target.move(rooms).getCurrentLocation().getRoomNumber());
   }
 
   @After

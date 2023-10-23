@@ -33,6 +33,12 @@ public class TargetTest {
   }
 
   @Test
+  public void testGetName() {
+    String name = target.getName();
+    assertEquals("Test Target", name);
+  }
+
+  @Test
   public void testGetHealth() {
     int health = target.getHealth();
     assertEquals(20, health);
@@ -55,7 +61,7 @@ public class TargetTest {
     listOfRooms.add(thirdRoom);
     mansion = new Mansion("Test Mansion", 10, 10, listOfRooms);
 
-    Target updatedTarget = target.move(mansion, players, listOfRooms);
+    Target updatedTarget = target.move(listOfRooms);
     assertEquals(2, updatedTarget.getCurrentLocation().getRoomNumber());
   }
 }

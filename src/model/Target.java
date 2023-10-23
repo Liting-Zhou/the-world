@@ -46,12 +46,10 @@ public final class Target extends AbstractCharacter {
   /**
    * Moves the target character to the next room. If encounter players, might get attacked.
    *
-   * @param mansion     The mansion.
-   * @param players     The list of all players in the game.
    * @param listOfRooms The list of all rooms
    * @return The updated target character with new location and health.
    */
-  public Target move(Mansion mansion, List<Player> players, List<Room> listOfRooms) {
+  public Target move(List<Room> listOfRooms) {
     // get current location
     int currentLocation = getCurrentLocation().getRoomNumber();
     // if currently in room 21, move to room 0, otherwise move to the next room
@@ -60,7 +58,7 @@ public final class Target extends AbstractCharacter {
       moveToRoom = getCurrentLocation().getRoomNumber() + 1;
     }
     // move to next room
-    Room newLocation = mansion.getRoomInfoByRoomNumber(moveToRoom);
+    Room newLocation = Mansion.getRoomInfoByRoomNumber(moveToRoom);
     setCurrentLocation(newLocation);
 
     Target updatedTarget = this;

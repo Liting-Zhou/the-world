@@ -43,6 +43,8 @@ public final class MyWorld implements World {
     initializeRooms(lines);
     initializeMansion(lines);
     initializeTarget(lines);
+    // describe the world
+    worldDescription();
   }
 
   /**
@@ -206,6 +208,44 @@ public final class MyWorld implements World {
     mansion.addPlayer(player);
   }
 
+  /**
+   * Displays a world description.
+   *
+   */
+  private void worldDescription() {
+    //1. describe the mansion by name and number of rooms
+    System.out.println("---------------------------------------------------------");
+    System.out.println("             Game of The World Description");
+    System.out.println("---------------------------------------------------------");
+    System.out.println(String.format("Welcome to %s's mansion! There are %d rooms in the mansion, "
+            + "and there might be weapons in some rooms.",
+        target.getName(), listOfRooms.size()));
+    //2. describe the target by name, health, starting location and rules of moving
+    System.out.println(String.format("%s is the target, who has health %d, starts from room %d "
+            + "and moves around the mansion.",
+        target.getName(), target.getHealth(), target.getCurrentLocation().getRoomNumber()));
+    //3. describe the player rules by introducing type, starting location, maximum number of
+    //   weapons, and different actions.
+    System.out.println("After initialization of the World, players can be added to the game, "
+        + "specifying name, starting room, and maximum \nnumber of weapons could be carried. There "
+        + "could be two types of players: human-controlled and computer-controlled.\n"
+        + "Player can choose from these three actions:\n1. move to a neighboring room.\n2. pick up "
+        + "a weapon in the room.\n3. look around.\nComputer player randomly choose an action while "
+        + "human player performs active choice.");
+    //4. describe the weapon rules by introducing power and name
+    System.out.println("Weapon has a power and a name. Once picked up, it will be removed from the room.");
+    //5. describe the game rules. Given maximum number of turns, in each round target moves first
+    //   and then one player acts. Player acts in the order of being added to the game. Game over if
+    //   target's health reaches zero or running out of turns. The winner is the player who finally
+    //   kills the target.
+    System.out.println("Finally, the game is initialized with a maximum number of turns, in each turn "
+        + "target moves first and then one player acts.\nPlayer acts in the order of being added "
+        + "to the game. GAME IS OVER when target's health reaches zero or running out of turns.\n"
+        + "The winner is the player who finally kills the target and no winner for the latter case.");
+    System.out.println("---------------------------------------------------------");
+    System.out.println();
+  }
+
 
   /**
    * Adds human-controlled player to the game.
@@ -332,7 +372,7 @@ public final class MyWorld implements World {
    * Plays target move and update target information.
    */
   private void roundOfTargetCharacter() {
-    Target targetAfterMove = target.move(mansion, players, listOfRooms);
+    Target targetAfterMove = target.move(listOfRooms);
     updateTarget(targetAfterMove);
 
   }

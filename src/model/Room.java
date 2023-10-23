@@ -50,6 +50,14 @@ public interface Room {
   int getRoomNumber();
 
   /**
+   * Decide if the given room is neighbor of this room.
+   *
+   * @param otherRoom The room to be decided if neighbors
+   * @return true if the given room is neighbor of this room, false otherwise
+   */
+  boolean isNeighbor(Room otherRoom);
+
+  /**
    * Gets the list of weapons present in the room.
    *
    * @return The list of weapons.
