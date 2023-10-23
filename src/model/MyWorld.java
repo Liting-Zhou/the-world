@@ -166,7 +166,7 @@ public final class MyWorld implements World {
 
   /**
    * Initializes the game's target character,
-   * who has health 30 and starting location room number 16.
+   * who has health 30 and starting location room number 0.
    */
   private void initializeTarget(List<String> lines) {
     String targetInfo = lines.get(1); // Line 1 contains target information.
@@ -178,7 +178,7 @@ public final class MyWorld implements World {
     System.arraycopy(targetData, 1, restOfTargetData, 0, targetData.length - 1);
     String targetName = String.join(" ", restOfTargetData);
 
-    // Initialize the starting location, which is the trophy room, number 16
+    // Initialize the starting location
     Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
 
     // Create the target character.
@@ -388,7 +388,7 @@ public final class MyWorld implements World {
       HumanPlayer p = (HumanPlayer) player;
       Scanner scanner = new Scanner(System.in);
       System.out.println("Please enter the corresponding number: ");
-      Integer action = scanner.nextInt();
+      int action = scanner.nextInt();
       //TODO check valid action, throw exception
       if (action == 1) {
         //move to a neighboring space
@@ -498,7 +498,7 @@ public final class MyWorld implements World {
     // 2.Ask which room to display
     System.out.println("Which room do you want to display? Please enter the room number (0-21): ");
     Scanner scanner = new Scanner(System.in);
-    Integer roomNumber = scanner.nextInt();
+    int roomNumber = scanner.nextInt();
     Room room = mansion.getRoomInfoByRoomNumber(roomNumber);
     System.out.println();
 

@@ -1,5 +1,6 @@
 package model;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -37,14 +38,16 @@ public class ComputerPlayerTest {
 
   @Test
   public void testMove() {
+    Room previousRoom = computerPlayer.getCurrentLocation();
     computerPlayer.move(rooms);
     assertTrue(rooms.contains(computerPlayer.getCurrentLocation()));
+    assertNotEquals(previousRoom, computerPlayer.getCurrentLocation());
   }
 
   @Test
   public void testPickUpWeapon() {
     computerPlayer.pickUpWeapon();
     assertTrue(computerPlayer.weaponsCarried.contains(weapon1) ||
-        computerPlayer.weaponsCarried.contains(weapon2));
+        computerPlayer.weaponsCarried.contains(weapon3));
   }
 }

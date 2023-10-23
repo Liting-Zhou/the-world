@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
@@ -119,6 +120,8 @@ public class WorldTest {
 
   @Test
   public void testPlayNextTurn() {
+    String inputString = "3";
+    System.setIn(new ByteArrayInputStream(inputString.getBytes()));
     myWorld.playNextTurn();
     assertEquals(2, myWorld.getNumOfTurnsPlayed());
   }
@@ -148,6 +151,44 @@ public class WorldTest {
   public void testDisplayPlayerInformation() {
     myWorld.displayPlayerInformation();
     String expectedOutput = "\nNo player is added in the game yet\n";
+    assertEquals(expectedOutput, outContent.toString());
+  }
+
+  @Test
+  public void testDisplayRoomInformation() {
+    String inputString = "1";
+    System.setIn(new ByteArrayInputStream(inputString.getBytes()));
+    myWorld.displayRoomInformation();
+    String expectedOutput = "\nThe mansion has the following rooms: \n" +
+        "0: Room A\n" +
+        "1: Room B\n" +
+        "2: Room C\n" +
+        "3: Room D\n" +
+        "4: Room E\n" +
+        "5: Room F\n" +
+        "6: Room G\n" +
+        "7: Room H\n" +
+        "8: Room I\n" +
+        "9: Room J\n" +
+        "10: Room K\n" +
+        "11: Room L\n" +
+        "12: Room M\n" +
+        "13: Room N\n" +
+        "14: Room O\n" +
+        "15: Room P\n" +
+        "16: Room Q\n" +
+        "17: Room R\n" +
+        "18: Room S\n" +
+        "19: Room T\n" +
+        "20: Room U\n" +
+        "21: Room V\n" +
+        "\n" +
+        "Which room do you want to display? Please enter the room number (0-21): \n" +
+        "\n" +
+        "Room 1 information:\n" +
+        "-> There is no weapon in this room.\n" +
+        "Target is not here.\n" +
+        "Player Player2 is in room 1!\n--------------\n";
     assertEquals(expectedOutput, outContent.toString());
   }
 

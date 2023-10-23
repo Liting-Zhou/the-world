@@ -61,6 +61,11 @@ public final class GameControllerCommands implements Controller {
     while (!w.ifGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
       printOptions();
       int option = s.nextInt();
+      if (option == 99) {
+        System.out.println("Bye!");
+        break;
+      }
+
       Function<Scanner, Command> cmd = knownCommands.getOrDefault(option, null);
 
       if (cmd != null) {
@@ -88,7 +93,8 @@ public final class GameControllerCommands implements Controller {
     System.out.println("5. Play next turn."); //player can move, pick up weapon, look around
     System.out.println("6. Display a description of a specified player.");
     System.out.println("7. Display a description of the target.");
-
+    System.out.println("99. Quit the game.");
+    System.out.println();
     System.out.println("Please choose an option (enter the corresponding number): ");
   }
 }
