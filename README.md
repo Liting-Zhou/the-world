@@ -1,4 +1,4 @@
-# milestone01-the-world
+# Project of The World
 
 ### Name: Liting Zhou
 
