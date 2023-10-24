@@ -2,6 +2,9 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+*.iml
+testing-plan-milestone1.xlsx
+testing-plan-milestone2.docx
 
 ### Eclipse ###
 .apt_generated
