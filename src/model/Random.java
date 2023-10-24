@@ -10,10 +10,10 @@ public interface Random {
    * Generates the next pseudorandom, uniformly distributed int value between 0 (inclusive)
    * and the specified bound (exclusive).
    *
-   * @param bound the upper bound (exclusive). Must be positive.
+   * @param bound the upper bound (exclusive). Must be positive
    * @return the next pseudorandom, uniformly distributed int value between 0 (inclusive)
-   * and bound (exclusive).
-   * @throws IllegalArgumentException if the bound is not positive.
+   *         and bound (exclusive)
+   * @throws IllegalArgumentException if the bound is not positive
    */
   int nextRandomInt(int bound);
 }

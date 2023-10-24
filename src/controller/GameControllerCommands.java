@@ -61,7 +61,7 @@ public final class GameControllerCommands implements Controller {
       printOptions();
       int option = s.nextInt();
       if (option == 99) {
-        System.out.println("Bye!");
+        System.out.println("You chose to end the game. Bye!");
         break;
       }
 
@@ -73,10 +73,15 @@ public final class GameControllerCommands implements Controller {
       } else {
         System.out.println("Invalid option.");
       }
+      System.out.println();
+      System.out.println("***************");
+      if (w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
+        System.out.println("Game continues.");
+      }
     }
     if (!w.ifGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
-      out.append(String.format("You have run out of the maximum number of turns (%d)! Game over!",
-          maxNumOfTurns));
+      out.append(String.format("Oops! You have run out of the maximum number of turns (%d)! "
+              + "GAME OVER!\n", maxNumOfTurns));
     }
   }
 

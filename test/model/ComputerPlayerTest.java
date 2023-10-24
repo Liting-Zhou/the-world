@@ -18,6 +18,9 @@ public class ComputerPlayerTest {
   private WeaponImp weapon2;
   private WeaponImp weapon3;
 
+  /**
+   * Sets up the test environment before each test case.
+   */
   @Before
   public void setUp() {
     weapon1 = new WeaponImp(5, "Axe", 0);
@@ -47,7 +50,7 @@ public class ComputerPlayerTest {
   @Test
   public void testPickUpWeapon() {
     computerPlayer.pickUpWeapon();
-    assertTrue(computerPlayer.weaponsCarried.contains(weapon1) ||
-        computerPlayer.weaponsCarried.contains(weapon3));
+    assertTrue(computerPlayer.weaponsCarried.contains(weapon1)
+        || computerPlayer.weaponsCarried.contains(weapon3));
   }
 }

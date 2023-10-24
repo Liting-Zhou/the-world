@@ -24,6 +24,6 @@ public final class AddComputerPlayer implements Command {
     System.out.println("The maximum number of weapons this player can carry is: ");
     int maxNumOfWeapons = scan.nextInt();
     w.addComputerPlayer(name, roomNumber, maxNumOfWeapons);
-    System.out.println("***************");
+    //System.out.println("***************");
   }
 }

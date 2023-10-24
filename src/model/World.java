@@ -24,6 +24,8 @@ public interface World {
 
   /**
    * Sets the maximum number of turns.
+   *
+   * @param maxNumOfTurns the maximum number of turns
    */
   void setMaxNumOfTurns(int maxNumOfTurns);
 
@@ -79,7 +81,7 @@ public interface World {
   /**
    * Displays the map of the mansion.
    */
-  void SaveMansionMap();
+  void saveMansionMap();
 
   /**
    * Displays information about the target.

@@ -30,7 +30,7 @@ public class HumanPlayer extends Player {
     System.out.println("Which neighboring room do you want to enter? Enter the room number: ");
     Integer roomNumber = scanner.nextInt();
     //check if the room is a neighbor
-    if(this.getCurrentLocation().isNeighbor(Mansion.getRoomInfoByRoomNumber(roomNumber))){
+    if (this.getCurrentLocation().isNeighbor(Mansion.getRoomInfoByRoomNumber(roomNumber))) {
       this.setCurrentLocation(Mansion.getRoomInfoByRoomNumber(roomNumber));
       System.out.println(String.format("You are now in room %d.", roomNumber));
     } else {

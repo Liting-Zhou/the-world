@@ -143,13 +143,18 @@ public final class Mansion {
     return mapImage;
   }
 
-  public void SaveMansionMap() {
+  /**
+   * Saves the mansion map as an image file.
+   */
+  public void saveMansionMap() {
     BufferedImage mapImage = getBufferedImage();
     // Save the generated map as an image file
     try {
       File outputImageFile = new File("./res/mansion_map.png");
       ImageIO.write(mapImage, "png", outputImageFile);
       System.out.println("mansion_map.png saved successfully.");
+      //System.out.println("***************");
+      //System.out.println("Game continues.");
     } catch (IOException e) {
       e.printStackTrace();
     }

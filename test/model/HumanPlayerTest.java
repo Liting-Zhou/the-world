@@ -16,6 +16,9 @@ public class HumanPlayerTest {
   private HumanPlayer humanPlayer;
   private Random random;
 
+  /**
+   * Sets up the test environment before each test case.
+   */
   @Before
   public void setUp() {
     WeaponImp weapon1 = new WeaponImp(5, "Axe", 0);
@@ -27,7 +30,7 @@ public class HumanPlayerTest {
     List<WeaponImp> weapons2 = new ArrayList<>();
     weapons2.add(weapon2);
     Room room1 = new RoomInfo(0, 0, 0, 1, 1, "Test Room 1", weapons1);
-    Room room2 = new RoomInfo(1, 1, 1, 2, 2, "Test Room 2", weapons2);
+    Room room2 = new RoomInfo(1, 1, 0, 2, 2, "Test Room 2", weapons2);
     humanPlayer = new HumanPlayer(1, 0, "Test Player", room1, 2);
     List<Room> rooms = List.of(room1, room2);
     Mansion mansion = new Mansion("Test Mansion", 3, 6, rooms);

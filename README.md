@@ -4,7 +4,7 @@
 
 ### How to Run
 
-Run command => `java -jar <path of jar file> <names of players>`
+Run command => `java -jar <path of jar file> <path of configuration file> <max number of turns>`
 
 ### Example Runs
 

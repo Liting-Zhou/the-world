@@ -84,7 +84,7 @@ public class WorldTest {
   }
 
   /**
-   * A test that verifies the world specification is read successfully
+   * A test that verifies the world specification is read successfully.
    */
   @Test
   public void testWorldSpecificationRead() {
@@ -92,7 +92,8 @@ public class WorldTest {
     assertEquals(22, myWorld.getMansion().getListOfRooms().size());
 
     // verify the list of weapons
-    assertEquals("Knife", myWorld.getMansion().getListOfRooms().get(0).getWeapons().get(0).getName());
+    assertEquals("Knife", myWorld.getMansion().getListOfRooms().get(0)
+        .getWeapons().get(0).getName());
 
     // verify the target
     assertEquals("Target", myWorld.getTarget().getName());
@@ -167,7 +168,7 @@ public class WorldTest {
     myWorld.displayTargetInformation();
     String expectedOutput = "Target Information:\n"
         + "Name: Target\n" + "Current Location: Room 0\n"
-        + "Health: 20\n" + "--------------\n";
+        + "Health: 20\n";
 
     assertEquals(expectedOutput, outContent.toString());
   }
@@ -184,36 +185,34 @@ public class WorldTest {
     String inputString = "0";
     System.setIn(new ByteArrayInputStream(inputString.getBytes()));
     myWorld.displayRoomInformation();
-    String expectedOutput = "\nThe mansion has the following rooms: \n" +
-        "0: Room A\n" +
-        "1: Room B\n" +
-        "2: Room C\n" +
-        "3: Room D\n" +
-        "4: Room E\n" +
-        "5: Room F\n" +
-        "6: Room G\n" +
-        "7: Room H\n" +
-        "8: Room I\n" +
-        "9: Room J\n" +
-        "10: Room K\n" +
-        "11: Room L\n" +
-        "12: Room M\n" +
-        "13: Room N\n" +
-        "14: Room O\n" +
-        "15: Room P\n" +
-        "16: Room Q\n" +
-        "17: Room R\n" +
-        "18: Room S\n" +
-        "19: Room T\n" +
-        "20: Room U\n" +
-        "21: Room V\n" +
-        "\n" +
-        "Which room do you want to display? Please enter the room number (0-21): \n" +
-        "\n" +
-        "Room 0 information:\n" +
-        "-> Weapon Knife with power 1 is in this room.\n" +
-        "Target is in room 0!\n" +
-        "No player in this room.\n--------------\n";
+    String expectedOutput = "\nThe mansion has the following rooms: \n"
+        + "0: Room A\n"
+        + "1: Room B\n"
+        + "2: Room C\n"
+        + "3: Room D\n"
+        + "4: Room E\n"
+        + "5: Room F\n"
+        + "6: Room G\n"
+        + "7: Room H\n"
+        + "8: Room I\n"
+        + "9: Room J\n"
+        + "10: Room K\n"
+        + "11: Room L\n"
+        + "12: Room M\n"
+        + "13: Room N\n"
+        + "14: Room O\n"
+        + "15: Room P\n"
+        + "16: Room Q\n"
+        + "17: Room R\n"
+        + "18: Room S\n"
+        + "19: Room T\n"
+        + "20: Room U\n"
+        + "21: Room V\n"
+        + "\nWhich room do you want to display? Please enter the room number (0-21): \n"
+        + "\nRoom 0 information:\n"
+        + "-> Weapon Knife with power 1 is in this room.\n"
+        + "Target is in room 0!\n"
+        + "No player in this room.\n";
     assertEquals(expectedOutput, outContent.toString());
   }
 
@@ -222,36 +221,33 @@ public class WorldTest {
     String inputString = "1";
     System.setIn(new ByteArrayInputStream(inputString.getBytes()));
     myWorld.displayRoomInformation();
-    String expectedOutput = "\nThe mansion has the following rooms: \n" +
-        "0: Room A\n" +
-        "1: Room B\n" +
-        "2: Room C\n" +
-        "3: Room D\n" +
-        "4: Room E\n" +
-        "5: Room F\n" +
-        "6: Room G\n" +
-        "7: Room H\n" +
-        "8: Room I\n" +
-        "9: Room J\n" +
-        "10: Room K\n" +
-        "11: Room L\n" +
-        "12: Room M\n" +
-        "13: Room N\n" +
-        "14: Room O\n" +
-        "15: Room P\n" +
-        "16: Room Q\n" +
-        "17: Room R\n" +
-        "18: Room S\n" +
-        "19: Room T\n" +
-        "20: Room U\n" +
-        "21: Room V\n" +
-        "\n" +
-        "Which room do you want to display? Please enter the room number (0-21): \n" +
-        "\n" +
-        "Room 1 information:\n" +
-        "-> There is no weapon in this room.\n" +
-        "Target is not here.\n" +
-        "No player in this room.\n--------------\n";
+    String expectedOutput = "\nThe mansion has the following rooms: \n"
+        + "0: Room A\n"
+        + "1: Room B\n"
+        + "2: Room C\n"
+        + "3: Room D\n"
+        + "4: Room E\n"
+        + "5: Room F\n"
+        + "6: Room G\n"
+        + "7: Room H\n"
+        + "8: Room I\n"
+        + "9: Room J\n"
+        + "10: Room K\n"
+        + "11: Room L\n"
+        + "12: Room M\n"
+        + "13: Room N\n"
+        + "14: Room O\n"
+        + "15: Room P\n"
+        + "16: Room Q\n"
+        + "17: Room R\n"
+        + "18: Room S\n"
+        + "19: Room T\n"
+        + "20: Room U\n"
+        + "21: Room V\n"
+        + "\nWhich room do you want to display? Please enter the room number (0-21): \n"
+        + "\nRoom 1 information:\n"
+        + "-> There is no weapon in this room.\n"
+        + "Target is not here.\nNo player in this room.\n";
     assertEquals(expectedOutput, outContent.toString());
   }
 
@@ -260,6 +256,9 @@ public class WorldTest {
     assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
   }
 
+  /**
+   * A test that verifies the target moves to room 0 when it is in room 21.
+   */
   @Test
   public void testEndStart() {
     Target target = myWorld.getTarget();

@@ -10,14 +10,16 @@ import java.util.Scanner;
  */
 public final class MyWorld implements World {
   private static List<Player> players = new ArrayList<>();
-  private final int startingRoom = 0; //default value
   int maxNumOfTurns = 100; //default value
+  private final int startingRoom = 0; //default value
   private Target target;
   private List<Room> listOfRooms;
   private Mansion mansion;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
   private int numOfTurnsPlayed = 1;
+
+
 
   /**
    * Constructs a new "MyWorld" game, initializing the world map from
@@ -233,15 +235,19 @@ public final class MyWorld implements World {
         + "a weapon in the room.\n3. look around.\nComputer player randomly choose an action while "
         + "human player performs active choice.");
     //4. describe the weapon rules by introducing power and name
-    System.out.println("Weapon has a power and a name. Once picked up, it will be removed from the room.");
+    System.out.println("Weapon has a power and a name. Once picked up, it will be removed "
+        + "from the room.");
     //5. describe the game rules. Given maximum number of turns, in each round target moves first
     //   and then one player acts. Player acts in the order of being added to the game. Game over if
     //   target's health reaches zero or running out of turns. The winner is the player who finally
     //   kills the target.
-    System.out.println("Finally, the game is initialized with a maximum number of turns, in each turn "
+    System.out.println("Finally, the game is initialized with a maximum number of turns, "
+        + "in each turn "
         + "target moves first and then one player acts.\nPlayer acts in the order of being added "
         + "to the game. GAME IS OVER when target's health reaches zero or running out of turns.\n"
-        + "The winner is the player who finally kills the target and no winner for the latter case.");
+        + "The winner is the player who finally kills the target and no winner "
+        + "for the latter case.");
+    System.out.println("---------------------------------------------------------");
     System.out.println("---------------------------------------------------------");
     System.out.println();
   }
@@ -350,7 +356,7 @@ public final class MyWorld implements World {
       return;
     }
     if (!ifGameOver()) {
-      System.out.println("***************");
+      System.out.println("---------------");
       System.out.println("Now play the next turn!");
       roundOfTargetCharacter();
       roundOfPlayers();
@@ -360,11 +366,8 @@ public final class MyWorld implements World {
           maxNumOfTurns - numOfTurnsPlayed, target.getCurrentLocation().getRoomNumber(),
           target.getHealth()));
       numOfTurnsPlayed += 1;
-      System.out.println();
-      System.out.println("***************");
-      if (numOfTurnsPlayed <= maxNumOfTurns) {
-        System.out.println("Game continues.");
-      }
+      //System.out.println();
+      //System.out.println("***************");
     }
   }
 
@@ -400,6 +403,7 @@ public final class MyWorld implements World {
     player = players.get(indexOfCurrentPlayer);
     System.out.println();
     System.out.println(String.format("It's %s's turn!", player.getName()));
+    System.out.println();
 
     System.out.println("USEFUL INFORMATION:");
     System.out.print("-> You");
@@ -463,8 +467,8 @@ public final class MyWorld implements World {
    * Displays the map of the mansion.
    */
   @Override
-  public void SaveMansionMap() {
-    mansion.SaveMansionMap();
+  public void saveMansionMap() {
+    mansion.saveMansionMap();
   }
 
   /**
@@ -478,7 +482,7 @@ public final class MyWorld implements World {
     System.out.println(
         String.format("Current Location: Room %d", target.getCurrentLocation().getRoomNumber()));
     System.out.println(String.format("Health: %d", target.getHealth()));
-    System.out.println("--------------");
+    //System.out.println("--------------");
   }
 
   /**
@@ -518,8 +522,8 @@ public final class MyWorld implements World {
         }
         System.out.println(String.format("Current Location: Room %d",
             player.getCurrentLocation().getRoomNumber()));
-        player.getCurrentLocation().displayWeapons();
-        System.out.println("--------------");
+        //System.out.println("***************");
+        //System.out.println("Game continues.");
         break;
       }
     }
@@ -547,7 +551,5 @@ public final class MyWorld implements World {
     room.displayWeapons();
     room.displayTarget(target);
     room.displayPlayers(players);
-
-    System.out.println("--------------");
   }
 }

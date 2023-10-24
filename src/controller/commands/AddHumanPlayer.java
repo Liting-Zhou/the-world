@@ -23,6 +23,6 @@ public final class AddHumanPlayer implements Command {
     System.out.println("The maximum number of weapons this player can carry is: ");
     int maxNumOfWeapons = scan.nextInt();
     w.addHumanPlayer(name, roomNumber, maxNumOfWeapons);
-    System.out.println("***************");
+    //System.out.println("***************");
   }
 }

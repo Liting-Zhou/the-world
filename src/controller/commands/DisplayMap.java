@@ -14,6 +14,6 @@ public final class DisplayMap implements Command {
    */
   @Override
   public void execute(MyWorld w) {
-    w.SaveMansionMap();
+    w.saveMansionMap();
   }
 }

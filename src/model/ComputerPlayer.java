@@ -2,6 +2,9 @@ package model;
 
 import java.util.List;
 
+/**
+ * This class represents a computer player in the game.
+ */
 public class ComputerPlayer extends Player {
   private RandomNumber random;
 
@@ -20,6 +23,11 @@ public class ComputerPlayer extends Player {
     this.random = new RandomNumber();
   }
 
+  /**
+   * Computer Player randomly picks an action to perform.
+   *
+   * @param rooms The list of rooms in the game.
+   */
   public void randomAction(List<Room> rooms) {
     int action = random.nextRandomInt(3);
     if (action == 0) {
@@ -39,6 +47,11 @@ public class ComputerPlayer extends Player {
     }
   }
 
+  /**
+   * Computer Player randomly picks an action to perform when there is no weapon in the room.
+   *
+   * @param rooms The list of rooms in the game.
+   */
   public void randomActionNoWeapon(List<Room> rooms) {
     int action = random.nextRandomInt(2);
     if (action == 0) {
@@ -55,6 +68,8 @@ public class ComputerPlayer extends Player {
 
   /**
    * Player moves to a specific room.
+   *
+   * @param rooms The list of rooms in the game.
    */
   public void move(List<Room> rooms) {
     //randomly move to a neighboring space

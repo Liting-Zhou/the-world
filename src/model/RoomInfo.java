@@ -271,7 +271,7 @@ public final class RoomInfo implements Room {
       int i = 1;
       for (WeaponImp weapon : weapons) {
         System.out.println(
-            String.format("   %d. %s with power %d", i, weapon.getName(), weapon.getPower()));
+            String.format("   (%d) %s with power %d", i, weapon.getName(), weapon.getPower()));
         i += 1;
       }
     }
@@ -306,7 +306,7 @@ public final class RoomInfo implements Room {
       System.out.println("The neighbors of this room are: ");
       for (Room neighbor : neighbors) {
         System.out.print(
-            String.format("%d. %s. ", neighbor.getRoomNumber(), neighbor.getRoomName()));
+            String.format("%d. %s ", neighbor.getRoomNumber(), neighbor.getRoomName()));
         neighbor.displayWeapons();
         //check if target in this room and display target information
         if (neighbor.isTargetHere(target)) {

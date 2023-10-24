@@ -1,0 +1,379 @@
+(base) yolanda@Yolandas-MacBook-Pro the-world % java -jar ./res/the-world.jar ./res/mansion.txt 5
+---------------------------------------------------------
+             Game of The World Description
+---------------------------------------------------------
+Welcome to Doctor Lucky's mansion! There are 22 rooms in the mansion, and there might be weapons in some rooms.
+Doctor Lucky is the target, who has health 30, starts from room 0 and moves around the mansion.
+After initialization of the World, players can be added to the game, specifying name, starting room, and maximum
+number of weapons could be carried. There could be two types of players: human-controlled and computer-controlled.
+Player can choose from these three actions:
+1. move to a neighboring room.
+2. pick up a weapon in the room.
+3. look around.
+Computer player randomly choose an action while human player performs active choice.
+Weapon has a power and a name. Once picked up, it will be removed from the room.
+Finally, the game is initialized with a maximum number of turns, in each turn target moves first and then one player acts.
+Player acts in the order of being added to the game. GAME IS OVER when target's health reaches zero or running out of turns.
+The winner is the player who finally kills the target and no winner for the latter case.
+---------------------------------------------------------
+---------------------------------------------------------
+
+Game started!
+***************
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+3
+Please enter the name:
+Tom
+Choose a room to start from. Enter the room number (0-21):
+5
+The maximum number of weapons this player can carry is:
+4
+Human-controlled player Tom is added to the game!
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+4
+Please enter the name:
+Jerry
+Choose a room to start from. Enter the room number (0-21):
+9
+The maximum number of weapons this player can carry is:
+2
+Computer-controlled player Jerry is added to the game!
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 1.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 5.
+-> There is no weapon in this room.
+-> You can move to the following rooms:
+   4. Library
+   6. Ballroom Balcony
+   20. Music Room
+   21. Lounge
+
+Now you have 3 options:
+1. move to a neighboring space.
+2. pick up a weapon if there is any.
+3. look around.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+1
+Which neighboring room do you want to enter? Enter the room number:
+20
+You are now in room 20.
+
+Turn 1 has ended (4 turns left). And Target is now in room 1 with health 30.
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 2.
+
+It's Jerry's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 9.
+-> Weapon Silken Cord with power 3 is in this room.
+-> You can move to the following rooms:
+   7. Doctor Lucky's Bedroom
+   10. Swimming Pool
+   15. Doctor's Bathroom
+
+Now you have 3 options:
+1. move to a neighboring space.
+2. pick up a weapon if there is any.
+3. look around.
+What do you want to do, Jerry?
+
+The random action of computer player Jerry is to pick up a weapon.
+Player Jerry picked up Silken Cord with power 3.
+Now Jerry has/have 1 weapon(s):
+Silken Cord with power 3
+
+Turn 2 has ended (3 turns left). And Target is now in room 2 with health 30.
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 3.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 20.
+-> There is no weapon in this room.
+-> You can move to the following rooms:
+   5. Ballroom
+   16. Trophy Room
+   19. Art Gallery
+   21. Lounge
+
+Now you have 3 options:
+1. move to a neighboring space.
+2. pick up a weapon if there is any.
+3. look around.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+3
+--------------
+Your current Location: Room 20
+The neighbors of this room are:
+5. Ballroom -> There is no weapon in this room.
+16. Trophy Room -> Weapon Broom Stick with power 2 is in this room.
+19. Art Gallery -> There are 2 weapons in this room:
+   (1) Rat Poison with power 2
+   (2) Painting with power 1
+21. Lounge -> Weapon Big Red Hammer with power 4 is in this room.
+
+Turn 3 has ended (2 turns left). And Target is now in room 3 with health 30.
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 4.
+
+It's Jerry's turn!
+
+USEFUL INFORMATION:
+-> You has/have 1 weapon(s):
+Silken Cord with power 3
+-> You are now in room 9.
+-> There is no weapon in this room.
+-> You can move to the following rooms:
+   7. Doctor Lucky's Bedroom
+   10. Swimming Pool
+   15. Doctor's Bathroom
+
+Now you have 3 options:
+1. move to a neighboring space.
+2. pick up a weapon if there is any.
+3. look around.
+What do you want to do, Jerry?
+
+The random action of computer player Jerry is to move to a neighboring room.
+Player Jerry is now in room 15.
+
+Turn 4 has ended (1 turns left). And Target is now in room 4 with health 30.
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+1
+
+The mansion has the following rooms:
+0: Billiards Room
+1: Foyer
+2: Dining Room
+3: Kitchen
+4: Library
+5: Ballroom
+6: Ballroom Balcony
+7: Doctor Lucky's Bedroom
+8: Observation Deck
+9: Garden Terrace
+10: Swimming Pool
+11: Wine Tasting Room
+12: Guest Bedrooms 1
+13: Guest Bathroom
+14: Guest Bedrooms 2
+15: Doctor's Bathroom
+16: Trophy Room
+17: Greenhouse
+18: Study Room
+19: Art Gallery
+20: Music Room
+21: Lounge
+
+Which room do you want to display? Please enter the room number (0-21):
+6
+
+Room 6 information:
+-> There are 2 weapons in this room:
+   (1) Trowel with power 2
+   (2) Pinking Shears with power 2
+Target is not here.
+No player in this room.
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+2
+mansion_map.png saved successfully.
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+6
+
+List of players:
+Tom
+Jerry
+
+Which player do you want to display? Please enter the name:
+Jerry
+
+Information of player Jerry:
+Jerry has/have 1 weapon(s):
+Silken Cord with power 3
+Maximum number of weapons can carry: 2
+This is a computer player.
+Current Location: Room 15
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 5.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 20.
+-> There is no weapon in this room.
+-> You can move to the following rooms:
+   5. Ballroom
+   16. Trophy Room
+   19. Art Gallery
+   21. Lounge
+
+Now you have 3 options:
+1. move to a neighboring space.
+2. pick up a weapon if there is any.
+3. look around.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+16
+Invalid action.
+
+Turn 5 has ended (0 turns left). And Target is now in room 5 with health 30.
+
+***************
+Oops! You have run out of the maximum number of turns (5)! GAME OVER!
