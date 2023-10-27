@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a player character in the game. Players can take actions, move between rooms,
@@ -10,7 +11,7 @@ import java.util.List;
 public class Player extends AbstractCharacter {
   protected List<WeaponImp> weaponsCarried;
   private int indexOfPlayer;
-  private int typeOfPlayer; // 0 for human, 1 for computer
+  private final int typeOfPlayer; // 0 for human, 1 for computer
 
   /**
    * Constructs a new Player object.
@@ -83,14 +84,14 @@ public class Player extends AbstractCharacter {
    * Player look around. Displays all information about neighboring rooms.
    */
   public void lookAround() {
-    displayPlayerInformation();
+    lookAroundInformation();
   }
 
   /**
    * Displays the player information, including name, weapon carried, current location,
    * and neighbors.
    */
-  public void displayPlayerInformation() {
+  public void lookAroundInformation() {
     System.out.println("--------------");
     System.out.println(
         String.format("Your current Location: Room %d", getCurrentLocation().getRoomNumber()));
@@ -109,6 +110,40 @@ public class Player extends AbstractCharacter {
         System.out.println(String.format("%s with power %s", weapon.getName(), weapon.getPower()));
       }
     }
+  }
+
+  /**
+   * Checks if this character is equal to another object.
+   *
+   * @param o The object to compare for equality.
+   * @return true if the objects are equal, false otherwise.
+   */
+  @Override
+  public boolean equals(Object o) {
+    // Fast path for pointer equality:
+    if (this == o) { // backward compatibility with default equals
+      return true;
+    }
+    // If o isn't the right class then it can't be equal:
+    if (!(o instanceof Player)) {
+      return false;
+    }
+    // The successful instanceof check means our cast will succeed:
+    Player that = (Player) o;
+
+    return Objects.equals(getName(), that.getName())
+        && Objects.equals(weaponsCarried, that.weaponsCarried)
+        && Objects.equals(typeOfPlayer, that.typeOfPlayer);
+  }
+
+  /**
+   * Returns a hash code value for this character.
+   *
+   * @return The hash code value for this character.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), weaponsCarried, typeOfPlayer);
   }
 }
 

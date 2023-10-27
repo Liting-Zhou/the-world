@@ -50,35 +50,4 @@ abstract class AbstractCharacter implements Character {
   public void setCurrentLocation(Room currentLocation) {
     this.currentLocation = currentLocation;
   }
-
-  /**
-   * Checks if this character is equal to another object.
-   *
-   * @param o The object to compare for equality.
-   * @return true if the objects are equal, false otherwise.
-   */
-  @Override
-  public boolean equals(Object o) {
-    // Fast path for pointer equality:
-    if (this == o) { // backward compatibility with default equals
-      return true;
-    }
-    // If o isn't the right class then it can't be equal:
-    if (!(o instanceof AbstractCharacter)) {
-      return false;
-    }
-    // The successful instanceof check means our cast will succeed:
-    AbstractCharacter that = (AbstractCharacter) o;
-    return Objects.equals(getName(), that.getName());
-  }
-
-  /**
-   * Returns a hash code value for this character.
-   *
-   * @return The hash code value for this character.
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(getName());
-  }
 }

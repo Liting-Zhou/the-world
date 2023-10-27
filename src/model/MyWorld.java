@@ -448,7 +448,7 @@ public final class MyWorld implements World {
       }
     } else {
       ComputerPlayer p = (ComputerPlayer) player;
-      if (p.getCurrentLocation().getWeapons().isEmpty()) {
+      if (p.getCurrentLocation().getWeapons().isEmpty() || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
         p.randomActionNoWeapon(listOfRooms);
       } else {
         p.randomAction(listOfRooms);
