@@ -433,9 +433,24 @@ public final class MyWorld implements World {
     if (player.getTypeOfPlayer() == 0) {
       HumanPlayer p = (HumanPlayer) player;
       Scanner scanner = new Scanner(System.in);
-      System.out.println("Please enter the corresponding number: ");
-      int action = scanner.nextInt();
-      //TODO check valid action, throw exception
+
+      // make sure the input can only be 1, 2, 3
+      int action;
+      while (true) {
+        System.out.println("Please enter the corresponding number: ");
+        while (!scanner.hasNextInt()) {
+          System.out.println("Invalid input. Please enter a valid number.");
+          scanner.next(); // consume the invalid token
+        }
+        action = scanner.nextInt();
+        if (action < 1 || action > 3) {
+          System.out.println("Invalid action. Please enter 1, 2, or 3.");
+          System.out.println();
+        } else {
+          break;
+        }
+      }
+
       if (action == 1) {
         //move to a neighboring space
         p.move();

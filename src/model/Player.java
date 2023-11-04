@@ -94,7 +94,8 @@ public class Player extends AbstractCharacter {
   public void lookAroundInformation() {
     System.out.println("--------------");
     System.out.println(
-        String.format("Your current Location: Room %d", getCurrentLocation().getRoomNumber()));
+        String.format("Your current Location: Room %d, the %s", getCurrentLocation().getRoomNumber(),
+            getCurrentLocation().getRoomName()));
     getCurrentLocation().displayNeighborsAllInfo();
   }
 
