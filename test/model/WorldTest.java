@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import controller.GameControllerCommands;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -134,9 +133,9 @@ public class WorldTest {
 
   @Test
   public void testIfGameOver() {
-    assertFalse(myWorld.ifGameOver());
+    assertFalse(myWorld.isGameOver());
     myWorld.getTarget().healthDamage(30);
-    assertTrue(myWorld.ifGameOver());
+    assertTrue(myWorld.isGameOver());
   }
 
   @Test

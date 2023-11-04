@@ -56,7 +56,7 @@ public final class GameControllerSimple implements Controller {
     Scanner s = new Scanner(System.in);
     System.out.println("Game started!\n***************");
 
-    while (!w.ifGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
+    while (!w.isGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
       printOptions();
       int option = s.nextInt();
       if (option == 99) {
@@ -94,7 +94,7 @@ public final class GameControllerSimple implements Controller {
           break;
         case 5:
           w.playNextTurn();
-          if (w.ifGameOver()) {
+          if (w.isGameOver()) {
             out.append("Game over!");
             out.append(String.format("The winner is %s", w.getWinner().getName()));
           }
@@ -115,7 +115,7 @@ public final class GameControllerSimple implements Controller {
         System.out.println("Game continues.");
       }
     }
-    if (!w.ifGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
+    if (!w.isGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
       out.append(String.format("Oops! You have run out of the maximum number of turns (%d)! "
               + "GAME OVER!\n", maxNumOfTurns));
     }

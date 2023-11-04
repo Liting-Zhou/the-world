@@ -55,7 +55,7 @@ public interface World {
    *
    * @return the true if game over
    */
-  Boolean ifGameOver();
+  Boolean isGameOver();
 
   /**
    * Gets the winner when game is over.

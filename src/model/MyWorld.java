@@ -327,7 +327,7 @@ public final class MyWorld implements World {
    * @return the true if game over
    */
   @Override
-  public Boolean ifGameOver() {
+  public Boolean isGameOver() {
     return target.getHealth() <= 0;
   }
 
@@ -338,7 +338,7 @@ public final class MyWorld implements World {
    */
   @Override
   public Player getWinner() {
-    if (ifGameOver()) {
+    if (isGameOver()) {
       return players.get(indexOfCurrentPlayer - 1);
     }
     System.out.println("Game is not over yet.");
@@ -355,7 +355,7 @@ public final class MyWorld implements World {
       System.out.println("No player is added in the game yet.");
       return;
     }
-    if (!ifGameOver()) {
+    if (!isGameOver()) {
       System.out.println("---------------");
       System.out.println("Now play the next turn!");
       roundOfTargetCharacter();
@@ -409,14 +409,16 @@ public final class MyWorld implements World {
     System.out.print("-> You");
     player.displayWeaponInformation();
     System.out.println(
-        String.format("-> You are now in room %d.", player.getCurrentLocation().getRoomNumber()));
+        String.format("-> You are now in room %d, the %s", player.getCurrentLocation().getRoomNumber(),
+            player.getCurrentLocation().getRoomName()));
 
     //display weapons in the current room
-    player.getCurrentLocation().displayWeapons();
+    //player.getCurrentLocation().displayWeapons();
 
     //display neighbor rooms
-    System.out.println("-> You can move to the following rooms: ");
-    player.getCurrentLocation().displayNeighborsSimple();
+    //System.out.println("-> You can move to the following rooms: ");
+    //player.getCurrentLocation().displayNeighborsSimple();
+
     //ask which action the player choose
     System.out.println();
     System.out.println(
