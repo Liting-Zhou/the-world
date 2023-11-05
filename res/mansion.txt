@@ -1,5 +1,6 @@
 27 20 Doctor Lucky's Mansion
-30 Doctor Lucky
+20 Doctor Lucky
+Fortune the Cat
 22
 1 2 7 4 Billiards Room
 0 0 5 2 Foyer

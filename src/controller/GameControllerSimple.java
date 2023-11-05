@@ -117,7 +117,7 @@ public final class GameControllerSimple implements Controller {
     }
     if (!w.isGameOver() && w.getNumOfTurnsPlayed() > maxNumOfTurns) {
       out.append(String.format("Oops! You have run out of the maximum number of turns (%d)! "
-              + "GAME OVER!\n", maxNumOfTurns));
+          + "GAME OVER!\n", maxNumOfTurns));
     }
   }
 }

@@ -29,7 +29,7 @@ public class ComputerPlayer extends Player {
    * @param rooms The list of rooms in the game.
    */
   public void randomAction(List<Room> rooms) {
-    int action = random.nextRandomInt(3);
+    int action = random.nextRandomInt(4);
     if (action == 0) {
       System.out.println(
           String.format("The random action of computer player %s is to move to a neighboring room.",
@@ -40,10 +40,15 @@ public class ComputerPlayer extends Player {
           String.format("The random action of computer player %s is to pick up a weapon.",
               this.getName()));
       pickUpWeapon();
-    } else {
+    } else if (action == 2) {
       System.out.println(String.format("The random action of computer player %s is to look around.",
           this.getName()));
       lookAround();
+    } else {
+      System.out.println(
+          String.format("The random action of computer player %s is to move the pet.",
+              this.getName()));
+      moveThePet();
     }
   }
 
@@ -53,16 +58,21 @@ public class ComputerPlayer extends Player {
    * @param rooms The list of rooms in the game.
    */
   public void randomActionNoWeapon(List<Room> rooms) {
-    int action = random.nextRandomInt(2);
+    int action = random.nextRandomInt(3);
     if (action == 0) {
       System.out.println(
           String.format("The random action of computer player %s is to move to a neighboring room.",
               this.getName()));
       move(rooms);
-    } else {
+    } else if (action == 1) {
       System.out.println(String.format("The random action of computer player %s is to look around.",
           this.getName()));
       lookAround();
+    } else {
+      System.out.println(
+          String.format("The random action of computer player %s is to move the pet.",
+              this.getName()));
+      moveThePet();
     }
   }
 
@@ -119,5 +129,9 @@ public class ComputerPlayer extends Player {
       //update the room information with weapons removed
       this.getCurrentLocation().removeWeapon(weapon);
     }
+  }
+
+  public void attack() {
+    //TODO: implement this method
   }
 }

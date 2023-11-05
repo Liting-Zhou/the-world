@@ -40,6 +40,7 @@ public class GameControllerTest {
     testConfigLines = new ArrayList<>();
     testConfigLines.add("10 10 Mansion A"); // mansion info
     testConfigLines.add("20 Target"); // target info
+    testConfigLines.add("Peppa the Pig"); // target info
     testConfigLines.add("22"); // room count
     testConfigLines.add("0 0 3 3 Room A"); // room 0
     testConfigLines.add("4 4 7 7 Room B"); // room 1

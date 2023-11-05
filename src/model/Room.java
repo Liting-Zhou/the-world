@@ -89,10 +89,18 @@ public interface Room {
   /**
    * Finds out if target is here.
    *
-   * @param target The target to be decided if here
+   * @param target The target
    * @return true if the target is here, false otherwise
    */
   boolean isTargetHere(Target target);
+
+  /**
+   * Finds out if pet is here.
+   *
+   * @param pet The pet
+   * @return true if the pet is here, false otherwise
+   */
+  boolean isPetHere(Pet pet);
 
   /**
    * Displays target information.

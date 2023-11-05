@@ -203,6 +203,12 @@ public final class RoomInfo implements Room {
     }
   }
 
+  @Override
+  public boolean isPetHere(Pet pet) {
+    //TODO: implement this method
+    return false;
+  }
+
   /**
    * Displays target information.
    *

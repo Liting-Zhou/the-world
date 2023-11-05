@@ -76,5 +76,9 @@ public class HumanPlayer extends Player {
       this.getCurrentLocation().removeWeapon(weapon);
     }
   }
+
+  public void attack() {
+    //TODO: implement this method
+  }
 }
 

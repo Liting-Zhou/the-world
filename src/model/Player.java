@@ -9,9 +9,9 @@ import java.util.Objects;
  * and interact with other characters and objects.
  */
 public class Player extends AbstractCharacter {
+  private final int typeOfPlayer; // 0 for human, 1 for computer
   protected List<WeaponImp> weaponsCarried;
   private int indexOfPlayer;
-  private final int typeOfPlayer; // 0 for human, 1 for computer
 
   /**
    * Constructs a new Player object.
@@ -79,6 +79,12 @@ public class Player extends AbstractCharacter {
     setCurrentLocation(newLocation);
   }
 
+  /**
+   * Moves the pet.
+   */
+  public void moveThePet() {
+    //TODO: implement this method
+  }
 
   /**
    * Player look around. Displays all information about neighboring rooms.
@@ -94,7 +100,8 @@ public class Player extends AbstractCharacter {
   public void lookAroundInformation() {
     System.out.println("--------------");
     System.out.println(
-        String.format("Your current Location: Room %d, the %s", getCurrentLocation().getRoomNumber(),
+        String.format("Your current Location: Room %d, the %s",
+            getCurrentLocation().getRoomNumber(),
             getCurrentLocation().getRoomName()));
     getCurrentLocation().displayNeighborsAllInfo();
   }
@@ -112,6 +119,17 @@ public class Player extends AbstractCharacter {
       }
     }
   }
+
+  /**
+   * Determines if this player can be seen by other players.
+   *
+   * @return true if this player can be seen by other players, false otherwise.
+   */
+  public boolean canBeSeen() {
+    //TODO: implement this method
+    return true;
+  }
+
 
   /**
    * Checks if this character is equal to another object.
