@@ -213,7 +213,7 @@ public final class RoomInfo implements Room {
   @Override
   public void displayPet(Pet pet) {
     System.out.println(
-        String.format("%s the cat is in room %d, the %s.", pet.getName(), roomNumber, roomName));
+        String.format("   %s the cat is in room %d, the %s.", pet.getName(), roomNumber, roomName));
   }
 
   /**
@@ -224,9 +224,9 @@ public final class RoomInfo implements Room {
   @Override
   public void displayTarget(Target target) {
     if (isTargetHere(target)) {
-      System.out.println(String.format("Target is in room %d!", this.getRoomNumber()));
+      System.out.println(String.format("               Target is in room %d!", this.getRoomNumber()));
     } else {
-      System.out.println("Target is not here.");
+      System.out.println("   Target is not here.");
     }
   }
 
@@ -258,12 +258,12 @@ public final class RoomInfo implements Room {
       for (Player player : players) {
         if (this.equals(player.getCurrentLocation())) {
           System.out.println(
-              String.format(String.format("Player %s is in room %d!", player.getName(),
+              String.format(String.format("               Player %s is in room %d!", player.getName(),
                   this.getRoomNumber())));
         }
       }
     } else {
-      System.out.println("No player in this room.");
+      System.out.println("   No player in this room.");
     }
   }
 
@@ -284,7 +284,7 @@ public final class RoomInfo implements Room {
       int i = 1;
       for (WeaponImp weapon : weapons) {
         System.out.println(
-            String.format("   (%d) %s with power %d", i, weapon.getName(), weapon.getPower()));
+            String.format("               (%d) %s with power %d", i, weapon.getName(), weapon.getPower()));
         i += 1;
       }
     }

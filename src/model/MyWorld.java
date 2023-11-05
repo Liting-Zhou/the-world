@@ -133,7 +133,7 @@ public final class MyWorld implements World {
       List<WeaponImp> listOfWeaponsSpecificRoom = new ArrayList<>();
       for (WeaponImp item : weapons) {
         int roomNumber = item.getBelongRoomNumber();
-        if (roomNumber == lineIndex - 3) {
+        if (roomNumber == lineIndex - 4) {
           listOfWeaponsSpecificRoom.add(item);
         }
       }
@@ -477,9 +477,9 @@ public final class MyWorld implements World {
       System.out.println();
       System.out.println(
           String.format(
-              "Now you have 5 options:%n1. move to a neighboring space.%n2. "
-                  + "pick up a weapon if there is any.%n3. "
-                  + "look around.%n4. Moves the cat to a specified space.%n5.Attack the target."
+              "Now you have 5 options:%n1. Move to a neighboring space.%n2. "
+                  + "Pick up a weapon if there is any.%n3. "
+                  + "Look around.%n4. Moves the cat to a specified space.%n5.Attack the target."
                   + "%nWhat do you want to do, %s?",
               player.getName()));
       System.out.println();
@@ -488,19 +488,17 @@ public final class MyWorld implements World {
       if (player.getTypeOfPlayer() == 0) {
         HumanPlayer p = (HumanPlayer) player;
         Scanner scanner = new Scanner(System.in);
-
+        System.out.println("Please enter the corresponding number: ");
         // make sure the input can only be 1, 2, 3,4,5
         int action;
         while (true) {
-          System.out.println("Please enter the corresponding number: ");
           while (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a valid number.");
+            System.out.println("Invalid input. Please enter a valid number:");
             scanner.next(); // consume the invalid token
           }
           action = scanner.nextInt();
           if (action < 1 || action > 5) {
-            System.out.println("Invalid action.");
-            System.out.println();
+            System.out.println("Invalid action. Please enter again:");
           } else {
             break;
           }
@@ -517,10 +515,8 @@ public final class MyWorld implements World {
           p.lookAround();
         } else if (action == 4) {
           p.moveThePet(cat);
-        } else if (action == 5) {
+        } else{
           p.attack(listOfRooms, cat, players);
-        } else {
-          System.out.println("Invalid action.");
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
@@ -540,9 +536,9 @@ public final class MyWorld implements World {
       System.out.println();
       System.out.println(
           String.format(
-              "Now you have 4 options:%n1. move to a neighboring space.%n2. "
-                  + "pick up a weapon if there is any.%n3. "
-                  + "look around.%n4. Moves the cat to a specified space."
+              "Now you have 4 options:%n1. Move to a neighboring space.%n2. "
+                  + "Pick up a weapon if there is any.%n3. "
+                  + "Look around.%n4. Moves the cat to a specified space."
                   + "%nWhat do you want to do, %s?",
               player.getName()));
       System.out.println();
@@ -551,19 +547,18 @@ public final class MyWorld implements World {
       if (player.getTypeOfPlayer() == 0) {
         HumanPlayer p = (HumanPlayer) player;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter the corresponding number: ");
 
         // make sure the input can only be 1, 2, 3,4
         int action;
         while (true) {
-          System.out.println("Please enter the corresponding number: ");
           while (!scanner.hasNextInt()) {
-            System.out.println("Invalid input. Please enter a valid number.");
+            System.out.println("Invalid input. Please enter a valid number:");
             scanner.next(); // consume the invalid token
           }
           action = scanner.nextInt();
           if (action < 1 || action > 4) {
-            System.out.println("Invalid action.");
-            System.out.println();
+            System.out.println("Invalid action. Please enter again:");
           } else {
             break;
           }
@@ -578,10 +573,8 @@ public final class MyWorld implements World {
         } else if (action == 3) {
           //look around
           p.lookAround();
-        } else if (action == 4) {
+        } else{
           p.moveThePet(cat);
-        } else {
-          System.out.println("Invalid action.");
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;

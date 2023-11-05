@@ -59,19 +59,37 @@ public final class GameControllerCommands implements Controller {
 
     while (!w.isGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
       printOptions();
-      int option = s.nextInt();
+
+      //check valid input
+      int option;
+      while (true) {
+        while (!s.hasNextInt()) {
+          System.out.println("Invalid input. Please enter a valid number:");
+          s.next(); // consume the invalid token
+        }
+        option = s.nextInt();
+        if (option ==99){
+          break;
+        }
+        if (option < 1 || option > 7) {
+          System.out.println("Invalid action. Please enter again:");
+        } else {
+          break;
+        }
+      }
+
+      //user chose to end the game
       if (option == 99) {
         System.out.println("You chose to end the game. Bye!");
         break;
       }
 
+      //otherwise, execute the corresponding command
       Function<Scanner, Command> cmd = knownCommands.getOrDefault(option, null);
 
       if (cmd != null) {
         Command c = cmd.apply(s);
         c.execute(w);
-      } else {
-        System.out.println("Invalid option.");
       }
       System.out.println();
       System.out.println("***************");
