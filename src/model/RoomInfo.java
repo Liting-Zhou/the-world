@@ -196,17 +196,24 @@ public final class RoomInfo implements Room {
    */
   @Override
   public boolean isTargetHere(Target target) {
-    if (this.equals(target.getCurrentLocation())) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.equals(target.getCurrentLocation());
+  }
+
+  /**
+   * Finds out if pet is here.
+   *
+   * @param pet The pet
+   * @return true if the pet is here, false otherwise
+   */
+  @Override
+  public boolean isPetHere(Pet pet) {
+    return this.equals(pet.getCurrentLocation());
   }
 
   @Override
-  public boolean isPetHere(Pet pet) {
-    //TODO: implement this method
-    return false;
+  public void displayPet(Pet pet) {
+    System.out.println(
+        String.format("%s the cat is in room %d, the %s.", pet.getName(), roomNumber, roomName));
   }
 
   /**

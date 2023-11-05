@@ -3,9 +3,9 @@ package model;
 public interface Pet {
 
   /**
-   * Pet moves in the world. Maybe follow depth-first traversal.
+   * Pet wanders in the world. Maybe follow depth-first traversal.
    */
-  void move();
+  void wander();
 
   /**
    * Gets the name of this pet.
@@ -14,4 +14,17 @@ public interface Pet {
    */
   String getName();
 
+  /**
+   * Gets the current location of this pet.
+   *
+   * @return The current location of the pet.
+   */
+  Room getCurrentLocation();
+
+  /**
+   * Updates the location of this pet.
+   *
+   * @param room The new location of this pet.
+   */
+  void updateLocation(Room room);
 }

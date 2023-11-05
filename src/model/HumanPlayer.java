@@ -77,8 +77,59 @@ public class HumanPlayer extends Player {
     }
   }
 
-  public void attack() {
-    //TODO: implement this method
+  public void attack(List<Room> rooms, Pet pet, List<Player> players) {
+    //check if the player has weapon
+    if (weaponsCarried.isEmpty()) {
+      //if not, poke target in the eye
+      System.out.println("You have no weapon. Just poke the target in the eye!");
+    } else {
+      //if yes, display weapon, ask player to choose one
+      displayWeaponInformation();
+      System.out.println("Which weapon do you want to choose? Enter the corresponding number. "
+          + "Enter 0 if you want to poke the target in the eye!");
+      Scanner scanner = new Scanner(System.in);
+
+      //check the input
+      int number;
+      while (true) {
+        while (!scanner.hasNextInt()) {
+          System.out.println("Invalid input. Please enter a valid number.");
+          scanner.next(); // consume the invalid token
+        }
+        number = scanner.nextInt();
+        if (number < 0 || number > weaponsCarried.size()) {
+          System.out.println("Invalid input. Please enter again.");
+          System.out.println();
+        } else {
+          break;
+        }
+      }
+
+      if (number == 0) {
+        System.out.println("You chose to poke the target in the eye!");
+
+        if (canBeSeen(rooms, pet, players)) {
+          //if can be seen, no damage made
+          System.out.println("You can be seen by other players. No damage made.");
+        } else {
+          //if cannot be seen, damage made
+          System.out.println("You cannot be seen by other players. Damage made.");
+          Mansion.getTarget().healthDamage(1);
+        }
+
+      } else {
+        WeaponImp weapon = weaponsCarried.get(number - 1);
+        weaponsCarried.remove(weapon);
+        System.out.println(String.format("You chose %s to attack the target.",
+            weapon.getName()));
+        if (canBeSeen(rooms, pet, players)) {
+          System.out.println("You can be seen by other players. No damage made.");
+        } else {
+          System.out.println("You cannot be seen by other players. Damage made.");
+          Mansion.getTarget().healthDamage(weapon.getPower());
+        }
+      }
+    }
   }
 }
 

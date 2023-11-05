@@ -82,8 +82,11 @@ public class Player extends AbstractCharacter {
   /**
    * Moves the pet.
    */
-  public void moveThePet() {
+  public void moveThePet(Pet pet) {
     //TODO: implement this method
+    // don't know the mechanism of moving pet
+    // right now, just move randomly
+    pet.wander();
   }
 
   /**
@@ -125,9 +128,20 @@ public class Player extends AbstractCharacter {
    *
    * @return true if this player can be seen by other players, false otherwise.
    */
-  public boolean canBeSeen() {
-    //TODO: implement this method
-    return true;
+  public boolean canBeSeen(List<Room> rooms, Pet pet, List<Player> players) {
+    // if cat is here, cannot be seen
+    if (getCurrentLocation().isPetHere(pet)) {
+      return false;
+    } else {
+      //check if there is any player in the neighboring rooms
+      List<Room> neighbors = getCurrentLocation().getNeighbors(rooms);
+      for (Room neighbor : neighbors) {
+        if (neighbor.isAnyPlayerHere(players)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
 

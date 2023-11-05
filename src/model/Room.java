@@ -103,6 +103,13 @@ public interface Room {
   boolean isPetHere(Pet pet);
 
   /**
+   * Displays pet information.
+   *
+   * @param pet The pet
+   */
+  void displayPet(Pet pet);
+
+  /**
    * Displays target information.
    *
    * @param target The target to be displayed

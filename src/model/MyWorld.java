@@ -196,7 +196,9 @@ public final class MyWorld implements World {
    * occupied by the pet is not visible to neighbors.
    */
   private void initializePet(List<String> lines) {
-    String petName = lines.get(2); // Line 2 contains pet information.
+    String info = lines.get(2); // Line 2 contains pet information.
+    String[] infoData = info.split(" ");
+    String petName= infoData[0];
 
     // Initialize the starting location
     Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
@@ -241,23 +243,23 @@ public final class MyWorld implements World {
             + "and moves around the mansion.",
         target.getName(), target.getHealth(), target.getCurrentLocation().getRoomNumber()));
     //3.describe the pet by name, starting location and rules of moving
-    System.out.println(String.format("The target has a cat named %s, who starts from the same "
-            + "room as the target. %s also moves around the mansion, but follow a different rule "
-            + "from the target. Specifically, the room occupied by %s is not visible to neighbors.",
-        cat.getName(), cat.getName(), cat.getName()));
+    System.out.println(String.format("%s has a cat named %s, who starts from the same "
+            + "room as the target. %s also moves around the mansion, \nbut follows a different rule "
+            + "from the target. Moreover, the room occupied by %s is not visible to neighbors.",
+        target.getName(),cat.getName(), cat.getName(), cat.getName()));
     //4. describe the player rules by introducing type, starting location, maximum number of
     //   weapons, and different actions.
     System.out.println("After initialization of the World, players can be added to the game, "
         + "specifying name, starting room, and maximum \nnumber of weapons could be carried. There "
         + "could be two types of players: human-controlled and computer-controlled.\n"
-        + "Player can choose from these three actions:\n1. move to a neighboring room.\n2. pick up "
-        + "a weapon in the room.\n3. look around.\n4. Move the cat to a specified space."
+        + "Player can choose from these 5 actions:\n1. Move to a neighboring room.\n2. Pick up "
+        + "a weapon in the room.\n3. Look around.\n4. Move the cat to a specified space."
         + "\n5. Attack the target.\nComputer player should attack the target whenever there "
-        + "is chance, otherwise randomly choose other actions. While human player actively chooses"
+        + "is chance, otherwise randomly choose other actions. \nWhile human player actively chooses"
         + " any action.");
     //5. describe the weapon rules by introducing power and name
     System.out.println("Weapon has a power and a name. Once picked up, it will be removed "
-        + "from the room. Once used for attack, it will be removed from the world.");
+        + "from the room. Once used for attack, \nit will be removed from the world.");
     //6. describe the game rules. Given maximum number of turns, in each round target moves first
     //   and then one player acts. Player acts in the order of being added to the game. Game over if
     //   target's health reaches zero or running out of turns. The winner is the player who finally
@@ -381,6 +383,13 @@ public final class MyWorld implements World {
       System.out.println("Now play the next turn!");
       roundOfTargetCharacter();
       roundOfPlayers();
+
+      //check health of target, if less than zero, game over and display the winner
+      if (target.getHealth() <= 0) {
+        System.out.println("GAME OVER!");
+        System.out.println(String.format("Player %s wins!", getCurrentPlayer().getName()));
+        return;
+      }
       System.out.println();
       System.out.println(String.format("Turn %d has ended (%d turns left). And Target "
               + "is now in room %d with health %d.", numOfTurnsPlayed,
@@ -507,21 +516,21 @@ public final class MyWorld implements World {
           //look around
           p.lookAround();
         } else if (action == 4) {
-          p.moveThePet();
+          p.moveThePet(cat);
         } else if (action == 5) {
-          p.attack();
+          p.attack(listOfRooms, cat, players);
         } else {
           System.out.println("Invalid action.");
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
         //if can be seen, no attack, randomly choose other 4 actions
-        if (p.canBeSeen()) {
+        if (p.canBeSeen(listOfRooms, cat, players)) {
           if (p.getCurrentLocation().getWeapons().isEmpty() ||
               p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-            p.randomActionNoWeapon(listOfRooms);
+            p.randomActionNoWeapon(listOfRooms, cat);
           } else {
-            p.randomAction(listOfRooms);
+            p.randomAction(listOfRooms, cat);
           }
         } else { //if can not be seen, attack
           p.attack();
@@ -570,7 +579,7 @@ public final class MyWorld implements World {
           //look around
           p.lookAround();
         } else if (action == 4) {
-          p.moveThePet();
+          p.moveThePet(cat);
         } else {
           System.out.println("Invalid action.");
         }
@@ -578,9 +587,9 @@ public final class MyWorld implements World {
         ComputerPlayer p = (ComputerPlayer) player;
         if (p.getCurrentLocation().getWeapons().isEmpty() ||
             p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-          p.randomActionNoWeapon(listOfRooms);
+          p.randomActionNoWeapon(listOfRooms, cat);
         } else {
-          p.randomAction(listOfRooms);
+          p.randomAction(listOfRooms, cat);
         }
       }
     }
@@ -680,6 +689,7 @@ public final class MyWorld implements World {
     System.out.println(String.format("Room %d information:", roomNumber));
     room.displayWeapons();
     room.displayTarget(target);
+    room.displayPet(cat);
     room.displayPlayers(players);
   }
 }

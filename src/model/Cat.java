@@ -10,12 +10,26 @@ public class Cat implements Pet {
   }
 
   @Override
-  public void move() {
-
+  public void wander() {
+    //TODO: depth-first traversal
+    // for now, move randomly
+    RandomNumber randomNumber = new RandomNumber();
+    int random = randomNumber.nextRandomInt(22);
+    updateLocation(Mansion.getRoomInfoByRoomNumber(random));
   }
 
   @Override
   public String getName() {
-    return null;
+    return name;
+  }
+
+  @Override
+  public Room getCurrentLocation() {
+    return currentLocation;
+  }
+
+  @Override
+  public void updateLocation(Room room) {
+    this.currentLocation = room;
   }
 }
