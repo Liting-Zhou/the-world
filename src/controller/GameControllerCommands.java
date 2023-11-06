@@ -68,7 +68,7 @@ public final class GameControllerCommands implements Controller {
           s.next(); // consume the invalid token
         }
         option = s.nextInt();
-        if (option ==99){
+        if (option == 99) {
           break;
         }
         if (option < 1 || option > 7) {

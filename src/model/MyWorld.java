@@ -198,7 +198,7 @@ public final class MyWorld implements World {
   private void initializePet(List<String> lines) {
     String info = lines.get(2); // Line 2 contains pet information.
     String[] infoData = info.split(" ");
-    String petName= infoData[0];
+    String petName = infoData[0];
 
     // Initialize the starting location
     Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
@@ -246,7 +246,7 @@ public final class MyWorld implements World {
     System.out.println(String.format("%s has a cat named %s, who starts from the same "
             + "room as the target. %s also moves around the mansion, \nbut follows a different rule "
             + "from the target. Moreover, the room occupied by %s is not visible to neighbors.",
-        target.getName(),cat.getName(), cat.getName(), cat.getName()));
+        target.getName(), cat.getName(), cat.getName(), cat.getName()));
     //4. describe the player rules by introducing type, starting location, maximum number of
     //   weapons, and different actions.
     System.out.println("After initialization of the World, players can be added to the game, "
@@ -255,7 +255,8 @@ public final class MyWorld implements World {
         + "Player can choose from these 5 actions:\n1. Move to a neighboring room.\n2. Pick up "
         + "a weapon in the room.\n3. Look around.\n4. Move the cat to a specified space."
         + "\n5. Attack the target.\nComputer player should attack the target whenever there "
-        + "is chance, otherwise randomly choose other actions. \nWhile human player actively chooses"
+        +
+        "is chance, otherwise randomly choose other actions. \nWhile human player actively chooses"
         + " any action.");
     //5. describe the weapon rules by introducing power and name
     System.out.println("Weapon has a power and a name. Once picked up, it will be removed "
@@ -382,7 +383,7 @@ public final class MyWorld implements World {
       System.out.println("---------------");
       System.out.println("Now play the next turn!");
       roundOfTargetCharacter();
-      roundOfPlayers();
+      roundOfPlayer();
 
       //check health of target, if less than zero, game over and display the winner
       if (target.getHealth() <= 0) {
@@ -428,7 +429,7 @@ public final class MyWorld implements World {
    * including what spaces that can be seen from where they are.
    * Computer player randomly choose an action.
    */
-  private void roundOfPlayers() {
+  private void roundOfPlayer() {
     Player player;
     player = players.get(indexOfCurrentPlayer);
     System.out.println();
@@ -515,7 +516,7 @@ public final class MyWorld implements World {
           p.lookAround();
         } else if (action == 4) {
           p.moveThePet(cat);
-        } else{
+        } else {
           p.attack(listOfRooms, cat, players);
         }
       } else {
@@ -573,7 +574,7 @@ public final class MyWorld implements World {
         } else if (action == 3) {
           //look around
           p.lookAround();
-        } else{
+        } else {
           p.moveThePet(cat);
         }
       } else {
@@ -636,29 +637,41 @@ public final class MyWorld implements World {
     //2.Ask which player to display
     System.out.println();
     System.out.println("Which player do you want to display? Please enter the name: ");
-    Scanner scanner = new Scanner(System.in);
-    String playerName = scanner.nextLine();
-    for (Player player : players) {
-      if (player.getName().equalsIgnoreCase(playerName)) {
-        //3.Display the player information
-        System.out.println();
-        System.out.println(String.format("Information of player %s: ", player.getName()));
-        System.out.print(player.getName());
-        player.displayWeaponInformation();
-        System.out.println(String.format("Maximum number of weapons can carry: %d",
-            player.getMaxNumberOfWeapons()));
-        if (player.getTypeOfPlayer() == 0) {
-          System.out.println("This is a human player.");
-        } else {
-          System.out.println("This is a computer player.");
+    Scanner scan = new Scanner(System.in);
+
+    // check input
+    String playerName;
+    Player playerDiaplayed=null;
+    while (playerDiaplayed == null) {
+      playerName = scan.next();
+      if (playerName.matches("^[a-zA-Z]+$")) {
+        for (Player player : players) {
+          if (player.getName().equalsIgnoreCase(playerName)) {
+            playerDiaplayed = player;
+            break;
+          }
         }
-        System.out.println(String.format("Current Location: Room %d",
-            player.getCurrentLocation().getRoomNumber()));
-        //System.out.println("***************");
-        //System.out.println("Game continues.");
-        break;
+        System.out.println("Invalid input. Please enter a valid name:");
+      } else {
+        System.out.println("Invalid input. Please enter a valid name:");
       }
     }
+
+    //3.Display the player information
+    System.out.println();
+    System.out.println(String.format("Information of player %s: ", playerDiaplayed.getName()));
+    System.out.print(playerDiaplayed.getName());
+    playerDiaplayed.displayWeaponInformation();
+    System.out.println(String.format("Maximum number of weapons can carry: %d",
+        playerDiaplayed.getMaxNumberOfWeapons()));
+    if (playerDiaplayed.getTypeOfPlayer() == 0) {
+      System.out.println("This is a human player.");
+    } else {
+      System.out.println("This is a computer player.");
+    }
+    System.out.println(String.format("Current Location: Room %d, the %s.",
+        playerDiaplayed.getCurrentLocation().getRoomNumber(),
+        playerDiaplayed.getCurrentLocation().getRoomName()));
   }
 
   /**
