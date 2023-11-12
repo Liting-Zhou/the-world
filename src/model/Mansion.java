@@ -40,7 +40,7 @@ public final class Mansion {
 
     //initialize the neighbors of each room
     for (Room room : rooms) {
-      room.setNeighbors(room.getNeighbors(rooms));
+      room.setNeighbors(room.getNeighbors());
     }
   }
 

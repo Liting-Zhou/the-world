@@ -157,7 +157,7 @@ public class Player extends AbstractCharacter {
       return false;
     } else {
       //check if there is any player in the neighboring rooms
-      List<Room> neighbors = getCurrentLocation().getNeighbors(Mansion.getListOfRooms());
+      List<Room> neighbors = getCurrentLocation().getNeighbors();
       for (Room neighbor : neighbors) {
         if (neighbor.isAnyOtherPlayerHere(this)) {
           return true;

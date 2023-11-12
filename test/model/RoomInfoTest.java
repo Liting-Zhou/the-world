@@ -65,7 +65,7 @@ public class RoomInfoTest {
     listOfRooms.add(new RoomInfo(3, 4, 4, 15, 7, "Neighbor Room", new ArrayList<>()));
     //not neighbor
     listOfRooms.add(new RoomInfo(4, 0, 0, 5, 2, "Not Neighbor Room", new ArrayList<>()));
-    List<Room> neighbors = thisRoom.getNeighbors(listOfRooms);
+    List<Room> neighbors = thisRoom.getNeighbors();
     assertNotNull(neighbors);
     assertEquals(2, neighbors.size());
   }

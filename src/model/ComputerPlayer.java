@@ -83,7 +83,7 @@ public class ComputerPlayer extends Player {
    */
   public void move(List<Room> rooms) {
     //randomly move to a neighboring space
-    List<Room> neighbors = this.getCurrentLocation().getNeighbors(rooms);
+    List<Room> neighbors = this.getCurrentLocation().getNeighbors();
     int index = random.nextRandomInt(neighbors.size());
     Room moveToRoom = neighbors.get(index);
     this.setCurrentLocation(moveToRoom);

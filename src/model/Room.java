@@ -67,10 +67,9 @@ public interface Room {
   /**
    * Returns neighbors of this room. Spaces that share a "wall" are neighbors.
    *
-   * @param listOfRooms The list of all rooms
    * @return A list of Room representing neighbors.
    */
-  List<Room> getNeighbors(List<Room> listOfRooms);
+  List<Room> getNeighbors();
 
   /**
    * Saves the neighbors of this room.

@@ -127,11 +127,11 @@ public final class RoomInfo implements Room {
   /**
    * Returns neighbors of this room. Spaces that share a "wall" are neighbors.
    *
-   * @param listOfRooms The list of all rooms
    * @return A list of Room representing neighbors.
    */
   @Override
-  public List<Room> getNeighbors(List<Room> listOfRooms) {
+  public List<Room> getNeighbors() {
+    List<Room> listOfRooms = Mansion.getListOfRooms();
     List<Room> neighbors = new ArrayList<>();
 
     // 1. when (this.y2 == other.y1, or this.y1 == other.y2),
