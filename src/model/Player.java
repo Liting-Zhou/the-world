@@ -101,12 +101,31 @@ public class Player extends AbstractCharacter {
    * and neighbors.
    */
   public void lookAroundInformation() {
+    Room room = getCurrentLocation();
     System.out.println("--------------");
-    System.out.println(
-        String.format("Your current Location: Room %d, the %s",
-            getCurrentLocation().getRoomNumber(),
-            getCurrentLocation().getRoomName()));
+    System.out.println("By looking around, you got the following information:");
+    System.out.printf("Your current Location: Room %d, the %s%n",
+        room.getRoomNumber(),
+        room.getRoomName());
+    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere(Mansion.getPet()) &&
+        !room.isTargetHere(Mansion.getTarget())) {
+      System.out.println("No one else is in this room.");
+    }
+    if (room.isTargetHere(Mansion.getTarget())) {
+      System.out.println("The target is in this room.");
+    }
+    if (room.isPetHere(Mansion.getPet())) {
+      System.out.println("The cat is in this room.");
+    }
+    if (room.isAnyOtherPlayerHere(this)) {
+      for (Player p : Mansion.getListOfPlayers()) {
+        if (p.getCurrentLocation().equals(room) && (!p.equals(this))) {
+          System.out.printf("%s is here.%n", p.getName());
+        }
+      }
+    }
     getCurrentLocation().displayNeighborsAllInfo();
+    System.out.println("--------------");
   }
 
   /**
@@ -116,9 +135,9 @@ public class Player extends AbstractCharacter {
     if (weaponsCarried.isEmpty()) {
       System.out.println(" has/have no weapon.");
     } else {
-      System.out.println(String.format(" has/have %d weapon(s):", weaponsCarried.size()));
+      System.out.printf(" has/have %d weapon(s):%n", weaponsCarried.size());
       for (WeaponImp weapon : weaponsCarried) {
-        System.out.println(String.format("%s with power %s", weapon.getName(), weapon.getPower()));
+        System.out.printf("%s with power %s%n", weapon.getName(), weapon.getPower());
       }
     }
   }
@@ -128,15 +147,19 @@ public class Player extends AbstractCharacter {
    *
    * @return true if this player can be seen by other players, false otherwise.
    */
-  public boolean canBeSeen(List<Room> rooms, Pet pet, List<Player> players) {
+  public boolean canBeSeen() {
+    //if any other player is here, you can be seen
+    if(getCurrentLocation().isAnyOtherPlayerHere(this)){
+      return true;
+    }
     // if cat is here, cannot be seen
-    if (getCurrentLocation().isPetHere(pet)) {
+    if (getCurrentLocation().isPetHere(Mansion.getPet())) {
       return false;
     } else {
       //check if there is any player in the neighboring rooms
-      List<Room> neighbors = getCurrentLocation().getNeighbors(rooms);
+      List<Room> neighbors = getCurrentLocation().getNeighbors(Mansion.getListOfRooms());
       for (Room neighbor : neighbors) {
-        if (neighbor.isAnyPlayerHere(players)) {
+        if (neighbor.isAnyOtherPlayerHere(this)) {
           return true;
         }
       }

@@ -108,7 +108,7 @@ public class HumanPlayer extends Player {
       if (number == 0) {
         System.out.println("You chose to poke the target in the eye!");
 
-        if (canBeSeen(rooms, pet, players)) {
+        if (canBeSeen()) {
           //if can be seen, no damage made
           System.out.println("You can be seen by other players. No damage made.");
         } else {
@@ -122,7 +122,7 @@ public class HumanPlayer extends Player {
         weaponsCarried.remove(weapon);
         System.out.println(String.format("You chose %s to attack the target.",
             weapon.getName()));
-        if (canBeSeen(rooms, pet, players)) {
+        if (canBeSeen()) {
           System.out.println("You can be seen by other players. No damage made.");
         } else {
           System.out.println("You cannot be seen by other players. Damage made.");

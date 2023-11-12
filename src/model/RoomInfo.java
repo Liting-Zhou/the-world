@@ -229,8 +229,11 @@ public final class RoomInfo implements Room {
   @Override
   public void displayTarget(Target target) {
     if (isTargetHere(target)) {
+      for (int j = 0; j < (roomName.length() + 7); j++) {
+        System.out.print(" ");
+      }
       System.out.println(
-          String.format("               Target is in room %d!", this.getRoomNumber()));
+          String.format("Target is in room %d!", this.getRoomNumber()));
     } else {
       System.out.println("   Target is not here.");
     }
@@ -252,6 +255,21 @@ public final class RoomInfo implements Room {
     return false;
   }
 
+  /**
+   * Finds out if any player other than the given player is here.
+   *
+   * @param player The player
+   */
+    @Override
+    public boolean isAnyOtherPlayerHere(Player player) {
+      List<Player> players= Mansion.getListOfPlayers();
+        for (Player p : players) {
+            if (this.equals(p.getCurrentLocation()) && !p.equals(player)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
   /**
    * Displays information of all players in the room.
@@ -263,9 +281,12 @@ public final class RoomInfo implements Room {
     if (isAnyPlayerHere(players)) {
       for (Player player : players) {
         if (this.equals(player.getCurrentLocation())) {
+          for (int j = 0; j < (roomName.length() + 7); j++) {
+            System.out.print(" ");
+          }
           System.out.println(
               String.format(
-                  String.format("               Player %s is in room %d!", player.getName(),
+                  String.format("Player %s is in room %d!", player.getName(),
                       this.getRoomNumber())));
         }
       }
@@ -290,8 +311,11 @@ public final class RoomInfo implements Room {
       System.out.println(String.format("-> There are %d weapons in this room: ", weapons.size()));
       int i = 1;
       for (WeaponImp weapon : weapons) {
+        for (int j = 0; j < (roomName.length() + 7); j++) {
+          System.out.print(" ");
+        }
         System.out.println(
-            String.format("               (%d) %s with power %d", i, weapon.getName(),
+            String.format("(%d) %s with power %d", i, weapon.getName(),
                 weapon.getPower()));
         i += 1;
       }

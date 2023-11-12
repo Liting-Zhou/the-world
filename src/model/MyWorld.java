@@ -205,6 +205,7 @@ public final class MyWorld implements World {
 
     // Create the target character.
     cat = new Cat(petName, currentLocation);
+    mansion.setPet(cat);
   }
 
   /**
@@ -522,7 +523,7 @@ public final class MyWorld implements World {
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
         //if can be seen, no attack, randomly choose other 4 actions
-        if (p.canBeSeen(listOfRooms, cat, players)) {
+        if (p.canBeSeen()) {
           if (p.getCurrentLocation().getWeapons().isEmpty() ||
               p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
             p.randomActionNoWeapon(listOfRooms, cat);
@@ -641,7 +642,7 @@ public final class MyWorld implements World {
 
     // check input
     String playerName;
-    Player playerDiaplayed=null;
+    Player playerDiaplayed = null;
     while (playerDiaplayed == null) {
       playerName = scan.next();
       if (playerName.matches("^[a-zA-Z]+$")) {
