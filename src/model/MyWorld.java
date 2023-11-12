@@ -398,8 +398,6 @@ public final class MyWorld implements World {
           maxNumOfTurns - numOfTurnsPlayed, target.getCurrentLocation().getRoomNumber(),
           target.getHealth()));
       numOfTurnsPlayed += 1;
-      //System.out.println();
-      //System.out.println("***************");
     }
   }
 
@@ -516,7 +514,7 @@ public final class MyWorld implements World {
           //look around
           p.lookAround();
         } else if (action == 4) {
-          p.moveThePet(cat);
+          p.moveThePet();
         } else {
           p.attack(listOfRooms, cat, players);
         }
@@ -576,7 +574,7 @@ public final class MyWorld implements World {
           //look around
           p.lookAround();
         } else {
-          p.moveThePet(cat);
+          p.moveThePet();
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;

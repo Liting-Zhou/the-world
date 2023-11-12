@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class represents a computer player in the game.
@@ -168,5 +169,24 @@ public class ComputerPlayer extends Player {
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
     }
+  }
+
+  /**
+   * Moves the pet randomly.
+   */
+  public void moveThePet() {
+    Pet pet = Mansion.getPet();
+    System.out.println(String.format("The cat is now in room %d, %s", pet.getCurrentLocation().getRoomNumber(),
+        pet.getCurrentLocation().getRoomName()));
+    System.out.println("Where do you want to teleport the cat? Enter the room number: ");
+
+    int number;
+    while(true){
+      number = random.nextRandomInt(22);
+      if(number != pet.getCurrentLocation().getRoomNumber()){
+        break;
+      }
+    }
+    pet.updateLocation(Mansion.getRoomInfoByRoomNumber(number));
   }
 }

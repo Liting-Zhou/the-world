@@ -340,8 +340,6 @@ public final class RoomInfo implements Room {
     if (neighbors.isEmpty()) {
       System.out.println("This room has no neighboring room.");
     } else {
-      Target target = Mansion.getTarget();
-      List<Player> players = Mansion.getListOfPlayers();
       System.out.println("The neighbors of this room are: ");
       for (Room neighbor : neighbors) {
         System.out.print(
@@ -350,6 +348,10 @@ public final class RoomInfo implements Room {
         //check if target in this room and display target information
         if (neighbor.isTargetHere()) {
           neighbor.displayTarget();
+        }
+        //check if pet in this room and display pet information
+        if(neighbor.isPetHere()){
+          neighbor.displayPet();
         }
         //check if any player in this room and display player information
         if (neighbor.isAnyPlayerHere()) {

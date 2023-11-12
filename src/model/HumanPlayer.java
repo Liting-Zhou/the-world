@@ -131,5 +131,31 @@ public class HumanPlayer extends Player {
       }
     }
   }
+
+  /**
+   * Moves the pet.
+   */
+  public void moveThePet() {
+     Pet pet = Mansion.getPet();
+     System.out.println(String.format("The cat is now in room %d, %s", pet.getCurrentLocation().getRoomNumber(),
+         pet.getCurrentLocation().getRoomName()));
+     System.out.println("Where do you want to teleport the cat? Enter the room number: ");
+
+    Scanner scanner = new Scanner(System.in);
+    int number;
+    while (true) {
+      while (!scanner.hasNextInt()) {
+        System.out.println("Invalid input. Please enter a valid number:");
+        scanner.next(); // consume the invalid token
+      }
+      number = scanner.nextInt();
+      if (number < 0 || number > 21 || number == pet.getCurrentLocation().getRoomNumber()) {
+        System.out.println("Invalid number. Please enter again:");
+      } else {
+        break;
+      }
+    }
+    pet.updateLocation(Mansion.getRoomInfoByRoomNumber(number));
+  }
 }
 

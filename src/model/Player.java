@@ -80,27 +80,17 @@ public class Player extends AbstractCharacter {
   }
 
   /**
-   * Moves the pet.
-   */
-  public void moveThePet(Pet pet) {
-    //TODO: implement this method
-    // don't know the mechanism of moving pet
-    // right now, just move randomly
-    pet.wander();
-  }
-
-  /**
    * Player look around. Displays all information about neighboring rooms.
    */
   public void lookAround() {
-    lookAroundInformation();
+    displayLookAroundInformation();
   }
 
   /**
    * Displays the player information, including name, weapon carried, current location,
    * and neighbors.
    */
-  public void lookAroundInformation() {
+  public void displayLookAroundInformation() {
     Room room = getCurrentLocation();
     System.out.println("--------------");
     System.out.println("By looking around, you got the following information:");
