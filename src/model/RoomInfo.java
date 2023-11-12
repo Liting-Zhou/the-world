@@ -191,44 +191,39 @@ public final class RoomInfo implements Room {
   /**
    * Finds out if target is here.
    *
-   * @param target The target to be decided if here
    * @return true if the target is here, false otherwise
    */
   @Override
-  public boolean isTargetHere(Target target) {
-    return this.equals(target.getCurrentLocation());
+  public boolean isTargetHere() {
+    return this.equals(Mansion.getTarget().getCurrentLocation());
   }
 
   /**
    * Finds out if pet is here.
    *
-   * @param pet The pet
    * @return true if the pet is here, false otherwise
    */
   @Override
-  public boolean isPetHere(Pet pet) {
+  public boolean isPetHere() {
+    Pet pet = Mansion.getPet();
     return this.equals(pet.getCurrentLocation());
   }
 
   /**
    * Displays the pet information in the room.
-   *
-   * @param pet The pet
    */
   @Override
-  public void displayPet(Pet pet) {
+  public void displayPet() {
     System.out.println(
-        String.format("   %s the cat is in room %d, the %s.", pet.getName(), roomNumber, roomName));
+        String.format("   %s the cat is in room %d, the %s.", Mansion.getPet().getName(), roomNumber, roomName));
   }
 
   /**
    * Displays target information.
-   *
-   * @param target The target to be displayed
-   */
+   **/
   @Override
-  public void displayTarget(Target target) {
-    if (isTargetHere(target)) {
+  public void displayTarget() {
+    if (isTargetHere()) {
       for (int j = 0; j < (roomName.length() + 7); j++) {
         System.out.print(" ");
       }
@@ -354,8 +349,8 @@ public final class RoomInfo implements Room {
             String.format("%d. %s ", neighbor.getRoomNumber(), neighbor.getRoomName()));
         neighbor.displayWeapons();
         //check if target in this room and display target information
-        if (neighbor.isTargetHere(target)) {
-          neighbor.displayTarget(target);
+        if (neighbor.isTargetHere()) {
+          neighbor.displayTarget();
         }
         //check if any player in this room and display player information
         if (neighbor.isAnyPlayerHere(players)) {

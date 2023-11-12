@@ -107,14 +107,14 @@ public class Player extends AbstractCharacter {
     System.out.printf("Your current Location: Room %d, the %s%n",
         room.getRoomNumber(),
         room.getRoomName());
-    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere(Mansion.getPet()) &&
-        !room.isTargetHere(Mansion.getTarget())) {
+    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere() &&
+        !room.isTargetHere()) {
       System.out.println("No one else is in this room.");
     }
-    if (room.isTargetHere(Mansion.getTarget())) {
+    if (room.isTargetHere()) {
       System.out.println("The target is in this room.");
     }
-    if (room.isPetHere(Mansion.getPet())) {
+    if (room.isPetHere()) {
       System.out.println("The cat is in this room.");
     }
     if (room.isAnyOtherPlayerHere(this)) {
@@ -153,7 +153,7 @@ public class Player extends AbstractCharacter {
       return true;
     }
     // if cat is here, cannot be seen
-    if (getCurrentLocation().isPetHere(Mansion.getPet())) {
+    if (getCurrentLocation().isPetHere()) {
       return false;
     } else {
       //check if there is any player in the neighboring rooms

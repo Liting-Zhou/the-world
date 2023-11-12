@@ -446,12 +446,12 @@ public final class MyWorld implements World {
             player.getCurrentLocation().getRoomName()));
 
     //check if target is in this room
-    if (player.getCurrentLocation().isTargetHere(target)) {
+    if (player.getCurrentLocation().isTargetHere()) {
       System.out.println("-> Target is in this room!");
     }
 
     //check if the pet is in this room
-    if (player.getCurrentLocation().isPetHere(cat)) {
+    if (player.getCurrentLocation().isPetHere()) {
       System.out.println("-> The cat is in this room! This room is invisible!!!");
     }
 
@@ -475,7 +475,7 @@ public final class MyWorld implements World {
 
     //ask which action the player choose
     //if target is here, player can attack
-    if (player.getCurrentLocation().isTargetHere(target)) {
+    if (player.getCurrentLocation().isTargetHere()) {
       System.out.println();
       System.out.println(
           String.format(
@@ -695,8 +695,8 @@ public final class MyWorld implements World {
     // 3.Display the room information
     System.out.println(String.format("Room %d information:", roomNumber));
     room.displayWeapons();
-    room.displayTarget(target);
-    room.displayPet(cat);
+    room.displayTarget();
+    room.displayPet();
     room.displayPlayers(players);
   }
 }

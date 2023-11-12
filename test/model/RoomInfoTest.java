@@ -81,13 +81,13 @@ public class RoomInfoTest {
   @Test
   public void testIsTargetHereWhenTargetIsPresent() {
     Target target = new Target("Test Target", 20, thisRoom);
-    assertTrue(thisRoom.isTargetHere(target));
+    assertTrue(thisRoom.isTargetHere());
   }
 
   @Test
   public void testIsTargetHereWhenTargetIsNotPresent() {
     RoomInfo differentRoom = new RoomInfo(2, 1, 1, 3, 3, "Room B", new ArrayList<>());
-    assertFalse(thisRoom.isTargetHere(new Target("Test Target", 20, differentRoom)));
+    assertFalse(thisRoom.isTargetHere());
   }
 
   @Test
@@ -95,7 +95,7 @@ public class RoomInfoTest {
     Target target =
         new Target("testTarget", 10, new RoomInfo(3, 1, 2, 3, 4, "testRoom", new ArrayList<>()));
     // Simulate target not being in the room
-    thisRoom.displayTarget(target);
+    thisRoom.displayTarget();
 
     // Check if the output matches the expected value
     String expectedOutput = "Target is not here.\n";
@@ -103,7 +103,7 @@ public class RoomInfoTest {
 
     // Simulate target being in the room
     target.setCurrentLocation(thisRoom);
-    thisRoom.displayTarget(target);
+    thisRoom.displayTarget();
 
     String expectedOutputHere = "Target is not here.\n" + "Target is in room 1!\n";
     assertEquals(expectedOutputHere, outContent.toString());
