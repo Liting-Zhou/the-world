@@ -112,10 +112,9 @@ public interface Room {
   /**
    * Finds out if any player is here.
    *
-   * @param players The list of players
    * @return true if any player is here, false otherwise
    */
-  boolean isAnyPlayerHere(List<Player> players);
+  boolean isAnyPlayerHere();
   /**
    * Finds out if any player other than the given player is here.
    *
@@ -124,10 +123,8 @@ public interface Room {
   public boolean isAnyOtherPlayerHere(Player player);
   /**
    * Displays information of all players in the room.
-   *
-   * @param players The list of players
-   */
-  void displayPlayers(List<Player> players);
+   **/
+  void displayPlayers();
 
   /**
    * Displays the weapon information in the room.

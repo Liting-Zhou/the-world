@@ -237,11 +237,11 @@ public final class RoomInfo implements Room {
   /**
    * Finds out if any player is here.
    *
-   * @param players The list of players
    * @return true if any player is here, false otherwise
    */
   @Override
-  public boolean isAnyPlayerHere(List<Player> players) {
+  public boolean isAnyPlayerHere() {
+    List<Player> players = Mansion.getListOfPlayers();
     for (Player player : players) {
       if (this.equals(player.getCurrentLocation())) {
         return true;
@@ -268,12 +268,11 @@ public final class RoomInfo implements Room {
 
   /**
    * Displays information of all players in the room.
-   *
-   * @param players The list of players
-   */
+   **/
   @Override
-  public void displayPlayers(List<Player> players) {
-    if (isAnyPlayerHere(players)) {
+  public void displayPlayers() {
+    List<Player> players = Mansion.getListOfPlayers();
+    if (isAnyPlayerHere()) {
       for (Player player : players) {
         if (this.equals(player.getCurrentLocation())) {
           for (int j = 0; j < (roomName.length() + 7); j++) {
@@ -353,8 +352,8 @@ public final class RoomInfo implements Room {
           neighbor.displayTarget();
         }
         //check if any player in this room and display player information
-        if (neighbor.isAnyPlayerHere(players)) {
-          neighbor.displayPlayers(players);
+        if (neighbor.isAnyPlayerHere()) {
+          neighbor.displayPlayers();
         }
       }
     }

@@ -115,13 +115,13 @@ public class RoomInfoTest {
     Player player1 = new HumanPlayer(1, 0, "jack", thisRoom, 3);
     List<Player> players = new ArrayList<>();
     players.add(player1);
-    assertTrue(thisRoom.isAnyPlayerHere(players));
+    assertTrue(thisRoom.isAnyPlayerHere());
   }
 
   @Test
   public void testIsAnyPlayerHereWhenPlayerIsNotPresent() {
     List<Player> emptyPlayers = new ArrayList<>();
-    assertFalse(thisRoom.isAnyPlayerHere(emptyPlayers));
+    assertFalse(thisRoom.isAnyPlayerHere());
   }
 
   @Test
@@ -131,7 +131,7 @@ public class RoomInfoTest {
     Player player2 = new Player(2, 1, "rose", thisRoom, 3);
     players.add(player1);
     players.add(player2);
-    thisRoom.displayPlayers(players);
+    thisRoom.displayPlayers();
 
     String expectedOutputHere = "Player jack is in room 1!\n" + "Player rose is in room 1!\n";
     assertEquals(expectedOutputHere, outContent.toString());

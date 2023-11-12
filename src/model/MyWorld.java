@@ -456,13 +456,13 @@ public final class MyWorld implements World {
     }
 
     //check if any other player is in this room
-    List<Player> otherPlayers = new ArrayList<>();
-    for (Player p : players) {
-      if (!p.equals(player)) {
-        otherPlayers.add(p);
-      }
-    }
-    if (player.getCurrentLocation().isAnyPlayerHere(otherPlayers)) {
+//    List<Player> otherPlayers = new ArrayList<>();
+//    for (Player p : players) {
+//      if (!p.equals(player)) {
+//        otherPlayers.add(p);
+//      }
+//    }
+    if (player.getCurrentLocation().isAnyOtherPlayerHere(player)) {
       System.out.println("-> There is other player in this room!");
     }
 
@@ -697,6 +697,6 @@ public final class MyWorld implements World {
     room.displayWeapons();
     room.displayTarget();
     room.displayPet();
-    room.displayPlayers(players);
+    room.displayPlayers();
   }
 }
