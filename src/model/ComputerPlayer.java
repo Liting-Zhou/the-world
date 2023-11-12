@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * This class represents a computer player in the game.
@@ -49,7 +48,7 @@ public class ComputerPlayer extends Player {
       System.out.println(
           String.format("The random action of computer player %s is to move the pet.",
               this.getName()));
-      moveThePet(pet);
+      moveThePet();
     }
   }
 
@@ -73,7 +72,7 @@ public class ComputerPlayer extends Player {
       System.out.println(
           String.format("The random action of computer player %s is to move the pet.",
               this.getName()));
-      moveThePet(pet);
+      moveThePet();
     }
   }
 
@@ -176,14 +175,15 @@ public class ComputerPlayer extends Player {
    */
   public void moveThePet() {
     Pet pet = Mansion.getPet();
-    System.out.println(String.format("The cat is now in room %d, %s", pet.getCurrentLocation().getRoomNumber(),
-        pet.getCurrentLocation().getRoomName()));
+    System.out.println(
+        String.format("The cat is now in room %d, %s", pet.getCurrentLocation().getRoomNumber(),
+            pet.getCurrentLocation().getRoomName()));
     System.out.println("Where do you want to teleport the cat? Enter the room number: ");
 
     int number;
-    while(true){
+    while (true) {
       number = random.nextRandomInt(22);
-      if(number != pet.getCurrentLocation().getRoomNumber()){
+      if (number != pet.getCurrentLocation().getRoomNumber()) {
         break;
       }
     }

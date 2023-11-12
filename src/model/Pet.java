@@ -4,6 +4,9 @@ public interface Pet {
 
   /**
    * Pet wanders in the world. Maybe follow depth-first traversal.
+   * I use the BST constructed in lab08 to generate a post-order traversal.
+   * [2 1 0 4 5 7 9 8 6 3 11 13 16 15 14 12 18 20 21 19 17 10]
+   * Thus the pet would wander following this order.
    */
   void wander();
 

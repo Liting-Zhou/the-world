@@ -115,12 +115,14 @@ public interface Room {
    * @return true if any player is here, false otherwise
    */
   boolean isAnyPlayerHere();
+
   /**
    * Finds out if any player other than the given player is here.
    *
    * @param player The player
    */
   public boolean isAnyOtherPlayerHere(Player player);
+
   /**
    * Displays information of all players in the room.
    **/

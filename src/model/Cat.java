@@ -9,13 +9,28 @@ public class Cat implements Pet {
     this.currentLocation = currentLocation;
   }
 
+  /**
+   * Pet wanders in the world. Maybe follow depth-first traversal.
+   * I use the BST constructed in lab08 to generate a post-order traversal.
+   * [2 1 0 4 5 7 9 8 6 3 11 13 16 15 14 12 18 20 21 19 17 10]
+   * Thus the pet would wander following this order.
+   */
   @Override
   public void wander() {
-    //TODO: depth-first traversal
-    // for now, move randomly
-    RandomNumber randomNumber = new RandomNumber();
-    int random = randomNumber.nextRandomInt(22);
-    updateLocation(Mansion.getRoomInfoByRoomNumber(random));
+    int[] order = {2, 1, 0, 4, 5, 7, 9, 8, 6, 3, 11, 13, 16, 15, 14, 12, 18, 20, 21, 19, 17, 10};
+    int currentRoom = currentLocation.getRoomNumber();
+    int index = -1;
+    for (int i = 0; i < order.length; i++) {
+      if (order[i] == currentRoom) {
+        if (i == 21) {
+          index = 0;
+        } else {
+          index = i + 1;
+        }
+        break;
+      }
+    }
+    updateLocation(Mansion.getRoomInfoByRoomNumber(index));
   }
 
   @Override

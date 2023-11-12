@@ -139,7 +139,7 @@ public class Player extends AbstractCharacter {
    */
   public boolean canBeSeen() {
     //if any other player is here, you can be seen
-    if(getCurrentLocation().isAnyOtherPlayerHere(this)){
+    if (getCurrentLocation().isAnyOtherPlayerHere(this)) {
       return true;
     }
     // if cat is here, cannot be seen

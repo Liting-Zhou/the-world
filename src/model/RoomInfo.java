@@ -158,6 +158,16 @@ public final class RoomInfo implements Room {
   }
 
   /**
+   * Saves the neighbors of this room.
+   *
+   * @param neighbors The list of neighbors
+   */
+  @Override
+  public void setNeighbors(List<Room> neighbors) {
+    this.neighbors = neighbors;
+  }
+
+  /**
    * Decide if two rooms share a coordinate, either x or y.
    *
    * @param otherRoom The room to be decided if neighbors
@@ -167,16 +177,6 @@ public final class RoomInfo implements Room {
     return this.x1 == otherRoom.x1 || this.x1 == otherRoom.x2 || this.x2 == otherRoom.x1
         || this.x2 == otherRoom.x2 || this.y1 == otherRoom.y1 || this.y1 == otherRoom.y2
         || this.y2 == otherRoom.y1 || this.y2 == otherRoom.y2;
-  }
-
-  /**
-   * Saves the neighbors of this room.
-   *
-   * @param neighbors The list of neighbors
-   */
-  @Override
-  public void setNeighbors(List<Room> neighbors) {
-    this.neighbors = neighbors;
   }
 
   /**
@@ -215,7 +215,8 @@ public final class RoomInfo implements Room {
   @Override
   public void displayPet() {
     System.out.println(
-        String.format("   %s the cat is in room %d, the %s.", Mansion.getPet().getName(), roomNumber, roomName));
+        String.format("   %s the cat is in room %d, the %s.", Mansion.getPet().getName(),
+            roomNumber, roomName));
   }
 
   /**
@@ -255,16 +256,16 @@ public final class RoomInfo implements Room {
    *
    * @param player The player
    */
-    @Override
-    public boolean isAnyOtherPlayerHere(Player player) {
-      List<Player> players= Mansion.getListOfPlayers();
-        for (Player p : players) {
-            if (this.equals(p.getCurrentLocation()) && !p.equals(player)) {
-                return true;
-            }
-        }
-        return false;
+  @Override
+  public boolean isAnyOtherPlayerHere(Player player) {
+    List<Player> players = Mansion.getListOfPlayers();
+    for (Player p : players) {
+      if (this.equals(p.getCurrentLocation()) && !p.equals(player)) {
+        return true;
+      }
     }
+    return false;
+  }
 
   /**
    * Displays information of all players in the room.
@@ -350,7 +351,7 @@ public final class RoomInfo implements Room {
           neighbor.displayTarget();
         }
         //check if pet in this room and display pet information
-        if(neighbor.isPetHere()){
+        if (neighbor.isPetHere()) {
           neighbor.displayPet();
         }
         //check if any player in this room and display player information

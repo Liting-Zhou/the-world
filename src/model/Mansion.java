@@ -128,21 +128,21 @@ public final class Mansion {
   }
 
   /**
-   * Adds a player to the mansion.
-   *
-   * @param player The player to be added.
-   */
-  public void addPlayer(Player player) {
-    players.add(player);
-  }
-
-  /**
    * Gets the list of rooms in the mansion.
    *
    * @return The list of rooms.
    */
   public static List<Room> getListOfRooms() {
     return rooms;
+  }
+
+  /**
+   * Adds a player to the mansion.
+   *
+   * @param player The player to be added.
+   */
+  public void addPlayer(Player player) {
+    players.add(player);
   }
 
   /**
