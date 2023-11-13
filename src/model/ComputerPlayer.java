@@ -25,16 +25,14 @@ public class ComputerPlayer extends Player {
 
   /**
    * Computer Player randomly picks an action to perform.
-   *
-   * @param rooms The list of rooms in the game.
-   */
-  public void randomAction(List<Room> rooms, Pet pet) {
+   **/
+  public void randomAction() {
     int action = random.nextRandomInt(4);
     if (action == 0) {
       System.out.println(
           String.format("The random action of computer player %s is to move to a neighboring room.",
               this.getName()));
-      move(rooms);
+      move();
     } else if (action == 1) {
       System.out.println(
           String.format("The random action of computer player %s is to pick up a weapon.",
@@ -54,16 +52,14 @@ public class ComputerPlayer extends Player {
 
   /**
    * Computer Player randomly picks an action to perform when there is no weapon in the room.
-   *
-   * @param rooms The list of rooms in the game.
-   */
-  public void randomActionNoWeapon(List<Room> rooms, Pet pet) {
+   **/
+  public void randomActionNoWeapon() {
     int action = random.nextRandomInt(3);
     if (action == 0) {
       System.out.println(
           String.format("The random action of computer player %s is to move to a neighboring room.",
               this.getName()));
-      move(rooms);
+      move();
     } else if (action == 1) {
       System.out.println(String.format("The random action of computer player %s is to look around.",
           this.getName()));
@@ -78,10 +74,8 @@ public class ComputerPlayer extends Player {
 
   /**
    * Player moves to a specific room.
-   *
-   * @param rooms The list of rooms in the game.
-   */
-  public void move(List<Room> rooms) {
+   **/
+  public void move() {
     //randomly move to a neighboring space
     List<Room> neighbors = this.getCurrentLocation().getNeighbors();
     int index = random.nextRandomInt(neighbors.size());
@@ -188,5 +182,6 @@ public class ComputerPlayer extends Player {
       }
     }
     pet.updateLocation(Mansion.getRoomInfoByRoomNumber(number));
+    Mansion.setFlag(1);
   }
 }

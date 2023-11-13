@@ -215,8 +215,8 @@ public final class RoomInfo implements Room {
   @Override
   public void displayPet() {
     System.out.println(
-        String.format("   %s the cat is in room %d, the %s.", Mansion.getPet().getName(),
-            roomNumber, roomName));
+        String.format("   %s the cat is in room %d.", Mansion.getPet().getName(),
+            roomNumber));
   }
 
   /**
@@ -276,12 +276,9 @@ public final class RoomInfo implements Room {
     if (isAnyPlayerHere()) {
       for (Player player : players) {
         if (this.equals(player.getCurrentLocation())) {
-          for (int j = 0; j < (roomName.length() + 7); j++) {
-            System.out.print(" ");
-          }
           System.out.println(
               String.format(
-                  String.format("Player %s is in room %d!", player.getName(),
+                  String.format("   Player %s is in room %d.", player.getName(),
                       this.getRoomNumber())));
         }
       }
@@ -327,8 +324,14 @@ public final class RoomInfo implements Room {
     } else {
       //System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
-        System.out.println(
-            String.format("   %d. %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
+        if (!neighbor.isPetHere()) {
+          System.out.println(
+              String.format("   %d. %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
+        } else {
+          System.out.println(
+              String.format("   You can not see room %d, the %s", neighbor.getRoomNumber(),
+                  neighbor.getRoomName()));
+        }
       }
     }
   }

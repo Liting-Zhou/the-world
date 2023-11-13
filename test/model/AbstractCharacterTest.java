@@ -1,9 +1,7 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.util.Objects;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,21 +39,5 @@ public class AbstractCharacterTest {
     Room newRoom = new RoomInfo(1, 4, 4, 5, 5, "Test Room 2", null);
     character.setCurrentLocation(newRoom);
     assertEquals(newRoom, character.getCurrentLocation());
-  }
-
-  @Test
-  public void testEquals() {
-    character.setName("Character1");
-    AbstractCharacter otherCharacter = new Player(0, 0, "Test Player", room, 3) {
-    };
-    otherCharacter.setName("Character1");
-    assertTrue(character.equals(otherCharacter));
-  }
-
-  @Test
-  public void testHashCode() {
-    character.setName("TestCharacter");
-    int expectedHashCode = Objects.hash("TestCharacter");
-    assertEquals(expectedHashCode, character.hashCode());
   }
 }

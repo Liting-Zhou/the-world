@@ -245,7 +245,8 @@ public final class MyWorld implements World {
         target.getName(), target.getHealth(), target.getCurrentLocation().getRoomNumber()));
     //3.describe the pet by name, starting location and rules of moving
     System.out.println(String.format("%s has a cat named %s, who starts from the same "
-            + "room as the target. %s also moves around the mansion, \nbut follows a different rule "
+            + "room as the target. %s also moves around the mansion, \n"
+            + "but follows a different rule "
             + "from the target. Moreover, the room occupied by %s is not visible to neighbors.",
         target.getName(), cat.getName(), cat.getName(), cat.getName()));
     //4. describe the player rules by introducing type, starting location, maximum number of
@@ -258,7 +259,7 @@ public final class MyWorld implements World {
         + "\n5. Attack the target.\nComputer player should attack the target whenever there "
         +
         "is chance, otherwise randomly choose other actions. \nWhile human player actively chooses"
-        + " any action.");
+        + " any possible action.");
     //5. describe the weapon rules by introducing power and name
     System.out.println("Weapon has a power and a name. Once picked up, it will be removed "
         + "from the room. Once used for attack, \nit will be removed from the world.");
@@ -269,7 +270,8 @@ public final class MyWorld implements World {
     System.out.println("Finally, the game is initialized with a maximum number of turns, "
         + "in each turn "
         + "target moves first and then one player acts.\nPlayer acts in the order of being added "
-        + "to the game. GAME IS OVER when target's health reaches zero or running out of turns.\n"
+        + "to the game. GAME IS OVER when target's health reaches zero"
+        + " or the game is running out of turns.\n"
         + "The winner is the player who finally kills the target and no winner "
         + "for the latter case.");
     System.out.println("---------------------------------------------------------");
@@ -383,6 +385,7 @@ public final class MyWorld implements World {
     if (!isGameOver()) {
       System.out.println("---------------");
       System.out.println("Now play the next turn!");
+      cat.wander();
       roundOfTargetCharacter();
       roundOfPlayer();
 
@@ -398,6 +401,7 @@ public final class MyWorld implements World {
           maxNumOfTurns - numOfTurnsPlayed, target.getCurrentLocation().getRoomNumber(),
           target.getHealth()));
       numOfTurnsPlayed += 1;
+      System.out.println("--------------");
     }
   }
 
@@ -453,13 +457,6 @@ public final class MyWorld implements World {
       System.out.println("-> The cat is in this room! This room is invisible!!!");
     }
 
-    //check if any other player is in this room
-//    List<Player> otherPlayers = new ArrayList<>();
-//    for (Player p : players) {
-//      if (!p.equals(player)) {
-//        otherPlayers.add(p);
-//      }
-//    }
     if (player.getCurrentLocation().isAnyOtherPlayerHere(player)) {
       System.out.println("-> There is other player in this room!");
     }
@@ -516,17 +513,17 @@ public final class MyWorld implements World {
         } else if (action == 4) {
           p.moveThePet();
         } else {
-          p.attack(listOfRooms, cat, players);
+          p.attack();
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
         //if can be seen, no attack, randomly choose other 4 actions
         if (p.canBeSeen()) {
-          if (p.getCurrentLocation().getWeapons().isEmpty() ||
-              p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-            p.randomActionNoWeapon(listOfRooms, cat);
+          if (p.getCurrentLocation().getWeapons().isEmpty()
+              || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
+            p.randomActionNoWeapon();
           } else {
-            p.randomAction(listOfRooms, cat);
+            p.randomAction();
           }
         } else { //if can not be seen, attack
           p.attack();
@@ -578,11 +575,11 @@ public final class MyWorld implements World {
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
-        if (p.getCurrentLocation().getWeapons().isEmpty() ||
-            p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-          p.randomActionNoWeapon(listOfRooms, cat);
+        if (p.getCurrentLocation().getWeapons().isEmpty()
+            || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
+          p.randomActionNoWeapon();
         } else {
-          p.randomAction(listOfRooms, cat);
+          p.randomAction();
         }
       }
     }
@@ -612,7 +609,8 @@ public final class MyWorld implements World {
     System.out.println("Target Information:");
     System.out.println(String.format("Name: %s", target.getName()));
     System.out.println(
-        String.format("Current Location: Room %d", target.getCurrentLocation().getRoomNumber()));
+        String.format("Current Location: Room %d, %s.", target.getCurrentLocation().getRoomNumber(),
+            target.getCurrentLocation().getRoomName()));
     System.out.println(String.format("Health: %d", target.getHealth()));
     //System.out.println("--------------");
   }
@@ -686,7 +684,20 @@ public final class MyWorld implements World {
     // 2.Ask which room to display
     System.out.println("Which room do you want to display? Please enter the room number (0-21): ");
     Scanner scanner = new Scanner(System.in);
-    int roomNumber = scanner.nextInt();
+    int roomNumber;
+    while (true) {
+      while (!scanner.hasNextInt()) {
+        System.out.println("Invalid input. Please enter a valid number:");
+        scanner.next(); // consume the invalid token
+      }
+      roomNumber = scanner.nextInt();
+      if (roomNumber < 0 || roomNumber > 21) {
+        System.out.println("Invalid number. Please enter again:");
+      } else {
+        break;
+      }
+    }
+
     Room room = mansion.getRoomInfoByRoomNumber(roomNumber);
     System.out.println();
 

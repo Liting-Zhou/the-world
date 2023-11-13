@@ -18,6 +18,7 @@ public final class Mansion {
   private static List<Player> players;
   private static Target target;
   private static Pet pet;
+  private static int flag = 0; //if flag = 1, pet should move to the specified room.
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
@@ -122,6 +123,8 @@ public final class Mansion {
 
   /**
    * Sets the pet in the mansion.
+   *
+   * @param pet The pet to be set.
    */
   public void setPet(Pet pet) {
     this.pet = pet;
@@ -134,6 +137,24 @@ public final class Mansion {
    */
   public static List<Room> getListOfRooms() {
     return rooms;
+  }
+
+  /**
+   * Gets the flag.
+   *
+   * @return The flag.
+   */
+  public static int getFlag() {
+    return flag;
+  }
+
+  /**
+   * Sets the flag.
+   *
+   * @param num The value of flag to be set.
+   */
+  public static void setFlag(int num) {
+    flag = num;
   }
 
   /**
@@ -194,5 +215,4 @@ public final class Mansion {
       System.out.println(String.format("%d: %s", room.getRoomNumber(), room.getRoomName()));
     }
   }
-
 }

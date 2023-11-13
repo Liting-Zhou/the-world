@@ -72,7 +72,7 @@ public final class GameControllerCommands implements Controller {
           break;
         }
         if (option < 1 || option > 7) {
-          System.out.println("Invalid action. Please enter again:");
+          System.out.println("Invalid option. Please enter again:");
         } else {
           break;
         }

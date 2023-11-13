@@ -165,7 +165,8 @@ public class GameControllerTest {
         + "18: Room S\n19: Room T\n20: Room U\n21: Room V\n\n"
         + "Which room do you want to display? Please enter the room number (0-21): \n"
         + "\nRoom 1 information:\n-> There is no weapon in this room.\n"
-        + "Target is not here.\nNo player in this room.\n\n***************\n"
+        + "   Target is not here.\n   Peppa the cat is in room 1.\n   No player in this room.\n"
+        + "\n***************\n"
         + "Game continues.\n"
         + "Options:\n"
         + "1. Display information about a specified room.\n"
@@ -200,9 +201,10 @@ public class GameControllerTest {
         + "\nPlease choose an option (enter the corresponding number): \n"
         + "\nList of players: \nTom\n"
         + "\nWhich player do you want to display? Please enter the name: \n"
+        + "Invalid input. Please enter a valid name:\n"
         + "\nInformation of player Tom: \nTom has/have no weapon.\n"
         + "Maximum number of weapons can carry: 3\n"
-        + "This is a human player.\nCurrent Location: Room 0\n\n"
+        + "This is a human player.\nCurrent Location: Room 0, the Room A.\n\n"
         + "***************\nGame continues.\nOptions:\n"
         + "1. Display information about a specified room.\n"
         + "2. Generate the mansion_map.png.\n"
@@ -216,6 +218,42 @@ public class GameControllerTest {
         + "You chose to end the game. Bye!\n";
     assertEquals(expectedOutput, outContent.toString());
 
+  }
+
+  @Test
+  public void testDisplayTargetInfoCommand() throws IOException {
+    systemInMock.provideLines("7", "99");
+    gameController.playGame(mockWorld);
+    String expectedOutput = "Game started!\n"
+        + "***************\n"
+        + "Options:\n"
+        + "1. Display information about a specified room.\n"
+        + "2. Generate the mansion_map.png.\n"
+        + "3. Add a human-controlled player to the game.\n"
+        + "4. Add a computer-controlled player to the game.\n"
+        + "5. Play next turn.\n"
+        + "6. Display a description of a specified player.\n"
+        + "7. Display a description of the target.\n"
+        + "99. Quit the game.\n\n"
+        + "Please choose an option (enter the corresponding number): \n"
+        + "Target Information:\n"
+        + "Name: Target\n"
+        + "Current Location: Room 0, Room A.\n"
+        + "Health: 20\n\n"
+        + "***************\n"
+        + "Game continues.\n"
+        + "Options:\n"
+        + "1. Display information about a specified room.\n"
+        + "2. Generate the mansion_map.png.\n"
+        + "3. Add a human-controlled player to the game.\n"
+        + "4. Add a computer-controlled player to the game.\n"
+        + "5. Play next turn.\n"
+        + "6. Display a description of a specified player.\n"
+        + "7. Display a description of the target.\n"
+        + "99. Quit the game.\n\n"
+        + "Please choose an option (enter the corresponding number): \n"
+        + "You chose to end the game. Bye!\n";
+    assertEquals(expectedOutput, outContent.toString());
   }
 
   /**

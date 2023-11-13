@@ -77,11 +77,22 @@ public class HumanPlayer extends Player {
     }
   }
 
-  public void attack(List<Room> rooms, Pet pet, List<Player> players) {
+  /**
+   * Player attacks the target. If can be seen from other players, no damage made.
+   */
+  public void attack() {
     //check if the player has weapon
     if (weaponsCarried.isEmpty()) {
-      //if not, poke target in the eye
+      //poke target in the eye
       System.out.println("You have no weapon. Just poke the target in the eye!");
+      if (canBeSeen()) {
+        //if can be seen, no damage made
+        System.out.println("You can be seen by other players. No damage made.");
+      } else {
+        //if cannot be seen, damage made
+        System.out.println("You cannot be seen by other players. Damage made.");
+        Mansion.getTarget().healthDamage(1);
+      }
     } else {
       //if yes, display weapon, ask player to choose one
       displayWeaponInformation();
@@ -137,8 +148,9 @@ public class HumanPlayer extends Player {
    */
   public void moveThePet() {
     Pet pet = Mansion.getPet();
+    System.out.println();
     System.out.println(
-        String.format("The cat is now in room %d, %s", pet.getCurrentLocation().getRoomNumber(),
+        String.format("The cat is now in room %d, %s.", pet.getCurrentLocation().getRoomNumber(),
             pet.getCurrentLocation().getRoomName()));
     System.out.println("Where do you want to teleport the cat? Enter the room number: ");
 
@@ -157,6 +169,7 @@ public class HumanPlayer extends Player {
       }
     }
     pet.updateLocation(Mansion.getRoomInfoByRoomNumber(number));
+    Mansion.setFlag(1);
   }
 }
 

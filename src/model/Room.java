@@ -120,6 +120,7 @@ public interface Room {
    * Finds out if any player other than the given player is here.
    *
    * @param player The player
+   * @return true if any player other than the given player is here, false otherwise
    */
   public boolean isAnyOtherPlayerHere(Player player);
 

@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Represents a pet in the game.
+ * The pet enters the game in the same space as the target character.
+ * Any space that is occupied by the pet cannot be seen by its neighbors.
+ * The pet can be moved to a specified space by players.
+ */
 public interface Pet {
 
   /**

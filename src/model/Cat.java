@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * This class represents a cat in the game.
+ */
 public class Cat implements Pet {
   private String name;
   private Room currentLocation;
@@ -17,6 +20,10 @@ public class Cat implements Pet {
    */
   @Override
   public void wander() {
+    if (Mansion.getFlag() == 1) {
+      Mansion.setFlag(0);
+      return;
+    }
     int[] order = {2, 1, 0, 4, 5, 7, 9, 8, 6, 3, 11, 13, 16, 15, 14, 12, 18, 20, 21, 19, 17, 10};
     int currentRoom = currentLocation.getRoomNumber();
     int index = -1;

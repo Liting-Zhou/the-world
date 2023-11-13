@@ -20,7 +20,7 @@ import org.junit.Test;
 /**
  * This class contains test cases for the {@link MyWorld} class.
  */
-public class WorldTest {
+public class MyWorldTest {
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private MyWorld myWorld;
   private List<String> testConfigLines;
@@ -35,6 +35,7 @@ public class WorldTest {
     testConfigLines = new ArrayList<>();
     testConfigLines.add("10 10 Mansion A"); // mansion info
     testConfigLines.add("20 Target"); // target info
+    testConfigLines.add("Peppa the Pig"); // pet
     testConfigLines.add("22"); // room count
     testConfigLines.add("0 0 3 3 Room A"); // room 0
     testConfigLines.add("4 4 7 7 Room B"); // room 1
@@ -71,7 +72,6 @@ public class WorldTest {
     Readable sr = new StringReader(sb.toString());
     myWorld = new MyWorld(sr);
     rooms = myWorld.getMansion().getListOfRooms();
-
     System.setOut(new PrintStream(outContent));
   }
 
@@ -165,7 +165,7 @@ public class WorldTest {
     // Call the method
     myWorld.displayTargetInformation();
     String expectedOutput = "Target Information:\n"
-        + "Name: Target\n" + "Current Location: Room 0\n"
+        + "Name: Target\n" + "Current Location: Room 0, Room A.\n"
         + "Health: 20\n";
 
     assertEquals(expectedOutput, outContent.toString());
@@ -209,8 +209,9 @@ public class WorldTest {
         + "\nWhich room do you want to display? Please enter the room number (0-21): \n"
         + "\nRoom 0 information:\n"
         + "-> Weapon Knife with power 1 is in this room.\n"
-        + "Target is in room 0!\n"
-        + "No player in this room.\n";
+        + "             Target is in room 0!\n"
+        + "   Peppa the cat is in room 0.\n"
+        + "   No player in this room.\n";
     assertEquals(expectedOutput, outContent.toString());
   }
 
@@ -245,7 +246,9 @@ public class WorldTest {
         + "\nWhich room do you want to display? Please enter the room number (0-21): \n"
         + "\nRoom 1 information:\n"
         + "-> There is no weapon in this room.\n"
-        + "Target is not here.\nNo player in this room.\n";
+        + "   Target is not here.\n"
+        + "   Peppa the cat is in room 1.\n"
+        + "   No player in this room.\n";
     assertEquals(expectedOutput, outContent.toString());
   }
 

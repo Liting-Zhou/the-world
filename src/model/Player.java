@@ -13,6 +13,7 @@ public class Player extends AbstractCharacter {
   protected List<WeaponImp> weaponsCarried;
   private int indexOfPlayer;
 
+
   /**
    * Constructs a new Player object.
    *
@@ -97,8 +98,8 @@ public class Player extends AbstractCharacter {
     System.out.printf("Your current Location: Room %d, the %s%n",
         room.getRoomNumber(),
         room.getRoomName());
-    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere() &&
-        !room.isTargetHere()) {
+    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere()
+        && !room.isTargetHere()) {
       System.out.println("No one else is in this room.");
     }
     if (room.isTargetHere()) {
