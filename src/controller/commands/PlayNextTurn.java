@@ -23,9 +23,9 @@ public final class PlayNextTurn implements Command {
   @Override
   public void execute(MyWorld w) throws IOException {
     w.playNextTurn();
-    if (w.isGameOver()) {
-      out.append("Game over!");
-      out.append(String.format("The winner is %s", w.getWinner().getName()));
-    }
+//    if (w.isGameOver()) {
+//      out.append("Game over!");
+//      out.append(String.format("The winner is %s", w.getWinner().getName()));
+//    }
   }
 }

@@ -63,6 +63,7 @@ public class HumanPlayer extends Player {
       //update the room information with weapons removed
       this.getCurrentLocation().removeWeapon(weapons.get(0));
     } else {
+      this.getCurrentLocation().displayWeapons();
       Scanner scanner = new Scanner(System.in);
       System.out.println("Which one do you want to pick up? Enter the corresponding number: ");
       Integer weaponNumber = scanner.nextInt();
@@ -95,6 +96,7 @@ public class HumanPlayer extends Player {
       }
     } else {
       //if yes, display weapon, ask player to choose one
+      System.out.print("You");
       displayWeaponInformation();
       System.out.println("Which weapon do you want to choose? Enter the corresponding number. "
           + "Enter 0 if you want to poke the target in the eye!");
@@ -104,13 +106,12 @@ public class HumanPlayer extends Player {
       int number;
       while (true) {
         while (!scanner.hasNextInt()) {
-          System.out.println("Invalid input. Please enter a valid number.");
+          System.out.println("Invalid input. Please enter a valid number:");
           scanner.next(); // consume the invalid token
         }
         number = scanner.nextInt();
         if (number < 0 || number > weaponsCarried.size()) {
-          System.out.println("Invalid input. Please enter again.");
-          System.out.println();
+          System.out.println("Invalid number. Please enter again:");
         } else {
           break;
         }
@@ -168,7 +169,10 @@ public class HumanPlayer extends Player {
         break;
       }
     }
-    pet.updateLocation(Mansion.getRoomInfoByRoomNumber(number));
+    Room nextWanderRoom = Mansion.getRoomInfoByRoomNumber(number);
+    System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
+        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
+    pet.updateLocation(nextWanderRoom);
     Mansion.setFlag(1);
   }
 }

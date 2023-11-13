@@ -1,0 +1,378 @@
+<1> the target character's pet effect on the visibility of a space from neighboring spaces
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 1.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 5, the Ballroom
+
+Now you have 4 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+3
+~~~~~~~~~
+By looking around, you got the following information:
+Your current Location: Room 5, the Ballroom
+-> There is no weapon in this room.
+No one else is in this room.
+The neighbors of this room are:
+4. Library -> You can not see this room!!!
+6. Ballroom Balcony -> There are 2 weapons in this room:
+                       (1) Trowel with power 2
+                       (2) Pinking Shears with power 2
+20. Music Room -> There is no weapon in this room.
+21. Lounge -> Weapon Big Red Hammer with power 4 is in this room.
+~~~~~~~~~
+
+Turn 1 has ended (19 turns left). And Target is now in room 1 with health 20.
+--------------
+
+<2> the player moving the target character's pet
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 2.
+
+It's Jerry's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 16, the Trophy Room
+
+Now you have 4 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+What do you want to do, Jerry?
+
+The random action of computer player Jerry is to move the pet.
+The cat is now in room 5, Ballroom.
+Next turn, Fortune the cat will wander to room 4, the Library.
+
+Turn 2 has ended (18 turns left). And Target is now in room 2 with health 20.
+--------------
+
+<3> a human-player making an attempt on the target character's life
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 1.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 1, the Foyer
+-> Target is in this room!
+
+Now you have 5 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+5. Attack the target.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+5
+You have no weapon. Just poke the target in the eye!
+You cannot be seen by other players. Damage made.
+
+Turn 1 has ended (49 turns left). And Target is now in room 1 with health 4.
+--------------
+
+<4> a computer-controlled player making an attempt on the target character's life
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 14.
+
+It's Jerry's turn!
+
+USEFUL INFORMATION:
+-> You has/have 1 weapon(s):
+Broom Stick with power 2
+-> You are now in room 14, the Guest Bedroom two
+-> Target is in this room!
+-> The cat is in this room! This room is invisible!!!
+
+Now you have 5 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+5. Attack the target.
+What do you want to do, Jerry?
+
+Computer player Jerry uses Broom Stick to attack the target, target gets 2 damage.
+
+Turn 14 has ended (6 turns left). And Target is now in room 14 with health 18.
+--------------
+
+<5> a human-player winning the game by killing the target character
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 17.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have 1 weapon(s):
+(1) Revolver with power 3
+-> You are now in room 17, the Greenhouse
+-> Target is in this room!
+
+Now you have 5 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+5. Attack the target.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+5
+You has/have 1 weapon(s):
+(1) Revolver with power 3
+Which weapon do you want to choose? Enter the corresponding number. Enter 0 if you want to poke the target in the eye!
+1
+You chose Revolver to attack the target.
+You cannot be seen by other players. Damage made.
+GAME OVER!
+Player Tom wins!
+
+<6> a computer-controlled player winning the game by killing the target character
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 4.
+
+It's Jerry's turn!
+
+USEFUL INFORMATION:
+-> You has/have 1 weapon(s):
+(1) Letter Opener with power 2
+-> You are now in room 4, the Library
+-> Target is in this room!
+
+Now you have 5 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+5. Attack the target.
+What do you want to do, Jerry?
+
+Computer player Jerry uses Letter Opener to attack the target, target gets 2 damage.
+GAME OVER!
+Player Jerry wins!
+
+***************
+
+
+<7> the target character escaping with his life and the game ending
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 6.
+
+It's Jerry's turn!
+
+USEFUL INFORMATION:
+-> You has/have 2 weapon(s):
+(1) Bad Cream with power 2
+(2) Civil War Cannon with power 3
+-> You are now in room 16, the Trophy Room
+
+Now you have 4 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+What do you want to do, Jerry?
+
+The random action of computer player Jerry is to look around.
+~~~~~~~~~
+By looking around, you got the following information:
+Your current Location: Room 16, the Trophy Room
+-> Weapon Broom Stick with power 2 is in this room.
+No one else is in this room.
+The neighbors of this room are:
+7. Doctor Lucky's Bedroom -> Weapon Loud Noise with power 2 is in this room.
+13. Guest Bathroom -> There is no weapon in this room.
+14. Guest Bedroom two -> There is no weapon in this room.
+15. Doctor's Bathroom -> There is no weapon in this room.
+17. Greenhouse -> There is no weapon in this room.
+19. Art Gallery -> Weapon Painting with power 1 is in this room.
+20. Music Room -> You can not see this room!!!
+~~~~~~~~~
+
+Turn 50 has ended (0 turns left). And Target is now in room 6 with health 2.
+--------------
+
+***************
+Oops! You have run out of the maximum number of turns (50)! GAME OVER!
+
+<8> Player attacked but failed (can be seen)
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 1.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have 3 weapon(s):
+Big Red Hammer with power 4
+Chain Saw with power 4
+Revolver with power 3
+-> You are now in room 1, the Foyer
+-> Target is in this room!
+-> There is other player in this room!
+
+Now you have 5 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+5. Attack the target.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+5
+You has/have 3 weapon(s):
+(1) Big Red Hammer with power 4
+(2) Chain Saw with power 4
+(3) Revolver with power 3
+Which weapon do you want to choose? Enter the corresponding number. Enter 0 if you want to poke the target in the eye!
+4
+Invalid number. Please enter again:
+1
+You chose Big Red Hammer to attack the target.
+You can be seen by other players. No damage made.
+
+Turn 23 has ended (27 turns left). And Target is now in room 1 with health 5.
+--------------

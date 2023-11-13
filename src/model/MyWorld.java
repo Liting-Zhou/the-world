@@ -392,7 +392,13 @@ public final class MyWorld implements World {
       //check health of target, if less than zero, game over and display the winner
       if (target.getHealth() <= 0) {
         System.out.println("GAME OVER!");
-        System.out.println(String.format("Player %s wins!", getCurrentPlayer().getName()));
+        int winner;
+        if(indexOfCurrentPlayer==0){
+          winner=players.size()-1;
+        }else{
+          winner=indexOfCurrentPlayer-1;
+        }
+        System.out.println(String.format("Player %s wins!", players.get(winner).getName()));
         return;
       }
       System.out.println();
@@ -476,7 +482,7 @@ public final class MyWorld implements World {
           String.format(
               "Now you have 5 options:%n1. Move to a neighboring space.%n2. "
                   + "Pick up a weapon if there is any.%n3. "
-                  + "Look around.%n4. Moves the cat to a specified space.%n5.Attack the target."
+                  + "Look around.%n4. Moves the cat to a specified space.%n5. Attack the target."
                   + "%nWhat do you want to do, %s?",
               player.getName()));
       System.out.println();

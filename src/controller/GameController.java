@@ -17,7 +17,7 @@ import model.MyWorld;
 /**
  * Represents the controller for the game "MyWorld", which employs the command design pattern.
  */
-public final class GameControllerCommands implements Controller {
+public final class GameController implements Controller {
   private final Appendable out;
   private final Scanner scan;
 
@@ -28,7 +28,7 @@ public final class GameControllerCommands implements Controller {
    * @param out the output to print
    * @throws IllegalArgumentException for invalid arguments.
    */
-  public GameControllerCommands(Readable in, Appendable out)
+  public GameController(Readable in, Appendable out)
       throws IllegalArgumentException {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");
@@ -93,7 +93,7 @@ public final class GameControllerCommands implements Controller {
       }
       System.out.println();
       System.out.println("***************");
-      if (w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
+      if ((w.getNumOfTurnsPlayed() <= maxNumOfTurns) && (!w.isGameOver())) {
         System.out.println("Game continues.");
       }
     }

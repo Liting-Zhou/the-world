@@ -93,11 +93,12 @@ public class Player extends AbstractCharacter {
    */
   public void displayLookAroundInformation() {
     Room room = getCurrentLocation();
-    System.out.println("--------------");
+    System.out.println("~~~~~~~~~");
     System.out.println("By looking around, you got the following information:");
     System.out.printf("Your current Location: Room %d, the %s%n",
         room.getRoomNumber(),
         room.getRoomName());
+    room.displayWeapons();
     if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere()
         && !room.isTargetHere()) {
       System.out.println("No one else is in this room.");
@@ -116,7 +117,7 @@ public class Player extends AbstractCharacter {
       }
     }
     getCurrentLocation().displayNeighborsAllInfo();
-    System.out.println("--------------");
+    System.out.println("~~~~~~~~~");
   }
 
   /**
@@ -127,8 +128,10 @@ public class Player extends AbstractCharacter {
       System.out.println(" has/have no weapon.");
     } else {
       System.out.printf(" has/have %d weapon(s):%n", weaponsCarried.size());
+      int i=1;
       for (WeaponImp weapon : weaponsCarried) {
-        System.out.printf("%s with power %s%n", weapon.getName(), weapon.getPower());
+        System.out.printf("(%d) %s with power %s%n", i, weapon.getName(), weapon.getPower());
+        i+=1;
       }
     }
   }

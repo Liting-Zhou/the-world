@@ -1,5 +1,5 @@
 27 20 Doctor Lucky's Mansion
-20 Doctor Lucky
+5 Doctor Lucky
 Fortune the Cat
 22
 1 2 7 4 Billiards Room
@@ -14,9 +14,9 @@ Fortune the Cat
 14 14 20 20 Garden Terrace
 5 14 14 21 Swimming Pool
 2 14 5 18 Wine Tasting Room
-2 9 6 14 Guest Bedrooms 1
+2 9 6 14 Guest Bedroom one
 6 9 8 14 Guest Bathroom
-8 9 12 14 Guest Bedrooms 2
+8 9 12 14 Guest Bedroom two
 12 9 15 14 Doctor's Bathroom
 7 7 19 9 Trophy Room
 1 7 7 9 Greenhouse

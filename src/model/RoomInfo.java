@@ -214,9 +214,13 @@ public final class RoomInfo implements Room {
    */
   @Override
   public void displayPet() {
-    System.out.println(
-        String.format("   %s the cat is in room %d.", Mansion.getPet().getName(),
-            roomNumber));
+    if (isPetHere()) {
+      System.out.println(
+          String.format("   %s the cat is in room %d.", Mansion.getPet().getName(),
+              roomNumber));
+    } else {
+      System.out.println("   The cat is not here.");
+    }
   }
 
   /**
@@ -225,9 +229,6 @@ public final class RoomInfo implements Room {
   @Override
   public void displayTarget() {
     if (isTargetHere()) {
-      for (int j = 0; j < (roomName.length() + 7); j++) {
-        System.out.print(" ");
-      }
       System.out.println(
           String.format("Target is in room %d!", this.getRoomNumber()));
     } else {
@@ -346,20 +347,22 @@ public final class RoomInfo implements Room {
     } else {
       System.out.println("The neighbors of this room are: ");
       for (Room neighbor : neighbors) {
-        System.out.print(
-            String.format("%d. %s ", neighbor.getRoomNumber(), neighbor.getRoomName()));
-        neighbor.displayWeapons();
-        //check if target in this room and display target information
-        if (neighbor.isTargetHere()) {
-          neighbor.displayTarget();
-        }
-        //check if pet in this room and display pet information
-        if (neighbor.isPetHere()) {
-          neighbor.displayPet();
-        }
-        //check if any player in this room and display player information
-        if (neighbor.isAnyPlayerHere()) {
-          neighbor.displayPlayers();
+        if (!neighbor.isPetHere()) {
+          System.out.print(
+              String.format("%d. %s ", neighbor.getRoomNumber(), neighbor.getRoomName()));
+          neighbor.displayWeapons();
+          //check if target in this room and display target information
+          if (neighbor.isTargetHere()) {
+            neighbor.displayTarget();
+          }
+          //check if any player in this room and display player information
+          if (neighbor.isAnyPlayerHere()) {
+            neighbor.displayPlayers();
+          }
+        } else {
+          System.out.println(
+              String.format("%d. %s -> You can not see this room!!!", neighbor.getRoomNumber(),
+                  neighbor.getRoomName()));
         }
       }
     }

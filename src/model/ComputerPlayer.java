@@ -170,9 +170,8 @@ public class ComputerPlayer extends Player {
   public void moveThePet() {
     Pet pet = Mansion.getPet();
     System.out.println(
-        String.format("The cat is now in room %d, %s", pet.getCurrentLocation().getRoomNumber(),
+        String.format("The cat is now in room %d, %s.", pet.getCurrentLocation().getRoomNumber(),
             pet.getCurrentLocation().getRoomName()));
-    System.out.println("Where do you want to teleport the cat? Enter the room number: ");
 
     int number;
     while (true) {
@@ -181,7 +180,10 @@ public class ComputerPlayer extends Player {
         break;
       }
     }
-    pet.updateLocation(Mansion.getRoomInfoByRoomNumber(number));
+    Room nextWanderRoom = Mansion.getRoomInfoByRoomNumber(number);
+    System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
+        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
+    pet.updateLocation(nextWanderRoom);
     Mansion.setFlag(1);
   }
 }

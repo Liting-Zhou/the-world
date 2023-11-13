@@ -37,7 +37,7 @@ public class Cat implements Pet {
         break;
       }
     }
-    updateLocation(Mansion.getRoomInfoByRoomNumber(index));
+    updateLocation(Mansion.getRoomInfoByRoomNumber(order[index]));
   }
 
   @Override

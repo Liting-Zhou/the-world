@@ -29,7 +29,7 @@ public class GameControllerTest {
   private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
   private List<String> testConfigLines;
   private MyWorld mockWorld;
-  private GameControllerCommands gameController;
+  private GameController gameController;
 
   /**
    * Sets up the test environment before each test case.
@@ -76,7 +76,7 @@ public class GameControllerTest {
     }
     Readable sr = new StringReader(sb.toString());
     mockWorld = new MyWorld(sr);
-    gameController = new GameControllerCommands(new StringReader("5\n"), new StringBuilder());
+    gameController = new GameController(new StringReader("5\n"), new StringBuilder());
 
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
@@ -84,7 +84,7 @@ public class GameControllerTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testPlayGameWithInvalidMaxNumOfTurns() throws IllegalArgumentException, IOException {
-    gameController = new GameControllerCommands(new StringReader("-1\n"), new StringBuilder());
+    gameController = new GameController(new StringReader("-1\n"), new StringBuilder());
     gameController.playGame(mockWorld);
   }
 
