@@ -32,7 +32,7 @@ public class Cat implements Pet {
     List<Room> newOrder = new ArrayList<>();
     newOrder.add(currentLocation);
     depthFirstTraversalHelper(newOrder, currentLocation);
-    System.out.println(newOrder);
+    //System.out.println(newOrder);
     return newOrder;
   }
 
