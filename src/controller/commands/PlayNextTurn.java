@@ -1,7 +1,6 @@
 package controller.commands;
 
 import controller.Command;
-import java.io.IOException;
 import model.MyWorld;
 
 /**
@@ -9,19 +8,8 @@ import model.MyWorld;
  */
 public final class PlayNextTurn implements Command {
 
-  private Appendable out;
-
-  public PlayNextTurn(Appendable out) {
-    this.out = out;
-  }
-
-  /**
-   * Executes the command.
-   *
-   * @param w the MyWorld model to use.
-   */
   @Override
-  public void execute(MyWorld w) throws IOException {
+  public void execute(MyWorld w) {
     w.playNextTurn();
   }
 }

@@ -11,6 +11,11 @@ public final class AddComputerPlayer implements Command {
 
   private Scanner scan;
 
+  /**
+   * Adds a computer player to the game.
+   *
+   * @param s The scanner to read input from
+   */
   public AddComputerPlayer(Scanner s) {
     this.scan = s;
   }

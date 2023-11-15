@@ -10,6 +10,11 @@ import model.MyWorld;
 public final class AddHumanPlayer implements Command {
   private Scanner scan;
 
+  /**
+   * Adds a computer player to the game.
+   *
+   * @param s The scanner to read input from
+   */
   public AddHumanPlayer(Scanner s) {
     this.scan = s;
   }

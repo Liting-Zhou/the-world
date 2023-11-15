@@ -50,7 +50,7 @@ public final class GameController implements Controller {
     knownCommands.put(2, s -> new DisplayMap());
     knownCommands.put(3, AddHumanPlayer::new);
     knownCommands.put(4, AddComputerPlayer::new);
-    knownCommands.put(5, s -> new PlayNextTurn(out));
+    knownCommands.put(5, s -> new PlayNextTurn());
     knownCommands.put(6, s -> new DisplayPlayerInfo());
     knownCommands.put(7, s -> new DisplayTargetInfo());
 
