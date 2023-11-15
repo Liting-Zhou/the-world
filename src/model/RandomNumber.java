@@ -39,7 +39,7 @@ public class RandomNumber implements model.Random {
    *
    * @param bound the upper bound (exclusive). Must be positive
    * @return the next pseudorandom, uniformly distributed int value between 0 (inclusive)
-   * and bound (exclusive)
+   *         and bound (exclusive)
    * @throws IllegalArgumentException if the bound is not positive
    */
   @Override

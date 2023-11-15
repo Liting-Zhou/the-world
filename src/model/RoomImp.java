@@ -369,6 +369,11 @@ public final class RoomImp implements Room {
   }
 
   @Override
+  public String toString() {
+    return String.format("%d", this.roomNumber);
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

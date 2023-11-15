@@ -9,9 +9,10 @@ import java.util.Scanner;
  * Kill Doctor Lucky.
  */
 public final class MyWorld implements World {
+
   private static List<Player> players = new ArrayList<>();
-  private final int startingRoom = 0; //default value
   int maxNumOfTurns = 100; //default value
+  private final int startingRoom = 0; //default value
   private Target target;
   private Pet cat;
   private List<Room> listOfRooms;
@@ -393,10 +394,10 @@ public final class MyWorld implements World {
       if (target.getHealth() <= 0) {
         System.out.println("GAME OVER!");
         int winner;
-        if(indexOfCurrentPlayer==0){
-          winner=players.size()-1;
-        }else{
-          winner=indexOfCurrentPlayer-1;
+        if (indexOfCurrentPlayer == 0) {
+          winner = players.size() - 1;
+        } else {
+          winner = indexOfCurrentPlayer - 1;
         }
         System.out.println(String.format("Player %s wins!", players.get(winner).getName()));
         return;

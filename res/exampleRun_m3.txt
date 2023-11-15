@@ -376,3 +376,136 @@ You can be seen by other players. No damage made.
 
 Turn 23 has ended (27 turns left). And Target is now in room 1 with health 5.
 --------------
+
+<9> The pet moves based on a specific route calculated by a depth-first traversal algorithm
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 5.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 5, the Ballroom
+-> Target is in this room!
+
+Now you have 5 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+5. Attack the target.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+4
+
+The cat is now in room 3, Kitchen.
+Where do you want to teleport the cat? Enter the room number:
+19
+Next turn, Fortune the cat will wander to room 19, the Art Gallery.
+
+Turn 5 has ended (45 turns left). And Target is now in room 5 with health 5.
+--------------
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 6.
+
+It's Jerry's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 17, the Greenhouse
+
+Now you have 4 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+What do you want to do, Jerry?
+
+The random action of computer player Jerry is to look around.
+~~~~~~~~~
+By looking around, you got the following information:
+Your current Location: Room 17, the Greenhouse
+-> There is no weapon in this room.
+No one else is in this room.
+The neighbors of this room are:
+12. Guest Bedroom one -> Weapon Shoe Horn with power 2 is in this room.
+13. Guest Bathroom -> Weapon Bad Cream with power 2 is in this room.
+16. Trophy Room -> Weapon Broom Stick with power 2 is in this room.
+18. Study Room -> There are 2 weapons in this room:
+                 (1) Duck Decoy with power 3
+                 (2) Monkey Hand with power 2
+19. Art Gallery -> You can not see this room!!!
+~~~~~~~~~
+
+Turn 6 has ended (44 turns left). And Target is now in room 6 with health 5.
+--------------
+
+***************
+Game continues.
+Options:
+1. Display information about a specified room.
+2. Generate the mansion_map.png.
+3. Add a human-controlled player to the game.
+4. Add a computer-controlled player to the game.
+5. Play next turn.
+6. Display a description of a specified player.
+7. Display a description of the target.
+99. Quit the game.
+
+Please choose an option (enter the corresponding number):
+5
+---------------
+Now play the next turn!
+Target moves and now is in room 7.
+
+It's Tom's turn!
+
+USEFUL INFORMATION:
+-> You has/have no weapon.
+-> You are now in room 5, the Ballroom
+
+Now you have 4 options:
+1. Move to a neighboring space.
+2. Pick up a weapon if there is any.
+3. Look around.
+4. Moves the cat to a specified space.
+What do you want to do, Tom?
+
+Please enter the corresponding number:
+4
+
+The cat is now in room 0, Billiards Room.
+Where do you want to teleport the cat? Enter the room number:

@@ -21,12 +21,12 @@ public class PetTest {
    */
   @Before
   public void setUp() {
-    room = new RoomImp(2, 0, 0, 1, 1, "Test Room 1", null);
+    room = new RoomImp(0, 0, 0, 1, 1, "Test Room 1", null);
     room2 = new RoomImp(1, 1, 0, 2, 2, "Test Room 2", null);
-    room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", null);
+    room3 = new RoomImp(2, 2, 0, 3, 3, "Test Room 3", null);
     List<Room> rooms = List.of(room, room2, room3);
-    catTest = new Cat("cat test", room);
     mansion = new Mansion("test", 20, 20, rooms);
+    catTest = new Cat("cat test", room);
     mansion.setPet(catTest);
   }
 
@@ -39,6 +39,10 @@ public class PetTest {
   public void testWander() {
     catTest.wander();
     assertEquals(room2, catTest.getCurrentLocation());
+    catTest.wander();
+    assertEquals(room3, catTest.getCurrentLocation());
+    catTest.wander();
+    assertEquals(room, catTest.getCurrentLocation());
   }
 
   @Test

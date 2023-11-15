@@ -99,8 +99,9 @@ public class MyWorldTest {
     assertEquals(20, myWorld.getTarget().getHealth());
     assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
   }
+
   @Test
-  public void testAddPlayer(){
+  public void testAddPlayer() {
     myWorld.addHumanPlayer("Player1", 0, 1);
     myWorld.addComputerPlayer("Player2", 1, 2);
     assertEquals(0, myWorld.getPlayers().get(0).getCurrentLocation().getRoomNumber());

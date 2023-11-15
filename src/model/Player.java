@@ -9,8 +9,8 @@ import java.util.Objects;
  * and interact with other characters and objects.
  */
 public class Player extends AbstractCharacter {
-  private final int typeOfPlayer; // 0 for human, 1 for computer
   protected List<WeaponImp> weaponsCarried;
+  private final int typeOfPlayer; // 0 for human, 1 for computer
   private int indexOfPlayer;
 
 
@@ -128,10 +128,10 @@ public class Player extends AbstractCharacter {
       System.out.println(" has/have no weapon.");
     } else {
       System.out.printf(" has/have %d weapon(s):%n", weaponsCarried.size());
-      int i=1;
+      int i = 1;
       for (WeaponImp weapon : weaponsCarried) {
         System.out.printf("(%d) %s with power %s%n", i, weapon.getName(), weapon.getPower());
-        i+=1;
+        i += 1;
       }
     }
   }
