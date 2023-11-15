@@ -30,8 +30,8 @@ public class HumanPlayer extends Player {
     System.out.println("Which neighboring room do you want to enter? Enter the room number: ");
     Integer roomNumber = scanner.nextInt();
     //check if the room is a neighbor
-    if (this.getCurrentLocation().isNeighbor(Mansion.getRoomInfoByRoomNumber(roomNumber))) {
-      this.setCurrentLocation(Mansion.getRoomInfoByRoomNumber(roomNumber));
+    if (this.getCurrentLocation().isNeighbor(Mansion.getRoomByRoomNumber(roomNumber))) {
+      this.setCurrentLocation(Mansion.getRoomByRoomNumber(roomNumber));
       System.out.println(String.format("You are now in room %d.", roomNumber));
     } else {
       System.out.println("The room is not a neighbor.");
@@ -169,7 +169,7 @@ public class HumanPlayer extends Player {
         break;
       }
     }
-    Room nextWanderRoom = Mansion.getRoomInfoByRoomNumber(number);
+    Room nextWanderRoom = Mansion.getRoomByRoomNumber(number);
     System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
         nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);

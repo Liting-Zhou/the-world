@@ -140,7 +140,7 @@ public final class MyWorld implements World {
 
       // Create a Room object with the parsed data.
       Room room =
-          new RoomInfo(lineIndex - 4, topLeftX, topLeftY, bottomRightX, bottomRightY, roomName,
+          new RoomImp(lineIndex - 4, topLeftX, topLeftY, bottomRightX, bottomRightY, roomName,
               listOfWeaponsSpecificRoom);
 
       // Add the created Room object to the list of rooms.
@@ -184,7 +184,7 @@ public final class MyWorld implements World {
     String targetName = String.join(" ", restOfTargetData);
 
     // Initialize the starting location
-    Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
+    Room currentLocation = mansion.getRoomByRoomNumber(startingRoom);
 
     // Create the target character.
     target = new Target(targetName, targetHealth, currentLocation);
@@ -201,7 +201,7 @@ public final class MyWorld implements World {
     String petName = infoData[0];
 
     // Initialize the starting location
-    Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoom);
+    Room currentLocation = mansion.getRoomByRoomNumber(startingRoom);
 
     // Create the target character.
     cat = new Cat(petName, currentLocation);
@@ -213,7 +213,7 @@ public final class MyWorld implements World {
    */
   private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,
                                 int startingRoomNumber, int maxNumOfWeapons) {
-    Room currentLocation = mansion.getRoomInfoByRoomNumber(startingRoomNumber);
+    Room currentLocation = mansion.getRoomByRoomNumber(startingRoomNumber);
     Player player;
     if (typeOfPlayer == 0) {
       player = new HumanPlayer(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation,
@@ -628,7 +628,7 @@ public final class MyWorld implements World {
   public void displayPlayerInformation() {
     System.out.println();
     if (players.isEmpty()) {
-      System.out.println("No player is added in the game yet");
+      System.out.println("No player is added in the game yet.");
       return;
     }
 
@@ -704,7 +704,7 @@ public final class MyWorld implements World {
       }
     }
 
-    Room room = mansion.getRoomInfoByRoomNumber(roomNumber);
+    Room room = mansion.getRoomByRoomNumber(roomNumber);
     System.out.println();
 
     // 3.Display the room information

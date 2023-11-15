@@ -31,8 +31,10 @@ public class HumanPlayerTest {
     weapons1.add(weapon3);
     List<WeaponImp> weapons2 = new ArrayList<>();
     weapons2.add(weapon2);
-    Room room1 = new RoomInfo(0, 0, 0, 1, 1, "Test Room 1", weapons1);
-    Room room2 = new RoomInfo(1, 1, 0, 2, 2, "Test Room 2", weapons2);
+    Room room1 = new RoomImp(0, 0, 0, 1, 1, "Test Room 1", weapons1);
+    Room room2 = new RoomImp(1, 1, 0, 2, 2, "Test Room 2", weapons2);
+    Room room3 = new RoomImp(2, 4, 4, 5, 5, "Test Room 3", new ArrayList<>());
+
     humanPlayer = new HumanPlayer(1, 0, "Test Player", room1, 2);
     List<Room> rooms = List.of(room1, room2);
     mansion = new Mansion("test", 20, 20, rooms);
@@ -45,6 +47,16 @@ public class HumanPlayerTest {
     int input = random.nextRandomInt(4);
     InputStream in = new ByteArrayInputStream(String.valueOf(input).getBytes());
     System.setIn(in);
+    humanPlayer.move();
+    assertEquals(1, humanPlayer.getCurrentLocation().getRoomNumber());
+
+    random.nextRandomInt(4);
+    random.nextRandomInt(4);
+
+    // Test moving to a room that is not neighbor to the current room
+    int input1 = random.nextRandomInt(4);
+    InputStream in1 = new ByteArrayInputStream(String.valueOf(input1).getBytes());
+    System.setIn(in1);
     humanPlayer.move();
     assertEquals(1, humanPlayer.getCurrentLocation().getRoomNumber());
   }
@@ -68,6 +80,16 @@ public class HumanPlayerTest {
     // Test trying to pick up a weapon when the player has reached the maximum limit
     humanPlayer.pickUpWeapon();
     assertEquals(2, humanPlayer.weaponsCarried.size());
+
+    //Test picking up a weapon when there is no weapon in the room
+    humanPlayer.weaponsCarried.clear();
+    assertEquals(0, humanPlayer.weaponsCarried.size());
+    random.nextRandomInt(4);
+    int input3 = random.nextRandomInt(4);
+    InputStream in3 = new ByteArrayInputStream(String.valueOf(input3).getBytes());
+    System.setIn(in3);
+    humanPlayer.pickUpWeapon();
+    assertEquals(0, humanPlayer.weaponsCarried.size());
   }
 
   @Test
@@ -105,7 +127,7 @@ public class HumanPlayerTest {
     assertEquals(1, humanPlayer.weaponsCarried.size());
 
     // Test attacking a target with no weapon
-    Room room3 = new RoomInfo(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
+    Room room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
     HumanPlayer playerWithNoWeapon = new HumanPlayer(2, 0, "Test Player 2", room3, 2);
     target.setCurrentLocation(room3);
     playerWithNoWeapon.attack();
@@ -114,14 +136,14 @@ public class HumanPlayerTest {
 
   @Test
   public void testAttackWhenCanBeSeen() {
-    Room room3 = new RoomInfo(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
+    Room room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
     Pet cat = new Cat("cat", room3);
     Target target = new Target("target", 10, humanPlayer.getCurrentLocation());
     mansion.setPet(cat);
     mansion.setTarget(target);
 
     Player otherPlayer =
-        new HumanPlayer(2, 0, "Test Player 2", Mansion.getRoomInfoByRoomNumber(1), 2);
+        new HumanPlayer(2, 0, "Test Player 2", Mansion.getRoomByRoomNumber(1), 2);
     mansion.addPlayer(otherPlayer);
     humanPlayer.attack();
     assertEquals(10, target.getHealth());

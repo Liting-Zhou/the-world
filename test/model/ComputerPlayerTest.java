@@ -33,8 +33,8 @@ public class ComputerPlayerTest {
     weapons1.add(weapon3);
     List<WeaponImp> weapons2 = new ArrayList<>();
     weapons2.add(weapon2);
-    Room room1 = new RoomInfo(0, 0, 0, 1, 1, "Test Room 1", weapons1);
-    Room room2 = new RoomInfo(1, 1, 0, 2, 2, "Test Room 2", weapons2);
+    Room room1 = new RoomImp(0, 0, 0, 1, 1, "Test Room 1", weapons1);
+    Room room2 = new RoomImp(1, 1, 0, 2, 2, "Test Room 2", weapons2);
     rooms = new ArrayList<>();
     rooms.add(room1);
     rooms.add(room2);

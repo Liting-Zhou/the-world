@@ -14,7 +14,7 @@ public class AbstractCharacterTest {
 
   @Before
   public void setUp() {
-    room = new RoomInfo(0, 0, 0, 1, 1, "Test Room 1", null);
+    room = new RoomImp(0, 0, 0, 1, 1, "Test Room 1", null);
     character = new Player(0, 0, "Test Player", room, 3);
   }
 
@@ -36,7 +36,7 @@ public class AbstractCharacterTest {
 
   @Test
   public void testSetCurrentLocation() {
-    Room newRoom = new RoomInfo(1, 4, 4, 5, 5, "Test Room 2", null);
+    Room newRoom = new RoomImp(1, 4, 4, 5, 5, "Test Room 2", null);
     character.setCurrentLocation(newRoom);
     assertEquals(newRoom, character.getCurrentLocation());
   }

@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class represents a cat in the game.
  */
@@ -37,7 +40,32 @@ public class Cat implements Pet {
         break;
       }
     }
-    updateLocation(Mansion.getRoomInfoByRoomNumber(order[index]));
+    updateLocation(Mansion.getRoomByRoomNumber(order[index]));
+  }
+
+  /**
+   * A depth-first traversal algorithm to decide the route of the cat.
+   *
+   * @return the order list of the route.
+   */
+  private List<Room> depthFirstTraversal() {
+    Room startingRoom = Mansion.getRoomByRoomNumber(0);
+    List<Room> order = new ArrayList<>();
+    order.add(currentLocation);
+    depthFirstTraversalHelper(order, currentLocation);
+    System.out.println(order);
+    return order;
+  }
+
+  private void depthFirstTraversalHelper(List<Room> order, Room location) {
+    List<Room> neighbors = location.getNeighbors();
+    for (Room neighbor : neighbors) {
+      if (order.contains(neighbor)) {
+        continue;
+      }
+      order.add(neighbor);
+      depthFirstTraversalHelper(order, neighbor);
+    }
   }
 
   @Override

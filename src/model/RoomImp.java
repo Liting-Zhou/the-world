@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents information about a room in Doctor Lucky's model.Mansion,
  * including its position, name, weapons present, and neighbors.
  */
-public final class RoomInfo implements Room {
+public final class RoomImp implements Room {
 
   private final int roomNumber;
   private final int x1; //left up corner
@@ -20,7 +20,7 @@ public final class RoomInfo implements Room {
   private List<Room> neighbors = new ArrayList<>();
 
   /**
-   * Constructs a new model.RoomInfo object.
+   * Constructs a new model.RoomImp object.
    *
    * @param roomNumber The unique room number.
    * @param x1         The x-coordinate of the left-upper corner.
@@ -30,8 +30,8 @@ public final class RoomInfo implements Room {
    * @param roomName   The name of the room.
    * @param weapons    The list of weapons present in the room.
    */
-  public RoomInfo(int roomNumber, int x1, int y1, int x2, int y2, String roomName,
-                  List<WeaponImp> weapons) {
+  public RoomImp(int roomNumber, int x1, int y1, int x2, int y2, String roomName,
+                 List<WeaponImp> weapons) {
     this.roomNumber = roomNumber;
     this.x1 = x1;
     this.y1 = y1;
@@ -139,7 +139,7 @@ public final class RoomInfo implements Room {
     // 2. when (this.x2 == other.x1, or this.x1 == other.x2),
     //    check if this.y1 < other.y2 and this.y2 > other.y1
     for (Room otherRoom : listOfRooms) {
-      RoomInfo o = (RoomInfo) otherRoom;
+      RoomImp o = (RoomImp) otherRoom;
       if (this != otherRoom && shareCoordinate(o)) {
         if (this.y2 == o.y1 || this.y1 == o.y2) {
           if (this.x2 > o.x1 && this.x1 < o.x2) {
@@ -172,7 +172,7 @@ public final class RoomInfo implements Room {
    *
    * @param otherRoom The room to be decided if neighbors
    */
-  private boolean shareCoordinate(RoomInfo otherRoom) {
+  private boolean shareCoordinate(RoomImp otherRoom) {
 
     return this.x1 == otherRoom.x1 || this.x1 == otherRoom.x2 || this.x2 == otherRoom.x1
         || this.x2 == otherRoom.x2 || this.y1 == otherRoom.y1 || this.y1 == otherRoom.y2
@@ -373,13 +373,13 @@ public final class RoomInfo implements Room {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof RoomInfo)) {
+    if (!(o instanceof RoomImp)) {
       return false;
     }
-    RoomInfo roomInfo = (RoomInfo) o;
-    return getRoomNumber() == roomInfo.getRoomNumber() && getX1() == roomInfo.getX1()
-        && getY1() == roomInfo.getY1() && getX2() == roomInfo.getX2() && getY2() == roomInfo.getY2()
-        && Objects.equals(getRoomName(), roomInfo.getRoomName());
+    RoomImp roomImp = (RoomImp) o;
+    return getRoomNumber() == roomImp.getRoomNumber() && getX1() == roomImp.getX1()
+        && getY1() == roomImp.getY1() && getX2() == roomImp.getX2() && getY2() == roomImp.getY2()
+        && Objects.equals(getRoomName(), roomImp.getRoomName());
   }
 
   @Override

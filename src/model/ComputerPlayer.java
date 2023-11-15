@@ -180,7 +180,7 @@ public class ComputerPlayer extends Player {
         break;
       }
     }
-    Room nextWanderRoom = Mansion.getRoomInfoByRoomNumber(number);
+    Room nextWanderRoom = Mansion.getRoomByRoomNumber(number);
     System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
         nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);

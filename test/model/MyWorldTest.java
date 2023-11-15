@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -98,6 +99,13 @@ public class MyWorldTest {
     assertEquals(20, myWorld.getTarget().getHealth());
     assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
   }
+  @Test
+  public void testAddPlayer(){
+    myWorld.addHumanPlayer("Player1", 0, 1);
+    myWorld.addComputerPlayer("Player2", 1, 2);
+    assertEquals(0, myWorld.getPlayers().get(0).getCurrentLocation().getRoomNumber());
+    assertEquals(1, myWorld.getPlayers().get(1).getCurrentLocation().getRoomNumber());
+  }
 
   @Test
   public void testGetPlayers() {
@@ -131,7 +139,7 @@ public class MyWorldTest {
   }
 
   @Test
-  public void testIfGameOver() {
+  public void testIsGameOver() {
     assertFalse(myWorld.isGameOver());
     myWorld.getTarget().healthDamage(30);
     assertTrue(myWorld.isGameOver());
@@ -153,7 +161,7 @@ public class MyWorldTest {
 
   @Test
   public void testUpdateTarget() {
-    Target newTarget = new Target("NewTarget", 10, myWorld.getMansion().getRoomInfoByRoomNumber(0));
+    Target newTarget = new Target("NewTarget", 10, myWorld.getMansion().getRoomByRoomNumber(0));
     myWorld.updateTarget(newTarget);
     assertEquals("NewTarget", myWorld.getTarget().getName());
     assertEquals(10, myWorld.getTarget().getHealth());
@@ -173,8 +181,25 @@ public class MyWorldTest {
 
   @Test
   public void testDisplayPlayerInformation() {
+    myWorld.addHumanPlayer("Player", 0, 3);
+    Player player = myWorld.getPlayers().get(0);
+    player.weaponsCarried.add(new WeaponImp(5, "Axe", 0));
+
+    String input = "Player";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
     myWorld.displayPlayerInformation();
-    String expectedOutput = "\nNo player is added in the game yet\n";
+    String expectedOutput = "Human-controlled player Player is added to the game!\n\n"
+        + "List of players: \n"
+        + "Player\n\n"
+        + "Which player do you want to display? Please enter the name: \n"
+        + "Invalid input. Please enter a valid name:\n"
+        + "\nInformation of player Player: \n"
+        + "Player has/have 1 weapon(s):\n"
+        + "(1) Axe with power 5\n"
+        + "Maximum number of weapons can carry: 3\n"
+        + "This is a human player.\n"
+        + "Current Location: Room 0, the Room A.\n";
     assertEquals(expectedOutput, outContent.toString());
   }
 
@@ -263,7 +288,7 @@ public class MyWorldTest {
   @Test
   public void testEndStart() {
     Target target = myWorld.getTarget();
-    target.setCurrentLocation(Mansion.getRoomInfoByRoomNumber(21));
+    target.setCurrentLocation(Mansion.getRoomByRoomNumber(21));
     assertEquals(0, target.move(rooms).getCurrentLocation().getRoomNumber());
   }
 

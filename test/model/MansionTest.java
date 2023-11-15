@@ -29,8 +29,8 @@ public class MansionTest {
   public void setUp() {
     // Create a sample list of rooms for testing
     rooms = new ArrayList<>();
-    rooms.add(new RoomInfo(0, 0, 0, 2, 2, "Room A", new ArrayList<>()));
-    rooms.add(new RoomInfo(1, 3, 0, 5, 2, "Room B", new ArrayList<>()));
+    rooms.add(new RoomImp(0, 0, 0, 2, 2, "Room A", new ArrayList<>()));
+    rooms.add(new RoomImp(1, 3, 0, 5, 2, "Room B", new ArrayList<>()));
     target = new Target("Test Target", 20, rooms.get(0));
     Player player = new HumanPlayer(0, 0, "Test Player", rooms.get(0), 3);
 
@@ -42,8 +42,8 @@ public class MansionTest {
 
   @Test
   public void testGetRoomInfoByRoomNumber() {
-    Room roomA = mansion.getRoomInfoByRoomNumber(0);
-    Room roomB = mansion.getRoomInfoByRoomNumber(1);
+    Room roomA = mansion.getRoomByRoomNumber(0);
+    Room roomB = mansion.getRoomByRoomNumber(1);
 
     assertNotNull(roomA);
     assertNotNull(roomB);

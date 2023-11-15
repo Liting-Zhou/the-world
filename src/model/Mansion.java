@@ -75,8 +75,8 @@ public final class Mansion {
    * @param roomNumber The room number.
    * @return An object containing all information of the specified room.
    */
-  public static Room getRoomInfoByRoomNumber(int roomNumber) {
-    // Find the right model.RoomInfo based on the roomNumber and return it
+  public static Room getRoomByRoomNumber(int roomNumber) {
+    // Find the right model.RoomImp based on the roomNumber and return it
     for (Room room : rooms) {
       if (room.getRoomNumber() == roomNumber) {
         return room;

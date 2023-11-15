@@ -15,9 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * This class contains test cases for the {@link RoomInfo} class.
+ * This class contains test cases for the {@link RoomImp} class.
  */
-public class RoomInfoTest {
+public class RoomImpTest {
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
   private Room thisRoom;
@@ -36,9 +36,9 @@ public class RoomInfoTest {
   public void setUp() {
     weapons.add(new WeaponImp(3, "Test weapon", 1));
 
-    thisRoom = new RoomInfo(1, 9, 2, 19, 4, "Test Room this", weapons);
-    otherRoom = new RoomInfo(2, 1, 1, 3, 3, "Test Room other", new ArrayList<>());
-    anotherRoom = new RoomInfo(3, 3, 1, 5, 5, "Test Room 3", new ArrayList<>());
+    thisRoom = new RoomImp(1, 9, 2, 19, 4, "Test Room this", weapons);
+    otherRoom = new RoomImp(2, 1, 1, 3, 3, "Test Room other", new ArrayList<>());
+    anotherRoom = new RoomImp(3, 3, 1, 5, 5, "Test Room 3", new ArrayList<>());
     listOfRooms.add(anotherRoom);
     listOfRooms.add(thisRoom);
     listOfRooms.add(otherRoom);
@@ -74,10 +74,10 @@ public class RoomInfoTest {
   @Test
   public void testGetNeighbors() {
     //neighbors
-    listOfRooms.add(new RoomInfo(2, 15, 0, 19, 2, "Neighbor Room", new ArrayList<>()));
-    listOfRooms.add(new RoomInfo(3, 4, 4, 15, 7, "Neighbor Room", new ArrayList<>()));
+    listOfRooms.add(new RoomImp(2, 15, 0, 19, 2, "Neighbor Room", new ArrayList<>()));
+    listOfRooms.add(new RoomImp(3, 4, 4, 15, 7, "Neighbor Room", new ArrayList<>()));
     //not neighbor
-    listOfRooms.add(new RoomInfo(4, 0, 0, 5, 2, "Not Neighbor Room", new ArrayList<>()));
+    listOfRooms.add(new RoomImp(4, 0, 0, 5, 2, "Not Neighbor Room", new ArrayList<>()));
     List<Room> neighbors = thisRoom.getNeighbors();
     assertNotNull(neighbors);
     assertEquals(2, neighbors.size());
@@ -209,9 +209,9 @@ public class RoomInfoTest {
 
   @Test
   public void testEquals() {
-    Room room1 = new RoomInfo(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
-    Room room2 = new RoomInfo(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
-    Room room3 = new RoomInfo(2, 0, 0, 0, 0, "Room2", new ArrayList<>());
+    Room room1 = new RoomImp(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
+    Room room2 = new RoomImp(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
+    Room room3 = new RoomImp(2, 0, 0, 0, 0, "Room2", new ArrayList<>());
 
     assertTrue(room1.equals(room2));
     assertFalse(room1.equals(room3));
@@ -219,9 +219,9 @@ public class RoomInfoTest {
 
   @Test
   public void testHashCode() {
-    Room room1 = new RoomInfo(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
-    Room room2 = new RoomInfo(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
-    Room room3 = new RoomInfo(2, 0, 0, 0, 0, "Room2", new ArrayList<>());
+    Room room1 = new RoomImp(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
+    Room room2 = new RoomImp(1, 0, 0, 0, 0, "Room1", new ArrayList<>());
+    Room room3 = new RoomImp(2, 0, 0, 0, 0, "Room2", new ArrayList<>());
 
     assertEquals(room1.hashCode(), room2.hashCode());
     assertNotEquals(room1.hashCode(), room3.hashCode());

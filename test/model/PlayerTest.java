@@ -29,8 +29,8 @@ public class PlayerTest {
   @Before
   public void setUp() {
     // Create an initial room location for the player
-    initialLocation = new RoomInfo(0, 0, 0, 2, 2, "Initial Room", new ArrayList<>());
-    neighborLocation = new RoomInfo(1, 2, 0, 4, 4, "Neighbor Room", new ArrayList<>());
+    initialLocation = new RoomImp(0, 0, 0, 2, 2, "Initial Room", new ArrayList<>());
+    neighborLocation = new RoomImp(1, 2, 0, 4, 4, "Neighbor Room", new ArrayList<>());
 
     // Initialize the player object for testing
     player = new Player(0, 0, "Test Player", initialLocation, 3);
@@ -76,7 +76,7 @@ public class PlayerTest {
 
   @Test
   public void testUpdateRoomInfo() {
-    Room newLocation = new RoomInfo(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
+    Room newLocation = new RoomImp(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
     player.updateRoomInfo(newLocation);
     Room updatedLocation = player.getCurrentLocation();
     Assert.assertEquals(newLocation, updatedLocation);
