@@ -110,7 +110,7 @@ public class Player extends AbstractCharacter {
       System.out.println("The cat is in this room.");
     }
     if (room.isAnyOtherPlayerHere(this)) {
-      for (Player p : Mansion.getListOfPlayers()) {
+      for (Player p : room.getPlayersInTheRoom()) {
         if (p.getCurrentLocation().equals(room) && (!p.equals(this))) {
           System.out.printf("%s is here.%n", p.getName());
         }

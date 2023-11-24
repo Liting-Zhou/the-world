@@ -17,6 +17,11 @@ public interface Pet {
   void wander();
 
   /**
+   * If the pet is moved by a player, set the flag to be true.
+   */
+  void setMoved();
+
+  /**
    * Gets the name of this pet.
    *
    * @return The name of the pet.

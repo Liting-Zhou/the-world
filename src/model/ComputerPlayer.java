@@ -26,7 +26,7 @@ public class ComputerPlayer extends Player {
   /**
    * Computer Player randomly picks an action to perform.
    **/
-  public void randomAction() {
+  public void randomAction(Pet pet) {
     int action = random.nextRandomInt(4);
     if (action == 0) {
       System.out.println(
@@ -46,14 +46,14 @@ public class ComputerPlayer extends Player {
       System.out.println(
           String.format("The random action of computer player %s is to move the pet.",
               this.getName()));
-      moveThePet();
+      moveThePet(pet);
     }
   }
 
   /**
    * Computer Player randomly picks an action to perform when there is no weapon in the room.
    **/
-  public void randomActionNoWeapon() {
+  public void randomActionNoWeapon(Pet pet) {
     int action = random.nextRandomInt(3);
     if (action == 0) {
       System.out.println(
@@ -68,7 +68,7 @@ public class ComputerPlayer extends Player {
       System.out.println(
           String.format("The random action of computer player %s is to move the pet.",
               this.getName()));
-      moveThePet();
+      moveThePet(pet);
     }
   }
 
@@ -129,20 +129,20 @@ public class ComputerPlayer extends Player {
    * Attacks the target. Computer player only makes attempt to attack when it can not be seen.
    * Always use the weapon with the highest power.
    */
-  public void attack() {
+  public void attack(Target target) {
     //if no weapon carried, poking the target in the eye and reduce 1 health
     if (weaponsCarried.isEmpty()) {
       System.out.println(
           String.format("Computer player %s has no weapon. Just poke the target in the eye!",
               this.getName()));
-      Mansion.getTarget().healthDamage(1);
+      target.healthDamage(1);
     } else if (weaponsCarried.size() == 1) {
       //if one weapon carried, use the weapon to attack
       WeaponImp weapon = weaponsCarried.get(0);
       System.out.println(
           String.format("Computer player %s uses %s to attack the target, target gets %d damage.",
               this.getName(), weapon.getName(), weapon.getPower()));
-      Mansion.getTarget().healthDamage(weapon.getPower());
+      target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
     } else {
@@ -158,7 +158,7 @@ public class ComputerPlayer extends Player {
       System.out.println(
           String.format("Computer player %s uses %s to attack the target, target gets %d damage.",
               this.getName(), weapon.getName(), weapon.getPower()));
-      Mansion.getTarget().healthDamage(weapon.getPower());
+      target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
     }
@@ -167,8 +167,7 @@ public class ComputerPlayer extends Player {
   /**
    * Moves the pet randomly.
    */
-  public void moveThePet() {
-    Pet pet = Mansion.getPet();
+  public void moveThePet(Pet pet) {
     System.out.println(
         String.format("The cat is now in room %d, %s.", pet.getCurrentLocation().getRoomNumber(),
             pet.getCurrentLocation().getRoomName()));
@@ -180,10 +179,10 @@ public class ComputerPlayer extends Player {
         break;
       }
     }
-    Room nextWanderRoom = Mansion.getRoomByRoomNumber(number);
+    Room nextWanderRoom = MyWorld.getRoomByRoomNumber(number);
     System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
         nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);
-    Mansion.setFlag(1);
+    pet.setMoved();
   }
 }

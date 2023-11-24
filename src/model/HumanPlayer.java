@@ -30,8 +30,8 @@ public class HumanPlayer extends Player {
     System.out.println("Which neighboring room do you want to enter? Enter the room number: ");
     Integer roomNumber = scanner.nextInt();
     //check if the room is a neighbor
-    if (this.getCurrentLocation().isNeighbor(Mansion.getRoomByRoomNumber(roomNumber))) {
-      this.setCurrentLocation(Mansion.getRoomByRoomNumber(roomNumber));
+    if (this.getCurrentLocation().isNeighbor(MyWorld.getRoomByRoomNumber(roomNumber))) {
+      this.setCurrentLocation(MyWorld.getRoomByRoomNumber(roomNumber));
       System.out.println(String.format("You are now in room %d.", roomNumber));
     } else {
       System.out.println("The room is not a neighbor.");
@@ -81,7 +81,7 @@ public class HumanPlayer extends Player {
   /**
    * Player attacks the target. If can be seen from other players, no damage made.
    */
-  public void attack() {
+  public void attack(Target target) {
     //check if the player has weapon
     if (weaponsCarried.isEmpty()) {
       //poke target in the eye
@@ -92,7 +92,7 @@ public class HumanPlayer extends Player {
       } else {
         //if cannot be seen, damage made
         System.out.println("You cannot be seen by other players. Damage made.");
-        Mansion.getTarget().healthDamage(1);
+        target.healthDamage(1);
       }
     } else {
       //if yes, display weapon, ask player to choose one
@@ -126,7 +126,7 @@ public class HumanPlayer extends Player {
         } else {
           //if cannot be seen, damage made
           System.out.println("You cannot be seen by other players. Damage made.");
-          Mansion.getTarget().healthDamage(1);
+          target.healthDamage(1);
         }
 
       } else {
@@ -138,7 +138,7 @@ public class HumanPlayer extends Player {
           System.out.println("You can be seen by other players. No damage made.");
         } else {
           System.out.println("You cannot be seen by other players. Damage made.");
-          Mansion.getTarget().healthDamage(weapon.getPower());
+          target.healthDamage(weapon.getPower());
         }
       }
     }
@@ -146,9 +146,10 @@ public class HumanPlayer extends Player {
 
   /**
    * Moves the pet.
+   *
+   * @param pet the pet
    */
-  public void moveThePet() {
-    Pet pet = Mansion.getPet();
+  public void moveThePet(Pet pet) {
     System.out.println();
     System.out.println(
         String.format("The cat is now in room %d, %s.", pet.getCurrentLocation().getRoomNumber(),
@@ -169,11 +170,11 @@ public class HumanPlayer extends Player {
         break;
       }
     }
-    Room nextWanderRoom = Mansion.getRoomByRoomNumber(number);
+    Room nextWanderRoom = MyWorld.getRoomByRoomNumber(number);
     System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
         nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);
-    Mansion.setFlag(1);
+    pet.setMoved();
   }
 }
 

@@ -10,6 +10,7 @@ public class Cat implements Pet {
   private String name;
   private Room currentLocation;
   private List<Room> order;
+  private boolean isMoved=false; //if the cat is moved by a player last turn, it will not move this turn
 
   /**
    * Constructs a new Cat object.
@@ -54,8 +55,8 @@ public class Cat implements Pet {
    */
   @Override
   public void wander() {
-    if (Mansion.getFlag() == 1) {
-      Mansion.setFlag(0);
+    if (isMoved) {
+      isMoved=false;
       return;
     }
     int index = order.indexOf(currentLocation);
@@ -65,6 +66,10 @@ public class Cat implements Pet {
       index = index + 1;
     }
     updateLocation(order.get(index));
+  }
+
+  public void setMoved() {
+    isMoved=true;
   }
 
 

@@ -65,11 +65,19 @@ public interface Room {
   List<WeaponImp> getWeapons();
 
   /**
-   * Returns neighbors of this room. Spaces that share a "wall" are neighbors.
+   * Finds the neighbors of this room. Spaces that share a "wall" are neighbors.
    *
+   * @param listOfRooms The list of rooms
    * @return A list of Room representing neighbors.
    */
-  List<Room> getNeighbors();
+  List<Room> findNeighbors(List<Room> listOfRooms);
+
+  /**
+   * Gets the neighbors of this room.
+   *
+   * @return The list of neighbors
+   */
+    List<Room> getNeighbors();
 
   /**
    * Saves the neighbors of this room.
@@ -98,6 +106,13 @@ public interface Room {
    * @return true if the pet is here, false otherwise
    */
   boolean isPetHere();
+
+  /**
+   * Gets the players in the room.
+   *
+   * @return The list of players in the room
+   */
+  List<Player> getPlayersInTheRoom();
 
   /**
    * Displays pet information.

@@ -43,12 +43,12 @@ public interface World {
    */
   int getNumOfTurnsPlayed();
 
-  /**
-   * Gets the model.Mansion.
-   *
-   * @return the mansion
-   */
-  Mansion getMansion();
+//  /**
+//   * Gets the model.Mansion.
+//   *
+//   * @return the mansion
+//   */
+//  Mansion getMansion();
 
   /**
    * When the health of target is less or equal to zero, game is over.

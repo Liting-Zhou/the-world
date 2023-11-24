@@ -18,6 +18,10 @@ public final class RoomImp implements Room {
   private final String roomName;
   private List<WeaponImp> weapons;
   private List<Room> neighbors = new ArrayList<>();
+  private boolean targetFlag = false; //record if target is in this room
+  private boolean petFlag = false; //record if pet is in this room
+  private boolean playerFlag = false; //record if player is in this room
+  private List<Player> playersInTheRoom = new ArrayList<>(); //record players in this room
 
   /**
    * Constructs a new model.RoomImp object.
@@ -125,13 +129,13 @@ public final class RoomImp implements Room {
 
 
   /**
-   * Returns neighbors of this room. Spaces that share a "wall" are neighbors.
+   * Finds the neighbors of this room. Spaces that share a "wall" are neighbors.
    *
+   * @param listOfRooms The list of rooms
    * @return A list of Room representing neighbors.
    */
   @Override
-  public List<Room> getNeighbors() {
-    List<Room> listOfRooms = Mansion.getListOfRooms();
+  public List<Room> findNeighbors(List<Room> listOfRooms) {
     List<Room> neighbors = new ArrayList<>();
 
     // 1. when (this.y2 == other.y1, or this.y1 == other.y2),
@@ -157,15 +161,6 @@ public final class RoomImp implements Room {
     return neighbors;
   }
 
-  /**
-   * Saves the neighbors of this room.
-   *
-   * @param neighbors The list of neighbors
-   */
-  @Override
-  public void setNeighbors(List<Room> neighbors) {
-    this.neighbors = neighbors;
-  }
 
   /**
    * Decide if two rooms share a coordinate, either x or y.
@@ -177,6 +172,26 @@ public final class RoomImp implements Room {
     return this.x1 == otherRoom.x1 || this.x1 == otherRoom.x2 || this.x2 == otherRoom.x1
         || this.x2 == otherRoom.x2 || this.y1 == otherRoom.y1 || this.y1 == otherRoom.y2
         || this.y2 == otherRoom.y1 || this.y2 == otherRoom.y2;
+  }
+
+  /**
+   * Gets the neighbors of this room.
+   *
+   * @return The list of neighbors
+   */
+  @Override
+  public List<Room> getNeighbors() {
+    return neighbors;
+  }
+
+  /**
+   * Saves the neighbors of this room.
+   *
+   * @param neighbors The list of neighbors
+   */
+  @Override
+  public void setNeighbors(List<Room> neighbors) {
+    this.neighbors = neighbors;
   }
 
   /**
@@ -195,7 +210,7 @@ public final class RoomImp implements Room {
    */
   @Override
   public boolean isTargetHere() {
-    return this.equals(Mansion.getTarget().getCurrentLocation());
+    return targetFlag;
   }
 
   /**
@@ -205,8 +220,7 @@ public final class RoomImp implements Room {
    */
   @Override
   public boolean isPetHere() {
-    Pet pet = Mansion.getPet();
-    return this.equals(pet.getCurrentLocation());
+    return petFlag;
   }
 
   /**
@@ -216,8 +230,7 @@ public final class RoomImp implements Room {
   public void displayPet() {
     if (isPetHere()) {
       System.out.println(
-          String.format("   %s the cat is in room %d.", Mansion.getPet().getName(),
-              roomNumber));
+          String.format("   The cat is in room %d.", roomNumber));
     } else {
       System.out.println("   The cat is not here.");
     }
@@ -243,13 +256,7 @@ public final class RoomImp implements Room {
    */
   @Override
   public boolean isAnyPlayerHere() {
-    List<Player> players = Mansion.getListOfPlayers();
-    for (Player player : players) {
-      if (this.equals(player.getCurrentLocation())) {
-        return true;
-      }
-    }
-    return false;
+    return playerFlag;
   }
 
   /**
@@ -259,9 +266,11 @@ public final class RoomImp implements Room {
    */
   @Override
   public boolean isAnyOtherPlayerHere(Player player) {
-    List<Player> players = Mansion.getListOfPlayers();
-    for (Player p : players) {
-      if (this.equals(p.getCurrentLocation()) && !p.equals(player)) {
+    if(playersInTheRoom.size() == 1){
+      return false;
+    }
+    for (Player p : playersInTheRoom) {
+      if (!p.equals(player)) {
         return true;
       }
     }
@@ -273,19 +282,19 @@ public final class RoomImp implements Room {
    **/
   @Override
   public void displayPlayers() {
-    List<Player> players = Mansion.getListOfPlayers();
     if (isAnyPlayerHere()) {
-      for (Player player : players) {
-        if (this.equals(player.getCurrentLocation())) {
-          System.out.println(
-              String.format(
-                  String.format("   Player %s is in room %d.", player.getName(),
-                      this.getRoomNumber())));
+      for (Player player : playersInTheRoom) {
+        System.out.println(String.format("   Player %s is in room %d.", player.getName(),
+                      this.getRoomNumber()));
         }
-      }
     } else {
       System.out.println("   No player in this room.");
     }
+  }
+
+  @Override
+  public List<Player> getPlayersInTheRoom() {
+    return playersInTheRoom;
   }
 
   /**

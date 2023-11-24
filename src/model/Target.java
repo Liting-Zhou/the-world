@@ -58,7 +58,7 @@ public final class Target extends AbstractCharacter {
       moveToRoom = getCurrentLocation().getRoomNumber() + 1;
     }
     // move to next room
-    Room newLocation = Mansion.getRoomByRoomNumber(moveToRoom);
+    Room newLocation = MyWorld.getRoomByRoomNumber(moveToRoom);
     setCurrentLocation(newLocation);
 
     Target updatedTarget = this;
