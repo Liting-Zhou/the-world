@@ -18,7 +18,7 @@ import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 /**
  * This class contains test cases for Controller.
  */
-public class GameControllerTest {
+public class ConsoleControllerTest {
   /**
    * Initializes a rule to simulate input from the standard input stream.
    */
@@ -29,7 +29,7 @@ public class GameControllerTest {
   private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
   private List<String> testConfigLines;
   private MyWorld mockWorld;
-  private GameController gameController;
+  private ConsoleController consoleController;
 
   /**
    * Sets up the test environment before each test case.
@@ -76,7 +76,7 @@ public class GameControllerTest {
     }
     Readable sr = new StringReader(sb.toString());
     mockWorld = new MyWorld(sr);
-    gameController = new GameController(new StringReader("5\n"), new StringBuilder());
+    consoleController = new ConsoleController(new StringReader("5\n"), new StringBuilder());
 
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
@@ -84,21 +84,21 @@ public class GameControllerTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testPlayGameWithInvalidMaxNumOfTurns() throws IllegalArgumentException, IOException {
-    gameController = new GameController(new StringReader("-1\n"), new StringBuilder());
-    gameController.playGame(mockWorld);
+    consoleController = new ConsoleController(new StringReader("-1\n"), new StringBuilder());
+    consoleController.playGame(mockWorld);
   }
 
   @Test
   public void testPlayNextTurnCommand() throws IOException {
     systemInMock.provideLines("3", "Tom", "3", "3", "5", "3", "99");
-    gameController.playGame(mockWorld);
+    consoleController.playGame(mockWorld);
     assertEquals(2, mockWorld.getNumOfTurnsPlayed());
   }
 
   @Test
   public void testDisplayMapCommand() throws IOException {
     systemInMock.provideLines("2", "99");
-    gameController.playGame(mockWorld);
+    consoleController.playGame(mockWorld);
     String expectedOutput =
         "Game started!\n"
             + "***************\n"
@@ -130,7 +130,7 @@ public class GameControllerTest {
   @Test
   public void testAddHumanPlayerCommand() throws IOException {
     systemInMock.provideLines("3", "Tom", "0", "3", "99");
-    gameController.playGame(mockWorld);
+    consoleController.playGame(mockWorld);
     assertEquals(1, mockWorld.getListOfPlayers().size());
     assertEquals("Tom", mockWorld.getListOfPlayers().get(0).getName());
   }
@@ -138,7 +138,7 @@ public class GameControllerTest {
   @Test
   public void testAddComputerPlayerCommand() throws IOException {
     systemInMock.provideLines("4", "Jerry", "0", "3", "99");
-    gameController.playGame(mockWorld);
+    consoleController.playGame(mockWorld);
     assertEquals(1, mockWorld.getListOfPlayers().size());
     assertEquals("Jerry", mockWorld.getListOfPlayers().get(0).getName());
   }
@@ -146,7 +146,7 @@ public class GameControllerTest {
   @Test
   public void testDisplayRoomInfoCommand() throws IOException {
     systemInMock.provideLines("1", "1", "99");
-    gameController.playGame(mockWorld);
+    consoleController.playGame(mockWorld);
     String expectedOutput = "Game started!\n"
         + "***************\nOptions:\n"
         + "1. Display information about a specified room.\n"
@@ -186,7 +186,7 @@ public class GameControllerTest {
   @Test
   public void testDisplayPlayerInfoCommand() throws IOException {
     systemInMock.provideLines("6", "Tom", "99");
-    gameController.playGame(mockWorld);
+    consoleController.playGame(mockWorld);
     String expectedOutput = "Game started!\n"
         + "***************\n"
         + "Options:\n"
@@ -219,7 +219,7 @@ public class GameControllerTest {
   @Test
   public void testDisplayTargetInfoCommand() throws IOException {
     systemInMock.provideLines("7", "99");
-    gameController.playGame(mockWorld);
+    consoleController.playGame(mockWorld);
     String expectedOutput = "Game started!\n"
         + "***************\n"
         + "Options:\n"

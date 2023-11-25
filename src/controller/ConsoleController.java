@@ -17,7 +17,7 @@ import model.MyWorld;
 /**
  * Represents the controller for the game "MyWorld", which employs the command design pattern.
  */
-public final class GameController implements Controller {
+public final class ConsoleController implements Controller {
   private final Appendable out;
   private final Scanner scan;
 
@@ -28,7 +28,7 @@ public final class GameController implements Controller {
    * @param out the output to print
    * @throws IllegalArgumentException for invalid arguments.
    */
-  public GameController(Readable in, Appendable out)
+  public ConsoleController(Readable in, Appendable out)
       throws IllegalArgumentException {
     if (in == null || out == null) {
       throw new IllegalArgumentException("Either Readable or Appendable is null");

@@ -1,5 +1,5 @@
 import controller.Controller;
-import controller.GameController;
+import controller.ConsoleController;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,7 +27,7 @@ public final class Driver {
       Appendable appendable = new StringBuilder();
 
       //create a controller
-      Controller gameController = new GameController(readable, appendable);
+      Controller gameController = new ConsoleController(readable, appendable);
 
       //pass control to the controller
       gameController.playGame(world);
