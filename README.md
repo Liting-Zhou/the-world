@@ -7,15 +7,15 @@
     java -jar <path of jar file> <path of configuration file> <max number of turns>
     java -jar ./res/the-world.jar ./res/mansion.txt 50
 
-
-
 ### How to Use the Program
 
 1. Run the jar file as mentioned in How to Run.
 2. Once the program is running, you will see the description of the game, and a menu of options to choose from.
 3. Add human/computer controlled players with weapon carry limit and starting room.
-4. Choose to play next turn. Human player can choose different actions from move, pick up weapon, look around, move the pet or attack if the target is in the same room, while
-   computer player always attacks when there is a chance, otherwise performs random choice. In each turn, target moves first and then one player can act.
+4. Choose to play next turn. Human player can choose different actions from move, pick up weapon, look around, move the
+   pet or attack if the target is in the same room, while
+   computer player always attacks when there is a chance, otherwise performs random choice. In each turn, target moves
+   first and then one player can act.
 5. You can choose to display the description of the target, a specific player or a specific space in the world.
 6. There is an option to quit the game. In this case, the program will be interrupted and the game will end.
 7. Game is over if the max turns are exhausted or the health of target is less or equal to zero.
@@ -24,7 +24,7 @@
 
 Example run for milestone 1 can be found here: `res/exampleRun_m1.txt`.
 
-Example run for milestone 2 can be found here: `res/exampleRun_m2.txt`. 
+Example run for milestone 2 can be found here: `res/exampleRun_m2.txt`.
 
 Example run for milestone 3 can be found here: `res/exampleRun_m3.txt`. Specifically, the following function were shown
 in this example run:
@@ -40,6 +40,7 @@ in this example run:
 - line 382 - 511: The pet moves based on a specific route calculated by a depth-first traversal algorithm
 
 ### Changes between milestones
+
 #### Changes of milestone 2 compared to milestone 1
 
 - Add computer and human player classes which inherit the Player Class.
@@ -51,7 +52,8 @@ in this example run:
 
 - Add target description in the world.
 - Add player actions (move the pet and attack the target).
-- Add a Pet interface and corresponding Cat class, and implement a depth-first traversal algorithm which determined the route of cat wandering.
+- Add a Pet interface and corresponding Cat class, and implement a depth-first traversal algorithm which determined the
+  route of cat wandering.
 
 ### UML, Testing Plan, and updated UML
 

@@ -15,8 +15,8 @@ import org.junit.Test;
 public class HumanPlayerTest {
   private HumanPlayer humanPlayer;
   private Random random;
+  private List<Room> rooms;
 
-  private Mansion mansion;
 
   /**
    * Sets up the test environment before each test case.
@@ -36,8 +36,9 @@ public class HumanPlayerTest {
     Room room3 = new RoomImp(2, 4, 4, 5, 5, "Test Room 3", new ArrayList<>());
 
     humanPlayer = new HumanPlayer(1, 0, "Test Player", room1, 2);
-    List<Room> rooms = List.of(room1, room2);
-    mansion = new Mansion("test", 20, 20, rooms);
+    rooms = List.of(room1, room2);
+    room1.setNeighbors(new ArrayList<>(List.of(room2)));
+    room2.setNeighbors(new ArrayList<>(List.of(room1)));
 
     random = new RandomNumber(1, 0, 1, 2);
   }
@@ -47,18 +48,11 @@ public class HumanPlayerTest {
     int input = random.nextRandomInt(4);
     InputStream in = new ByteArrayInputStream(String.valueOf(input).getBytes());
     System.setIn(in);
-    humanPlayer.move();
+    humanPlayer.move(rooms);
     assertEquals(1, humanPlayer.getCurrentLocation().getRoomNumber());
 
     random.nextRandomInt(4);
     random.nextRandomInt(4);
-
-    // Test moving to a room that is not neighbor to the current room
-    int input1 = random.nextRandomInt(4);
-    InputStream in1 = new ByteArrayInputStream(String.valueOf(input1).getBytes());
-    System.setIn(in1);
-    humanPlayer.move();
-    assertEquals(1, humanPlayer.getCurrentLocation().getRoomNumber());
   }
 
   @Test
@@ -95,21 +89,18 @@ public class HumanPlayerTest {
   @Test
   public void testAttackWhenCanNotBeSeen() {
     Pet cat = new Cat("cat", humanPlayer.getCurrentLocation());
-    Target target = new Target("target", 10, humanPlayer.getCurrentLocation());
-    mansion.setPet(cat);
-    mansion.setTarget(target);
 
     // 1. Test attacking a target with weapon
     int input1 = random.nextRandomInt(4);
     InputStream in1 = new ByteArrayInputStream(String.valueOf(input1).getBytes());
     System.setIn(in1);
     humanPlayer.pickUpWeapon();
-
+    Target target = new Target("target", 10, humanPlayer.getCurrentLocation());
     //1.1 player has a weapon but still choose to poke the target in the eye
     int input2 = random.nextRandomInt(4);
     InputStream in2 = new ByteArrayInputStream(String.valueOf(input2).getBytes());
     System.setIn(in2);
-    humanPlayer.attack();
+    humanPlayer.attack(target);
     assertEquals(9, target.getHealth());
     assertEquals(1, humanPlayer.weaponsCarried.size());
 
@@ -122,7 +113,7 @@ public class HumanPlayerTest {
     int input4 = random.nextRandomInt(4);
     InputStream in4 = new ByteArrayInputStream(String.valueOf(input4).getBytes());
     System.setIn(in4);
-    humanPlayer.attack();
+    humanPlayer.attack(target);
     assertEquals(6, target.getHealth());
     assertEquals(1, humanPlayer.weaponsCarried.size());
 
@@ -130,7 +121,7 @@ public class HumanPlayerTest {
     Room room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
     HumanPlayer playerWithNoWeapon = new HumanPlayer(2, 0, "Test Player 2", room3, 2);
     target.setCurrentLocation(room3);
-    playerWithNoWeapon.attack();
+    playerWithNoWeapon.attack(target);
     assertEquals(5, target.getHealth());
   }
 
@@ -139,24 +130,20 @@ public class HumanPlayerTest {
     Room room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
     Pet cat = new Cat("cat", room3);
     Target target = new Target("target", 10, humanPlayer.getCurrentLocation());
-    mansion.setPet(cat);
-    mansion.setTarget(target);
 
     Player otherPlayer =
-        new HumanPlayer(2, 0, "Test Player 2", Mansion.getRoomByRoomNumber(1), 2);
-    mansion.addPlayer(otherPlayer);
-    humanPlayer.attack();
+        new HumanPlayer(2, 0, "Test Player 2", rooms.get(1), 2);
+    humanPlayer.attack(target);
     assertEquals(10, target.getHealth());
   }
 
   @Test
   public void testMoveThePet() {
     Pet cat = new Cat("cat", humanPlayer.getCurrentLocation());
-    mansion.setPet(cat);
     int input = random.nextRandomInt(22);
     InputStream in = new ByteArrayInputStream(String.valueOf(input).getBytes());
     System.setIn(in);
-    humanPlayer.moveThePet();
+    humanPlayer.moveThePet(cat, rooms);
     assertEquals(1, cat.getCurrentLocation().getRoomNumber());
   }
 }

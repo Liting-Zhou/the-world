@@ -25,6 +25,8 @@ public class ComputerPlayer extends Player {
 
   /**
    * Computer Player randomly picks an action to perform.
+   *
+   * @param pet The pet in the game.
    **/
   public void randomAction(Pet pet) {
     int action = random.nextRandomInt(4);
@@ -52,6 +54,8 @@ public class ComputerPlayer extends Player {
 
   /**
    * Computer Player randomly picks an action to perform when there is no weapon in the room.
+   *
+   * @param pet The pet in the game.
    **/
   public void randomActionNoWeapon(Pet pet) {
     int action = random.nextRandomInt(3);
@@ -80,7 +84,7 @@ public class ComputerPlayer extends Player {
     List<Room> neighbors = this.getCurrentLocation().getNeighbors();
     int index = random.nextRandomInt(neighbors.size());
     Room moveToRoom = neighbors.get(index);
-    this.setCurrentLocation(moveToRoom);
+    this.updateLocation(moveToRoom);
     System.out.println(
         String.format("Player %s is now in room %d.", this.getName(), moveToRoom.getRoomNumber()));
   }
@@ -128,6 +132,8 @@ public class ComputerPlayer extends Player {
   /**
    * Attacks the target. Computer player only makes attempt to attack when it can not be seen.
    * Always use the weapon with the highest power.
+   *
+   * @param target The target to be attacked.
    */
   public void attack(Target target) {
     //if no weapon carried, poking the target in the eye and reduce 1 health
@@ -165,21 +171,18 @@ public class ComputerPlayer extends Player {
   }
 
   /**
-   * Moves the pet randomly.
+   * Moves the pet randomly to a neighbor space.
+   *
+   * @param pet The pet in the game.
    */
   public void moveThePet(Pet pet) {
+    Room currentRoom = pet.getCurrentLocation();
     System.out.println(
-        String.format("The cat is now in room %d, %s.", pet.getCurrentLocation().getRoomNumber(),
-            pet.getCurrentLocation().getRoomName()));
+        String.format("The cat is now in room %d, %s.", currentRoom.getRoomNumber(),
+            currentRoom.getRoomName()));
 
-    int number;
-    while (true) {
-      number = random.nextRandomInt(22);
-      if (number != pet.getCurrentLocation().getRoomNumber()) {
-        break;
-      }
-    }
-    Room nextWanderRoom = MyWorld.getRoomByRoomNumber(number);
+    List<Room> neighbors = currentRoom.getNeighbors();
+    Room nextWanderRoom = neighbors.get(random.nextRandomInt(neighbors.size()));
     System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
         nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);

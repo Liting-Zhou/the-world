@@ -14,11 +14,10 @@ import org.junit.Test;
  */
 public class ComputerPlayerTest {
   private ComputerPlayer computerPlayer;
-  private List<Room> rooms;
+  private List<Room> listOfRooms;
   private WeaponImp weapon1;
   private WeaponImp weapon2;
   private WeaponImp weapon3;
-  private Mansion mansion;
 
   /**
    * Sets up the test environment before each test case.
@@ -33,20 +32,21 @@ public class ComputerPlayerTest {
     weapons1.add(weapon3);
     List<WeaponImp> weapons2 = new ArrayList<>();
     weapons2.add(weapon2);
-    Room room1 = new RoomImp(0, 0, 0, 1, 1, "Test Room 1", weapons1);
-    Room room2 = new RoomImp(1, 1, 0, 2, 2, "Test Room 2", weapons2);
-    rooms = new ArrayList<>();
-    rooms.add(room1);
-    rooms.add(room2);
+    Room room1 = new RoomImp(1, 0, 0, 1, 1, "Test Room 1", weapons1);
+    Room room2 = new RoomImp(2, 1, 0, 2, 2, "Test Room 2", weapons2);
+    listOfRooms = new ArrayList<>();
+    listOfRooms.add(room1);
+    listOfRooms.add(room2);
+    room1.setNeighbors(new ArrayList<>(List.of(room2)));
+    room2.setNeighbors(new ArrayList<>(List.of(room1)));
     computerPlayer = new ComputerPlayer(2, 1, "Computer", room1, 2);
-    mansion = new Mansion("mansion", 10, 10, rooms);
   }
 
   @Test
   public void testMove() {
     Room previousRoom = computerPlayer.getCurrentLocation();
     computerPlayer.move();
-    assertTrue(rooms.contains(computerPlayer.getCurrentLocation()));
+    assertTrue(listOfRooms.contains(computerPlayer.getCurrentLocation()));
     assertNotEquals(previousRoom, computerPlayer.getCurrentLocation());
   }
 
@@ -60,21 +60,20 @@ public class ComputerPlayerTest {
   @Test
   public void testAttack() {
     Target target = new Target("target", 10, computerPlayer.getCurrentLocation());
-    mansion.setTarget(target);
     //test when computer player has no weapon
-    computerPlayer.attack();
+    computerPlayer.attack(target);
     assertEquals(9, target.getHealth());
 
     //test when computer player has one weapon
     computerPlayer.weaponsCarried.add(weapon1);
-    computerPlayer.attack();
+    computerPlayer.attack(target);
     assertEquals(4, target.getHealth());
     assertEquals(0, computerPlayer.weaponsCarried.size());
 
     //test when computer player has multiple weapons, choose the weapon with the highest power
     computerPlayer.weaponsCarried.add(weapon2);
     computerPlayer.weaponsCarried.add(weapon3);
-    computerPlayer.attack();
+    computerPlayer.attack(target);
     assertEquals(0, target.getHealth());
     assertEquals(1, computerPlayer.weaponsCarried.size());
   }
@@ -82,8 +81,7 @@ public class ComputerPlayerTest {
   @Test
   public void testMoveThePet() {
     Pet cat = new Cat("pet", computerPlayer.getCurrentLocation());
-    mansion.setPet(cat);
-    computerPlayer.moveThePet();
+    computerPlayer.moveThePet(cat);
     assertNotEquals(computerPlayer.getCurrentLocation(), cat.getCurrentLocation());
   }
 }

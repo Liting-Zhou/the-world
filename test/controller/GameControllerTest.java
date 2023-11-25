@@ -90,7 +90,7 @@ public class GameControllerTest {
 
   @Test
   public void testPlayNextTurnCommand() throws IOException {
-    systemInMock.provideLines("5", "3", "99");
+    systemInMock.provideLines("3", "Tom", "3", "3", "5", "3", "99");
     gameController.playGame(mockWorld);
     assertEquals(2, mockWorld.getNumOfTurnsPlayed());
   }
@@ -131,16 +131,16 @@ public class GameControllerTest {
   public void testAddHumanPlayerCommand() throws IOException {
     systemInMock.provideLines("3", "Tom", "0", "3", "99");
     gameController.playGame(mockWorld);
-    assertEquals(1, mockWorld.getPlayers().size());
-    assertEquals("Tom", mockWorld.getPlayers().get(0).getName());
+    assertEquals(1, mockWorld.getListOfPlayers().size());
+    assertEquals("Tom", mockWorld.getListOfPlayers().get(0).getName());
   }
 
   @Test
   public void testAddComputerPlayerCommand() throws IOException {
     systemInMock.provideLines("4", "Jerry", "0", "3", "99");
     gameController.playGame(mockWorld);
-    assertEquals(2, mockWorld.getPlayers().size());
-    assertEquals("Jerry", mockWorld.getPlayers().get(1).getName());
+    assertEquals(1, mockWorld.getListOfPlayers().size());
+    assertEquals("Jerry", mockWorld.getListOfPlayers().get(0).getName());
   }
 
   @Test
@@ -165,7 +165,7 @@ public class GameControllerTest {
         + "18: Room S\n19: Room T\n20: Room U\n21: Room V\n\n"
         + "Which room do you want to display? Please enter the room number (0-21): \n"
         + "\nRoom 1 information:\n-> There is no weapon in this room.\n"
-        + "   Target is not here.\n   Peppa the cat is in room 1.\n   No player in this room.\n"
+        + "   Target is not here.\n   The cat is not here.\n   No player in this room.\n"
         + "\n***************\n"
         + "Game continues.\n"
         + "Options:\n"
@@ -198,13 +198,8 @@ public class GameControllerTest {
         + "6. Display a description of a specified player.\n"
         + "7. Display a description of the target.\n"
         + "99. Quit the game.\n"
-        + "\nPlease choose an option (enter the corresponding number): \n"
-        + "\nList of players: \nTom\n"
-        + "\nWhich player do you want to display? Please enter the name: \n"
-        + "Invalid input. Please enter a valid name:\n"
-        + "\nInformation of player Tom: \nTom has/have no weapon.\n"
-        + "Maximum number of weapons can carry: 3\n"
-        + "This is a human player.\nCurrent Location: Room 0, the Room A.\n\n"
+        + "\nPlease choose an option (enter the corresponding number): \n\n"
+        + "No player is added in the game yet.\n\n"
         + "***************\nGame continues.\nOptions:\n"
         + "1. Display information about a specified room.\n"
         + "2. Generate the mansion_map.png.\n"
@@ -215,6 +210,7 @@ public class GameControllerTest {
         + "7. Display a description of the target.\n"
         + "99. Quit the game.\n"
         + "\nPlease choose an option (enter the corresponding number): \n"
+        + "Invalid input. Please enter a valid number:\n"
         + "You chose to end the game. Bye!\n";
     assertEquals(expectedOutput, outContent.toString());
 

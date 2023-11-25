@@ -115,18 +115,40 @@ public final class RoomImp implements Room {
     return weapons;
   }
 
-
   /**
-   * Decide if the given room is neighbor of this room.
+   * Gets the neighbors of this room.
    *
-   * @param otherRoom The room to be decided if neighbors
-   * @return true if the given room is neighbor of this room, false otherwise
+   * @return The list of neighbors
    */
   @Override
-  public boolean isNeighbor(Room otherRoom) {
-    return this.neighbors.contains(otherRoom);
+  public List<Room> getNeighbors() {
+    return neighbors;
   }
 
+  /**
+   * Saves the neighbors of this room.
+   *
+   * @param neighbors The list of neighbors
+   */
+  @Override
+  public void setNeighbors(List<Room> neighbors) {
+    this.neighbors = neighbors;
+  }
+
+  @Override
+  public List<Player> getPlayersInTheRoom() {
+    return playersInTheRoom;
+  }
+
+  @Override
+  public void addPlayer(Player player) {
+    playersInTheRoom.add(player);
+  }
+
+  @Override
+  public void removePlayer(Player player) {
+    playersInTheRoom.remove(player);
+  }
 
   /**
    * Finds the neighbors of this room. Spaces that share a "wall" are neighbors.
@@ -161,7 +183,6 @@ public final class RoomImp implements Room {
     return neighbors;
   }
 
-
   /**
    * Decide if two rooms share a coordinate, either x or y.
    *
@@ -174,34 +195,31 @@ public final class RoomImp implements Room {
         || this.y2 == otherRoom.y1 || this.y2 == otherRoom.y2;
   }
 
+  @Override
+  public void setTargetFlag(boolean targetFlag) {
+    this.targetFlag = targetFlag;
+  }
+
+  @Override
+  public void setPetFlag(boolean petFlag) {
+    this.petFlag = petFlag;
+  }
+
+  @Override
+  public void setPlayerFlag(boolean playerFlag) {
+    this.playerFlag = playerFlag;
+  }
+
   /**
-   * Gets the neighbors of this room.
+   * Decide if the given room is neighbor of this room.
    *
-   * @return The list of neighbors
+   * @param otherRoom The room to be decided if neighbors
+   * @return true if the given room is neighbor of this room, false otherwise
    */
   @Override
-  public List<Room> getNeighbors() {
-    return neighbors;
+  public boolean isNeighbor(Room otherRoom) {
+    return this.neighbors.contains(otherRoom);
   }
-
-  /**
-   * Saves the neighbors of this room.
-   *
-   * @param neighbors The list of neighbors
-   */
-  @Override
-  public void setNeighbors(List<Room> neighbors) {
-    this.neighbors = neighbors;
-  }
-
-  /**
-   * Removes the given weapon from the room.
-   */
-  @Override
-  public void removeWeapon(WeaponImp weapon) {
-    this.weapons.remove(weapon);
-  }
-
 
   /**
    * Finds out if target is here.
@@ -224,6 +242,31 @@ public final class RoomImp implements Room {
   }
 
   /**
+   * Finds out if any player is here.
+   *
+   * @return true if any player is here, false otherwise
+   */
+  @Override
+  public boolean isAnyPlayerHere() {
+    return playerFlag;
+  }
+
+  /**
+   * Finds out if any player other than the given player is here.
+   *
+   * @param player The player
+   */
+  @Override
+  public boolean isAnyOtherPlayerHere(Player player) {
+    for (Player p : playersInTheRoom) {
+      if (!p.equals(player)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Displays the pet information in the room.
    */
   @Override
@@ -243,39 +286,12 @@ public final class RoomImp implements Room {
   public void displayTarget() {
     if (isTargetHere()) {
       System.out.println(
-          String.format("Target is in room %d!", this.getRoomNumber()));
+          String.format("   Target is in room %d!", this.getRoomNumber()));
     } else {
       System.out.println("   Target is not here.");
     }
   }
 
-  /**
-   * Finds out if any player is here.
-   *
-   * @return true if any player is here, false otherwise
-   */
-  @Override
-  public boolean isAnyPlayerHere() {
-    return playerFlag;
-  }
-
-  /**
-   * Finds out if any player other than the given player is here.
-   *
-   * @param player The player
-   */
-  @Override
-  public boolean isAnyOtherPlayerHere(Player player) {
-    if(playersInTheRoom.size() == 1){
-      return false;
-    }
-    for (Player p : playersInTheRoom) {
-      if (!p.equals(player)) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   /**
    * Displays information of all players in the room.
@@ -285,17 +301,13 @@ public final class RoomImp implements Room {
     if (isAnyPlayerHere()) {
       for (Player player : playersInTheRoom) {
         System.out.println(String.format("   Player %s is in room %d.", player.getName(),
-                      this.getRoomNumber()));
-        }
+            this.getRoomNumber()));
+      }
     } else {
       System.out.println("   No player in this room.");
     }
   }
 
-  @Override
-  public List<Player> getPlayersInTheRoom() {
-    return playersInTheRoom;
-  }
 
   /**
    * Displays the weapon information in the room.
@@ -375,6 +387,15 @@ public final class RoomImp implements Room {
         }
       }
     }
+  }
+
+
+  /**
+   * Removes the given weapon from the room.
+   */
+  @Override
+  public void removeWeapon(WeaponImp weapon) {
+    this.weapons.remove(weapon);
   }
 
   @Override

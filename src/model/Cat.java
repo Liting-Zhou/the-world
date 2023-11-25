@@ -10,7 +10,8 @@ public class Cat implements Pet {
   private String name;
   private Room currentLocation;
   private List<Room> order;
-  private boolean isMoved=false; //if the cat is moved by a player last turn, it will not move this turn
+  private boolean isMoved = false;
+  //if the cat is moved by a player last turn, it will not move this turn
 
   /**
    * Constructs a new Cat object.
@@ -21,6 +22,7 @@ public class Cat implements Pet {
   public Cat(String name, Room currentLocation) {
     this.name = name;
     this.currentLocation = currentLocation;
+    this.currentLocation.setPetFlag(true);
     this.order = depthFirstTraversal();
   }
 
@@ -56,7 +58,7 @@ public class Cat implements Pet {
   @Override
   public void wander() {
     if (isMoved) {
-      isMoved=false;
+      isMoved = false;
       return;
     }
     int index = order.indexOf(currentLocation);
@@ -68,8 +70,9 @@ public class Cat implements Pet {
     updateLocation(order.get(index));
   }
 
+  @Override
   public void setMoved() {
-    isMoved=true;
+    isMoved = true;
   }
 
 
@@ -85,6 +88,8 @@ public class Cat implements Pet {
 
   @Override
   public void updateLocation(Room room) {
+    this.currentLocation.setPetFlag(false); //set the pet flag of the previous room to false
     this.currentLocation = room;
+    this.currentLocation.setPetFlag(true); //set the pet flag of the current room to true
   }
 }

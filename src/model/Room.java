@@ -77,7 +77,7 @@ public interface Room {
    *
    * @return The list of neighbors
    */
-    List<Room> getNeighbors();
+  List<Room> getNeighbors();
 
   /**
    * Saves the neighbors of this room.
@@ -85,6 +85,27 @@ public interface Room {
    * @param neighbors The list of neighbors
    */
   void setNeighbors(List<Room> neighbors);
+
+  /**
+   * Sets the target flag, indicating if the target is in this room.
+   *
+   * @param targetFlag The target flag
+   */
+  void setTargetFlag(boolean targetFlag);
+
+  /**
+   * Sets the pet flag, indicating if the pet is in this room.
+   *
+   * @param petFlag The pet flag
+   */
+  void setPetFlag(boolean petFlag);
+
+  /**
+   * Sets the player flag, indicating if any player is in this room.
+   *
+   * @param playerFlag The player flag
+   */
+  void setPlayerFlag(boolean playerFlag);
 
   /**
    * Removes the given weapon from the room.
@@ -113,6 +134,22 @@ public interface Room {
    * @return The list of players in the room
    */
   List<Player> getPlayersInTheRoom();
+
+
+  /**
+   * Adds the given player to the room.
+   *
+   * @param player The player to be added
+   */
+  void addPlayer(Player player);
+
+
+  /**
+   * Removes the given player from the room.
+   *
+   * @param player The player to be removed
+   */
+  void removePlayer(Player player);
 
   /**
    * Displays pet information.

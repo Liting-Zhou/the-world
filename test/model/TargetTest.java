@@ -13,7 +13,6 @@ import org.junit.Test;
 public class TargetTest {
   private Target target;
   private Room firstRoom;
-  private Mansion mansion;
   private List<Player> players;
   private List<Room> listOfRooms;
 
@@ -23,7 +22,7 @@ public class TargetTest {
 
   @Before
   public void setUp() {
-    firstRoom = new RoomImp(1, 0, 0, 2, 2, "First Room", new ArrayList<>());
+    firstRoom = new RoomImp(0, 0, 0, 2, 2, "First Room", new ArrayList<>());
     //mansion = new model.Mansion("Test model.Mansion", 5, 5, new ArrayList<>());
     target = new Target("Test Target", 20, firstRoom);
 
@@ -53,15 +52,14 @@ public class TargetTest {
 
   @Test
   public void testMove() {
-    Room secondRoom = new RoomImp(2, 3, 3, 5, 5, "Second Room", new ArrayList<>());
-    Room thirdRoom = new RoomImp(3, 3, 5, 8, 9, "Third Room", new ArrayList<>());
+    Room secondRoom = new RoomImp(1, 3, 3, 5, 5, "Second Room", new ArrayList<>());
+    Room thirdRoom = new RoomImp(2, 3, 5, 8, 9, "Third Room", new ArrayList<>());
     players.add(new Player(1, 0, "Player 1", secondRoom, 3));
     players.add(new Player(2, 0, "Player 2", thirdRoom, 3));
     listOfRooms.add(secondRoom);
     listOfRooms.add(thirdRoom);
-    mansion = new Mansion("Test Mansion", 10, 10, listOfRooms);
 
-    Target updatedTarget = target.move(listOfRooms);
-    assertEquals(2, updatedTarget.getCurrentLocation().getRoomNumber());
+    target.move(listOfRooms);
+    assertEquals(1, target.getCurrentLocation().getRoomNumber());
   }
 }

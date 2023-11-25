@@ -26,6 +26,7 @@ public class MyWorldTest {
   private MyWorld myWorld;
   private List<String> testConfigLines;
   private List<Room> rooms;
+  private Target target;
 
   /**
    * Sets up the test environment before each test case.
@@ -72,7 +73,8 @@ public class MyWorldTest {
     }
     Readable sr = new StringReader(sb.toString());
     myWorld = new MyWorld(sr);
-    rooms = myWorld.getMansion().getListOfRooms();
+    rooms = myWorld.getListOfRooms();
+    target = myWorld.getTarget();
     System.setOut(new PrintStream(outContent));
   }
 
@@ -88,24 +90,24 @@ public class MyWorldTest {
   @Test
   public void testWorldSpecificationRead() {
     // verify the list of rooms
-    assertEquals(22, myWorld.getMansion().getListOfRooms().size());
+    assertEquals(22, myWorld.getListOfRooms().size());
 
     // verify the list of weapons
-    assertEquals("Knife", myWorld.getMansion().getListOfRooms().get(0)
+    assertEquals("Knife", myWorld.getListOfRooms().get(0)
         .getWeapons().get(0).getName());
 
     // verify the target
-    assertEquals("Target", myWorld.getTarget().getName());
-    assertEquals(20, myWorld.getTarget().getHealth());
-    assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
+    assertEquals("Target", target.getName());
+    assertEquals(20, target.getHealth());
+    assertEquals(0, target.getCurrentLocation().getRoomNumber());
   }
 
   @Test
   public void testAddPlayer() {
     myWorld.addHumanPlayer("Player1", 0, 1);
     myWorld.addComputerPlayer("Player2", 1, 2);
-    assertEquals(0, myWorld.getPlayers().get(0).getCurrentLocation().getRoomNumber());
-    assertEquals(1, myWorld.getPlayers().get(1).getCurrentLocation().getRoomNumber());
+    assertEquals(0, myWorld.getListOfPlayers().get(0).getCurrentLocation().getRoomNumber());
+    assertEquals(1, myWorld.getListOfPlayers().get(1).getCurrentLocation().getRoomNumber());
   }
 
   @Test
@@ -117,7 +119,7 @@ public class MyWorldTest {
     myWorld.addHumanPlayer("Player1", 0, 1);
     myWorld.addComputerPlayer("Player2", 1, 2);
     myWorld.addComputerPlayer("Player3", 2, 3);
-    assertEquals(expectedPlayers, MyWorld.getPlayers());
+    assertEquals(expectedPlayers, myWorld.getListOfPlayers());
   }
 
 
@@ -129,8 +131,8 @@ public class MyWorldTest {
 
   @Test
   public void testGetTarget() {
-    assertNotNull(myWorld.getTarget());
-    assertEquals("Target", myWorld.getTarget().getName());
+    assertNotNull(target);
+    assertEquals("Target", target.getName());
   }
 
   @Test
@@ -142,7 +144,7 @@ public class MyWorldTest {
   @Test
   public void testIsGameOver() {
     assertFalse(myWorld.isGameOver());
-    myWorld.getTarget().healthDamage(30);
+    target.healthDamage(30);
     assertTrue(myWorld.isGameOver());
   }
 
@@ -156,18 +158,9 @@ public class MyWorldTest {
     String inputString = "3";
     System.setIn(new ByteArrayInputStream(inputString.getBytes()));
     myWorld.playNextTurn();
-    assertEquals(2, myWorld.getNumOfTurnsPlayed());
+    assertEquals(1, myWorld.getNumOfTurnsPlayed());
   }
 
-
-  @Test
-  public void testUpdateTarget() {
-    Target newTarget = new Target("NewTarget", 10, myWorld.getMansion().getRoomByRoomNumber(0));
-    myWorld.updateTarget(newTarget);
-    assertEquals("NewTarget", myWorld.getTarget().getName());
-    assertEquals(10, myWorld.getTarget().getHealth());
-    assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
-  }
 
   @Test
   public void testDisplayTargetInformation() {
@@ -183,7 +176,7 @@ public class MyWorldTest {
   @Test
   public void testDisplayPlayerInformation() {
     myWorld.addHumanPlayer("Player", 0, 3);
-    Player player = myWorld.getPlayers().get(0);
+    Player player = myWorld.getListOfPlayers().get(0);
     player.weaponsCarried.add(new WeaponImp(5, "Axe", 0));
 
     String input = "Player";
@@ -235,8 +228,8 @@ public class MyWorldTest {
         + "\nWhich room do you want to display? Please enter the room number (0-21): \n"
         + "\nRoom 0 information:\n"
         + "-> Weapon Knife with power 1 is in this room.\n"
-        + "             Target is in room 0!\n"
-        + "   Peppa the cat is in room 0.\n"
+        + "   Target is in room 0!\n"
+        + "   The cat is in room 0.\n"
         + "   No player in this room.\n";
     assertEquals(expectedOutput, outContent.toString());
   }
@@ -273,14 +266,14 @@ public class MyWorldTest {
         + "\nRoom 1 information:\n"
         + "-> There is no weapon in this room.\n"
         + "   Target is not here.\n"
-        + "   Peppa the cat is in room 1.\n"
+        + "   The cat is not here.\n"
         + "   No player in this room.\n";
     assertEquals(expectedOutput, outContent.toString());
   }
 
   @Test
   public void testTargetStartingRoom() {
-    assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
+    assertEquals(0, target.getCurrentLocation().getRoomNumber());
   }
 
   /**
@@ -288,9 +281,9 @@ public class MyWorldTest {
    */
   @Test
   public void testEndStart() {
-    Target target = myWorld.getTarget();
-    target.setCurrentLocation(Mansion.getRoomByRoomNumber(21));
-    assertEquals(0, target.move(rooms).getCurrentLocation().getRoomNumber());
+    target.setCurrentLocation(rooms.get(21));
+    target.move(rooms);
+    assertEquals(0, target.getCurrentLocation().getRoomNumber());
   }
 
   @After

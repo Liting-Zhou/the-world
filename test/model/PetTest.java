@@ -11,28 +11,29 @@ import org.junit.Test;
  **/
 public class PetTest {
   private Pet catTest;
-  private Room room;
+  private Room room1;
   private Room room2;
   private Room room3;
-  private Mansion mansion;
 
   /**
    * Sets up the test environment before each test case.
    */
   @Before
   public void setUp() {
-    room = new RoomImp(0, 0, 0, 1, 1, "Test Room 1", null);
-    room2 = new RoomImp(1, 1, 0, 2, 2, "Test Room 2", null);
-    room3 = new RoomImp(2, 2, 0, 3, 3, "Test Room 3", null);
-    List<Room> rooms = List.of(room, room2, room3);
-    mansion = new Mansion("test", 20, 20, rooms);
-    catTest = new Cat("cat test", room);
-    mansion.setPet(catTest);
+    room1 = new RoomImp(1, 0, 0, 1, 1, "Test Room 1", null);
+    room2 = new RoomImp(2, 1, 0, 2, 2, "Test Room 2", null);
+    room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", null);
+    List<Room> rooms = List.of(room1, room2, room3);
+    room1.setNeighbors(List.of(room2));
+    room2.setNeighbors(List.of(room1, room3));
+    room3.setNeighbors(List.of(room2));
+    //mansion = new Mansion("test", 20, 20, rooms);
+    catTest = new Cat("cat test", room1);
   }
 
   @Test
   public void testStartingLocation() {
-    assertEquals(room, catTest.getCurrentLocation());
+    assertEquals(room1, catTest.getCurrentLocation());
   }
 
   @Test
@@ -42,7 +43,7 @@ public class PetTest {
     catTest.wander();
     assertEquals(room3, catTest.getCurrentLocation());
     catTest.wander();
-    assertEquals(room, catTest.getCurrentLocation());
+    assertEquals(room1, catTest.getCurrentLocation());
   }
 
   @Test
@@ -52,7 +53,7 @@ public class PetTest {
 
   @Test
   public void testGetCurrentLocation() {
-    assertEquals(room, catTest.getCurrentLocation());
+    assertEquals(room1, catTest.getCurrentLocation());
   }
 
   @Test

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,19 +24,34 @@ public class HumanPlayer extends Player {
 
   /**
    * Player moves to a specific room.
+   *
+   * @param listOfRooms the list of rooms
    */
-  public void move() {
+  public void move(List<Room> listOfRooms) {
+    List<Room> neighbors = this.getCurrentLocation().getNeighbors();
+
     //move to a neighboring space
     Scanner scanner = new Scanner(System.in);
     System.out.println("Which neighboring room do you want to enter? Enter the room number: ");
-    Integer roomNumber = scanner.nextInt();
-    //check if the room is a neighbor
-    if (this.getCurrentLocation().isNeighbor(MyWorld.getRoomByRoomNumber(roomNumber))) {
-      this.setCurrentLocation(MyWorld.getRoomByRoomNumber(roomNumber));
-      System.out.println(String.format("You are now in room %d.", roomNumber));
-    } else {
-      System.out.println("The room is not a neighbor.");
+    //Integer roomNumber = scanner.nextInt();
+
+    //check the input
+    int roomNumber;
+    while (true) {
+      while (!scanner.hasNextInt()) {
+        System.out.println("Invalid input. Please enter a valid number:");
+        scanner.next(); // consume the invalid token
+      }
+      roomNumber = scanner.nextInt();
+      if (!neighbors.contains(listOfRooms.get(roomNumber))) {
+        System.out.println("Invalid number. Please enter again:");
+      } else {
+        break;
+      }
     }
+
+    this.updateLocation(listOfRooms.get(roomNumber));
+    System.out.println(String.format("You are now in room %d.", roomNumber));
   }
 
   /**
@@ -80,6 +96,8 @@ public class HumanPlayer extends Player {
 
   /**
    * Player attacks the target. If can be seen from other players, no damage made.
+   *
+   * @param target the target
    */
   public void attack(Target target) {
     //check if the player has weapon
@@ -148,13 +166,24 @@ public class HumanPlayer extends Player {
    * Moves the pet.
    *
    * @param pet the pet
+   * @param listOfRooms the list of rooms
    */
-  public void moveThePet(Pet pet) {
+  public void moveThePet(Pet pet, List<Room> listOfRooms) {
+    Room currentRoom = pet.getCurrentLocation();
+    List<Room> neighbors = currentRoom.getNeighbors();
+    List<Integer> roomNumberOfNeighbors = new ArrayList<>();
+
+    for (Room room : neighbors) {
+      roomNumberOfNeighbors.add(room.getRoomNumber());
+    }
+
     System.out.println();
     System.out.println(
-        String.format("The cat is now in room %d, %s.", pet.getCurrentLocation().getRoomNumber(),
-            pet.getCurrentLocation().getRoomName()));
-    System.out.println("Where do you want to teleport the cat? Enter the room number: ");
+        String.format("The cat is now in room %d, %s.", currentRoom.getRoomNumber(),
+            currentRoom.getRoomName()));
+    System.out.println(
+        "Where do you want to teleport the cat? Select a room number from the list: ");
+    System.out.println(roomNumberOfNeighbors);
 
     Scanner scanner = new Scanner(System.in);
     int number;
@@ -164,13 +193,13 @@ public class HumanPlayer extends Player {
         scanner.next(); // consume the invalid token
       }
       number = scanner.nextInt();
-      if (number < 0 || number > 21 || number == pet.getCurrentLocation().getRoomNumber()) {
+      if (!roomNumberOfNeighbors.contains(number)) {
         System.out.println("Invalid number. Please enter again:");
       } else {
         break;
       }
     }
-    Room nextWanderRoom = MyWorld.getRoomByRoomNumber(number);
+    Room nextWanderRoom = listOfRooms.get(number);
     System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
         nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);

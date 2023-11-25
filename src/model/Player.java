@@ -9,8 +9,8 @@ import java.util.Objects;
  * and interact with other characters and objects.
  */
 public class Player extends AbstractCharacter {
-  protected List<WeaponImp> weaponsCarried;
   private final int typeOfPlayer; // 0 for human, 1 for computer
+  protected List<WeaponImp> weaponsCarried;
   private int indexOfPlayer;
 
 
@@ -33,6 +33,8 @@ public class Player extends AbstractCharacter {
     setName(name); // Set the name of the player using the inherited setName method.
     setCurrentLocation(
         currentLocation); // Set the current location using the inherited setCurrentLocation method.
+    currentLocation.setPlayerFlag(true);
+    currentLocation.addPlayer(this);
   }
 
   /**
@@ -72,12 +74,46 @@ public class Player extends AbstractCharacter {
   }
 
   /**
-   * Updates the room information for the player based on their current location.
+   * Updates the location of the player. Also updates the player present flag in the previous
+   * and current location.
    *
-   * @param newLocation The new location to set for the player.
+   * @param newLocation The new location of the player.
    */
-  public void updateRoomInfo(Room newLocation) {
-    setCurrentLocation(newLocation);
+  public void updateLocation(Room newLocation) {
+    Room previousLocation = this.getCurrentLocation();
+    List<Player> playersInTheRoom = previousLocation.getPlayersInTheRoom();
+    if (playersInTheRoom.size() == 1) {
+      previousLocation.setPlayerFlag(false);
+    }
+    previousLocation.removePlayer(this);
+    this.setCurrentLocation(newLocation);
+    newLocation.setPlayerFlag(true);
+    newLocation.addPlayer(this);
+  }
+
+  /**
+   * Determines if this player can be seen by other players.
+   *
+   * @return true if this player can be seen by other players, false otherwise.
+   */
+  public boolean canBeSeen() {
+    //if any other player is here, you can be seen
+    if (getCurrentLocation().isAnyOtherPlayerHere(this)) {
+      return true;
+    }
+    // if cat is here, cannot be seen
+    if (getCurrentLocation().isPetHere()) {
+      return false;
+    } else {
+      //check if there is any player in the neighboring rooms
+      List<Room> neighbors = getCurrentLocation().getNeighbors();
+      for (Room neighbor : neighbors) {
+        if (neighbor.isAnyOtherPlayerHere(this)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
@@ -134,31 +170,6 @@ public class Player extends AbstractCharacter {
         i += 1;
       }
     }
-  }
-
-  /**
-   * Determines if this player can be seen by other players.
-   *
-   * @return true if this player can be seen by other players, false otherwise.
-   */
-  public boolean canBeSeen() {
-    //if any other player is here, you can be seen
-    if (getCurrentLocation().isAnyOtherPlayerHere(this)) {
-      return true;
-    }
-    // if cat is here, cannot be seen
-    if (getCurrentLocation().isPetHere()) {
-      return false;
-    } else {
-      //check if there is any player in the neighboring rooms
-      List<Room> neighbors = getCurrentLocation().getNeighbors();
-      for (Room neighbor : neighbors) {
-        if (neighbor.isAnyOtherPlayerHere(this)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
 

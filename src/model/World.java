@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 /**
  * Represents the main body of the model of the World.
  */
@@ -37,18 +39,26 @@ public interface World {
   Target getTarget();
 
   /**
+   * Gets the list of players in the world.
+   *
+   * @return The list of players.
+   */
+  List<Player> getListOfPlayers();
+
+  /**
+   * Gets the list of rooms in the world.
+   *
+   * @return The list of rooms.
+   */
+  List<Room> getListOfRooms();
+
+  /**
    * Gets number of turns played.
    *
    * @return the number of turns played
    */
   int getNumOfTurnsPlayed();
 
-//  /**
-//   * Gets the model.Mansion.
-//   *
-//   * @return the mansion
-//   */
-//  Mansion getMansion();
 
   /**
    * When the health of target is less or equal to zero, game is over.
@@ -71,14 +81,6 @@ public interface World {
 
 
   /**
-   * Updates the target after actions.
-   *
-   * @param target the target
-   */
-  void updateTarget(Target target);
-
-
-  /**
    * Displays the map of the mansion.
    */
   void saveMansionMap();
@@ -87,6 +89,11 @@ public interface World {
    * Displays information about the target.
    */
   void displayTargetInformation();
+
+  /**
+   * Displays the list of rooms in the world.
+   */
+  void displayListOfRooms();
 
   /**
    * Displays information about the specified player.

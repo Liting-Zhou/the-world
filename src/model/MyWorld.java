@@ -16,20 +16,18 @@ import javax.imageio.ImageIO;
  * Kill Doctor Lucky.
  */
 public final class MyWorld implements World {
+  private final int startingRoom = 0; //default value
+  int maxNumOfTurns = 100; //default value
+  private List<Room> listOfRooms;
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
   private List<Player> players = new ArrayList<>();
-  int maxNumOfTurns = 100; //default value
-  private final int startingRoom = 0; //default value
   private Target target;
   private Pet cat;
-  private static List<Room> listOfRooms;
-  //private Mansion mansion;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
   private int numOfTurnsPlayed = 1;
-  //private static int flag = 0;
 
 
   /**
@@ -40,11 +38,11 @@ public final class MyWorld implements World {
    * @throws IllegalArgumentException if the provided configuration file is invalid.
    */
   public MyWorld(Readable conFile) {
-    // Read configuration file
+    // read configuration file
     if (conFile == null) {
       throw new IllegalArgumentException("Invalid configuration file.");
     }
-    // Read and process the configuration file to set up the game world.
+    // read and process the configuration file to set up the game world.
     List<String> lines = new ArrayList<>();
     Scanner scan = new Scanner(conFile);
     while (scan.hasNextLine()) {
@@ -52,24 +50,15 @@ public final class MyWorld implements World {
     }
     scan.close();
 
-
-    // Parse and set up the game components, including target, rooms, mansion, and players.
+    // parse and set up the game components, including target, rooms, and players.
     initializeWeapons(lines);
     initializeRooms(lines);
     initializeMansion(lines);
     initializeTarget(lines);
     initializePet(lines);
+
     // describe the world
     worldDescription();
-  }
-
-  /**
-   * Gets the players.
-   *
-   * @return a list of players
-   */
-  public List<Player> getPlayers() {
-    return players;
   }
 
   /**
@@ -159,22 +148,18 @@ public final class MyWorld implements World {
       // Add the created Room object to the list of rooms.
       listOfRooms.add(room);
 
-      //initialize the neighbors of the room
-      initializeNeighbors(listOfRooms);
-
       lineIndex++;
     }
+    //initialize the neighbors of the room
+    initializeNeighbors(listOfRooms);
   }
 
-  private void initializeNeighbors(List<Room> rooms){
-    for(Room room: rooms){
-        List<Room> neighbors = new ArrayList<>();
-        neighbors=room.findNeighbors(rooms);
-        room.setNeighbors(neighbors);
+  private void initializeNeighbors(List<Room> rooms) {
+    for (Room room : rooms) {
+      List<Room> neighbors = room.findNeighbors(rooms);
+      room.setNeighbors(neighbors);
     }
   }
-
-
 
   /**
    * Initializes the game's mansion layout.
@@ -184,15 +169,11 @@ public final class MyWorld implements World {
     String[] mansionData = mansionInfo.split(" ");
 
     // Parse mansion dimensions and name.
-    this.mansionWidth = Integer.parseInt(mansionData[0]);
-    this.mansionHeight = Integer.parseInt(mansionData[1]);
+    mansionWidth = Integer.parseInt(mansionData[0]);
+    mansionHeight = Integer.parseInt(mansionData[1]);
     String[] restOfMansionData = new String[mansionData.length - 2];
     System.arraycopy(mansionData, 2, restOfMansionData, 0, mansionData.length - 2);
-    this.mansionName = String.join(" ", restOfMansionData);
-
-    // Create the Mansion object with the parsed data.
-    //mansion = new Mansion(mansionName, mansionHeight, mansionWidth, listOfRooms);
-
+    mansionName = String.join(" ", restOfMansionData);
   }
 
   /**
@@ -210,7 +191,7 @@ public final class MyWorld implements World {
     String targetName = String.join(" ", restOfTargetData);
 
     // Initialize the starting location
-    Room currentLocation = getRoomByRoomNumber(startingRoom);
+    Room currentLocation = listOfRooms.get(startingRoom);
 
     // Create the target character.
     target = new Target(targetName, targetHealth, currentLocation);
@@ -227,7 +208,7 @@ public final class MyWorld implements World {
     String petName = infoData[0];
 
     // Initialize the starting location
-    Room currentLocation = getRoomByRoomNumber(startingRoom);
+    Room currentLocation = listOfRooms.get(startingRoom);
 
     // Create the target character.
     cat = new Cat(petName, currentLocation);
@@ -239,7 +220,7 @@ public final class MyWorld implements World {
    */
   private void initializePlayer(int indexOfNewPlayer, int typeOfPlayer, String playerName,
                                 int startingRoomNumber, int maxNumOfWeapons) {
-    Room currentLocation = getRoomByRoomNumber(startingRoomNumber);
+    Room currentLocation = listOfRooms.get(startingRoomNumber);
     Player player;
     if (typeOfPlayer == 0) {
       player = new HumanPlayer(indexOfNewPlayer, typeOfPlayer, playerName, currentLocation,
@@ -305,7 +286,6 @@ public final class MyWorld implements World {
     System.out.println();
   }
 
-
   /**
    * Saves the mansion map as an image file.
    */
@@ -330,24 +310,24 @@ public final class MyWorld implements World {
   private BufferedImage getBufferedImage() {
     int scaleFactor = 40;
     int buffer = 0;
-    // Create a BufferedImage to represent the map
+    // create a BufferedImage to represent the map
     BufferedImage mapImage =
         new BufferedImage(mansionWidth * scaleFactor + buffer, mansionHeight * scaleFactor + buffer,
             BufferedImage.TYPE_INT_RGB);
     Graphics2D g2d = mapImage.createGraphics();
 
-    // Set background color
+    // set background color
     g2d.setColor(Color.WHITE);
     g2d.fillRect(0, 0, mansionWidth * scaleFactor + buffer, mansionHeight * scaleFactor + buffer);
 
-    // Draw rooms on the map
+    // draw rooms on the map
     for (Room room : listOfRooms) {
       drawRoom(g2d, room, scaleFactor);
     }
     return mapImage;
   }
 
-  private static void drawRoom(Graphics2D g2d, Room room, int scaleFactor) {
+  private void drawRoom(Graphics2D g2d, Room room, int scaleFactor) {
     int roomX = room.getX1() * scaleFactor;
     int roomY = room.getY1() * scaleFactor;
     int roomWidth = (room.getX2() - room.getX1()) * scaleFactor;
@@ -406,16 +386,6 @@ public final class MyWorld implements World {
   }
 
   /**
-   * Gets the target.
-   *
-   * @return the target
-   */
-  @Override
-  public Target getTarget() {
-    return target;
-  }
-
-  /**
    * Gets number of turns played.
    *
    * @return the number of turns played
@@ -425,89 +395,35 @@ public final class MyWorld implements World {
     return numOfTurnsPlayed;
   }
 
-  private Player getCurrentPlayer() {
-    return players.get(indexOfCurrentPlayer);
-  }
-
   /**
-   * Returns room information given a room number.
+   * Gets the target.
    *
-   * @param roomNumber The room number.
-   * @return An object containing all information of the specified room.
+   * @return the target
    */
-  public static Room getRoomByRoomNumber(int roomNumber) {
-    for (Room room : listOfRooms) {
-      if (room.getRoomNumber() == roomNumber) {
-        return room;
-      }
-    }
-    return null;
+  @Override
+  public Target getTarget() {
+    return target;
   }
 
+
   /**
-   * Gets the list of players in the mansion.
+   * Gets the list of players in the world.
    *
    * @return The list of players.
    */
+  @Override
   public List<Player> getListOfPlayers() {
     return players;
   }
 
-//  /**
-//   * Gets the Mansion.
-//   *
-//   * @return the mansion
-//   */
-//  @Override
-//  public Mansion getMansion() {
-//    return mansion;
-//  }
-
   /**
-   * Gets the pet in the mansion.
-   *
-   * @return The pet.
-   */
-  public Pet getPet() {
-    return cat;
-  }
-
-  /**
-   * Gets the list of rooms in the mansion.
+   * Gets the list of rooms in the world.
    *
    * @return The list of rooms.
    */
+  @Override
   public List<Room> getListOfRooms() {
     return listOfRooms;
-  }
-
-//  /**
-//   * Gets the flag.
-//   *
-//   * @return The flag.
-//   */
-//  public static int getFlag() {
-//    return flag;
-//  }
-
-//  /**
-//   * Sets the flag.
-//   *
-//   * @param num The value of flag to be set.
-//   */
-//  public static void setFlag(int num) {
-//    flag = num;
-//  }
-
-
-  /**
-   * When the health of target is less or equal to zero, game is over.
-   *
-   * @return the true if game over
-   */
-  @Override
-  public Boolean isGameOver() {
-    return target.getHealth() <= 0;
   }
 
   /**
@@ -525,6 +441,17 @@ public final class MyWorld implements World {
   }
 
   /**
+   * When the health of target is less or equal to zero, game is over.
+   *
+   * @return the true if game over
+   */
+  @Override
+  public Boolean isGameOver() {
+    return target.getHealth() <= 0;
+  }
+
+
+  /**
    * Plays the next turn, in each turn, target moves and then one player moves.
    */
   @Override
@@ -538,7 +465,7 @@ public final class MyWorld implements World {
       System.out.println("---------------");
       System.out.println("Now play the next turn!");
       cat.wander();
-      roundOfTargetCharacter();
+      roundOfTarget();
       roundOfPlayer();
 
       //check health of target, if less than zero, game over and display the winner
@@ -566,20 +493,8 @@ public final class MyWorld implements World {
   /**
    * Plays target move and update target information.
    */
-  private void roundOfTargetCharacter() {
-    Target targetAfterMove = target.move(listOfRooms);
-    updateTarget(targetAfterMove);
-
-  }
-
-  /**
-   * Updates the target after actions.
-   *
-   * @param target the target
-   */
-  @Override
-  public void updateTarget(Target target) {
-    this.target = target;
+  private void roundOfTarget() {
+    target.move(listOfRooms);
   }
 
   /**
@@ -661,7 +576,7 @@ public final class MyWorld implements World {
 
         if (action == 1) {
           //move to a neighboring space
-          p.move();
+          p.move(listOfRooms);
         } else if (action == 2) {
           //pick up a weapon if there is any
           p.pickUpWeapon();
@@ -669,7 +584,7 @@ public final class MyWorld implements World {
           //look around
           p.lookAround();
         } else if (action == 4) {
-          p.moveThePet(cat);
+          p.moveThePet(cat, listOfRooms);
         } else {
           p.attack(target);
         }
@@ -721,7 +636,7 @@ public final class MyWorld implements World {
 
         if (action == 1) {
           //move to a neighboring space
-          p.move();
+          p.move(listOfRooms);
         } else if (action == 2) {
           //pick up a weapon if there is any
           p.pickUpWeapon();
@@ -729,7 +644,7 @@ public final class MyWorld implements World {
           //look around
           p.lookAround();
         } else {
-          p.moveThePet(cat);
+          p.moveThePet(cat, listOfRooms);
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
@@ -749,14 +664,6 @@ public final class MyWorld implements World {
       indexOfCurrentPlayer++;
     }
   }
-
-//  /**
-//   * Displays the map of the mansion.
-//   */
-//  @Override
-//  public void saveMansionMap() {
-//    mansion.saveMansionMap();
-//  }
 
   /**
    * Displays information about the target.
@@ -830,8 +737,9 @@ public final class MyWorld implements World {
   }
 
   /**
-   * Dislays the list of rooms in the mansion.
+   * Displays the list of rooms in the world.
    */
+  @Override
   public void displayListOfRooms() {
     System.out.println("The mansion has the following rooms: ");
     for (Room room : listOfRooms) {
@@ -840,7 +748,7 @@ public final class MyWorld implements World {
   }
 
   /**
-   * Displays information about the target and players.
+   * Displays information about a specific room.
    */
   @Override
   public void displayRoomInformation() {
@@ -866,7 +774,7 @@ public final class MyWorld implements World {
       }
     }
 
-    Room room = getRoomByRoomNumber(roomNumber);
+    Room room = listOfRooms.get(roomNumber);
     System.out.println();
 
     // 3.Display the room information

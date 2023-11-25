@@ -25,8 +25,9 @@ public class RoomImpTest {
   private Room anotherRoom;
   private List<WeaponImp> weapons = new ArrayList<>();
   private List<Room> listOfRooms = new ArrayList<>();
-  private Mansion mansion;
   private Player player;
+  private Target target;
+  private Pet cat;
 
   /**
    * Sets up the test environment before each test case.
@@ -42,12 +43,11 @@ public class RoomImpTest {
     listOfRooms.add(anotherRoom);
     listOfRooms.add(thisRoom);
     listOfRooms.add(otherRoom);
+    otherRoom.setNeighbors(new ArrayList<>(List.of(anotherRoom)));
+    anotherRoom.setNeighbors(new ArrayList<>(List.of(otherRoom)));
     player = new HumanPlayer(1, 0, "jack", otherRoom, 3);
-    Target target = new Target("Test Target", 20, thisRoom);
-
-    mansion = new Mansion("test", 20, 20, listOfRooms);
-    mansion.addPlayer(player);
-    mansion.setTarget(target);
+    target = new Target("Test Target", 20, thisRoom);
+    cat = new Cat("cat", thisRoom);
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
   }
@@ -74,10 +74,11 @@ public class RoomImpTest {
   @Test
   public void testGetNeighbors() {
     //neighbors
-    listOfRooms.add(new RoomImp(2, 15, 0, 19, 2, "Neighbor Room", new ArrayList<>()));
-    listOfRooms.add(new RoomImp(3, 4, 4, 15, 7, "Neighbor Room", new ArrayList<>()));
+    listOfRooms.add(new RoomImp(4, 15, 0, 19, 2, "Neighbor Room", new ArrayList<>()));
+    listOfRooms.add(new RoomImp(5, 4, 4, 15, 7, "Neighbor Room", new ArrayList<>()));
     //not neighbor
-    listOfRooms.add(new RoomImp(4, 0, 0, 5, 2, "Not Neighbor Room", new ArrayList<>()));
+    listOfRooms.add(new RoomImp(6, 0, 0, 5, 2, "Not Neighbor Room", new ArrayList<>()));
+    thisRoom.setNeighbors(new ArrayList<>(List.of(listOfRooms.get(3), listOfRooms.get(4))));
     List<Room> neighbors = thisRoom.getNeighbors();
     assertNotNull(neighbors);
     assertEquals(2, neighbors.size());
@@ -103,8 +104,7 @@ public class RoomImpTest {
 
   @Test
   public void testDisplayTarget() {
-    Target target = mansion.getTarget();
-    target.setCurrentLocation(otherRoom);
+    target.updateLocation(otherRoom);
     // Simulate target not being in the room
     thisRoom.displayTarget();
 
@@ -113,11 +113,11 @@ public class RoomImpTest {
     assertEquals(expectedOutput, outContent.toString());
 
     // Simulate target being in the room
-    target.setCurrentLocation(thisRoom);
+    target.updateLocation(thisRoom);
     thisRoom.displayTarget();
 
     String expectedOutputHere =
-        "   Target is not here.\n" + "                     Target is in room 1!\n";
+        "   Target is not here.\n" + "   Target is in room 1!\n";
     assertEquals(expectedOutputHere, outContent.toString());
 
   }
@@ -125,22 +125,19 @@ public class RoomImpTest {
   @Test
   public void testIsPetHere() {
     Pet cat = new Cat("cat", thisRoom);
-    mansion.setPet(cat);
     assertTrue(thisRoom.isPetHere());
   }
 
   @Test
   public void testDisplayPet() {
-    Pet cat = new Cat("cat", thisRoom);
-    mansion.setPet(cat);
     thisRoom.displayPet();
-    String expectedOutputHere = "   cat the cat is in room 1.\n";
+    String expectedOutputHere = "   The cat is in room 1.\n";
     assertEquals(expectedOutputHere, outContent.toString());
   }
 
   @Test
   public void testIsAnyPlayerHereWhenPlayerIsPresent() {
-    player.setCurrentLocation(thisRoom);
+    player.updateLocation(thisRoom);
     assertTrue(thisRoom.isAnyPlayerHere());
   }
 
@@ -152,21 +149,18 @@ public class RoomImpTest {
   @Test
   public void testIsAnyOtherPlayerHere() {
     Player player2 = new Player(2, 1, "rose", thisRoom, 3);
-    mansion.addPlayer(player2);
-    player.setCurrentLocation(thisRoom);
+    player.updateLocation(thisRoom);
     assertTrue(thisRoom.isAnyOtherPlayerHere(player));
 
-    player2.setCurrentLocation(otherRoom);
+    player2.updateLocation(otherRoom);
     assertFalse(thisRoom.isAnyOtherPlayerHere(player));
   }
 
   @Test
   public void testDisplayPlayers() {
     List<Player> players = new ArrayList<>();
-    player.setCurrentLocation(thisRoom);
+    player.updateLocation(thisRoom);
     Player player2 = new Player(2, 1, "rose", thisRoom, 3);
-    mansion.addPlayer(player2);
-    players = mansion.getListOfPlayers();
     thisRoom.displayPlayers();
 
     String expectedOutputHere = "   Player jack is in room 1.\n" + "   Player rose is in room 1.\n";
@@ -192,15 +186,11 @@ public class RoomImpTest {
    */
   @Test
   public void testDisplayNeighborsWithPet() {
-    Pet cat = new Cat("cat", thisRoom);
-    mansion.setPet(cat);
-
     String expectedoutput1 = "   3. Test Room 3\n";
     otherRoom.displayNeighborsSimple();
     assertEquals(expectedoutput1, outContent.toString());
 
     cat.updateLocation(anotherRoom);
-    mansion.setPet(cat);
     String expectedoutput2 = "   3. Test Room 3\n"
         + "   You can not see room 3, the Test Room 3\n";
     otherRoom.displayNeighborsSimple();

@@ -20,35 +20,29 @@ public class PlayerTest {
   private Target target;
   private List<Player> players;
   private List<Room> listOfRooms;
-  private Mansion mansion;
 
   /**
-   * Sets up the test environment before each test case.
+   * Sets up the test environment.
    */
 
   @Before
   public void setUp() {
-    // Create an initial room location for the player
     initialLocation = new RoomImp(0, 0, 0, 2, 2, "Initial Room", new ArrayList<>());
     neighborLocation = new RoomImp(1, 2, 0, 4, 4, "Neighbor Room", new ArrayList<>());
 
-    // Initialize the player object for testing
     player = new Player(0, 0, "Test Player", initialLocation, 3);
 
-    // Initialize the target character for testing
     target = new Target("Test Target", 20, initialLocation);
 
-    // Initialize a list of players for testing
     players = new ArrayList<>();
     players.add(player);
 
-    // Initialize a list of rooms for testing
     listOfRooms = new ArrayList<>();
     listOfRooms.add(initialLocation);
     listOfRooms.add(neighborLocation);
-    mansion = new Mansion("test", 20, 20, listOfRooms);
-    mansion.addPlayer(player);
-    mansion.setTarget(target);
+
+    initialLocation.setNeighbors(new ArrayList<>(List.of(neighborLocation)));
+    neighborLocation.setNeighbors(new ArrayList<>(List.of(initialLocation)));
   }
 
   @Test
@@ -77,7 +71,7 @@ public class PlayerTest {
   @Test
   public void testUpdateRoomInfo() {
     Room newLocation = new RoomImp(1, 3, 0, 5, 2, "New Room", new ArrayList<>());
-    player.updateRoomInfo(newLocation);
+    player.updateLocation(newLocation);
     Room updatedLocation = player.getCurrentLocation();
     Assert.assertEquals(newLocation, updatedLocation);
   }
@@ -86,7 +80,6 @@ public class PlayerTest {
   public void testCanBeSeen() {
     //test when the cat is in the same room as the player, while no players in neighboring room.
     Pet cat = new Cat("Test Cat", initialLocation);
-    mansion.setPet(cat);
     assertFalse(player.canBeSeen());
 
     // Test when there is no cat in the same room as the player,
@@ -98,7 +91,6 @@ public class PlayerTest {
     // while there are players in neighboring room.
     Player player1 = new Player(1, 0, "Test Player neighbor",
         neighborLocation, 3);
-    mansion.addPlayer(player1);
     assertTrue(player.canBeSeen());
 
     // Test when the cat is in the same room as the player,
