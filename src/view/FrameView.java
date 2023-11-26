@@ -27,11 +27,9 @@ public class FrameView extends JFrame implements View {
 
   /**
    * Constructor.
-   *
-   * @param caption the caption to use
-   */
-  public FrameView(String caption) {
-    super(caption);
+   **/
+  public FrameView() {
+    super("Game of Kill Doctor Happy");
 
     setSize(500, 500);
     setLocation(20, 20);
@@ -40,7 +38,7 @@ public class FrameView extends JFrame implements View {
     // create a menu bar
     JMenuBar menuBar = new JMenuBar();
     // create a menu
-    JMenu fileMenu = new JMenu("File");
+    JMenu fileMenu = new JMenu("Menu");
 
     newGameNewWorldItem = new JMenuItem("Start with a new world specification");
     newGameCurrentWorldItem = new JMenuItem("Start with the current world specification");
@@ -82,7 +80,7 @@ public class FrameView extends JFrame implements View {
   public void setFeatures(Features f) {
     //newGameNewWorldItem.addActionListener(); //TODO: what is the logic here?
     newGameCurrentWorldItem.addActionListener(l -> {
-      f.playGame(100);
+      f.playGame();
     });
     quitItem.addActionListener(l -> {
       f.exitGame();

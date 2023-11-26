@@ -28,10 +28,8 @@ public interface Features {
 
   /**
    * Play the game.
-   *
-   * @param maxNumOfTurns the maximum number of turns
    */
-  void playGame(int maxNumOfTurns);
+  void playGame();
 
   /**
    * Add a human player.

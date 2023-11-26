@@ -39,11 +39,8 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void playGame(int maxNumOfTurns) {
-    if (maxNumOfTurns <= 0) {
-      throw new IllegalArgumentException("Invalid arguments provided.");
-    }
-    model.setMaxNumOfTurns(maxNumOfTurns);
+  public void playGame() {
+    int maxNumOfTurns = model.getMaxNumOfTurns();
     while ((!model.isGameOver())
         && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)
         && (!exitGame())) {

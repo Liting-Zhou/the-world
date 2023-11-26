@@ -383,6 +383,11 @@ public final class MyWorld implements World {
     this.maxNumOfTurns = maxNumOfTurns;
   }
 
+  @Override
+  public int getMaxNumOfTurns() {
+    return maxNumOfTurns;
+  }
+
   /**
    * Gets number of turns played.
    *

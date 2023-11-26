@@ -54,6 +54,8 @@ public interface World {
    */
   List<Room> getListOfRooms();
 
+  int getMaxNumOfTurns();
+
   /**
    * Gets number of turns played.
    *

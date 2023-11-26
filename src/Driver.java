@@ -1,5 +1,7 @@
 import controller.ConsoleController;
 import controller.Controller;
+import controller.Features;
+import controller.VisualController;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,6 +9,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import model.MyWorld;
 import model.World;
+import view.FrameView;
+import view.View;
 
 /**
  * The Driver class handles the command-line arguments and gives control to the controller.
@@ -22,18 +26,25 @@ public final class Driver {
       String configFile = args[0];
       String maxNumOfTurns = args[1];
       Readable reader = new BufferedReader(new FileReader(configFile));
-      MyWorld world = new MyWorld(reader);
+      World world = new MyWorld(reader);
 
-      Readable readable = new BufferedReader(new StringReader(maxNumOfTurns));
-      Appendable appendable = new StringBuilder();
+      // Play with console
+      // Readable readable = new BufferedReader(new StringReader(maxNumOfTurns));
+      // Appendable appendable = new StringBuilder();
+      //
+      // //create a controller
+      // Controller gameController = new ConsoleController(readable, appendable);
+      //
+      // //pass control to the controller
+      // gameController.playGame(world);
+      // //print the output
+      // System.out.println(appendable);
 
-      //create a controller
-      Controller gameController = new ConsoleController(readable, appendable);
-
-      //pass control to the controller
-      gameController.playGame(world);
-      //print the output
-      System.out.println(appendable);
+      // Play with GUI
+      world.setMaxNumOfTurns(Integer.parseInt(maxNumOfTurns));
+      View view = new FrameView();
+      VisualController controller = new VisualController(world);
+      controller.setView(view);
 
     } catch (IllegalArgumentException e) {
       System.out.println("Illegal argument exception raised" + e);
