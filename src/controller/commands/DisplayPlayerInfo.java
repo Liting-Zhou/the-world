@@ -1,7 +1,6 @@
 package controller.commands;
 
 import controller.Command;
-import model.MyWorld;
 import model.World;
 
 /**

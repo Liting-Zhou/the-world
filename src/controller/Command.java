@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import model.MyWorld;
 import model.World;
 
 /**

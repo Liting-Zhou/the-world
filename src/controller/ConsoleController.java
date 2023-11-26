@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
-import model.MyWorld;
 import model.World;
 
 /**
@@ -40,11 +39,7 @@ public final class ConsoleController implements Controller {
 
   @Override
   public void playGame(World w) throws IllegalArgumentException, IOException {
-    int maxNumOfTurns = scan.nextInt();
-    if (maxNumOfTurns <= 0) {
-      throw new IllegalArgumentException("Invalid arguments provided.");
-    }
-    w.setMaxNumOfTurns(maxNumOfTurns);
+    int maxNumOfTurns = w.getMaxNumOfTurns();
 
     Map<Integer, Function<Scanner, Command>> knownCommands = new HashMap<>();
     knownCommands.put(1, s -> new DisplayRoomInfo());

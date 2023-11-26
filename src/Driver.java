@@ -1,6 +1,5 @@
 import controller.ConsoleController;
 import controller.Controller;
-import controller.Features;
 import controller.VisualController;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -24,27 +23,36 @@ public final class Driver {
   public static void main(String[] args) {
     try {
       String configFile = args[0];
-      String maxNumOfTurns = args[1];
+      int maxNumOfTurns = Integer.parseInt(args[1]);
+      if (maxNumOfTurns <= 0) {
+        throw new IllegalArgumentException("Maximum number of turns should be positive.");
+      }
+      int mode = Integer.parseInt(args[2]);
+      if (mode != 1 && mode != 2) {
+        throw new IllegalArgumentException("Mode should be either 1 (GUI) or 2 (text-based).");
+      }
       Readable reader = new BufferedReader(new FileReader(configFile));
       World world = new MyWorld(reader);
+      world.setMaxNumOfTurns(maxNumOfTurns);
 
-      // Play with console
-      // Readable readable = new BufferedReader(new StringReader(maxNumOfTurns));
-      // Appendable appendable = new StringBuilder();
-      //
-      // //create a controller
-      // Controller gameController = new ConsoleController(readable, appendable);
-      //
-      // //pass control to the controller
-      // gameController.playGame(world);
-      // //print the output
-      // System.out.println(appendable);
+      if (mode == 2) {
+        //Play with console
+        Readable readable = new StringReader("");
+        Appendable appendable = new StringBuilder();
 
-      // Play with GUI
-      world.setMaxNumOfTurns(Integer.parseInt(maxNumOfTurns));
-      View view = new FrameView();
-      VisualController controller = new VisualController(world);
-      controller.setView(view);
+        //create a controller
+        Controller gameController = new ConsoleController(readable, appendable);
+
+        //pass control to the controller
+        gameController.playGame(world);
+        //print the output
+        System.out.println(appendable);
+      } else {
+        // Play with GUI
+        View view = new FrameView();
+        VisualController controller = new VisualController(world);
+        controller.setView(view);
+      }
 
     } catch (IllegalArgumentException e) {
       System.out.println("Illegal argument exception raised" + e);

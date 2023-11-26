@@ -25,13 +25,6 @@ public interface World {
   void addComputerPlayer(String playerName, int startingRoomNumber, int maxNumOfWeapons);
 
   /**
-   * Sets the maximum number of turns.
-   *
-   * @param maxNumOfTurns the maximum number of turns
-   */
-  void setMaxNumOfTurns(int maxNumOfTurns);
-
-  /**
    * Gets the target.
    *
    * @return the target
@@ -55,6 +48,13 @@ public interface World {
   List<Room> getListOfRooms();
 
   int getMaxNumOfTurns();
+
+  /**
+   * Sets the maximum number of turns.
+   *
+   * @param maxNumOfTurns the maximum number of turns
+   */
+  void setMaxNumOfTurns(int maxNumOfTurns);
 
   /**
    * Gets number of turns played.

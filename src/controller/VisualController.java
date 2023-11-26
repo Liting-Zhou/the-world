@@ -41,6 +41,13 @@ public class VisualController implements Features {
   @Override
   public void playGame() {
     int maxNumOfTurns = model.getMaxNumOfTurns();
+
+    // display welcome message
+    view.setDisplay("Welcome to the Game of Kill Doctor Happy!\n"
+        + "Author: Liting Zhou\n\n"
+        + "Now, add some players to the game.\n");
+
+
     while ((!model.isGameOver())
         && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)
         && (!exitGame())) {
@@ -50,13 +57,14 @@ public class VisualController implements Features {
     }
   }
 
-  @Override
-  public void addHumanPlayer() {
-
-  }
 
   @Override
-  public void addComputerPlayer() {
+  public void addPlayer(String name, int startingRoom, int weaponLimits, int playerType) {
+    if (playerType == 0) {
+      model.addHumanPlayer(name, startingRoom, weaponLimits);
+    } else {
+      model.addComputerPlayer(name, startingRoom, weaponLimits);
+    }
 
   }
 

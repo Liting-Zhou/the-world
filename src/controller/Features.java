@@ -32,14 +32,14 @@ public interface Features {
   void playGame();
 
   /**
-   * Add a human player.
+   * Add a player.
+   *
+   * @param name         the name of the player
+   * @param startingRoom the starting room of the player
+   * @param weaponLimits the weapon limits of the player
+   * @param playerType   the type of the player, 0 for human, 1 for computer
    */
-  void addHumanPlayer();
-
-  /**
-   * Add a computer player.
-   */
-  void addComputerPlayer();
+  void addPlayer(String name, int startingRoom, int weaponLimits, int playerType);
 
   /**
    * Player moves to a neighboring room.

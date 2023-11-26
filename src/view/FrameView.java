@@ -6,12 +6,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class FrameView extends JFrame implements View {
@@ -19,8 +22,7 @@ public class FrameView extends JFrame implements View {
   private final JLabel display;
   private final JTextField input;
   private final JButton enterButton;
-  private final JButton addHumanPlayerButton;
-  private final JButton addComputerPlayerButton;
+  private final JButton addPlayerButton;
   private final JMenuItem newGameNewWorldItem;
   private final JMenuItem newGameCurrentWorldItem;
   private final JMenuItem quitItem;
@@ -67,10 +69,8 @@ public class FrameView extends JFrame implements View {
     //enterButton.setActionCommand("Enter Button");
     this.add(enterButton);
 
-    addHumanPlayerButton = new JButton("Add Human Player");
-    this.add(addHumanPlayerButton);
-    addComputerPlayerButton = new JButton("Add Computer Player");
-    this.add(addComputerPlayerButton);
+    addPlayerButton = new JButton("Add Player");
+    this.add(addPlayerButton);
 
     pack();
     setVisible(true);
@@ -88,12 +88,10 @@ public class FrameView extends JFrame implements View {
     enterButton.addActionListener(l -> {
       f.processInput(input.getText());
     });
-    addHumanPlayerButton.addActionListener(l -> {
-      f.addHumanPlayer();
+    addPlayerButton.addActionListener(l -> {
+      new PlayerInputDialog(this, "Add Player", true, f).setVisible(true);
     });
-    addComputerPlayerButton.addActionListener(l -> {
-      f.addComputerPlayer();
-    });
+
     this.addKeyListener(new KeyListener() {
       @Override
       public void keyTyped(KeyEvent e) {
@@ -182,6 +180,81 @@ public class FrameView extends JFrame implements View {
       //3. A specific room gets clicked
       //3.1 in the case of player choosing move, move the player to the room
       //3.2 otherwise, display the room's info
+    }
+  }
+
+  /**
+   * Inner class for handling player input dialog
+   */
+  private class PlayerInputDialog extends JDialog {
+    private JTextField playerNameField;
+    private JTextField startingRoomField;
+    private JTextField weaponLimitsField;
+    private JRadioButton humanRadioButton;
+    private JRadioButton computerRadioButton;
+    private int playerType;
+    private Features f;
+
+    public PlayerInputDialog(JFrame parent, String title, boolean modal, Features feature) {
+      super(parent, title, modal);
+      setSize(300, 200);
+      setLocationRelativeTo(parent);
+      f = feature;
+      initUI();
+    }
+
+    private void initUI() {
+      setLayout(new FlowLayout());
+
+      playerNameField = new JTextField(15);
+      startingRoomField = new JTextField(15);
+      weaponLimitsField = new JTextField(15);
+
+      humanRadioButton = new JRadioButton("human-controlled");
+      computerRadioButton = new JRadioButton("computer-controlled");
+      ButtonGroup playerTypeGroup = new ButtonGroup(); //make them a group to be exclusive
+      playerTypeGroup.add(humanRadioButton);
+      playerTypeGroup.add(computerRadioButton);
+
+      humanRadioButton.addActionListener(k -> {
+        playerType = 0; // human
+      });
+      computerRadioButton.addActionListener(l -> {
+        playerType = 1; // computer
+      });
+
+      JButton addButton = new JButton("Add");
+      addButton.addActionListener(l -> {
+        f.addPlayer(getPlayerName(), getStartingRoom(), getWeaponLimits(), getPlayerType());
+        dispose();
+      });
+
+      add(new JLabel("Player Name:"));
+      add(playerNameField);
+      add(new JLabel("Starting Room (0-21):"));
+      add(startingRoomField);
+      add(new JLabel("Weapon Limits(0-5):"));
+      add(weaponLimitsField);
+      add(new JLabel("Player Type:"));
+      add(humanRadioButton);
+      add(computerRadioButton);
+      add(addButton);
+    }
+
+    public String getPlayerName() {
+      return playerNameField.getText();
+    }
+
+    public int getStartingRoom() {
+      return Integer.parseInt(weaponLimitsField.getText());
+    }
+
+    public int getWeaponLimits() {
+      return Integer.parseInt(weaponLimitsField.getText());
+    }
+
+    public int getPlayerType() {
+      return playerType;
     }
   }
 }

@@ -375,17 +375,17 @@ public final class MyWorld implements World {
     System.out.printf("Computer-controlled player %s is added to the game!%n", playerName);
   }
 
+  @Override
+  public int getMaxNumOfTurns() {
+    return maxNumOfTurns;
+  }
+
   /**
    * Sets the maximum number of turns.
    */
   @Override
   public void setMaxNumOfTurns(int maxNumOfTurns) {
     this.maxNumOfTurns = maxNumOfTurns;
-  }
-
-  @Override
-  public int getMaxNumOfTurns() {
-    return maxNumOfTurns;
   }
 
   /**

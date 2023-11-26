@@ -2,7 +2,6 @@ package controller.commands;
 
 import controller.Command;
 import java.util.Scanner;
-import model.MyWorld;
 import model.World;
 
 /**
