@@ -62,9 +62,8 @@ public final class Target extends AbstractCharacter {
     Room newLocation = listOfRooms.get(moveToRoom);
     updateLocation(newLocation);
 
-    System.out.println(
-        String.format("Target moves and now is in room %d.",
-            this.getCurrentLocation().getRoomNumber()));
+    System.out.printf("Target moves and now is in room %d.%n",
+        this.getCurrentLocation().getRoomNumber());
   }
 
   /**

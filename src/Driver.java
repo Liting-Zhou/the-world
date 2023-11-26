@@ -1,11 +1,12 @@
-import controller.Controller;
 import controller.ConsoleController;
+import controller.Controller;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import model.MyWorld;
+import model.World;
 
 /**
  * The Driver class handles the command-line arguments and gives control to the controller.
@@ -32,7 +33,7 @@ public final class Driver {
       //pass control to the controller
       gameController.playGame(world);
       //print the output
-      System.out.println(appendable.toString());
+      System.out.println(appendable);
 
     } catch (IllegalArgumentException e) {
       System.out.println("Illegal argument exception raised" + e);

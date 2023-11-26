@@ -2,6 +2,7 @@ package controller.commands;
 
 import controller.Command;
 import model.MyWorld;
+import model.World;
 
 /**
  * Represents the command to display target information.
@@ -9,7 +10,7 @@ import model.MyWorld;
 public final class DisplayTargetInfo implements Command {
 
   @Override
-  public void execute(MyWorld w) {
+  public void execute(World w) {
     w.displayTargetInformation();
   }
 }

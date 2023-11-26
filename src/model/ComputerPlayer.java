@@ -6,7 +6,7 @@ import java.util.List;
  * This class represents a computer player in the game.
  */
 public class ComputerPlayer extends Player {
-  private RandomNumber random;
+  private final RandomNumber random;
 
   /**
    * Constructs a new ComputerPlayer object.
@@ -31,23 +31,21 @@ public class ComputerPlayer extends Player {
   public void randomAction(Pet pet) {
     int action = random.nextRandomInt(4);
     if (action == 0) {
-      System.out.println(
-          String.format("The random action of computer player %s is to move to a neighboring room.",
-              this.getName()));
+      System.out.printf(
+          "The random action of computer player %s is to move to a neighboring room.%n",
+          this.getName());
       move();
     } else if (action == 1) {
-      System.out.println(
-          String.format("The random action of computer player %s is to pick up a weapon.",
-              this.getName()));
+      System.out.printf("The random action of computer player %s is to pick up a weapon.%n",
+          this.getName());
       pickUpWeapon();
     } else if (action == 2) {
-      System.out.println(String.format("The random action of computer player %s is to look around.",
-          this.getName()));
+      System.out.printf("The random action of computer player %s is to look around.%n",
+          this.getName());
       lookAround();
     } else {
-      System.out.println(
-          String.format("The random action of computer player %s is to move the pet.",
-              this.getName()));
+      System.out.printf("The random action of computer player %s is to move the pet.%n",
+          this.getName());
       moveThePet(pet);
     }
   }
@@ -60,18 +58,17 @@ public class ComputerPlayer extends Player {
   public void randomActionNoWeapon(Pet pet) {
     int action = random.nextRandomInt(3);
     if (action == 0) {
-      System.out.println(
-          String.format("The random action of computer player %s is to move to a neighboring room.",
-              this.getName()));
+      System.out.printf(
+          "The random action of computer player %s is to move to a neighboring room.%n",
+          this.getName());
       move();
     } else if (action == 1) {
-      System.out.println(String.format("The random action of computer player %s is to look around.",
-          this.getName()));
+      System.out.printf("The random action of computer player %s is to look around.%n",
+          this.getName());
       lookAround();
     } else {
-      System.out.println(
-          String.format("The random action of computer player %s is to move the pet.",
-              this.getName()));
+      System.out.printf("The random action of computer player %s is to move the pet.%n",
+          this.getName());
       moveThePet(pet);
     }
   }
@@ -85,8 +82,7 @@ public class ComputerPlayer extends Player {
     int index = random.nextRandomInt(neighbors.size());
     Room moveToRoom = neighbors.get(index);
     this.updateLocation(moveToRoom);
-    System.out.println(
-        String.format("Player %s is now in room %d.", this.getName(), moveToRoom.getRoomNumber()));
+    System.out.printf("Player %s is now in room %d.%n", this.getName(), moveToRoom.getRoomNumber());
   }
 
   /**
@@ -95,7 +91,7 @@ public class ComputerPlayer extends Player {
   public void pickUpWeapon() {
     //check if the player can carry more weapons
     if (weaponsCarried.size() == maxNumberOfWeapons) {
-      System.out.println(String.format("Player %s cannot carry more weapons.", this.getName()));
+      System.out.printf("Player %s cannot carry more weapons.%n", this.getName());
       return;
     }
     //list the weapons in the room
@@ -106,11 +102,10 @@ public class ComputerPlayer extends Player {
       //pick up the weapon
     } else if (weapons.size() == 1) {
       weaponsCarried.add(weapons.get(0));
-      System.out.println(
-          String.format("Player %s picked up %s with power %d.", this.getName(),
-              weapons.get(0).getName(),
-              weapons.get(0).getPower()));
-      System.out.print(String.format("Now %s", this.getName()));
+      System.out.printf("Player %s picked up %s with power %d.%n", this.getName(),
+          weapons.get(0).getName(),
+          weapons.get(0).getPower());
+      System.out.printf("Now %s", this.getName());
       displayWeaponInformation();
       //update the room information with weapons removed
       this.getCurrentLocation().removeWeapon(weapons.get(0));
@@ -119,10 +114,9 @@ public class ComputerPlayer extends Player {
       int weaponNumber = random.nextRandomInt(weapons.size());
       WeaponImp weapon = weapons.get(weaponNumber);
       weaponsCarried.add(weapon);
-      System.out.println(
-          String.format(String.format("Player %s picked up %s with power %d.", this.getName(),
-              weapon.getName(), weapon.getPower())));
-      System.out.print(String.format("Now %s", this.getName()));
+      System.out.printf((String.format("Player %s picked up %s with power %d.", this.getName(),
+          weapon.getName(), weapon.getPower())) + "%n");
+      System.out.printf("Now %s", this.getName());
       displayWeaponInformation();
       //update the room information with weapons removed
       this.getCurrentLocation().removeWeapon(weapon);
@@ -138,16 +132,14 @@ public class ComputerPlayer extends Player {
   public void attack(Target target) {
     //if no weapon carried, poking the target in the eye and reduce 1 health
     if (weaponsCarried.isEmpty()) {
-      System.out.println(
-          String.format("Computer player %s has no weapon. Just poke the target in the eye!",
-              this.getName()));
+      System.out.printf("Computer player %s has no weapon. Just poke the target in the eye!%n",
+          this.getName());
       target.healthDamage(1);
     } else if (weaponsCarried.size() == 1) {
       //if one weapon carried, use the weapon to attack
       WeaponImp weapon = weaponsCarried.get(0);
-      System.out.println(
-          String.format("Computer player %s uses %s to attack the target, target gets %d damage.",
-              this.getName(), weapon.getName(), weapon.getPower()));
+      System.out.printf("Computer player %s uses %s to attack the target, target gets %d damage.%n",
+          this.getName(), weapon.getName(), weapon.getPower());
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
@@ -161,9 +153,8 @@ public class ComputerPlayer extends Player {
           weapon = w;
         }
       }
-      System.out.println(
-          String.format("Computer player %s uses %s to attack the target, target gets %d damage.",
-              this.getName(), weapon.getName(), weapon.getPower()));
+      System.out.printf("Computer player %s uses %s to attack the target, target gets %d damage.%n",
+          this.getName(), weapon.getName(), weapon.getPower());
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
@@ -177,14 +168,13 @@ public class ComputerPlayer extends Player {
    */
   public void moveThePet(Pet pet) {
     Room currentRoom = pet.getCurrentLocation();
-    System.out.println(
-        String.format("The cat is now in room %d, %s.", currentRoom.getRoomNumber(),
-            currentRoom.getRoomName()));
+    System.out.printf("The cat is now in room %d, %s.%n", currentRoom.getRoomNumber(),
+        currentRoom.getRoomName());
 
     List<Room> neighbors = currentRoom.getNeighbors();
     Room nextWanderRoom = neighbors.get(random.nextRandomInt(neighbors.size()));
-    System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
-        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
+    System.out.printf("Next turn, Fortune the cat will wander to room %d, the %s.%n",
+        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName());
     pet.updateLocation(nextWanderRoom);
     pet.setMoved();
   }

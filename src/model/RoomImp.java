@@ -16,12 +16,12 @@ public final class RoomImp implements Room {
   private final int x2; //right bottom corner
   private final int y2; //right bottom corner
   private final String roomName;
-  private List<WeaponImp> weapons;
+  private final List<WeaponImp> weapons;
+  private final List<Player> playersInTheRoom = new ArrayList<>(); //record players in this room
   private List<Room> neighbors = new ArrayList<>();
   private boolean targetFlag = false; //record if target is in this room
   private boolean petFlag = false; //record if pet is in this room
   private boolean playerFlag = false; //record if player is in this room
-  private List<Player> playersInTheRoom = new ArrayList<>(); //record players in this room
 
   /**
    * Constructs a new model.RoomImp object.
@@ -272,8 +272,7 @@ public final class RoomImp implements Room {
   @Override
   public void displayPet() {
     if (isPetHere()) {
-      System.out.println(
-          String.format("   The cat is in room %d.", roomNumber));
+      System.out.printf("   The cat is in room %d.%n", roomNumber);
     } else {
       System.out.println("   The cat is not here.");
     }
@@ -285,8 +284,7 @@ public final class RoomImp implements Room {
   @Override
   public void displayTarget() {
     if (isTargetHere()) {
-      System.out.println(
-          String.format("   Target is in room %d!", this.getRoomNumber()));
+      System.out.printf("   Target is in room %d!%n", this.getRoomNumber());
     } else {
       System.out.println("   Target is not here.");
     }
@@ -300,8 +298,8 @@ public final class RoomImp implements Room {
   public void displayPlayers() {
     if (isAnyPlayerHere()) {
       for (Player player : playersInTheRoom) {
-        System.out.println(String.format("   Player %s is in room %d.", player.getName(),
-            this.getRoomNumber()));
+        System.out.printf("   Player %s is in room %d.%n", player.getName(),
+            this.getRoomNumber());
       }
     } else {
       System.out.println("   No player in this room.");
@@ -318,19 +316,17 @@ public final class RoomImp implements Room {
       System.out.println("-> There is no weapon in this room.");
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
-      System.out.println(
-          String.format("-> Weapon %s with power %d is in this room.", weapons.get(0).getName(),
-              weapons.get(0).getPower()));
+      System.out.printf("-> Weapon %s with power %d is in this room.%n", weapons.get(0).getName(),
+          weapons.get(0).getPower());
     } else {
-      System.out.println(String.format("-> There are %d weapons in this room: ", weapons.size()));
+      System.out.printf("-> There are %d weapons in this room: %n", weapons.size());
       int i = 1;
       for (WeaponImp weapon : weapons) {
         for (int j = 0; j < (roomName.length() + 7); j++) {
           System.out.print(" ");
         }
-        System.out.println(
-            String.format("(%d) %s with power %d", i, weapon.getName(),
-                weapon.getPower()));
+        System.out.printf("(%d) %s with power %d%n", i, weapon.getName(),
+            weapon.getPower());
         i += 1;
       }
     }
@@ -347,12 +343,10 @@ public final class RoomImp implements Room {
       //System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
         if (!neighbor.isPetHere()) {
-          System.out.println(
-              String.format("   %d. %s", neighbor.getRoomNumber(), neighbor.getRoomName()));
+          System.out.printf("   %d. %s%n", neighbor.getRoomNumber(), neighbor.getRoomName());
         } else {
-          System.out.println(
-              String.format("   You can not see room %d, the %s", neighbor.getRoomNumber(),
-                  neighbor.getRoomName()));
+          System.out.printf("   You can not see room %d, the %s%n", neighbor.getRoomNumber(),
+              neighbor.getRoomName());
         }
       }
     }
@@ -369,8 +363,7 @@ public final class RoomImp implements Room {
       System.out.println("The neighbors of this room are: ");
       for (Room neighbor : neighbors) {
         if (!neighbor.isPetHere()) {
-          System.out.print(
-              String.format("%d. %s ", neighbor.getRoomNumber(), neighbor.getRoomName()));
+          System.out.printf("%d. %s ", neighbor.getRoomNumber(), neighbor.getRoomName());
           neighbor.displayWeapons();
           //check if target in this room and display target information
           if (neighbor.isTargetHere()) {
@@ -381,9 +374,8 @@ public final class RoomImp implements Room {
             neighbor.displayPlayers();
           }
         } else {
-          System.out.println(
-              String.format("%d. %s -> You can not see this room!!!", neighbor.getRoomNumber(),
-                  neighbor.getRoomName()));
+          System.out.printf("%d. %s -> You can not see this room!!!%n", neighbor.getRoomNumber(),
+              neighbor.getRoomName());
         }
       }
     }

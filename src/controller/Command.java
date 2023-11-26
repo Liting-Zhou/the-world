@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import model.MyWorld;
+import model.World;
 
 /**
  * Represents a command in the game "MyWorld".
@@ -12,5 +13,5 @@ public interface Command {
    *
    * @param w the MyWorld model to use.
    */
-  void execute(MyWorld w) throws IOException;
+  void execute(World w) throws IOException;
 }

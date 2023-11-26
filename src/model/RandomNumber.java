@@ -7,8 +7,8 @@ import java.util.Random;
  * or predictable numbers based on the provided integer values.
  */
 public class RandomNumber implements model.Random {
-  private Random random;
-  private int[] predictableValues;
+  private final Random random;
+  private final int[] predictableValues;
   private int index;
 
   /**

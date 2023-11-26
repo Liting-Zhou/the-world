@@ -17,12 +17,12 @@ import javax.imageio.ImageIO;
  */
 public final class MyWorld implements World {
   private final int startingRoom = 0; //default value
+  private final List<Player> players = new ArrayList<>();
   int maxNumOfTurns = 100; //default value
   private List<Room> listOfRooms;
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
-  private List<Player> players = new ArrayList<>();
   private Target target;
   private Pet cat;
   private List<WeaponImp> weapons;
@@ -243,19 +243,19 @@ public final class MyWorld implements World {
     System.out.println("---------------------------------------------------------");
     System.out.println("             Game of The World Description");
     System.out.println("---------------------------------------------------------");
-    System.out.println(String.format("Welcome to %s's mansion! There are %d rooms in the mansion, "
-            + "and there might be weapons in some rooms.",
-        target.getName(), listOfRooms.size()));
+    System.out.printf("Welcome to %s's mansion! There are %d rooms in the mansion, "
+            + "and there might be weapons in some rooms.%n",
+        target.getName(), listOfRooms.size());
     //2. describe the target by name, health, starting location and rules of moving
-    System.out.println(String.format("%s is the target, who has health %d, starts from room %d "
-            + "and moves around the mansion.",
-        target.getName(), target.getHealth(), target.getCurrentLocation().getRoomNumber()));
+    System.out.printf("%s is the target, who has health %d, starts from room %d "
+            + "and moves around the mansion.%n",
+        target.getName(), target.getHealth(), target.getCurrentLocation().getRoomNumber());
     //3.describe the pet by name, starting location and rules of moving
-    System.out.println(String.format("%s has a cat named %s, who starts from the same "
+    System.out.printf("%s has a cat named %s, who starts from the same "
             + "room as the target. %s also moves around the mansion, \n"
             + "but follows a different rule "
-            + "from the target. Moreover, the room occupied by %s is not visible to neighbors.",
-        target.getName(), cat.getName(), cat.getName(), cat.getName()));
+            + "from the target. Moreover, the room occupied by %s is not visible to neighbors.%n",
+        target.getName(), cat.getName(), cat.getName(), cat.getName());
     //4. describe the player rules by introducing type, starting location, maximum number of
     //   weapons, and different actions.
     System.out.println("After initialization of the World, players can be added to the game, "
@@ -360,8 +360,7 @@ public final class MyWorld implements World {
   public void addHumanPlayer(String playerName, int startingRoomNumber, int maxNumOfWeapons) {
     int indexOfNewPlayer = players.size();
     initializePlayer(indexOfNewPlayer, 0, playerName, startingRoomNumber, maxNumOfWeapons);
-    System.out.println(
-        String.format("Human-controlled player %s is added to the game!", playerName));
+    System.out.printf("Human-controlled player %s is added to the game!%n", playerName);
   }
 
   /**
@@ -373,8 +372,7 @@ public final class MyWorld implements World {
   public void addComputerPlayer(String playerName, int startingRoomNumber, int maxNumOfWeapons) {
     int indexOfNewPlayer = players.size();
     initializePlayer(indexOfNewPlayer, 1, playerName, startingRoomNumber, maxNumOfWeapons);
-    System.out.println(
-        String.format("Computer-controlled player %s is added to the game!", playerName));
+    System.out.printf("Computer-controlled player %s is added to the game!%n", playerName);
   }
 
   /**
@@ -405,6 +403,11 @@ public final class MyWorld implements World {
     return target;
   }
 
+
+  @Override
+  public Player getCurrentPlayer() {
+    return players.get(indexOfCurrentPlayer);
+  }
 
   /**
    * Gets the list of players in the world.
@@ -477,14 +480,14 @@ public final class MyWorld implements World {
         } else {
           winner = indexOfCurrentPlayer - 1;
         }
-        System.out.println(String.format("Player %s wins!", players.get(winner).getName()));
+        System.out.printf("Player %s wins!%n", players.get(winner).getName());
         return;
       }
       System.out.println();
-      System.out.println(String.format("Turn %d has ended (%d turns left). And Target "
-              + "is now in room %d with health %d.", numOfTurnsPlayed,
+      System.out.printf("Turn %d has ended (%d turns left). And Target "
+              + "is now in room %d with health %d.%n", numOfTurnsPlayed,
           maxNumOfTurns - numOfTurnsPlayed, target.getCurrentLocation().getRoomNumber(),
-          target.getHealth()));
+          target.getHealth());
       numOfTurnsPlayed += 1;
       System.out.println("--------------");
     }
@@ -509,16 +512,15 @@ public final class MyWorld implements World {
     Player player;
     player = players.get(indexOfCurrentPlayer);
     System.out.println();
-    System.out.println(String.format("It's %s's turn!", player.getName()));
+    System.out.printf("It's %s's turn!%n", player.getName());
     System.out.println();
 
     System.out.println("USEFUL INFORMATION:");
     System.out.print("-> You");
     player.displayWeaponInformation();
-    System.out.println(
-        String.format("-> You are now in room %d, the %s",
-            player.getCurrentLocation().getRoomNumber(),
-            player.getCurrentLocation().getRoomName()));
+    System.out.printf("-> You are now in room %d, the %s%n",
+        player.getCurrentLocation().getRoomNumber(),
+        player.getCurrentLocation().getRoomName());
 
     //check if target is in this room
     if (player.getCurrentLocation().isTargetHere()) {
@@ -545,13 +547,12 @@ public final class MyWorld implements World {
     //if target is here, player can attack
     if (player.getCurrentLocation().isTargetHere()) {
       System.out.println();
-      System.out.println(
-          String.format(
-              "Now you have 5 options:%n1. Move to a neighboring space.%n2. "
-                  + "Pick up a weapon if there is any.%n3. "
-                  + "Look around.%n4. Moves the cat to a specified space.%n5. Attack the target."
-                  + "%nWhat do you want to do, %s?",
-              player.getName()));
+      System.out.printf(
+          "Now you have 5 options:%n1. Move to a neighboring space.%n2. "
+              + "Pick up a weapon if there is any.%n3. "
+              + "Look around.%n4. Moves the cat to a specified space.%n5. Attack the target."
+              + "%nWhat do you want to do, %s?%n",
+          player.getName());
       System.out.println();
 
       //check if the player is human or computer
@@ -604,13 +605,12 @@ public final class MyWorld implements World {
       }
     } else { // if target is not here.
       System.out.println();
-      System.out.println(
-          String.format(
-              "Now you have 4 options:%n1. Move to a neighboring space.%n2. "
-                  + "Pick up a weapon if there is any.%n3. "
-                  + "Look around.%n4. Moves the cat to a specified space."
-                  + "%nWhat do you want to do, %s?",
-              player.getName()));
+      System.out.printf(
+          "Now you have 4 options:%n1. Move to a neighboring space.%n2. "
+              + "Pick up a weapon if there is any.%n3. "
+              + "Look around.%n4. Moves the cat to a specified space."
+              + "%nWhat do you want to do, %s?%n",
+          player.getName());
       System.out.println();
 
       //check if the player is human or computer
@@ -672,11 +672,11 @@ public final class MyWorld implements World {
   public void displayTargetInformation() {
     // Display information about the target
     System.out.println("Target Information:");
-    System.out.println(String.format("Name: %s", target.getName()));
-    System.out.println(
-        String.format("Current Location: Room %d, %s.", target.getCurrentLocation().getRoomNumber(),
-            target.getCurrentLocation().getRoomName()));
-    System.out.println(String.format("Health: %d", target.getHealth()));
+    System.out.printf("Name: %s%n", target.getName());
+    System.out.printf("Current Location: Room %d, %s.%n",
+        target.getCurrentLocation().getRoomNumber(),
+        target.getCurrentLocation().getRoomName());
+    System.out.printf("Health: %d%n", target.getHealth());
     //System.out.println("--------------");
   }
 
@@ -721,19 +721,19 @@ public final class MyWorld implements World {
 
     //3.Display the player information
     System.out.println();
-    System.out.println(String.format("Information of player %s: ", playerDiaplayed.getName()));
+    System.out.printf("Information of player %s: %n", playerDiaplayed.getName());
     System.out.print(playerDiaplayed.getName());
     playerDiaplayed.displayWeaponInformation();
-    System.out.println(String.format("Maximum number of weapons can carry: %d",
-        playerDiaplayed.getMaxNumberOfWeapons()));
+    System.out.printf("Maximum number of weapons can carry: %d%n",
+        playerDiaplayed.getMaxNumberOfWeapons());
     if (playerDiaplayed.getTypeOfPlayer() == 0) {
       System.out.println("This is a human player.");
     } else {
       System.out.println("This is a computer player.");
     }
-    System.out.println(String.format("Current Location: Room %d, the %s.",
+    System.out.printf("Current Location: Room %d, the %s.%n",
         playerDiaplayed.getCurrentLocation().getRoomNumber(),
-        playerDiaplayed.getCurrentLocation().getRoomName()));
+        playerDiaplayed.getCurrentLocation().getRoomName());
   }
 
   /**
@@ -743,7 +743,7 @@ public final class MyWorld implements World {
   public void displayListOfRooms() {
     System.out.println("The mansion has the following rooms: ");
     for (Room room : listOfRooms) {
-      System.out.println(String.format("%d: %s", room.getRoomNumber(), room.getRoomName()));
+      System.out.printf("%d: %s%n", room.getRoomNumber(), room.getRoomName());
     }
   }
 
@@ -778,7 +778,7 @@ public final class MyWorld implements World {
     System.out.println();
 
     // 3.Display the room information
-    System.out.println(String.format("Room %d information:", roomNumber));
+    System.out.printf("Room %d information:%n", roomNumber);
     room.displayWeapons();
     room.displayTarget();
     room.displayPet();

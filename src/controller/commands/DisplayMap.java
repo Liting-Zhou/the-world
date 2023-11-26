@@ -2,6 +2,7 @@ package controller.commands;
 
 import controller.Command;
 import model.MyWorld;
+import model.World;
 
 /**
  * Represents the command to display the map.
@@ -13,7 +14,7 @@ public final class DisplayMap implements Command {
    * @param w the MyWorld model to use.
    */
   @Override
-  public void execute(MyWorld w) {
+  public void execute(World w) {
     w.saveMansionMap();
   }
 }

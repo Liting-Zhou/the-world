@@ -51,7 +51,7 @@ public class HumanPlayer extends Player {
     }
 
     this.updateLocation(listOfRooms.get(roomNumber));
-    System.out.println(String.format("You are now in room %d.", roomNumber));
+    System.out.printf("You are now in room %d.%n", roomNumber);
   }
 
   /**
@@ -71,9 +71,8 @@ public class HumanPlayer extends Player {
       //pick up the weapon
     } else if (weapons.size() == 1) {
       weaponsCarried.add(weapons.get(0));
-      System.out.println(
-          String.format("You picked up %s with power %d.", weapons.get(0).getName(),
-              weapons.get(0).getPower()));
+      System.out.printf("You picked up %s with power %d.%n", weapons.get(0).getName(),
+          weapons.get(0).getPower());
       System.out.print("Now you");
       displayWeaponInformation();
       //update the room information with weapons removed
@@ -85,8 +84,7 @@ public class HumanPlayer extends Player {
       Integer weaponNumber = scanner.nextInt();
       WeaponImp weapon = weapons.get(weaponNumber - 1);
       weaponsCarried.add(weapon);
-      System.out.println(
-          String.format("You picked up %s with power %d.", weapon.getName(), weapon.getPower()));
+      System.out.printf("You picked up %s with power %d.%n", weapon.getName(), weapon.getPower());
       System.out.print("Now you");
       displayWeaponInformation();
       //update the room information with weapons removed
@@ -150,8 +148,8 @@ public class HumanPlayer extends Player {
       } else {
         WeaponImp weapon = weaponsCarried.get(number - 1);
         weaponsCarried.remove(weapon);
-        System.out.println(String.format("You chose %s to attack the target.",
-            weapon.getName()));
+        System.out.printf("You chose %s to attack the target.%n",
+            weapon.getName());
         if (canBeSeen()) {
           System.out.println("You can be seen by other players. No damage made.");
         } else {
@@ -165,7 +163,7 @@ public class HumanPlayer extends Player {
   /**
    * Moves the pet.
    *
-   * @param pet the pet
+   * @param pet         the pet
    * @param listOfRooms the list of rooms
    */
   public void moveThePet(Pet pet, List<Room> listOfRooms) {
@@ -178,9 +176,8 @@ public class HumanPlayer extends Player {
     }
 
     System.out.println();
-    System.out.println(
-        String.format("The cat is now in room %d, %s.", currentRoom.getRoomNumber(),
-            currentRoom.getRoomName()));
+    System.out.printf("The cat is now in room %d, %s.%n", currentRoom.getRoomNumber(),
+        currentRoom.getRoomName());
     System.out.println(
         "Where do you want to teleport the cat? Select a room number from the list: ");
     System.out.println(roomNumberOfNeighbors);
@@ -200,8 +197,8 @@ public class HumanPlayer extends Player {
       }
     }
     Room nextWanderRoom = listOfRooms.get(number);
-    System.out.println(String.format("Next turn, Fortune the cat will wander to room %d, the %s.",
-        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
+    System.out.printf("Next turn, Fortune the cat will wander to room %d, the %s.%n",
+        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName());
     pet.updateLocation(nextWanderRoom);
     pet.setMoved();
   }

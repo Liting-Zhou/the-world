@@ -7,9 +7,9 @@ import java.util.List;
  * This class represents a cat in the game.
  */
 public class Cat implements Pet {
-  private String name;
+  private final String name;
+  private final List<Room> order;
   private Room currentLocation;
-  private List<Room> order;
   private boolean isMoved = false;
   //if the cat is moved by a player last turn, it will not move this turn
 

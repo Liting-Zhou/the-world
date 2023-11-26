@@ -38,6 +38,8 @@ public interface World {
    */
   Target getTarget();
 
+  Player getCurrentPlayer();
+
   /**
    * Gets the list of players in the world.
    *

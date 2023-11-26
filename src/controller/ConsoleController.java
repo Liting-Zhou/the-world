@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 import model.MyWorld;
+import model.World;
 
 /**
  * Represents the controller for the game "MyWorld", which employs the command design pattern.
@@ -38,7 +39,7 @@ public final class ConsoleController implements Controller {
   }
 
   @Override
-  public void playGame(MyWorld w) throws IllegalArgumentException, IOException {
+  public void playGame(World w) throws IllegalArgumentException, IOException {
     int maxNumOfTurns = scan.nextInt();
     if (maxNumOfTurns <= 0) {
       throw new IllegalArgumentException("Invalid arguments provided.");

@@ -2,7 +2,7 @@ package controller;
 
 
 import java.io.IOException;
-import model.MyWorld;
+import model.World;
 
 /**
  * An interface for the game controller, which handles interactions between
@@ -15,6 +15,6 @@ public interface Controller {
    * @param w The game world to be controlled.
    * @throws IllegalArgumentException for invalid arguments.
    */
-  void playGame(MyWorld w) throws IllegalArgumentException, IOException;
+  void playGame(World w) throws IllegalArgumentException, IOException;
 
 }

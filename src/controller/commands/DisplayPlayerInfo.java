@@ -2,6 +2,7 @@ package controller.commands;
 
 import controller.Command;
 import model.MyWorld;
+import model.World;
 
 /**
  * Represents the command to display a specific player information.
@@ -9,7 +10,7 @@ import model.MyWorld;
 public final class DisplayPlayerInfo implements Command {
 
   @Override
-  public void execute(MyWorld w) {
+  public void execute(World w) {
     w.displayPlayerInformation();
   }
 }

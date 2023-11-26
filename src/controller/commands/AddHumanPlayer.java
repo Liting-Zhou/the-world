@@ -3,12 +3,13 @@ package controller.commands;
 import controller.Command;
 import java.util.Scanner;
 import model.MyWorld;
+import model.World;
 
 /**
  * Represents the command to add a computer player to the game.
  */
 public final class AddHumanPlayer implements Command {
-  private Scanner scan;
+  private final Scanner scan;
 
   /**
    * Adds a computer player to the game.
@@ -20,7 +21,7 @@ public final class AddHumanPlayer implements Command {
   }
 
   @Override
-  public void execute(MyWorld w) {
+  public void execute(World w) {
     System.out.println("Please enter the name: ");
 
     //make sure the name only contains letters
