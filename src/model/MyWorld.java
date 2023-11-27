@@ -28,6 +28,7 @@ public final class MyWorld implements World {
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
   private int numOfTurnsPlayed = 1;
+  private BufferedImage map;
 
 
   /**
@@ -174,6 +175,7 @@ public final class MyWorld implements World {
     String[] restOfMansionData = new String[mansionData.length - 2];
     System.arraycopy(mansionData, 2, restOfMansionData, 0, mansionData.length - 2);
     mansionName = String.join(" ", restOfMansionData);
+    map = getBufferedImage();
   }
 
   /**
@@ -304,11 +306,15 @@ public final class MyWorld implements World {
     }
   }
 
+  @Override
+  public BufferedImage getMap() {
+    return map;
+  }
+
   /**
    * Creates a graphical representation of the world map.
    */
-  @Override
-  public BufferedImage getBufferedImage() {
+  private BufferedImage getBufferedImage() {
     int scaleFactor = 40;
     int buffer = 0;
     // create a BufferedImage to represent the map
@@ -443,7 +449,11 @@ public final class MyWorld implements World {
   @Override
   public Player getWinner() {
     if (isGameOver()) {
-      return players.get(indexOfCurrentPlayer - 1);
+      if (indexOfCurrentPlayer == 0) {
+        return players.get(players.size() - 1);
+      } else {
+        return players.get(indexOfCurrentPlayer - 1);
+      }
     }
     System.out.println("Game is not over yet.");
     return null;
@@ -473,20 +483,15 @@ public final class MyWorld implements World {
     if (!isGameOver()) {
       System.out.println("---------------");
       System.out.println("Now play the next turn!");
-      cat.wander();
+      catWander();
       roundOfTarget();
       roundOfPlayer();
 
       //check health of target, if less than zero, game over and display the winner
       if (target.getHealth() <= 0) {
         System.out.println("GAME OVER!");
-        int winner;
-        if (indexOfCurrentPlayer == 0) {
-          winner = players.size() - 1;
-        } else {
-          winner = indexOfCurrentPlayer - 1;
-        }
-        System.out.printf("Player %s wins!%n", players.get(winner).getName());
+        Player winner = getWinner();
+        System.out.printf("Player %s wins!%n", winner.getName());
         return;
       }
       System.out.println();
@@ -502,8 +507,14 @@ public final class MyWorld implements World {
   /**
    * Plays target move and update target information.
    */
-  private void roundOfTarget() {
+  @Override
+  public void roundOfTarget() {
     target.move(listOfRooms);
+  }
+
+  @Override
+  public void catWander() {
+    cat.wander();
   }
 
   /**
@@ -514,7 +525,8 @@ public final class MyWorld implements World {
    * including what spaces that can be seen from where they are.
    * Computer player randomly choose an action.
    */
-  private void roundOfPlayer() {
+  @Override
+  public void roundOfPlayer() {
     Player player;
     player = players.get(indexOfCurrentPlayer);
     System.out.println();

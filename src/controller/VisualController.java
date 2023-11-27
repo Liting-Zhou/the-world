@@ -34,8 +34,8 @@ public class VisualController implements Features {
   }
 
   @Override
-  public boolean exitGame() {
-    return true;
+  public void exitGame() {
+    System.exit(0);
   }
 
   @Override
@@ -58,17 +58,39 @@ public class VisualController implements Features {
     view.setDisplay("Game started!");
     view.displayGamePanel();
 
-    view.refresh(model.getBufferedImage(), model.getListOfPlayers(), model.getTarget());
+    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
     int maxNumOfTurns = model.getMaxNumOfTurns();
 
     while ((!model.isGameOver())
-        && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)
-        && (!exitGame())) {
-      model.playNextTurn();
+        && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)) {
       view.setDisplay(
-          String.format("Turn %d (max %d).\n Now is %s's turn.", model.getNumOfTurnsPlayed(),
+          String.format("Turn %d (max %d).\n Now is %s's turn.\n"
+                  + "You can:\n"
+                  + "(1) press 'W' and then click a neighbor room to move to"
+                  + "(2) press 'P' to pick up a weapon if there is any"
+                  + "(3) press 'L' to look around"
+                  + "(4) press 'K' to attack the target when you are in the same space"
+                  + "(5) press 'M' to move the pet", model.getNumOfTurnsPlayed(),
               maxNumOfTurns, model.getCurrentPlayer().getName()));
-      view.refresh(model.getBufferedImage(), model.getListOfPlayers(), model.getTarget());
+
+      model.catWander();
+      model.roundOfTarget();
+      view.setDisplay(String.format("Target has moved to the %s.\n",
+          model.getTarget().getCurrentLocation().getRoomName()));
+      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+      model.roundOfPlayer();
+      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+
+      if (model.isGameOver()) {
+        String winner = model.getWinner().getName();
+        view.setDisplay(String.format("Game over! %s wins!", winner));
+        break;
+      }
+      if (model.getNumOfTurnsPlayed() > maxNumOfTurns) {
+        view.setDisplay(String.format("Oops! You have run out of the maximum number of turns (%d)! "
+            + "GAME OVER!\n", maxNumOfTurns));
+        break;
+      }
     }
   }
 

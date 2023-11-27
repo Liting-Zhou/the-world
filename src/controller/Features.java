@@ -21,10 +21,8 @@ public interface Features {
 
   /**
    * Exit the game.
-   *
-   * @return true if game is exited, false otherwise
-   */
-  boolean exitGame();
+   **/
+  void exitGame();
 
   /**
    * Play the game.

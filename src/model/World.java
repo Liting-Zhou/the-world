@@ -7,7 +7,7 @@ import java.util.List;
  * Represents the main body of the model of the World.
  */
 public interface World {
-  BufferedImage getBufferedImage();
+  BufferedImage getMap();
 
   /**
    * Adds human-controlled player to the game.
@@ -91,6 +91,12 @@ public interface World {
    * Displays the map of the mansion.
    */
   void saveMansionMap();
+
+  void roundOfTarget();
+
+  void catWander();
+
+  void roundOfPlayer();
 
   /**
    * Displays information about the target.

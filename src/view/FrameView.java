@@ -30,18 +30,18 @@ import model.Target;
 
 public class FrameView extends JFrame implements View {
 
-  private  JLabel display;
+  private final JLabel display;
   //private  JTextField input;
   //private  JButton enterButton;
-  private  JButton addPlayerButton;
-  private  JButton finishSetUpButton;
-  private  JPanel buttonPanel;
-  private  JMenuItem newGameNewWorldItem;
-  private  JMenuItem newGameCurrentWorldItem;
-  private  JMenuItem quitItem;
+  private final JButton addPlayerButton;
+  private final JButton finishSetUpButton;
+  private final JPanel buttonPanel;
+  private final JMenuItem newGameNewWorldItem;
+  private final JMenuItem newGameCurrentWorldItem;
+  private final JMenuItem quitItem;
+  private final GameBoardPanel gameBoard;
+  private final JScrollPane scrollPane;
   private BufferedImage map;
-  private GameBoardPanel gameBoard;
-  private JScrollPane scrollPane;
 
 
   /**
@@ -50,8 +50,6 @@ public class FrameView extends JFrame implements View {
   public FrameView() {
     super("Game of Kill Doctor Happy");
 
-    //setSize(27*40, 23*40);
-    //setLocation(0, 0);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout());
 
@@ -70,23 +68,12 @@ public class FrameView extends JFrame implements View {
     fileMenu.add(quitItem);
 
     menuBar.add(fileMenu);
-    //menuBar.setPreferredSize(new Dimension(27*40, 40));
     //add the menu bar to the frame
     setJMenuBar(menuBar);
 
     display = new JLabel("To be displayed");
-    //display.setPreferredSize(new Dimension(27*40, 2*40));
     this.add(display, BorderLayout.PAGE_START);
     display.setVisible(false);
-
-    // the text field
-//    input = new JTextField(10);
-//    this.add(input);
-
-//    // enter button
-//    enterButton = new JButton("Enter");
-//    //enterButton.setActionCommand("Enter Button");
-//    this.add(enterButton);
 
     buttonPanel = new JPanel();
     buttonPanel.setLayout(new FlowLayout());
@@ -102,7 +89,6 @@ public class FrameView extends JFrame implements View {
     scrollPane = new JScrollPane(gameBoard);
     scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    //gameBoard.setPreferredSize(new Dimension(27*40, 20*40));
     add(scrollPane, BorderLayout.CENTER);
     scrollPane.setVisible(false);
 
@@ -121,9 +107,6 @@ public class FrameView extends JFrame implements View {
     quitItem.addActionListener(l -> {
       f.exitGame();
     });
-//    enterButton.addActionListener(l -> {
-//      f.processInput(input.getText());
-//    });
     addPlayerButton.addActionListener(l -> {
       new PlayerInputDialog(this, "Add Player", true, f).setVisible(true);
     });
@@ -238,13 +221,13 @@ public class FrameView extends JFrame implements View {
    * Inner class for handling player input dialog.
    */
   private class PlayerInputDialog extends JDialog {
+    private final Features f;
     private JTextField playerNameField;
     private JTextField startingRoomField;
     private JTextField weaponLimitsField;
     private JRadioButton humanRadioButton;
     private JRadioButton computerRadioButton;
     private int playerType;
-    private final Features f;
 
     public PlayerInputDialog(JFrame parent, String title, boolean modal, Features feature) {
       super(parent, title, modal);
@@ -313,10 +296,10 @@ public class FrameView extends JFrame implements View {
    * Inner class for the map panel.
    */
   private class GameBoardPanel extends JPanel {
+    private final int scale = 40;
     private BufferedImage image;
     private List<Player> players;
     private Target target;
-    private final int scale = 40;
 
     public void updateMap(BufferedImage newImage, List<Player> players, Target target) {
       this.image = newImage;
@@ -366,7 +349,7 @@ public class FrameView extends JFrame implements View {
 
     @Override
     public Dimension getPreferredSize() {
-      return new Dimension(27*40, 20*40);
+      return new Dimension(27 * 40, 20 * 40);
     }
   }
 }
