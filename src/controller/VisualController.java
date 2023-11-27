@@ -7,6 +7,7 @@ public class VisualController implements Features {
 
   private final World model;
   private View view;
+  private boolean exitGame = false;
 
   /**
    * Constructor.
@@ -35,7 +36,7 @@ public class VisualController implements Features {
 
   @Override
   public void exitGame() {
-    System.exit(0);
+    exitGame = true;
   }
 
   @Override
@@ -50,19 +51,10 @@ public class VisualController implements Features {
 
   @Override
   public void playGame() {
-    if (model.getListOfPlayers().isEmpty()) {
-      view.setDisplay("No player added. Please add at least one player to start the game.");
-      view.showSetUpPanel();
-      return;
-    }
-    view.setDisplay("Game started!");
-    view.displayGamePanel();
-
-    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
     int maxNumOfTurns = model.getMaxNumOfTurns();
-
     while ((!model.isGameOver())
-        && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)) {
+        && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)
+        && (!exitGame)) {
       view.setDisplay(
           String.format("Turn %d (max %d).\n Now is %s's turn.\n"
                   + "You can:\n"
@@ -91,9 +83,25 @@ public class VisualController implements Features {
             + "GAME OVER!\n", maxNumOfTurns));
         break;
       }
+      if(exitGame){
+        view.setDisplay("You choose to exit the game. Bye!");
+        break;
+      }
     }
   }
 
+
+  @Override
+  public void enterGame(){
+      if (model.getListOfPlayers().isEmpty()) {
+        view.setDisplay("No player added. Please add at least one player to start the game.");
+        view.showSetUpPanel();
+    }else{
+        view.setDisplay("Game started!");
+        view.displayGamePanel();
+        view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+      }
+  }
 
   @Override
   public void addPlayer(String name, int startingRoom, int weaponLimits, int playerType) {

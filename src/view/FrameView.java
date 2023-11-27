@@ -27,12 +27,11 @@ import javax.swing.JTextField;
 import model.Player;
 import model.Room;
 import model.Target;
+import javax.swing.SwingUtilities;
 
 public class FrameView extends JFrame implements View {
 
   private final JLabel display;
-  //private  JTextField input;
-  //private  JButton enterButton;
   private final JButton addPlayerButton;
   private final JButton finishSetUpButton;
   private final JPanel buttonPanel;
@@ -41,8 +40,6 @@ public class FrameView extends JFrame implements View {
   private final JMenuItem quitItem;
   private final GameBoardPanel gameBoard;
   private final JScrollPane scrollPane;
-  private BufferedImage map;
-
 
   /**
    * Constructor.
@@ -79,7 +76,7 @@ public class FrameView extends JFrame implements View {
     buttonPanel.setLayout(new FlowLayout());
     addPlayerButton = new JButton("Add Player");
     buttonPanel.add(addPlayerButton);
-    finishSetUpButton = new JButton("Finish Setup");
+    finishSetUpButton = new JButton("Start Game");
     buttonPanel.add(finishSetUpButton);
     add(buttonPanel, BorderLayout.PAGE_END);
     buttonPanel.setVisible(false);
@@ -112,7 +109,7 @@ public class FrameView extends JFrame implements View {
     });
     finishSetUpButton.addActionListener(l -> {
       buttonPanel.setVisible(false);
-      f.playGame();
+      f.enterGame();
     });
 
     this.addKeyListener(new KeyListener() {
@@ -136,9 +133,6 @@ public class FrameView extends JFrame implements View {
           case KeyEvent.VK_M:
             f.moveThePet();
             break;
-//          case KeyEvent.VK_ENTER:
-//            f.processInput(input.getText());
-//            break;
           default:
             break;
         }

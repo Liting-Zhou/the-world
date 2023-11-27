@@ -29,6 +29,8 @@ public interface Features {
    */
   void playGame();
 
+  void enterGame();
+
   /**
    * Add a player.
    *
@@ -78,6 +80,7 @@ public interface Features {
    * Display information of the target.
    */
   void displayTargetInfo();
+
 
   void gameSetUp();
 }
