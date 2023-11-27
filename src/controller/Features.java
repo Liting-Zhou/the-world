@@ -80,4 +80,6 @@ public interface Features {
    * Display information of the target.
    */
   void displayTargetInfo();
+
+  void gameSetUp();
 }

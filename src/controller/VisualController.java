@@ -39,21 +39,36 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void playGame() {
-    int maxNumOfTurns = model.getMaxNumOfTurns();
-
+  public void gameSetUp() {
     // display welcome message
     view.setDisplay("Welcome to the Game of Kill Doctor Happy!\n"
         + "Author: Liting Zhou\n\n"
         + "Now, add some players to the game.\n");
+    // add players
+    view.showSetUpPanel();
+  }
 
+  @Override
+  public void playGame() {
+    if (model.getListOfPlayers().isEmpty()) {
+      view.setDisplay("No player added. Please add at least one player to start the game.");
+      view.showSetUpPanel();
+      return;
+    }
+    view.setDisplay("Game started!");
+    view.displayGamePanel();
+
+    view.refresh(model.getBufferedImage(), model.getListOfPlayers(), model.getTarget());
+    int maxNumOfTurns = model.getMaxNumOfTurns();
 
     while ((!model.isGameOver())
         && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)
         && (!exitGame())) {
+      model.playNextTurn();
       view.setDisplay(
           String.format("Turn %d (max %d).\n Now is %s's turn.", model.getNumOfTurnsPlayed(),
               maxNumOfTurns, model.getCurrentPlayer().getName()));
+      view.refresh(model.getBufferedImage(), model.getListOfPlayers(), model.getTarget());
     }
   }
 
@@ -65,7 +80,8 @@ public class VisualController implements Features {
     } else {
       model.addComputerPlayer(name, startingRoom, weaponLimits);
     }
-
+    view.setDisplay(
+        String.format("Player %s added to the game. You can add up to 10 players.", name));
   }
 
   @Override

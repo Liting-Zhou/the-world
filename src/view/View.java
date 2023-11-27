@@ -1,8 +1,17 @@
 package view;
 
 import controller.Features;
+import java.awt.image.BufferedImage;
+import java.util.List;
+import model.Player;
+import model.Target;
 
 public interface View {
+
+
+  void showSetUpPanel();
+
+  void displayGamePanel();
 
   /**
    * Sets the display of the View to the given String.
@@ -14,7 +23,7 @@ public interface View {
   /**
    * Refresh the view to reflect any changes in the game state.
    */
-  void refresh();
+  void refresh(BufferedImage image, List<Player> players, Target target);
 
   /**
    * Reset the focus on the appropriate part of the view that has the keyboard

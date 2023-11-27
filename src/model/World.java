@@ -1,11 +1,14 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 /**
  * Represents the main body of the model of the World.
  */
 public interface World {
+  BufferedImage getBufferedImage();
+
   /**
    * Adds human-controlled player to the game.
    *

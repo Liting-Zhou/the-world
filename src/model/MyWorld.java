@@ -305,9 +305,10 @@ public final class MyWorld implements World {
   }
 
   /**
-   * Creates a graphical representation of the world map and saves it as an image file.
+   * Creates a graphical representation of the world map.
    */
-  private BufferedImage getBufferedImage() {
+  @Override
+  public BufferedImage getBufferedImage() {
     int scaleFactor = 40;
     int buffer = 0;
     // create a BufferedImage to represent the map

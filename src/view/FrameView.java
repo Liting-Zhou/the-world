@@ -1,11 +1,17 @@
 package view;
 
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,18 +20,29 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import model.Player;
+import model.Room;
+import model.Target;
 
 public class FrameView extends JFrame implements View {
 
-  private final JLabel display;
-  private final JTextField input;
-  private final JButton enterButton;
-  private final JButton addPlayerButton;
-  private final JMenuItem newGameNewWorldItem;
-  private final JMenuItem newGameCurrentWorldItem;
-  private final JMenuItem quitItem;
+  private  JLabel display;
+  //private  JTextField input;
+  //private  JButton enterButton;
+  private  JButton addPlayerButton;
+  private  JButton finishSetUpButton;
+  private  JPanel buttonPanel;
+  private  JMenuItem newGameNewWorldItem;
+  private  JMenuItem newGameCurrentWorldItem;
+  private  JMenuItem quitItem;
+  private BufferedImage map;
+  private GameBoardPanel gameBoard;
+  private JScrollPane scrollPane;
+
 
   /**
    * Constructor.
@@ -33,9 +50,10 @@ public class FrameView extends JFrame implements View {
   public FrameView() {
     super("Game of Kill Doctor Happy");
 
-    setSize(500, 500);
-    setLocation(20, 20);
+    //setSize(27*40, 23*40);
+    //setLocation(0, 0);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLayout(new BorderLayout());
 
     // create a menu bar
     JMenuBar menuBar = new JMenuBar();
@@ -52,27 +70,45 @@ public class FrameView extends JFrame implements View {
     fileMenu.add(quitItem);
 
     menuBar.add(fileMenu);
+    //menuBar.setPreferredSize(new Dimension(27*40, 40));
     //add the menu bar to the frame
     setJMenuBar(menuBar);
 
-    this.setLayout(new FlowLayout());
-
     display = new JLabel("To be displayed");
-    this.add(display);
+    //display.setPreferredSize(new Dimension(27*40, 2*40));
+    this.add(display, BorderLayout.PAGE_START);
+    display.setVisible(false);
 
     // the text field
-    input = new JTextField(10);
-    this.add(input);
+//    input = new JTextField(10);
+//    this.add(input);
 
-    // enter button
-    enterButton = new JButton("Enter");
-    //enterButton.setActionCommand("Enter Button");
-    this.add(enterButton);
+//    // enter button
+//    enterButton = new JButton("Enter");
+//    //enterButton.setActionCommand("Enter Button");
+//    this.add(enterButton);
 
+    buttonPanel = new JPanel();
+    buttonPanel.setLayout(new FlowLayout());
     addPlayerButton = new JButton("Add Player");
-    this.add(addPlayerButton);
+    buttonPanel.add(addPlayerButton);
+    finishSetUpButton = new JButton("Finish Setup");
+    buttonPanel.add(finishSetUpButton);
+    add(buttonPanel, BorderLayout.PAGE_END);
+    buttonPanel.setVisible(false);
 
+    //map display
+    gameBoard = new GameBoardPanel();
+    scrollPane = new JScrollPane(gameBoard);
+    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    //gameBoard.setPreferredSize(new Dimension(27*40, 20*40));
+    add(scrollPane, BorderLayout.CENTER);
+    scrollPane.setVisible(false);
+
+    setMinimumSize(new Dimension(300, 300));
     pack();
+    setLocationRelativeTo(null);
     setVisible(true);
   }
 
@@ -80,16 +116,20 @@ public class FrameView extends JFrame implements View {
   public void setFeatures(Features f) {
     //newGameNewWorldItem.addActionListener(); //TODO: what is the logic here?
     newGameCurrentWorldItem.addActionListener(l -> {
-      f.playGame();
+      f.gameSetUp();
     });
     quitItem.addActionListener(l -> {
       f.exitGame();
     });
-    enterButton.addActionListener(l -> {
-      f.processInput(input.getText());
-    });
+//    enterButton.addActionListener(l -> {
+//      f.processInput(input.getText());
+//    });
     addPlayerButton.addActionListener(l -> {
       new PlayerInputDialog(this, "Add Player", true, f).setVisible(true);
+    });
+    finishSetUpButton.addActionListener(l -> {
+      buttonPanel.setVisible(false);
+      f.playGame();
     });
 
     this.addKeyListener(new KeyListener() {
@@ -113,9 +153,9 @@ public class FrameView extends JFrame implements View {
           case KeyEvent.VK_M:
             f.moveThePet();
             break;
-          case KeyEvent.VK_ENTER:
-            f.processInput(input.getText());
-            break;
+//          case KeyEvent.VK_ENTER:
+//            f.processInput(input.getText());
+//            break;
           default:
             break;
         }
@@ -131,13 +171,24 @@ public class FrameView extends JFrame implements View {
   }
 
   @Override
-  public void setDisplay(String s) {
-    display.setText(s);
+  public void showSetUpPanel() {
+    buttonPanel.setVisible(true);
   }
 
   @Override
-  public void refresh() {
+  public void displayGamePanel() {
+    scrollPane.setVisible(true);
+  }
 
+  @Override
+  public void setDisplay(String s) {
+    display.setText(s);
+    display.setVisible(true);
+  }
+
+  @Override
+  public void refresh(BufferedImage image, List<Player> players, Target target) {
+    gameBoard.updateMap(image, players, target);
   }
 
   /*
@@ -158,7 +209,7 @@ public class FrameView extends JFrame implements View {
   }
 
   /**
-   * Inner class for handling clicks on the game board
+   * Inner class for handling clicks on the game board.
    */
   private class ClickListener extends MouseAdapter {
 
@@ -184,7 +235,7 @@ public class FrameView extends JFrame implements View {
   }
 
   /**
-   * Inner class for handling player input dialog
+   * Inner class for handling player input dialog.
    */
   private class PlayerInputDialog extends JDialog {
     private JTextField playerNameField;
@@ -193,11 +244,11 @@ public class FrameView extends JFrame implements View {
     private JRadioButton humanRadioButton;
     private JRadioButton computerRadioButton;
     private int playerType;
-    private Features f;
+    private final Features f;
 
     public PlayerInputDialog(JFrame parent, String title, boolean modal, Features feature) {
       super(parent, title, modal);
-      setSize(300, 200);
+      setSize(500, 500);
       setLocationRelativeTo(parent);
       f = feature;
       initUI();
@@ -255,6 +306,67 @@ public class FrameView extends JFrame implements View {
 
     public int getPlayerType() {
       return playerType;
+    }
+  }
+
+  /**
+   * Inner class for the map panel.
+   */
+  private class GameBoardPanel extends JPanel {
+    private BufferedImage image;
+    private List<Player> players;
+    private Target target;
+    private final int scale = 40;
+
+    public void updateMap(BufferedImage newImage, List<Player> players, Target target) {
+      this.image = newImage;
+      this.players = players;
+      this.target = target;
+      repaint();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+      super.paintComponent(g);
+
+      if (image != null) {
+        g.drawImage(image, 0, 0, this);
+      }
+
+      if (players != null) {
+        for (Player player : players) {
+          Room room = player.getCurrentLocation();
+          int x1 = room.getX1() * scale;
+          int y1 = room.getY1() * scale;
+          int x2 = room.getX2() * scale;
+          int y2 = room.getY2() * scale;
+          int x = (x1 + x2) / 2;
+          int y = (y1 + y2) / 2;
+          if (player.getTypeOfPlayer() == 0) {
+            g.setColor(Color.BLUE);
+          } else {
+            g.setColor(Color.RED);
+          }
+          g.fillOval(x - 10, y - 10, 20, 20);
+        }
+      }
+
+      if (target != null) {
+        Room room = target.getCurrentLocation();
+        int x1 = room.getX1() * scale;
+        int y1 = room.getY1() * scale;
+        int x2 = room.getX2() * scale;
+        int y2 = room.getY2() * scale;
+        int x = (x1 + x2) / 2;
+        int y = (y1 + y2) / 2;
+        g.setColor(Color.WHITE);
+        g.fillRect(x - 10, y - 10, 20, 20);
+      }
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+      return new Dimension(27*40, 20*40);
     }
   }
 }
