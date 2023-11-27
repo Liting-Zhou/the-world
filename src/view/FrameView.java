@@ -27,13 +27,13 @@ import javax.swing.JTextField;
 import model.Player;
 import model.Room;
 import model.Target;
-import javax.swing.SwingUtilities;
 
 public class FrameView extends JFrame implements View {
 
   private final JLabel display;
   private final JButton addPlayerButton;
   private final JButton finishSetUpButton;
+  private final JButton playNextTurnButton;
   private final JPanel buttonPanel;
   private final JMenuItem newGameNewWorldItem;
   private final JMenuItem newGameCurrentWorldItem;
@@ -89,6 +89,10 @@ public class FrameView extends JFrame implements View {
     add(scrollPane, BorderLayout.CENTER);
     scrollPane.setVisible(false);
 
+    playNextTurnButton = new JButton("Play Next Turn");
+    add(playNextTurnButton, BorderLayout.LINE_START);
+    playNextTurnButton.setVisible(false);
+
     setMinimumSize(new Dimension(300, 300));
     pack();
     setLocationRelativeTo(null);
@@ -111,6 +115,21 @@ public class FrameView extends JFrame implements View {
       buttonPanel.setVisible(false);
       f.enterGame();
     });
+    playNextTurnButton.addActionListener(l -> {
+      f.playNextTurn();
+    });
+    gameBoard.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        // convert the mouse coordinates to game board coordinates
+        int x = e.getX() / 40;
+        int y = e.getY() / 40;
+        if (f.getPlayerMoveMode()) {
+          f.moveToRoom(x, y);
+        }
+        f.setPlayerMoveMode(false);
+      }
+    });
 
     this.addKeyListener(new KeyListener() {
       @Override
@@ -121,6 +140,10 @@ public class FrameView extends JFrame implements View {
       @Override
       public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
+          case KeyEvent.VK_M:
+            f.setPlayerMoveMode(true);
+            setDisplay("Now click a neighboring room to move to.");
+            break;
           case KeyEvent.VK_K:
             f.attack();
             break;
@@ -130,7 +153,7 @@ public class FrameView extends JFrame implements View {
           case KeyEvent.VK_L:
             f.lookAround();
             break;
-          case KeyEvent.VK_M:
+          case KeyEvent.VK_T:
             f.moveThePet();
             break;
           default:
@@ -144,17 +167,20 @@ public class FrameView extends JFrame implements View {
       }
     });
 
-    this.addMouseListener(new ClickListener(f));
+//    this.addMouseListener(new ClickListener(f));
   }
 
   @Override
   public void showSetUpPanel() {
     buttonPanel.setVisible(true);
+//    System.out.println("After: " + buttonPanel.isVisible());
+//    System.out.println("On EDT: " + SwingUtilities.isEventDispatchThread());
   }
 
   @Override
   public void displayGamePanel() {
     scrollPane.setVisible(true);
+    playNextTurnButton.setVisible(true);
   }
 
   @Override
@@ -168,48 +194,36 @@ public class FrameView extends JFrame implements View {
     gameBoard.updateMap(image, players, target);
   }
 
-  /*
-   * In order to make this frame respond to keyboard events, it must be within
-   * strong focus. Since there could be multiple components on the screen that
-   * listen to keyboard events, we must set one as the "currently focussed" one so
-   * that all keyboard events are passed to that component. This component is said
-   * to have "strong focus".
-   *
-   * We do this by first making the component focusable and then requesting focus
-   * to it. Requesting focus makes the component have focus AND removes focus from
-   * whoever had it before.
-   */
   @Override
   public void resetFocus() {
     this.setFocusable(true);
     this.requestFocus();
   }
 
-  /**
-   * Inner class for handling clicks on the game board.
-   */
-  private class ClickListener extends MouseAdapter {
-
-    private final Features controller;
-
-    public ClickListener(Features c) {
-      this.controller = c;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-      // convert the mouse coordinates to game board coordinates
-      int x = e.getX();
-      int y = e.getY();
-
-      //TODO: implement the logic to capture a click
-      //1. player gets clicked, display player's info
-      //2. target gets clicked, display target's info
-      //3. A specific room gets clicked
-      //3.1 in the case of player choosing move, move the player to the room
-      //3.2 otherwise, display the room's info
-    }
-  }
+//  /**
+//   * Inner class for handling clicks.
+//   */
+//  private class ClickListener extends MouseAdapter {
+//
+//    private final Features controller;
+//
+//    public ClickListener(Features c) {
+//      this.controller = c;
+//    }
+//
+//    @Override
+//    public void mouseClicked(MouseEvent e) {
+//      int x = e.getX();
+//      int y = e.getY();
+//
+//      //TODO: implement the logic to capture a click
+//      //1. player gets clicked, display player's info
+//      //2. target gets clicked, display target's info
+//      //3. A specific room gets clicked
+//      //3.1 in the case of player choosing move, move the player to the room
+//      //3.2 otherwise, display the room's info
+//    }
+//  }
 
   /**
    * Inner class for handling player input dialog.
@@ -295,6 +309,7 @@ public class FrameView extends JFrame implements View {
     private List<Player> players;
     private Target target;
 
+
     public void updateMap(BufferedImage newImage, List<Player> players, Target target) {
       this.image = newImage;
       this.players = players;
@@ -345,5 +360,6 @@ public class FrameView extends JFrame implements View {
     public Dimension getPreferredSize() {
       return new Dimension(27 * 40, 20 * 40);
     }
+
   }
 }

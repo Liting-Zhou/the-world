@@ -49,7 +49,6 @@ public class HumanPlayer extends Player {
         break;
       }
     }
-
     this.updateLocation(listOfRooms.get(roomNumber));
     System.out.printf("You are now in room %d.%n", roomNumber);
   }

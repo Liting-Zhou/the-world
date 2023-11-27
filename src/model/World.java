@@ -98,6 +98,9 @@ public interface World {
 
   void roundOfPlayer();
 
+
+  void moveToRoom(int x, int y);
+
   /**
    * Displays information about the target.
    */

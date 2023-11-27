@@ -6,8 +6,10 @@ import view.View;
 public class VisualController implements Features {
 
   private final World model;
+  private final int maxNumOfTurns;
   private View view;
   private boolean exitGame = false;
+  private boolean playerMoveMode = false;
 
   /**
    * Constructor.
@@ -16,6 +18,7 @@ public class VisualController implements Features {
    */
   public VisualController(World w) {
     model = w;
+    maxNumOfTurns = model.getMaxNumOfTurns();
   }
 
   /**
@@ -49,58 +52,58 @@ public class VisualController implements Features {
     view.showSetUpPanel();
   }
 
+
   @Override
-  public void playGame() {
-    int maxNumOfTurns = model.getMaxNumOfTurns();
-    while ((!model.isGameOver())
-        && (model.getNumOfTurnsPlayed() <= maxNumOfTurns)
-        && (!exitGame)) {
-      view.setDisplay(
-          String.format("Turn %d (max %d).\n Now is %s's turn.\n"
-                  + "You can:\n"
-                  + "(1) press 'W' and then click a neighbor room to move to"
-                  + "(2) press 'P' to pick up a weapon if there is any"
-                  + "(3) press 'L' to look around"
-                  + "(4) press 'K' to attack the target when you are in the same space"
-                  + "(5) press 'M' to move the pet", model.getNumOfTurnsPlayed(),
-              maxNumOfTurns, model.getCurrentPlayer().getName()));
-
-      model.catWander();
-      model.roundOfTarget();
-      view.setDisplay(String.format("Target has moved to the %s.\n",
-          model.getTarget().getCurrentLocation().getRoomName()));
-      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+  public void playNextTurn() {
+    model.catWander();
+    model.roundOfTarget();
+    view.setDisplay(String.format("Turn %d (max %d).\n Target has moved to the %s.\n",
+        model.getNumOfTurnsPlayed(),
+        maxNumOfTurns, model.getTarget().getCurrentLocation().getRoomName()));
+    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    view.setDisplay(
+        String.format("Turn %d (max %d).\n Now is %s's turn.\n"
+                + "You can:\n"
+                + "(1) press 'M' and then click a neighbor room to move to"
+                + "(2) press 'P' to pick up a weapon if there is any"
+                + "(3) press 'L' to look around"
+                + "(4) press 'K' to attack the target when you are in the same space"
+                + "(5) press 'T' to move the pet", model.getNumOfTurnsPlayed(),
+            maxNumOfTurns, model.getCurrentPlayer().getName()));
+    if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
       model.roundOfPlayer();
-      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
-
-      if (model.isGameOver()) {
-        String winner = model.getWinner().getName();
-        view.setDisplay(String.format("Game over! %s wins!", winner));
-        break;
-      }
-      if (model.getNumOfTurnsPlayed() > maxNumOfTurns) {
-        view.setDisplay(String.format("Oops! You have run out of the maximum number of turns (%d)! "
-            + "GAME OVER!\n", maxNumOfTurns));
-        break;
-      }
-      if(exitGame){
-        view.setDisplay("You choose to exit the game. Bye!");
-        break;
-      }
+    } else {
+      //human player
+      view.resetFocus();
+      //TODO set current player index to next player
+    }
+    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    //TODO add number of turns played
+    //TODO display the result of the turn
+    if (model.isGameOver()) {
+      String winner = model.getWinner().getName();
+      view.setDisplay(String.format("Game over! %s wins!", winner));
+    }
+    if (model.getNumOfTurnsPlayed() > maxNumOfTurns) {
+      view.setDisplay(String.format("Oops! You have run out of the maximum number of turns (%d)! "
+          + "GAME OVER!\n", maxNumOfTurns));
+    }
+    if (exitGame) {
+      view.setDisplay("You choose to exit the game. Bye!");
     }
   }
 
 
   @Override
-  public void enterGame(){
-      if (model.getListOfPlayers().isEmpty()) {
-        view.setDisplay("No player added. Please add at least one player to start the game.");
-        view.showSetUpPanel();
-    }else{
-        view.setDisplay("Game started!");
-        view.displayGamePanel();
-        view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
-      }
+  public void enterGame() {
+    if (model.getListOfPlayers().isEmpty()) {
+      view.setDisplay("No player added. Please add at least one player to start the game.");
+      view.showSetUpPanel();
+    } else {
+      view.setDisplay("Game started!");
+      view.displayGamePanel();
+      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    }
   }
 
   @Override
@@ -112,11 +115,6 @@ public class VisualController implements Features {
     }
     view.setDisplay(
         String.format("Player %s added to the game. You can add up to 10 players.", name));
-  }
-
-  @Override
-  public void playerMove() {
-
   }
 
   @Override
@@ -152,5 +150,20 @@ public class VisualController implements Features {
   @Override
   public void displayTargetInfo() {
 
+  }
+
+  @Override
+  public boolean getPlayerMoveMode() {
+    return playerMoveMode;
+  }
+
+  @Override
+  public void setPlayerMoveMode(boolean b) {
+    playerMoveMode = b;
+  }
+
+  @Override
+  public void moveToRoom(int x, int y) {
+    model.moveToRoom(x, y);
   }
 }

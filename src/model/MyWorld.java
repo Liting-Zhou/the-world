@@ -683,6 +683,24 @@ public final class MyWorld implements World {
     }
   }
 
+  @Override
+  public void moveToRoom(int x, int y) {
+    Room room = findRoomByCoordinates(x, y);
+    HumanPlayer player = (HumanPlayer) players.get(indexOfCurrentPlayer);
+    if (room.isNeighbor(player.getCurrentLocation())) {
+      player.updateLocation(room);
+    }
+  }
+
+  private Room findRoomByCoordinates(int x, int y) {
+    for (Room room : listOfRooms) {
+      if (room.getX1() <= x && x <= room.getX2() && room.getY1() <= y && y <= room.getY2()) {
+        return room;
+      }
+    }
+    return null;
+  }
+
   /**
    * Displays information about the target.
    */
