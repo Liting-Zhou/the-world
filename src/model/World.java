@@ -92,12 +92,16 @@ public interface World {
    */
   void saveMansionMap();
 
+  void updateTurnsPlayed();
+
   void roundOfTarget();
 
   void catWander();
 
   void roundOfPlayer();
 
+
+  void updatePlayerTurn();
 
   void moveToRoom(int x, int y);
 

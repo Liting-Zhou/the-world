@@ -75,11 +75,12 @@ public class VisualController implements Features {
     } else {
       //human player
       view.resetFocus();
-      //TODO set current player index to next player
+      //set current player index to next player
+      model.updatePlayerTurn();
     }
-    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
-    //TODO add number of turns played
-    //TODO display the result of the turn
+    //add number of turns played
+    model.updateTurnsPlayed();
+
     if (model.isGameOver()) {
       String winner = model.getWinner().getName();
       view.setDisplay(String.format("Game over! %s wins!", winner));
@@ -91,6 +92,7 @@ public class VisualController implements Features {
     if (exitGame) {
       view.setDisplay("You choose to exit the game. Bye!");
     }
+    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
   }
 
 

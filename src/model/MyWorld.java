@@ -499,9 +499,14 @@ public final class MyWorld implements World {
               + "is now in room %d with health %d.%n", numOfTurnsPlayed,
           maxNumOfTurns - numOfTurnsPlayed, target.getCurrentLocation().getRoomNumber(),
           target.getHealth());
-      numOfTurnsPlayed += 1;
+      updateTurnsPlayed();
       System.out.println("--------------");
     }
+  }
+
+  @Override
+  public void updateTurnsPlayed() {
+    numOfTurnsPlayed++;
   }
 
   /**
@@ -674,8 +679,11 @@ public final class MyWorld implements World {
         }
       }
     }
+    updatePlayerTurn();
+  }
 
-    //finds out which player acts next turn
+  @Override
+  public void updatePlayerTurn(){
     if (indexOfCurrentPlayer == players.size() - 1) {
       indexOfCurrentPlayer = 0;
     } else {
