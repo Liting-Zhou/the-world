@@ -149,7 +149,7 @@ public class FrameView extends JFrame implements View {
             f.setPlayerMoveMode(true);
             setDisplay("Now click a neighboring room to move to.");
             break;
-          case KeyEvent.VK_K:
+          case KeyEvent.VK_A:
             f.attack();
             break;
           case KeyEvent.VK_P:

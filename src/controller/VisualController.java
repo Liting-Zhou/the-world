@@ -1,6 +1,7 @@
 package controller;
 
 import model.HumanPlayer;
+import model.Player;
 import model.Target;
 import model.WeaponImp;
 import model.World;
@@ -70,7 +71,7 @@ public class VisualController implements Features {
                 + "(1) press 'M' and then click a neighbor room to move to"
                 + "(2) press 'P' to pick up a weapon if there is any"
                 + "(3) press 'L' to look around"
-                + "(4) press 'K' to attack the target when you are in the same space"
+                + "(4) press 'A' to attack the target when you are in the same space"
                 + "(5) press 'T' to move the pet", model.getNumOfTurnsPlayed(),
             maxNumOfTurns, model.getCurrentPlayer().getName()));
     if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
@@ -231,6 +232,8 @@ public class VisualController implements Features {
 
   @Override
   public void lookAround() {
+    Player currentPlayer = model.getCurrentPlayer();
+    currentPlayer.lookAround();
 
   }
 
