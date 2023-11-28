@@ -24,9 +24,9 @@ public interface Features {
    **/
   void exitGame();
 
-  void playNextTurn();
-
   void enterGame();
+
+  void gameSetUp();
 
   /**
    * Add a player.
@@ -38,6 +38,7 @@ public interface Features {
    */
   void addPlayer(String name, int startingRoom, int weaponLimits, int playerType);
 
+  void playNextTurn();
 
   /**
    * Player makes an attempt to attack the target.
@@ -79,8 +80,6 @@ public interface Features {
    */
   void displayTargetInfo();
 
-
-  void gameSetUp();
 
   boolean getPlayerMoveMode();
 

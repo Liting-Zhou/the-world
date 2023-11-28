@@ -114,7 +114,7 @@ public class FrameView extends JFrame implements View {
       f.exitGame();
     });
     addPlayerButton.addActionListener(l -> {
-      new PlayerInputDialog(this, "Add Player", true, f).setVisible(true);
+      new AddPlayerDialog(this, "Add Player", true, f).setVisible(true);
     });
     finishSetUpButton.addActionListener(l -> {
       buttonPanel.setVisible(false);
@@ -228,23 +228,20 @@ public class FrameView extends JFrame implements View {
         this,
         panel,
         "Weapon Selection",
-        JOptionPane.OK_CANCEL_OPTION,
+        JOptionPane.DEFAULT_OPTION,
         JOptionPane.QUESTION_MESSAGE,
         null,
         null,
         null);
 
-    if (result == JOptionPane.OK_OPTION) {
-      for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
-        AbstractButton button = buttons.nextElement();
-        if (button.isSelected()) {
-          String selectedWeapon = button.getText();
-          f.attackAfterWeaponSelected(selectedWeapon);
-          break;
-        }
+    for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
+         buttons.hasMoreElements(); ) {
+      AbstractButton button = buttons.nextElement();
+      if (button.isSelected()) {
+        String selectedWeapon = button.getText();
+        f.attackAfterWeaponSelected(selectedWeapon);
+        break;
       }
-    } else {
-      setDisplay("You did not choose a weapon. Your turn ends.");
     }
   }
 
@@ -254,7 +251,7 @@ public class FrameView extends JFrame implements View {
 
     //add "your fist"
     String[] options = new String[weaponNames.length];
-    System.arraycopy(weaponNames, 0, options, 0, weaponNames.length-1);
+    System.arraycopy(weaponNames, 0, options, 0, weaponNames.length - 1);
 
     JPanel panel = new JPanel();
     ButtonGroup buttonGroup = new ButtonGroup();
@@ -270,23 +267,20 @@ public class FrameView extends JFrame implements View {
         this,
         panel,
         "Weapon Selection",
-        JOptionPane.OK_CANCEL_OPTION,
+        JOptionPane.DEFAULT_OPTION,
         JOptionPane.QUESTION_MESSAGE,
         null,
         null,
         null);
 
-    if (result == JOptionPane.OK_OPTION) {
-      for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
-        AbstractButton button = buttons.nextElement();
-        if (button.isSelected()) {
-          String selectedWeapon = button.getText();
-          f.pickUpAfterWeaponSelected(selectedWeapon);
-          break;
-        }
+    for (Enumeration<AbstractButton> buttons = buttonGroup.getElements();
+         buttons.hasMoreElements(); ) {
+      AbstractButton button = buttons.nextElement();
+      if (button.isSelected()) {
+        String selectedWeapon = button.getText();
+        f.pickUpAfterWeaponSelected(selectedWeapon);
+        break;
       }
-    } else {
-      setDisplay("You did not choose a weapon. Your turn ends.");
     }
   }
 //  /**
@@ -317,7 +311,7 @@ public class FrameView extends JFrame implements View {
   /**
    * Inner class for handling player input dialog.
    */
-  private class PlayerInputDialog extends JDialog {
+  private class AddPlayerDialog extends JDialog {
     private final Features f;
     private JTextField playerNameField;
     private JTextField startingRoomField;
@@ -326,7 +320,7 @@ public class FrameView extends JFrame implements View {
     private JRadioButton computerRadioButton;
     private int playerType;
 
-    public PlayerInputDialog(JFrame parent, String title, boolean modal, Features feature) {
+    public AddPlayerDialog(JFrame parent, String title, boolean modal, Features feature) {
       super(parent, title, modal);
       setSize(500, 500);
       setLocationRelativeTo(parent);

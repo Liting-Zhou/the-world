@@ -85,7 +85,7 @@ public class VisualController implements Features {
     //add number of turns played
     model.updateTurnsPlayed();
 
-     checkIsGameOver();
+    checkIsGameOver();
   }
 
   private void checkIsGameOver() {

@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import model.Player;
 import model.Target;
-import model.Weapon;
 import model.WeaponImp;
 
 public interface View {
