@@ -6,7 +6,13 @@ import java.util.List;
 /**
  * Represents the main body of the model of the World.
  */
-public interface World {
+public interface World extends ReadOnlyWorld{
+
+  /**
+   * Gets the map of the mansion.
+   *
+   * @return the map
+   */
   BufferedImage getMap();
 
   /**
@@ -34,6 +40,12 @@ public interface World {
    */
   Target getTarget();
 
+
+  /**
+   * Gets the current player.
+   *
+   * @return the current player
+   */
   Player getCurrentPlayer();
 
   /**
@@ -50,6 +62,11 @@ public interface World {
    */
   List<Room> getListOfRooms();
 
+  /**
+   * Gets the maximum number of turns can play.
+   *
+   * @return the maximum number of turns
+   */
   int getMaxNumOfTurns();
 
   /**
@@ -88,21 +105,42 @@ public interface World {
 
 
   /**
-   * Displays the map of the mansion.
+   * Saves the map of the mansion.
    */
   void saveMansionMap();
 
+  /**
+   * Add turns after each turn.
+   */
   void updateTurnsPlayed();
 
+  /**
+   * Play the round of target. For each turn, target moves first.
+   */
   void roundOfTarget();
 
+  /**
+   * Cat wanders before each turn.
+   */
   void catWander();
 
+  /**
+   * Play the round of player. For each turn, player moves after target moves.
+   */
   void roundOfPlayer();
 
 
+  /**
+   * Updates the current player index after each turn.
+   */
   void updatePlayerTurn();
 
+  /**
+   * Moves the player to a specific room, found by the coordinates.
+   *
+   * @param x the x coordinate of the room
+   * @param y the y coordinate of the room
+   */
   void moveToRoom(int x, int y);
 
   /**
