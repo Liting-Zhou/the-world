@@ -44,10 +44,15 @@ public interface Features {
    */
   void attack();
 
+
+  void attackAfterWeaponSelected(String weaponName);
+
   /**
-   * Player picks up an item.
+   * Player picks up a weapon.
    */
-  void pickUpItem();
+  void pickUpWeapon();
+
+  void pickUpAfterWeaponSelected(String weaponName);
 
   /**
    * Player looks around the room.

@@ -1,5 +1,8 @@
 package controller;
 
+import model.HumanPlayer;
+import model.Target;
+import model.WeaponImp;
 import model.World;
 import view.View;
 
@@ -72,6 +75,7 @@ public class VisualController implements Features {
             maxNumOfTurns, model.getCurrentPlayer().getName()));
     if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
       model.roundOfPlayer();
+      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
     } else {
       //human player
       view.resetFocus();
@@ -81,6 +85,10 @@ public class VisualController implements Features {
     //add number of turns played
     model.updateTurnsPlayed();
 
+     checkIsGameOver();
+  }
+
+  private void checkIsGameOver() {
     if (model.isGameOver()) {
       String winner = model.getWinner().getName();
       view.setDisplay(String.format("Game over! %s wins!", winner));
@@ -92,9 +100,7 @@ public class VisualController implements Features {
     if (exitGame) {
       view.setDisplay("You choose to exit the game. Bye!");
     }
-    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
   }
-
 
   @Override
   public void enterGame() {
@@ -121,12 +127,106 @@ public class VisualController implements Features {
 
   @Override
   public void attack() {
-
+    HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
+    Target target = model.getTarget();
+    if (currentPlayer.getCurrentLocation() != target.getCurrentLocation()) {
+      view.setDisplay(
+          "You can not attack the target because you are not in the same room. Choose another action.");
+      view.resetFocus();
+      return;
+    }
+    if (currentPlayer.getWeaponsCarried().isEmpty()) {
+      view.setDisplay(
+          "You have no weapon. Just poke the target in the eye!");
+      currentPlayer.attackWithNoWeapon(target);
+      if (currentPlayer.canBeSeen()) {
+        view.setDisplay(
+            "You can be seen by other player. No damage made.");
+      } else {
+        view.setDisplay(
+            "You can not be seen by other player. You made 1 damage to the target.");
+        checkIsGameOver();
+      }
+    } else {
+      view.setDisplay(
+          "Choose a weapon to attack, or just poke in the eye.");
+      view.showWeaponDialogForAttack(currentPlayer.getWeaponsCarried(), this);
+    }
   }
 
   @Override
-  public void pickUpItem() {
+  public void attackAfterWeaponSelected(String weaponName) {
+    HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
+    if (weaponName.equals("Your fist")) {
+      view.setDisplay("You chose to poke the target in the eye!");
+      currentPlayer.attackWithNoWeapon(model.getTarget());
+      if (currentPlayer.canBeSeen()) {
+        view.setDisplay(
+            "You can be seen by other player. No damage made.");
+      } else {
+        view.setDisplay(
+            "You can not be seen by other player. You made 1 damage to the target.");
+      }
+    } else {
+      for (WeaponImp weapon : currentPlayer.getWeaponsCarried()) {
+        if (weapon.getName().equals(weaponName)) {
+          view.setDisplay(String.format("You chose %s to attack the target.%n",
+              weapon.getName()));
+          currentPlayer.attackWithWeapon(weapon, model.getTarget());
+          if (currentPlayer.canBeSeen()) {
+            view.setDisplay(
+                "You can be seen by other player. No damage made.");
+          } else {
+            view.setDisplay(String.format(
+                "You can not be seen by other player. You made %d damage to the target.",
+                weapon.getPower()));
+            checkIsGameOver();
+          }
+        }
+        break;
+      }
+    }
+  }
 
+  @Override
+  public void pickUpWeapon() {
+    HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
+    if (currentPlayer.getWeaponsCarried().size() == currentPlayer.getMaxNumberOfWeapons()) {
+      view.setDisplay(
+          "You have reached the weapon limit. You can not pick up any more weapon.");
+      view.resetFocus();
+      return;
+    }
+    if (currentPlayer.getCurrentLocation().getWeapons().isEmpty()) {
+      view.setDisplay(
+          "No weapons in this room.");
+      return;
+    }
+    if (currentPlayer.getCurrentLocation().getWeapons().size() == 1) {
+      WeaponImp weapon = currentPlayer.getCurrentLocation().getWeapons().get(0);
+      currentPlayer.getWeaponsCarried().add(weapon);
+      view.setDisplay(String.format("You picked up %s with power %d.%n",
+          weapon.getName(),
+          weapon.getPower()));
+      currentPlayer.getCurrentLocation().removeWeapon(weapon);
+    } else {
+      view.setDisplay("Choose a weapon to pick up.");
+      view.showWeaponDialogForPickUp(currentPlayer.getCurrentLocation().getWeapons(), this);
+    }
+  }
+
+  @Override
+  public void pickUpAfterWeaponSelected(String weaponName) {
+    HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
+    for (WeaponImp weapon : currentPlayer.getCurrentLocation().getWeapons()) {
+      if (weapon.getName().equals(weaponName)) {
+        currentPlayer.getWeaponsCarried().add(weapon);
+        view.setDisplay(String.format("You picked up %s with power %d.%n",
+            weapon.getName(),
+            weapon.getPower()));
+        currentPlayer.getCurrentLocation().removeWeapon(weapon);
+      }
+    }
   }
 
   @Override
@@ -167,5 +267,8 @@ public class VisualController implements Features {
   @Override
   public void moveToRoom(int x, int y) {
     model.moveToRoom(x, y);
+    view.setDisplay(String.format("You have moved to the %s.\n",
+        model.getCurrentPlayer().getCurrentLocation().getRoomName()));
+    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
   }
 }

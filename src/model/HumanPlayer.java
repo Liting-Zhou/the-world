@@ -101,14 +101,7 @@ public class HumanPlayer extends Player {
     if (weaponsCarried.isEmpty()) {
       //poke target in the eye
       System.out.println("You have no weapon. Just poke the target in the eye!");
-      if (canBeSeen()) {
-        //if can be seen, no damage made
-        System.out.println("You can be seen by other players. No damage made.");
-      } else {
-        //if cannot be seen, damage made
-        System.out.println("You cannot be seen by other players. Damage made.");
-        target.healthDamage(1);
-      }
+      attackWithNoWeapon(target);
     } else {
       //if yes, display weapon, ask player to choose one
       System.out.print("You");
@@ -131,31 +124,46 @@ public class HumanPlayer extends Player {
           break;
         }
       }
-
       if (number == 0) {
         System.out.println("You chose to poke the target in the eye!");
-
-        if (canBeSeen()) {
-          //if can be seen, no damage made
-          System.out.println("You can be seen by other players. No damage made.");
-        } else {
-          //if cannot be seen, damage made
-          System.out.println("You cannot be seen by other players. Damage made.");
-          target.healthDamage(1);
-        }
-
+        attackWithNoWeapon(target);
       } else {
         WeaponImp weapon = weaponsCarried.get(number - 1);
         weaponsCarried.remove(weapon);
         System.out.printf("You chose %s to attack the target.%n",
             weapon.getName());
         if (canBeSeen()) {
-          System.out.println("You can be seen by other players. No damage made.");
+          System.out.println("You can be seen by other player. No damage made.");
         } else {
-          System.out.println("You cannot be seen by other players. Damage made.");
+          System.out.println("You cannot be seen by other player. Damage made.");
           target.healthDamage(weapon.getPower());
         }
       }
+    }
+  }
+
+
+  public void attackWithWeapon(Weapon weapon, Target target) {
+    weaponsCarried.remove(weapon);
+    System.out.printf("You chose %s to attack the target.%n",
+        weapon.getName());
+    if (canBeSeen()) {
+      System.out.println("You can be seen by other player. No damage made.");
+    } else {
+      System.out.println("You cannot be seen by other player. Damage made.");
+      target.healthDamage(weapon.getPower());
+    }
+  }
+
+
+  public void attackWithNoWeapon(Target target) {
+    if (canBeSeen()) {
+      //if can be seen, no damage made
+      System.out.println("You can be seen by other player. No damage made.");
+    } else {
+      //if cannot be seen, damage made
+      System.out.println("You cannot be seen by other player. Damage made.");
+      target.healthDamage(1);
     }
   }
 

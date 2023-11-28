@@ -73,6 +73,10 @@ public class Player extends AbstractCharacter {
     return maxNumberOfWeapons;
   }
 
+  public List<WeaponImp> getWeaponsCarried() {
+    return weaponsCarried;
+  }
+
   /**
    * Updates the location of the player. Also updates the player present flag in the previous
    * and current location.
@@ -206,5 +210,6 @@ public class Player extends AbstractCharacter {
   public int hashCode() {
     return Objects.hash(getName(), weaponsCarried, typeOfPlayer);
   }
+
 }
 

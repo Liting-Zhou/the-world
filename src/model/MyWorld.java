@@ -683,7 +683,7 @@ public final class MyWorld implements World {
   }
 
   @Override
-  public void updatePlayerTurn(){
+  public void updatePlayerTurn() {
     if (indexOfCurrentPlayer == players.size() - 1) {
       indexOfCurrentPlayer = 0;
     } else {

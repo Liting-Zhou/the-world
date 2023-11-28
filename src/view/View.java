@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import model.Player;
 import model.Target;
+import model.Weapon;
+import model.WeaponImp;
 
 public interface View {
 
@@ -37,4 +39,9 @@ public interface View {
    * @param f the set of feature callbacks as a Features object
    */
   void setFeatures(Features f);
+
+
+  void showWeaponDialogForAttack(List<WeaponImp> weapons, Features f);
+
+  void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f);
 }

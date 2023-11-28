@@ -11,7 +11,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.Enumeration;
 import java.util.List;
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -27,6 +30,8 @@ import javax.swing.JTextField;
 import model.Player;
 import model.Room;
 import model.Target;
+import model.Weapon;
+import model.WeaponImp;
 
 public class FrameView extends JFrame implements View {
 
@@ -148,7 +153,7 @@ public class FrameView extends JFrame implements View {
             f.attack();
             break;
           case KeyEvent.VK_P:
-            f.pickUpItem();
+            f.pickUpWeapon();
             break;
           case KeyEvent.VK_L:
             f.lookAround();
@@ -200,6 +205,90 @@ public class FrameView extends JFrame implements View {
     this.requestFocus();
   }
 
+  @Override
+  public void showWeaponDialogForAttack(List<WeaponImp> weapons, Features f) {
+    String[] weaponNames = weapons.stream().map(Weapon::getName).toArray(String[]::new);
+
+    //add "your fist"
+    String[] options = new String[weaponNames.length + 1];
+    System.arraycopy(weaponNames, 0, options, 0, weaponNames.length);
+    options[options.length - 1] = "Your Fist";
+
+    JPanel panel = new JPanel();
+    ButtonGroup buttonGroup = new ButtonGroup();
+
+    for (String weapon : options) {
+      JRadioButton radioButton = new JRadioButton(weapon);
+      buttonGroup.add(radioButton);
+      panel.add(radioButton);
+    }
+
+    // display the dialog
+    int result = JOptionPane.showOptionDialog(
+        this,
+        panel,
+        "Weapon Selection",
+        JOptionPane.OK_CANCEL_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        null,
+        null);
+
+    if (result == JOptionPane.OK_OPTION) {
+      for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
+        AbstractButton button = buttons.nextElement();
+        if (button.isSelected()) {
+          String selectedWeapon = button.getText();
+          f.attackAfterWeaponSelected(selectedWeapon);
+          break;
+        }
+      }
+    } else {
+      setDisplay("You did not choose a weapon. Your turn ends.");
+    }
+  }
+
+  @Override
+  public void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f) {
+    String[] weaponNames = weapons.stream().map(Weapon::getName).toArray(String[]::new);
+
+    //add "your fist"
+    String[] options = new String[weaponNames.length];
+    System.arraycopy(weaponNames, 0, options, 0, weaponNames.length-1);
+
+    JPanel panel = new JPanel();
+    ButtonGroup buttonGroup = new ButtonGroup();
+
+    for (String weapon : options) {
+      JRadioButton radioButton = new JRadioButton(weapon);
+      buttonGroup.add(radioButton);
+      panel.add(radioButton);
+    }
+
+    // display the dialog
+    int result = JOptionPane.showOptionDialog(
+        this,
+        panel,
+        "Weapon Selection",
+        JOptionPane.OK_CANCEL_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        null,
+        null);
+
+    if (result == JOptionPane.OK_OPTION) {
+      for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
+        AbstractButton button = buttons.nextElement();
+        if (button.isSelected()) {
+          String selectedWeapon = button.getText();
+          f.pickUpAfterWeaponSelected(selectedWeapon);
+          break;
+        }
+      }
+    } else {
+      setDisplay("You did not choose a weapon. Your turn ends.");
+    }
+  }
 //  /**
 //   * Inner class for handling clicks.
 //   */
@@ -352,7 +441,7 @@ public class FrameView extends JFrame implements View {
         int x = (x1 + x2) / 2;
         int y = (y1 + y2) / 2;
         g.setColor(Color.WHITE);
-        g.fillRect(x - 10, y - 10, 20, 20);
+        g.fillRect(x, y, 20, 20);
       }
     }
 
