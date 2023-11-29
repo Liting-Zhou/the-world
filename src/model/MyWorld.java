@@ -739,7 +739,7 @@ public final class MyWorld implements World {
   public String displayPlayerInformation(Player playerDiaplayed) {
     StringBuilder sb = new StringBuilder();
     sb.append(String.format("Information of player %s: %n", playerDiaplayed.getName()));
-    sb.append(playerDiaplayed.getName());
+    //playerDiaplayed.getName();
     //playerDiaplayed.displayWeaponInformation();
     sb.append(String.format("Maximum number of weapons can carry: %d%n",
         playerDiaplayed.getMaxNumberOfWeapons()));

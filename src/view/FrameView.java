@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -47,6 +48,7 @@ public class FrameView extends JFrame implements View {
   private final JMenuItem quitItem;
   private final GameBoardPanel gameBoard;
   private final JScrollPane scrollPane;
+  private final JScrollPane displayScrollPane;
 
 
   /**
@@ -77,7 +79,12 @@ public class FrameView extends JFrame implements View {
     setJMenuBar(menuBar);
 
     display = new JLabel("");
-    this.add(display, BorderLayout.LINE_START);
+    display.setPreferredSize(new Dimension(200, 800));
+    displayScrollPane = new JScrollPane(display);
+    displayScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    displayScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    this.add(displayScrollPane, BorderLayout.LINE_START);
+    displayScrollPane.setVisible(false);
 
     buttonPanel = new JPanel();
     buttonPanel.setLayout(new FlowLayout());
@@ -120,6 +127,7 @@ public class FrameView extends JFrame implements View {
     });
     finishSetUpButton.addActionListener(l -> {
       buttonPanel.setVisible(false);
+      displayScrollPane.setVisible(true);
       f.enterGame();
     });
     playNextTurnButton.addActionListener(l -> {
@@ -141,11 +149,14 @@ public class FrameView extends JFrame implements View {
             return;
           }
           //check if the click is on player
+          int numOfPlayers = f.getPlayers().size();
           for (Player player : f.getPlayers()) {
             int[] playerCoordinates = gameBoard.getCharacterCoordinates(player);
             int playerX = playerCoordinates[0];
             int playerY = playerCoordinates[1];
-            if (Math.sqrt(Math.pow(x - playerX, 2) + Math.pow(y - playerY, 2)) <= 10) {
+            int index = player.getIndexOfPlayer();
+            int baseX= playerX - numOfPlayers/2*20+index*20+10;
+            if (Math.sqrt(Math.pow(x - baseX, 2) + Math.pow(y - playerY, 2)) <= 10) {
               f.displayPlayerInfo(player);
               return;
             }
@@ -330,48 +341,51 @@ public class FrameView extends JFrame implements View {
 
     public AddPlayerDialog(JFrame parent, String title, boolean modal, Features feature) {
       super(parent, title, modal);
-      setSize(500, 500);
+      setSize(500, 300);
       setLocationRelativeTo(parent);
       f = feature;
       initUI();
     }
 
     private void initUI() {
-      setLayout(new FlowLayout());
+      setLayout(new BorderLayout());
 
-      playerNameField = new JTextField(15);
-      startingRoomField = new JTextField(15);
-      weaponLimitsField = new JTextField(15);
+      playerNameField = new JTextField(20);
+      startingRoomField = new JTextField(20);
+      weaponLimitsField = new JTextField(20);
+        humanRadioButton = new JRadioButton("Human-controlled");
+        computerRadioButton = new JRadioButton("Computer-controlled");
 
-      humanRadioButton = new JRadioButton("human-controlled");
-      computerRadioButton = new JRadioButton("computer-controlled");
-      ButtonGroup playerTypeGroup = new ButtonGroup(); //make them a group to be exclusive
-      playerTypeGroup.add(humanRadioButton);
-      playerTypeGroup.add(computerRadioButton);
+      JPanel inputPanel = new JPanel(new GridLayout(4, 2));
+      inputPanel.add(new JLabel("Player Name:"));
+      inputPanel.add(playerNameField);
+      inputPanel.add(new JLabel("Starting Room (0-21):"));
+      inputPanel.add(startingRoomField);
+      inputPanel.add(new JLabel("Weapon Limits(0-5):"));
+      inputPanel.add(weaponLimitsField);
+      inputPanel.add(new JLabel("Player Type:"));
+      JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      radioPanel.add(humanRadioButton);
+      radioPanel.add(computerRadioButton);
+      inputPanel.add(radioPanel);
 
-      humanRadioButton.addActionListener(k -> {
+      humanRadioButton.addActionListener(l -> {
         playerType = 0; // human
       });
       computerRadioButton.addActionListener(l -> {
         playerType = 1; // computer
       });
 
+      JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
       JButton addButton = new JButton("Add");
       addButton.addActionListener(l -> {
         f.addPlayer(getPlayerName(), getStartingRoom(), getWeaponLimits(), getPlayerType());
         dispose();
       });
+      buttonPanel.add(addButton);
 
-      add(new JLabel("Player Name:"));
-      add(playerNameField);
-      add(new JLabel("Starting Room (0-21):"));
-      add(startingRoomField);
-      add(new JLabel("Weapon Limits(0-5):"));
-      add(weaponLimitsField);
-      add(new JLabel("Player Type:"));
-      add(humanRadioButton);
-      add(computerRadioButton);
-      add(addButton);
+      add(inputPanel, BorderLayout.CENTER);
+      add(buttonPanel, BorderLayout.SOUTH);
     }
 
     public String getPlayerName() {
@@ -379,7 +393,7 @@ public class FrameView extends JFrame implements View {
     }
 
     public int getStartingRoom() {
-      return Integer.parseInt(weaponLimitsField.getText());
+      return Integer.parseInt(startingRoomField.getText());
     }
 
     public int getWeaponLimits() {
@@ -417,8 +431,10 @@ public class FrameView extends JFrame implements View {
       }
 
       if (players != null) {
+        int numOfPlayers = players.size();
         for (Player player : players) {
           int[] coordinates = getCharacterCoordinates(player);
+          //System.out.println("Player " + player.getName() + " coordinates: (" + coordinates[0] + ", " + coordinates[1] + ")");
           int x = coordinates[0];
           int y = coordinates[1];
           if (player.getTypeOfPlayer() == 0) {
@@ -426,7 +442,9 @@ public class FrameView extends JFrame implements View {
           } else {
             g.setColor(Color.RED);
           }
-          g.fillOval(x - 10, y - 10, 20, 20);
+          int index = player.getIndexOfPlayer();
+          int baseX = x - numOfPlayers/2*20; // in order to let players not overlap
+          g.fillOval(baseX+index*20, y-10, 20, 20);
         }
       }
 
@@ -454,6 +472,5 @@ public class FrameView extends JFrame implements View {
     public Dimension getPreferredSize() {
       return new Dimension(27 * 40, 20 * 40);
     }
-
   }
 }
