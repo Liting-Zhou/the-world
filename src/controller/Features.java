@@ -17,13 +17,6 @@ import model.Target;
  */
 public interface Features {
   /**
-   * Process the input string entered by the user.
-   *
-   * @param input the string entered by the user
-   */
-  void processInput(String input);
-
-  /**
    * Exit the game.
    **/
   void exitGame();

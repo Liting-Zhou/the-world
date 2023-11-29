@@ -39,11 +39,6 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void processInput(String input) {
-    // name of the player, starting room, and weapon limit
-  }
-
-  @Override
   public void exitGame() {
     exitGame = true;
   }
@@ -51,7 +46,7 @@ public class VisualController implements Features {
   @Override
   public void gameSetUp() {
     // display welcome message
-    view.showMessageDialog("","Welcome to the Game of Kill Doctor Happy!\n"
+    view.showMessageDialog("", "Welcome to the Game of Kill Doctor Happy!\n"
         + "Author: Liting Zhou\n\n"
         + "Now, add some players to the game.\n");
     // add players
@@ -235,7 +230,7 @@ public class VisualController implements Features {
   @Override
   public void lookAround() {
     Player currentPlayer = model.getCurrentPlayer();
-    view.showMessageDialog("Looking Around",currentPlayer.lookAround());
+    view.showMessageDialog("Looking Around", currentPlayer.lookAround());
   }
 
   @Override

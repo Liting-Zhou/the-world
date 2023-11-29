@@ -47,7 +47,7 @@ public class FrameView extends JFrame implements View {
   private final JMenuItem quitItem;
   private final GameBoardPanel gameBoard;
   private final JScrollPane scrollPane;
-  //private final JScrollPane displayScrollPane;
+
 
   /**
    * Constructor.
@@ -77,11 +77,6 @@ public class FrameView extends JFrame implements View {
     setJMenuBar(menuBar);
 
     display = new JLabel("");
-    //display.setVerticalAlignment(JLabel.TOP);
-    //int preferredWidth = getWidth();
-    //int preferredHeight = (int) (getHeight() * 0.2);
-    //displayScrollPane = new JScrollPane(display);
-    //displayScrollPane.setPreferredSize(new Dimension(preferredWidth, preferredHeight));
     this.add(display, BorderLayout.LINE_START);
 
     buttonPanel = new JPanel();
@@ -136,30 +131,30 @@ public class FrameView extends JFrame implements View {
         // convert the mouse coordinates to game board coordinates
         int x = e.getX();
         int y = e.getY();
-        if(f.getDisplayMode()){
+        if (f.getDisplayMode()) {
           //check if the click is on target
           int[] targetCoordinates = gameBoard.getCharacterCoordinates(f.getTarget());
-            int targetX = targetCoordinates[0];
-            int targetY = targetCoordinates[1];
-            if(x<=targetX+20 && x>=targetX && y<=targetY+20 && y>=targetY){
-              f.displayTargetInfo();
+          int targetX = targetCoordinates[0];
+          int targetY = targetCoordinates[1];
+          if (x <= targetX + 20 && x >= targetX && y <= targetY + 20 && y >= targetY) {
+            f.displayTargetInfo();
+            return;
+          }
+          //check if the click is on player
+          for (Player player : f.getPlayers()) {
+            int[] playerCoordinates = gameBoard.getCharacterCoordinates(player);
+            int playerX = playerCoordinates[0];
+            int playerY = playerCoordinates[1];
+            if (Math.sqrt(Math.pow(x - playerX, 2) + Math.pow(y - playerY, 2)) <= 10) {
+              f.displayPlayerInfo(player);
               return;
             }
-            //check if the click is on player
-            for(Player player: f.getPlayers()){
-              int[] playerCoordinates = gameBoard.getCharacterCoordinates(player);
-              int playerX = playerCoordinates[0];
-              int playerY = playerCoordinates[1];
-                if(Math.sqrt(Math.pow(x - playerX, 2) + Math.pow(y - playerY, 2))<=10){
-                f.displayPlayerInfo(player);
-                return;
-              }
-            }
-            //otherwise, the click is on the room
-            f.displayRoomInfo(x/40, y/40);
+          }
+          //otherwise, the click is on the room
+          f.displayRoomInfo(x / 40, y / 40);
         }
         if (f.getPlayerMoveMode()) {
-          f.moveToRoom(x/40, y/40);
+          f.moveToRoom(x / 40, y / 40);
         }
         f.setPlayerMoveMode(false);
       }
@@ -200,8 +195,6 @@ public class FrameView extends JFrame implements View {
         //do nothing
       }
     });
-
-//    this.addMouseListener(new ClickListener(f));
   }
 
   @Override
@@ -322,30 +315,6 @@ public class FrameView extends JFrame implements View {
 
     JOptionPane.showMessageDialog(this, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
   }
-//  /**
-//   * Inner class for handling clicks.
-//   */
-//  private class ClickListener extends MouseAdapter {
-//
-//    private final Features controller;
-//
-//    public ClickListener(Features c) {
-//      this.controller = c;
-//    }
-//
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//      int x = e.getX();
-//      int y = e.getY();
-//
-//      //TODO: implement the logic to capture a click
-//      //1. player gets clicked, display player's info
-//      //2. target gets clicked, display target's info
-//      //3. A specific room gets clicked
-//      //3.1 in the case of player choosing move, move the player to the room
-//      //3.2 otherwise, display the room's info
-//    }
-//  }
 
   /**
    * Inner class for handling player input dialog.
@@ -449,9 +418,9 @@ public class FrameView extends JFrame implements View {
 
       if (players != null) {
         for (Player player : players) {
-            int[] coordinates = getCharacterCoordinates(player);
-            int x = coordinates[0];
-            int y = coordinates[1];
+          int[] coordinates = getCharacterCoordinates(player);
+          int x = coordinates[0];
+          int y = coordinates[1];
           if (player.getTypeOfPlayer() == 0) {
             g.setColor(Color.BLUE);
           } else {
@@ -462,23 +431,23 @@ public class FrameView extends JFrame implements View {
       }
 
       if (target != null) {
-            int[] coordinates = getCharacterCoordinates(target);
-            int x = coordinates[0];
-            int y = coordinates[1];
+        int[] coordinates = getCharacterCoordinates(target);
+        int x = coordinates[0];
+        int y = coordinates[1];
         g.setColor(Color.WHITE);
         g.fillRect(x, y, 20, 20);
       }
     }
 
-    public int[] getCharacterCoordinates(Character c){
-        Room room = c.getCurrentLocation();
-        int x1 = room.getX1() * scale;
-        int y1 = room.getY1() * scale;
-        int x2 = room.getX2() * scale;
-        int y2 = room.getY2() * scale;
-        int x = (x1 + x2) / 2;
-        int y = (y1 + y2) / 2;
-        return new int[]{x,y};
+    public int[] getCharacterCoordinates(Character c) {
+      Room room = c.getCurrentLocation();
+      int x1 = room.getX1() * scale;
+      int y1 = room.getY1() * scale;
+      int x2 = room.getX2() * scale;
+      int y2 = room.getY2() * scale;
+      int x = (x1 + x2) / 2;
+      int y = (y1 + y2) / 2;
+      return new int[] {x, y};
     }
 
     @Override

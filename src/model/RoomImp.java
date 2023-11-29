@@ -323,8 +323,9 @@ public final class RoomImp implements Room {
       sb.append("-> There is no weapon in this room.\n");
     } else if (weapons.size() == 1) {
       //there are numbers of weapons in this room
-      sb.append(String.format("-> Weapon %s with power %d is in this room.%n", weapons.get(0).getName(),
-          weapons.get(0).getPower()));
+      sb.append(
+          String.format("-> Weapon %s with power %d is in this room.%n", weapons.get(0).getName(),
+              weapons.get(0).getPower()));
     } else {
       sb.append(String.format("-> There are %d weapons in this room: %n", weapons.size()));
       int i = 1;
@@ -402,8 +403,9 @@ public final class RoomImp implements Room {
             sb.append(neighbor.displayPlayers());
           }
         } else {
-          sb.append(String.format("%d. %s -> You can not see this room!!!%n", neighbor.getRoomNumber(),
-              neighbor.getRoomName()));
+          sb.append(
+              String.format("%d. %s -> You can not see this room!!!%n", neighbor.getRoomNumber(),
+                  neighbor.getRoomName()));
         }
       }
     }

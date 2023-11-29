@@ -711,7 +711,7 @@ public final class MyWorld implements World {
   }
 
   @Override
-  public String moveThePet(){
+  public String moveThePet() {
     ComputerPlayer player = (ComputerPlayer) players.get(indexOfCurrentPlayer);
     return player.moveThePet(cat);
   }
@@ -755,7 +755,7 @@ public final class MyWorld implements World {
   }
 
   @Override
-  public void getPlayerAndDisplay(){
+  public void getPlayerAndDisplay() {
     System.out.println();
     if (players.isEmpty()) {
       System.out.println("No player is added in the game yet.");
@@ -821,7 +821,7 @@ public final class MyWorld implements World {
   }
 
   @Override
-  public void getRoomAndDisplay(){
+  public void getRoomAndDisplay() {
     // 1.Display list of rooms
     System.out.println();
     displayListOfRooms();
