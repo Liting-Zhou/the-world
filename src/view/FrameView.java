@@ -29,6 +29,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import model.Character;
 import model.Player;
 import model.Room;
@@ -155,7 +159,7 @@ public class FrameView extends JFrame implements View {
             int playerX = playerCoordinates[0];
             int playerY = playerCoordinates[1];
             int index = player.getIndexOfPlayer();
-            int baseX= playerX - numOfPlayers/2*20+index*20+10;
+            int baseX = playerX - numOfPlayers / 2 * 20 + index * 20 + 10;
             if (Math.sqrt(Math.pow(x - baseX, 2) + Math.pow(y - playerY, 2)) <= 10) {
               f.displayPlayerInfo(player);
               return;
@@ -350,24 +354,30 @@ public class FrameView extends JFrame implements View {
     private void initUI() {
       setLayout(new BorderLayout());
 
-      playerNameField = new JTextField(20);
-      startingRoomField = new JTextField(20);
-      weaponLimitsField = new JTextField(20);
-        humanRadioButton = new JRadioButton("Human-controlled");
-        computerRadioButton = new JRadioButton("Computer-controlled");
+      JPanel inputPanel = new JPanel(new GridLayout(3, 2));
 
-      JPanel inputPanel = new JPanel(new GridLayout(4, 2));
-      inputPanel.add(new JLabel("Player Name:"));
+      inputPanel.add(new JLabel(" Player Name:"));
+      playerNameField = controlTextField(20, "[a-zA-Z ]");
       inputPanel.add(playerNameField);
-      inputPanel.add(new JLabel("Starting Room (0-21):"));
+
+      inputPanel.add(new JLabel(" Starting Room (0-21):"));
+      startingRoomField = controlTextField(20, "[0-9]|1[0-9]|2[0-1]");
       inputPanel.add(startingRoomField);
-      inputPanel.add(new JLabel("Weapon Limits(0-5):"));
+
+      inputPanel.add(new JLabel(" Weapon Limit (0-5):"));
+      weaponLimitsField = controlTextField(20, "[0-5]");
       inputPanel.add(weaponLimitsField);
-      inputPanel.add(new JLabel("Player Type:"));
+
       JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+      radioPanel.add(new JLabel("Player Type:"));
+      ButtonGroup playerTypeGroup = new ButtonGroup();
+
+      humanRadioButton = new JRadioButton("Human-controlled");
+      computerRadioButton = new JRadioButton("Computer-controlled");
+      playerTypeGroup.add(humanRadioButton);
+      playerTypeGroup.add(computerRadioButton);
       radioPanel.add(humanRadioButton);
       radioPanel.add(computerRadioButton);
-      inputPanel.add(radioPanel);
 
       humanRadioButton.addActionListener(l -> {
         playerType = 0; // human
@@ -379,13 +389,44 @@ public class FrameView extends JFrame implements View {
       JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
       JButton addButton = new JButton("Add");
       addButton.addActionListener(l -> {
-        f.addPlayer(getPlayerName(), getStartingRoom(), getWeaponLimits(), getPlayerType());
-        dispose();
+        if (checkInput()) {
+          f.addPlayer(getPlayerName(), getStartingRoom(), getWeaponLimits(), getPlayerType());
+          dispose();
+        } else {
+          JOptionPane.showMessageDialog(this, "Invalid input. Please check the numbers.", "Error",
+              JOptionPane.ERROR_MESSAGE);
+        }
       });
       buttonPanel.add(addButton);
 
+      add(radioPanel, BorderLayout.NORTH);
       add(inputPanel, BorderLayout.CENTER);
       add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private JTextField controlTextField(int columns, String regex) {
+      JTextField textField = new JTextField(columns);
+      ((AbstractDocument) textField.getDocument()).setDocumentFilter(
+          new RegexDocumentFilter(regex));
+      return textField;
+    }
+
+    private boolean checkInput() {
+      if (playerNameField.getText().isEmpty()) {
+        return false;
+      }
+
+      int startingRoom = Integer.parseInt(startingRoomField.getText());
+      int weaponLimits = Integer.parseInt(weaponLimitsField.getText());
+
+      if (startingRoom < 0 || startingRoom > 21) {
+        return false;
+      }
+
+      if (weaponLimits < 0 || weaponLimits > 5) {
+        return false;
+      }
+      return true;
     }
 
     public String getPlayerName() {
@@ -402,6 +443,30 @@ public class FrameView extends JFrame implements View {
 
     public int getPlayerType() {
       return playerType;
+    }
+
+    private class RegexDocumentFilter extends DocumentFilter {
+      private final String regex;
+
+      public RegexDocumentFilter(String regex) {
+        this.regex = regex;
+      }
+
+      @Override
+      public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
+          throws BadLocationException {
+        if (string.matches(regex)) {
+          super.insertString(fb, offset, string, attr);
+        }
+      }
+
+      @Override
+      public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+          throws BadLocationException {
+        if (text.matches(regex)) {
+          super.replace(fb, offset, length, text, attrs);
+        }
+      }
     }
   }
 
@@ -443,8 +508,8 @@ public class FrameView extends JFrame implements View {
             g.setColor(Color.RED);
           }
           int index = player.getIndexOfPlayer();
-          int baseX = x - numOfPlayers/2*20; // in order to let players not overlap
-          g.fillOval(baseX+index*20, y-10, 20, 20);
+          int baseX = x - numOfPlayers / 2 * 20; // in order to let players not overlap
+          g.fillOval(baseX + index * 20, y - 10, 20, 20);
         }
       }
 
