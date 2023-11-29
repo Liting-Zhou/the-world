@@ -606,7 +606,7 @@ public final class MyWorld implements World {
           p.pickUpWeapon();
         } else if (action == 3) {
           //look around
-          p.lookAround();
+          System.out.printf(p.lookAround());
         } else if (action == 4) {
           p.moveThePet(cat, listOfRooms);
         } else {
@@ -665,7 +665,7 @@ public final class MyWorld implements World {
           p.pickUpWeapon();
         } else if (action == 3) {
           //look around
-          p.lookAround();
+          System.out.printf(p.lookAround());
         } else {
           p.moveThePet(cat, listOfRooms);
         }
@@ -700,7 +700,8 @@ public final class MyWorld implements World {
     }
   }
 
-  private Room findRoomByCoordinates(int x, int y) {
+  @Override
+  public Room findRoomByCoordinates(int x, int y) {
     for (Room room : listOfRooms) {
       if (room.getX1() <= x && x <= room.getX2() && room.getY1() <= y && y <= room.getY2()) {
         return room;
@@ -709,26 +710,52 @@ public final class MyWorld implements World {
     return null;
   }
 
+  @Override
+  public String moveThePet(){
+    ComputerPlayer player = (ComputerPlayer) players.get(indexOfCurrentPlayer);
+    return player.moveThePet(cat);
+  }
+
   /**
    * Displays information about the target.
    */
   @Override
-  public void displayTargetInformation() {
-    // Display information about the target
-    System.out.println("Target Information:");
-    System.out.printf("Name: %s%n", target.getName());
-    System.out.printf("Current Location: Room %d, %s.%n",
+  public String displayTargetInformation() {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("Target Information:\n");
+    sb.append(String.format("Name: %s%n", target.getName()));
+    sb.append(String.format("Current Location: Room %d, %s.%n",
         target.getCurrentLocation().getRoomNumber(),
-        target.getCurrentLocation().getRoomName());
-    System.out.printf("Health: %d%n", target.getHealth());
-    //System.out.println("--------------");
+        target.getCurrentLocation().getRoomName()));
+    sb.append(String.format("Health: %d%n", target.getHealth()));
+    return sb.toString();
   }
 
   /**
    * Displays information about the specified player.
    */
   @Override
-  public void displayPlayerInformation() {
+  public String displayPlayerInformation(Player playerDiaplayed) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(String.format("Information of player %s: %n", playerDiaplayed.getName()));
+    sb.append(playerDiaplayed.getName());
+    //playerDiaplayed.displayWeaponInformation();
+    sb.append(String.format("Maximum number of weapons can carry: %d%n",
+        playerDiaplayed.getMaxNumberOfWeapons()));
+    if (playerDiaplayed.getTypeOfPlayer() == 0) {
+      sb.append("This is a human player.\n");
+    } else {
+      sb.append("This is a computer player.\n");
+    }
+    sb.append(String.format("Current Location: Room %d, the %s.%n",
+        playerDiaplayed.getCurrentLocation().getRoomNumber(),
+        playerDiaplayed.getCurrentLocation().getRoomName()));
+    return sb.toString();
+  }
+
+  @Override
+  public void getPlayerAndDisplay(){
     System.out.println();
     if (players.isEmpty()) {
       System.out.println("No player is added in the game yet.");
@@ -765,19 +792,7 @@ public final class MyWorld implements World {
 
     //3.Display the player information
     System.out.println();
-    System.out.printf("Information of player %s: %n", playerDiaplayed.getName());
-    System.out.print(playerDiaplayed.getName());
-    playerDiaplayed.displayWeaponInformation();
-    System.out.printf("Maximum number of weapons can carry: %d%n",
-        playerDiaplayed.getMaxNumberOfWeapons());
-    if (playerDiaplayed.getTypeOfPlayer() == 0) {
-      System.out.println("This is a human player.");
-    } else {
-      System.out.println("This is a computer player.");
-    }
-    System.out.printf("Current Location: Room %d, the %s.%n",
-        playerDiaplayed.getCurrentLocation().getRoomNumber(),
-        playerDiaplayed.getCurrentLocation().getRoomName());
+    displayPlayerInformation(playerDiaplayed);
   }
 
   /**
@@ -795,7 +810,18 @@ public final class MyWorld implements World {
    * Displays information about a specific room.
    */
   @Override
-  public void displayRoomInformation() {
+  public String displayRoomInformation(Room room) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(String.format("Room %d information:%n", room.getRoomNumber()));
+    //sb.append(room.displayWeapons());
+    sb.append(room.displayTarget());
+    sb.append(room.displayPet());
+    sb.append(room.displayPlayers());
+    return sb.toString();
+  }
+
+  @Override
+  public void getRoomAndDisplay(){
     // 1.Display list of rooms
     System.out.println();
     displayListOfRooms();
@@ -822,10 +848,6 @@ public final class MyWorld implements World {
     System.out.println();
 
     // 3.Display the room information
-    System.out.printf("Room %d information:%n", roomNumber);
-    room.displayWeapons();
-    room.displayTarget();
-    room.displayPet();
-    room.displayPlayers();
+    System.out.printf(displayRoomInformation(room));
   }
 }

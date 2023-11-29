@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import model.HumanPlayer;
 import model.Player;
 import model.Target;
@@ -14,6 +15,7 @@ public class VisualController implements Features {
   private View view;
   private boolean exitGame = false;
   private boolean playerMoveMode = false;
+  private boolean displayMode = true;
 
   /**
    * Constructor.
@@ -49,7 +51,7 @@ public class VisualController implements Features {
   @Override
   public void gameSetUp() {
     // display welcome message
-    view.setDisplay("Welcome to the Game of Kill Doctor Happy!\n"
+    view.showMessageDialog("","Welcome to the Game of Kill Doctor Happy!\n"
         + "Author: Liting Zhou\n\n"
         + "Now, add some players to the game.\n");
     // add players
@@ -233,28 +235,44 @@ public class VisualController implements Features {
   @Override
   public void lookAround() {
     Player currentPlayer = model.getCurrentPlayer();
-    currentPlayer.lookAround();
-
+    view.showMessageDialog("Looking Around",currentPlayer.lookAround());
   }
 
   @Override
   public void moveThePet() {
-
+    view.setDisplay(model.moveThePet());
   }
 
   @Override
-  public void displayRoomInfo() {
-
+  public void displayRoomInfo(int x, int y) {
+    String display = model.displayRoomInformation(model.findRoomByCoordinates(x, y));
+    view.showMessageDialog("Room Information", display);
   }
 
   @Override
-  public void displayPlayerInfo() {
-
+  public void displayPlayerInfo(Player player) {
+    view.showMessageDialog("Player Information", model.displayPlayerInformation(player));
   }
 
   @Override
   public void displayTargetInfo() {
+    view.showMessageDialog("Target Information", model.displayTargetInformation());
 
+  }
+
+  @Override
+  public Target getTarget() {
+    return model.getTarget();
+  }
+
+  @Override
+  public List<Player> getPlayers() {
+    return model.getListOfPlayers();
+  }
+
+  @Override
+  public boolean getDisplayMode() {
+    return displayMode;
   }
 
   @Override
@@ -265,6 +283,7 @@ public class VisualController implements Features {
   @Override
   public void setPlayerMoveMode(boolean b) {
     playerMoveMode = b;
+    displayMode = !b;
   }
 
   @Override

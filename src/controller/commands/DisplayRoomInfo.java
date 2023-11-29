@@ -11,6 +11,6 @@ public final class DisplayRoomInfo implements Command {
 
   @Override
   public void execute(World w) {
-    w.displayRoomInformation();
+    w.getRoomAndDisplay();
   }
 }

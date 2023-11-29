@@ -74,7 +74,7 @@ public interface ReadOnlyWorld {
   /**
    * Displays information about the target.
    */
-  void displayTargetInformation();
+  String displayTargetInformation();
 
   /**
    * Displays the list of rooms in the world.
@@ -84,10 +84,10 @@ public interface ReadOnlyWorld {
   /**
    * Displays information about the specified player.
    */
-  void displayPlayerInformation();
+  String displayPlayerInformation(Player player);
 
   /**
    * Displays information about the target and players.
    */
-  void displayRoomInformation();
+  String displayRoomInformation(Room room);
 }

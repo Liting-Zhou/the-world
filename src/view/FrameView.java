@@ -26,7 +26,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.Character;
 import model.Player;
 import model.Room;
 import model.Target;
@@ -45,6 +47,7 @@ public class FrameView extends JFrame implements View {
   private final JMenuItem quitItem;
   private final GameBoardPanel gameBoard;
   private final JScrollPane scrollPane;
+  //private final JScrollPane displayScrollPane;
 
   /**
    * Constructor.
@@ -73,9 +76,13 @@ public class FrameView extends JFrame implements View {
     //add the menu bar to the frame
     setJMenuBar(menuBar);
 
-    display = new JLabel("To be displayed");
-    this.add(display, BorderLayout.PAGE_START);
-    display.setVisible(false);
+    display = new JLabel("");
+    //display.setVerticalAlignment(JLabel.TOP);
+    //int preferredWidth = getWidth();
+    //int preferredHeight = (int) (getHeight() * 0.2);
+    //displayScrollPane = new JScrollPane(display);
+    //displayScrollPane.setPreferredSize(new Dimension(preferredWidth, preferredHeight));
+    this.add(display, BorderLayout.LINE_START);
 
     buttonPanel = new JPanel();
     buttonPanel.setLayout(new FlowLayout());
@@ -95,7 +102,7 @@ public class FrameView extends JFrame implements View {
     scrollPane.setVisible(false);
 
     playNextTurnButton = new JButton("Play Next Turn");
-    add(playNextTurnButton, BorderLayout.LINE_START);
+    add(playNextTurnButton, BorderLayout.PAGE_START);
     playNextTurnButton.setVisible(false);
 
     setMinimumSize(new Dimension(300, 300));
@@ -127,10 +134,32 @@ public class FrameView extends JFrame implements View {
       @Override
       public void mouseClicked(MouseEvent e) {
         // convert the mouse coordinates to game board coordinates
-        int x = e.getX() / 40;
-        int y = e.getY() / 40;
+        int x = e.getX();
+        int y = e.getY();
+        if(f.getDisplayMode()){
+          //check if the click is on target
+          int[] targetCoordinates = gameBoard.getCharacterCoordinates(f.getTarget());
+            int targetX = targetCoordinates[0];
+            int targetY = targetCoordinates[1];
+            if(x<=targetX+20 && x>=targetX && y<=targetY+20 && y>=targetY){
+              f.displayTargetInfo();
+              return;
+            }
+            //check if the click is on player
+            for(Player player: f.getPlayers()){
+              int[] playerCoordinates = gameBoard.getCharacterCoordinates(player);
+              int playerX = playerCoordinates[0];
+              int playerY = playerCoordinates[1];
+                if(Math.sqrt(Math.pow(x - playerX, 2) + Math.pow(y - playerY, 2))<=10){
+                f.displayPlayerInfo(player);
+                return;
+              }
+            }
+            //otherwise, the click is on the room
+            f.displayRoomInfo(x/40, y/40);
+        }
         if (f.getPlayerMoveMode()) {
-          f.moveToRoom(x, y);
+          f.moveToRoom(x/40, y/40);
         }
         f.setPlayerMoveMode(false);
       }
@@ -191,7 +220,7 @@ public class FrameView extends JFrame implements View {
   @Override
   public void setDisplay(String s) {
     display.setText(s);
-    display.setVisible(true);
+    //displayScrollPane.setVisible(true);
   }
 
   @Override
@@ -282,6 +311,16 @@ public class FrameView extends JFrame implements View {
         break;
       }
     }
+  }
+
+  @Override
+  public void showMessageDialog(String title, String information) {
+    JTextArea textArea = new JTextArea(information);
+    textArea.setEditable(false);
+    JScrollPane scrollPane = new JScrollPane(textArea);
+    scrollPane.setPreferredSize(new Dimension(300, 200));
+
+    JOptionPane.showMessageDialog(this, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
   }
 //  /**
 //   * Inner class for handling clicks.
@@ -410,13 +449,9 @@ public class FrameView extends JFrame implements View {
 
       if (players != null) {
         for (Player player : players) {
-          Room room = player.getCurrentLocation();
-          int x1 = room.getX1() * scale;
-          int y1 = room.getY1() * scale;
-          int x2 = room.getX2() * scale;
-          int y2 = room.getY2() * scale;
-          int x = (x1 + x2) / 2;
-          int y = (y1 + y2) / 2;
+            int[] coordinates = getCharacterCoordinates(player);
+            int x = coordinates[0];
+            int y = coordinates[1];
           if (player.getTypeOfPlayer() == 0) {
             g.setColor(Color.BLUE);
           } else {
@@ -427,16 +462,23 @@ public class FrameView extends JFrame implements View {
       }
 
       if (target != null) {
-        Room room = target.getCurrentLocation();
+            int[] coordinates = getCharacterCoordinates(target);
+            int x = coordinates[0];
+            int y = coordinates[1];
+        g.setColor(Color.WHITE);
+        g.fillRect(x, y, 20, 20);
+      }
+    }
+
+    public int[] getCharacterCoordinates(Character c){
+        Room room = c.getCurrentLocation();
         int x1 = room.getX1() * scale;
         int y1 = room.getY1() * scale;
         int x2 = room.getX2() * scale;
         int y2 = room.getY2() * scale;
         int x = (x1 + x2) / 2;
         int y = (y1 + y2) / 2;
-        g.setColor(Color.WHITE);
-        g.fillRect(x, y, 20, 20);
-      }
+        return new int[]{x,y};
     }
 
     @Override

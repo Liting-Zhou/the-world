@@ -75,4 +75,14 @@ public interface World extends ReadOnlyWorld {
    * @param y the y coordinate of the room
    */
   void moveToRoom(int x, int y);
+
+  Room findRoomByCoordinates(int x, int y);
+
+  String moveThePet();
+
+  void getPlayerAndDisplay();
+
+  String displayRoomInformation(Room room);
+
+  void getRoomAndDisplay();
 }

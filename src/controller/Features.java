@@ -1,5 +1,9 @@
 package controller;
 
+import java.util.List;
+import model.Player;
+import model.Target;
+
 /**
  * This interface represents a set of features that the program offers. Each
  * feature is exposed as a function in this interface. This function is used
@@ -68,18 +72,24 @@ public interface Features {
   /**
    * Display information of a specific room.
    */
-  void displayRoomInfo();
+  void displayRoomInfo(int x, int y);
 
   /**
    * Display information of a specific player.
    */
-  void displayPlayerInfo();
+  void displayPlayerInfo(Player player);
 
   /**
    * Display information of the target.
    */
   void displayTargetInfo();
 
+
+  Target getTarget();
+
+  List<Player> getPlayers();
+
+  boolean getDisplayMode();
 
   boolean getPlayerMoveMode();
 

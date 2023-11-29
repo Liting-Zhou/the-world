@@ -10,6 +10,6 @@ public final class DisplayTargetInfo implements Command {
 
   @Override
   public void execute(World w) {
-    w.displayTargetInformation();
+    System.out.printf(w.displayTargetInformation());
   }
 }

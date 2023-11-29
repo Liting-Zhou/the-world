@@ -43,4 +43,6 @@ public interface View {
   void showWeaponDialogForAttack(List<WeaponImp> weapons, Features f);
 
   void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f);
+
+  void showMessageDialog(String title, String information);
 }

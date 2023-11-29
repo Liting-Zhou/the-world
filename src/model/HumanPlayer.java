@@ -77,7 +77,7 @@ public class HumanPlayer extends Player {
       //update the room information with weapons removed
       this.getCurrentLocation().removeWeapon(weapons.get(0));
     } else {
-      this.getCurrentLocation().displayWeapons();
+      System.out.printf(this.getCurrentLocation().displayWeapons());
       Scanner scanner = new Scanner(System.in);
       System.out.println("Which one do you want to pick up? Enter the corresponding number: ");
       Integer weaponNumber = scanner.nextInt();

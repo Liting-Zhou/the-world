@@ -154,12 +154,12 @@ public interface Room {
   /**
    * Displays pet information.
    **/
-  void displayPet();
+  String displayPet();
 
   /**
    * Displays target information.
    **/
-  void displayTarget();
+  String displayTarget();
 
   /**
    * Finds out if any player is here.
@@ -179,12 +179,12 @@ public interface Room {
   /**
    * Displays information of all players in the room.
    **/
-  void displayPlayers();
+  String displayPlayers();
 
   /**
    * Displays the weapon information in the room.
    */
-  void displayWeapons();
+  String displayWeapons();
 
   /**
    * Displays the room number and name of neighbors.
@@ -194,5 +194,5 @@ public interface Room {
   /**
    * Displays the neighbors of the room with all information.
    */
-  void displayNeighborsAllInfo();
+  String displayNeighborsAllInfo();
 }

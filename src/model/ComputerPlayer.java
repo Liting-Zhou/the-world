@@ -42,11 +42,11 @@ public class ComputerPlayer extends Player {
     } else if (action == 2) {
       System.out.printf("The random action of computer player %s is to look around.%n",
           this.getName());
-      lookAround();
+      System.out.printf(lookAround());
     } else {
       System.out.printf("The random action of computer player %s is to move the pet.%n",
           this.getName());
-      moveThePet(pet);
+      System.out.printf(moveThePet(pet));
     }
   }
 
@@ -65,11 +65,11 @@ public class ComputerPlayer extends Player {
     } else if (action == 1) {
       System.out.printf("The random action of computer player %s is to look around.%n",
           this.getName());
-      lookAround();
+      System.out.printf(lookAround());
     } else {
       System.out.printf("The random action of computer player %s is to move the pet.%n",
           this.getName());
-      moveThePet(pet);
+      System.out.printf(moveThePet(pet));
     }
   }
 
@@ -166,16 +166,18 @@ public class ComputerPlayer extends Player {
    *
    * @param pet The pet in the game.
    */
-  public void moveThePet(Pet pet) {
+  public String moveThePet(Pet pet) {
+    StringBuilder sb = new StringBuilder();
     Room currentRoom = pet.getCurrentLocation();
-    System.out.printf("The cat is now in room %d, %s.%n", currentRoom.getRoomNumber(),
-        currentRoom.getRoomName());
+    sb.append(String.format("The cat is now in room %d, %s.%n", currentRoom.getRoomNumber(),
+        currentRoom.getRoomName()));
 
     List<Room> neighbors = currentRoom.getNeighbors();
     Room nextWanderRoom = neighbors.get(random.nextRandomInt(neighbors.size()));
-    System.out.printf("Next turn, Fortune the cat will wander to room %d, the %s.%n",
-        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName());
+    sb.append(String.format("Next turn, Fortune the cat will wander to room %d, the %s.%n",
+        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);
     pet.setMoved();
+    return sb.toString();
   }
 }

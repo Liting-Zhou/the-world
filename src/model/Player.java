@@ -1,5 +1,7 @@
 package model;
 
+import static java.lang.ProcessBuilder.Redirect.appendTo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -121,10 +123,66 @@ public class Player extends AbstractCharacter {
   }
 
   /**
-   * Player look around. Displays all information about neighboring rooms.
+   * Player looks around. Displays all the information about current room and neighbors.
    */
-  public void lookAround() {
-    displayLookAroundInformation();
+  public String lookAround() {
+    Room room = getCurrentLocation();
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("~~~~~~~~~\n");
+    sb.append("By looking around, you got the following information:\n");
+    sb.append(String.format("Your current Location: Room %d, the %s%n",
+        room.getRoomNumber(),
+        room.getRoomName()));
+
+    sb.append(room.displayWeapons());
+
+    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere()
+        && !room.isTargetHere()) {
+      sb.append("No one else is in this room.\n");
+    }
+    if (room.isTargetHere()) {
+      sb.append("The target is in this room.\n");
+    }
+    if (room.isPetHere()) {
+      sb.append("The cat is in this room.\n");
+    }
+    if (room.isAnyOtherPlayerHere(this)) {
+      for (Player p : room.getPlayersInTheRoom()) {
+        if (p.getCurrentLocation().equals(room) && (!p.equals(this))) {
+          sb.append(String.format("%s is here.%n", p.getName()));
+        }
+      }
+    }
+    sb.append(getCurrentLocation().displayNeighborsAllInfo());
+    sb.append("~~~~~~~~~\n");
+    return sb.toString();
+
+//    System.out.println("~~~~~~~~~");
+//    System.out.println("By looking around, you got the following information:");
+//    System.out.printf("Your current Location: Room %d, the %s%n",
+//        room.getRoomNumber(),
+//        room.getRoomName());
+//    room.displayWeapons();
+//    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere()
+//        && !room.isTargetHere()) {
+//      System.out.println("No one else is in this room.");
+//    }
+//    if (room.isTargetHere()) {
+//      System.out.println("The target is in this room.");
+//    }
+//    if (room.isPetHere()) {
+//      System.out.println("The cat is in this room.");
+//    }
+//    if (room.isAnyOtherPlayerHere(this)) {
+//      for (Player p : room.getPlayersInTheRoom()) {
+//        if (p.getCurrentLocation().equals(room) && (!p.equals(this))) {
+//          System.out.printf("%s is here.%n", p.getName());
+//        }
+//      }
+//    }
+//    getCurrentLocation().displayNeighborsAllInfo();
+//    System.out.println("~~~~~~~~~");
   }
 
   /**
@@ -132,32 +190,7 @@ public class Player extends AbstractCharacter {
    * and neighbors.
    */
   public void displayLookAroundInformation() {
-    Room room = getCurrentLocation();
-    System.out.println("~~~~~~~~~");
-    System.out.println("By looking around, you got the following information:");
-    System.out.printf("Your current Location: Room %d, the %s%n",
-        room.getRoomNumber(),
-        room.getRoomName());
-    room.displayWeapons();
-    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere()
-        && !room.isTargetHere()) {
-      System.out.println("No one else is in this room.");
-    }
-    if (room.isTargetHere()) {
-      System.out.println("The target is in this room.");
-    }
-    if (room.isPetHere()) {
-      System.out.println("The cat is in this room.");
-    }
-    if (room.isAnyOtherPlayerHere(this)) {
-      for (Player p : room.getPlayersInTheRoom()) {
-        if (p.getCurrentLocation().equals(room) && (!p.equals(this))) {
-          System.out.printf("%s is here.%n", p.getName());
-        }
-      }
-    }
-    getCurrentLocation().displayNeighborsAllInfo();
-    System.out.println("~~~~~~~~~");
+
   }
 
   /**
