@@ -778,13 +778,17 @@ public final class MyWorld implements World {
     while (playerDiaplayed == null) {
       playerName = scan.next();
       if (playerName.matches("^[a-zA-Z]+$")) {
+        boolean isPlayerInGame = false;
         for (Player player : players) {
           if (player.getName().equalsIgnoreCase(playerName)) {
+            isPlayerInGame = true;
             playerDiaplayed = player;
             break;
           }
         }
-        System.out.println("Invalid input. Please enter a valid name:");
+        if(!isPlayerInGame){
+          System.out.println("Wrong player name. Please enter a valid name:");
+        }
       } else {
         System.out.println("Invalid input. Please enter a valid name:");
       }

@@ -11,7 +11,6 @@ public class Cat implements Pet {
   private final List<Room> order;
   private Room currentLocation;
   private boolean isMoved = false;
-  //if the cat is moved by a player last turn, it will not move this turn
 
   /**
    * Constructs a new Cat object.
