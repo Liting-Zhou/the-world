@@ -183,10 +183,10 @@ public class HumanPlayer extends Player {
     }
 
     System.out.println();
-    System.out.printf("The cat is now in room %d, %s.%n", currentRoom.getRoomNumber(),
+    System.out.printf("The pet is currently in room %d, %s.%n", currentRoom.getRoomNumber(),
         currentRoom.getRoomName());
     System.out.println(
-        "Where do you want to teleport the cat? Select a room number from the list: ");
+        "Where do you want to teleport the pet? Select a room number from the list: ");
     System.out.println(roomNumberOfNeighbors);
 
     Scanner scanner = new Scanner(System.in);

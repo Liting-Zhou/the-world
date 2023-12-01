@@ -68,6 +68,8 @@ public interface World extends ReadOnlyWorld {
    */
   void updatePlayerTurn();
 
+  void movePetToRoom(int x, int y);
+
   /**
    * Moves the player to a specific room, found by the coordinates.
    *
@@ -78,11 +80,7 @@ public interface World extends ReadOnlyWorld {
 
   Room findRoomByCoordinates(int x, int y);
 
-  String moveThePet();
+//  String moveThePet();
 
-  void getPlayerAndDisplay();
 
-  String displayRoomInformation(Room room);
-
-  void getRoomAndDisplay();
 }

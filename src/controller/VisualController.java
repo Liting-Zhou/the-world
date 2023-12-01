@@ -15,6 +15,7 @@ public class VisualController implements Features {
   private View view;
   private boolean exitGame = false;
   private boolean playerMoveMode = false;
+  private boolean movePetMode = false;
   private boolean displayMode = true;
 
   /**
@@ -72,7 +73,7 @@ public class VisualController implements Features {
                 + "(5) press T to move the pet", model.getNumOfTurnsPlayed(),
             maxNumOfTurns, model.getCurrentPlayer().getName()));
     if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
-      model.roundOfPlayer();
+      view.setDisplay(model.roundOfPlayer());
       view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
     } else {
       //human player
@@ -106,9 +107,9 @@ public class VisualController implements Features {
       view.showSetUpPanel();
     } else {
       view.setDisplay("Game started!\n\n"
-              + "(1) Click any space to see the room information.\n"
-              + "(2) Click white square to see the target information.\n"
-              + "(3) Click circle to see the player information. "
+          + "(1) Click any space to see the room information.\n"
+          + "(2) Click white square to see the target information.\n"
+          + "(3) Click circle to see the player information. "
           + "Blue represents human player and red represents computer player.\n"
           + "(4) Click the button above to play next turn.\n");
       view.displayGamePanel();
@@ -139,21 +140,15 @@ public class VisualController implements Features {
     }
     if (currentPlayer.getWeaponsCarried().isEmpty()) {
       StringBuilder sb = new StringBuilder();
-        sb.append("You have no weapon. Just poke the target in the eye!\n");
-//      view.setDisplay(
-//          "You have no weapon. Just poke the target in the eye!");
+      sb.append("You have no weapon. Just poke the target in the eye!\n");
       currentPlayer.attackWithNoWeapon(target);
       if (currentPlayer.canBeSeen()) {
         sb.append("Oops! You can be seen by other player. No damage made.");
-//        view.setDisplay(
-//            "You can be seen by other player. No damage made.");
       } else {
         sb.append("You can not be seen by other player. You made 1 damage to the target.");
-//        view.setDisplay(
-//            "You can not be seen by other player. You made 1 damage to the target.");
       }
-      sb.append(String.format("\n\nTurn %d ended.\nClick the button to play next turn.", model.getNumOfTurnsPlayed()));
-        view.setDisplay(sb.toString());
+      sb.append(String.format("\n\nThis Turn ended.\nClick the button to play next turn."));
+      view.setDisplay(sb.toString());
       checkIsGameOver();
     } else {
       view.setDisplay(
@@ -168,42 +163,30 @@ public class VisualController implements Features {
     StringBuilder sb = new StringBuilder();
     if (weaponName.equals("Your fist")) {
       sb.append("You chose to poke the target in the eye!\n");
-//      view.setDisplay("You chose to poke the target in the eye!");
       currentPlayer.attackWithNoWeapon(model.getTarget());
       if (currentPlayer.canBeSeen()) {
         sb.append("Oops! You can be seen by other player. No damage made.");
-//        view.setDisplay(
-//            "You can be seen by other player. No damage made.");
       } else {
         sb.append("You can not be seen by other player. You made 1 damage to the target.");
-//        view.setDisplay(
-//            "You can not be seen by other player. You made 1 damage to the target.");
       }
     } else {
       for (WeaponImp weapon : currentPlayer.getWeaponsCarried()) {
         if (weapon.getName().equals(weaponName)) {
           sb.append(String.format("You chose %s to attack the target.\n",
               weapon.getName()));
-//          view.setDisplay(String.format("You chose %s to attack the target.%n",
-//              weapon.getName()));
           currentPlayer.attackWithWeapon(weapon, model.getTarget());
           if (currentPlayer.canBeSeen()) {
             sb.append("Oops! You can be seen by other player. No damage made.");
-//            view.setDisplay(
-//                "You can be seen by other player. No damage made.");
           } else {
             sb.append(String.format(
                 "You can not be seen by other player. You made %d damage to the target.",
                 weapon.getPower()));
-//            view.setDisplay(String.format(
-//                "You can not be seen by other player. You made %d damage to the target.",
-//                weapon.getPower()));
           }
         }
         break;
       }
     }
-    sb.append(String.format("\n\nTurn %d ended.\nClick the button to play next turn.", model.getNumOfTurnsPlayed()));
+    sb.append(String.format("\n\nThis Turn ended.\nClick the button to play next turn."));
     view.setDisplay(sb.toString());
     checkIsGameOver();
   }
@@ -225,9 +208,10 @@ public class VisualController implements Features {
     if (currentPlayer.getCurrentLocation().getWeapons().size() == 1) {
       WeaponImp weapon = currentPlayer.getCurrentLocation().getWeapons().get(0);
       currentPlayer.getWeaponsCarried().add(weapon);
-      view.setDisplay(String.format("You picked up %s with power %d.\n\nTurn %d ended.\nClick the button to play next turn.",
+      view.setDisplay(String.format(
+          "You picked up %s with power %d.\n\nThis Turn ended.\nClick the button to play next turn.",
           weapon.getName(),
-          weapon.getPower(),model.getNumOfTurnsPlayed()));
+          weapon.getPower()));
       currentPlayer.getCurrentLocation().removeWeapon(weapon);
     } else {
       view.setDisplay("Choose a weapon to pick up.");
@@ -241,9 +225,10 @@ public class VisualController implements Features {
     for (WeaponImp weapon : currentPlayer.getCurrentLocation().getWeapons()) {
       if (weapon.getName().equals(weaponName)) {
         currentPlayer.getWeaponsCarried().add(weapon);
-        view.setDisplay(String.format("You picked up %s with power %d.\n\nTurn %d ended.\nClick the button to play next turn.",
+        view.setDisplay(String.format(
+            "You picked up %s with power %d.\n\nThis Turn ended.\nClick the button to play next turn.",
             weapon.getName(),
-            weapon.getPower(),model.getNumOfTurnsPlayed()));
+            weapon.getPower()));
         currentPlayer.getCurrentLocation().removeWeapon(weapon);
       }
     }
@@ -253,15 +238,34 @@ public class VisualController implements Features {
   public void lookAround() {
     Player currentPlayer = model.getCurrentPlayer();
     view.showMessageDialog("Looking Around", currentPlayer.lookAround());
-    view.setDisplay(String.format("Turn %d ended.\nClick the button to play next turn.", model.getNumOfTurnsPlayed()));
+    view.setDisplay(String.format("This Turn ended.\nClick the button to play next turn."));
   }
 
   @Override
   public void moveThePet() {
     StringBuilder sb = new StringBuilder();
-    sb.append(model.moveThePet());
-    sb.append(String.format("\n\nTurn %d ended.\nClick the button to play next turn.", model.getNumOfTurnsPlayed()));
+    sb.append("You chose to move the pet, ");
+    sb.append(String.format("which is now in room %d.\nClick any room you want to teleport the pet to.", model.getPet().getCurrentLocation().getRoomNumber()));
     view.setDisplay(sb.toString());
+    setMovePetMode(true);
+  }
+
+  @Override
+    public void movePetToRoom(int x, int y) {
+        model.movePetToRoom(x, y);
+    view.setDisplay(String.format(
+        "You have moved the pet to the %s. Next turn it will stay there.\n\nThis Turn ended.\nClick the button to play next turn.",
+        model.getPet().getCurrentLocation().getRoomName()));
+    }
+  @Override
+  public void setMovePetMode(boolean b) {
+    movePetMode = b;
+    displayMode = !b;
+  }
+
+  @Override
+  public boolean getMovePetMode() {
+    return movePetMode;
   }
 
   @Override
@@ -310,8 +314,9 @@ public class VisualController implements Features {
   @Override
   public void moveToRoom(int x, int y) {
     model.moveToRoom(x, y);
-    view.setDisplay(String.format("You have moved to the %s.\n\nTurn %d ended.\nClick the button to play next turn.",
-        model.getCurrentPlayer().getCurrentLocation().getRoomName(), model.getNumOfTurnsPlayed()));
+    view.setDisplay(String.format(
+        "You have moved to the %s.\n\nThis Turn ended.\nClick the button to play next turn.",
+        model.getCurrentPlayer().getCurrentLocation().getRoomName()));
     view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
   }
 }

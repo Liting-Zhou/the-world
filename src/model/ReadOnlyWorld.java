@@ -18,7 +18,7 @@ public interface ReadOnlyWorld {
    * @return the target
    */
   Target getTarget();
-
+  Pet getPet();
 
   /**
    * Gets the current player.
@@ -70,6 +70,10 @@ public interface ReadOnlyWorld {
    * @return the winner
    */
   Player getWinner();
+
+  void getPlayerAndDisplay();
+
+  void getRoomAndDisplay();
 
   /**
    * Displays information about the target.

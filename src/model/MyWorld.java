@@ -414,6 +414,11 @@ public final class MyWorld implements World {
     return target;
   }
 
+  @Override
+  public Pet getPet() {
+    return pet;
+  }
+
 
   @Override
   public Player getCurrentPlayer() {
@@ -484,7 +489,7 @@ public final class MyWorld implements World {
       System.out.println("Now play the next turn!");
       petWander();
       roundOfTarget();
-      String result=roundOfPlayer();
+      String result = roundOfPlayer();
       System.out.printf(result);
 
       //check health of target, if less than zero, game over and display the winner
@@ -694,6 +699,13 @@ public final class MyWorld implements World {
   }
 
   @Override
+  public void movePetToRoom(int x, int y) {
+    Room room = findRoomByCoordinates(x, y);
+    pet.updateLocation(room);
+    pet.setMoved();
+  }
+
+  @Override
   public void moveToRoom(int x, int y) {
     Room room = findRoomByCoordinates(x, y);
     HumanPlayer player = (HumanPlayer) players.get(indexOfCurrentPlayer);
@@ -712,11 +724,11 @@ public final class MyWorld implements World {
     return null;
   }
 
-  @Override
-  public String moveThePet() {
-    ComputerPlayer player = (ComputerPlayer) players.get(indexOfCurrentPlayer);
-    return player.moveThePet(pet);
-  }
+//  @Override
+//  public String moveThePet() {
+//    ComputerPlayer player = (ComputerPlayer) players.get(indexOfCurrentPlayer);
+//    return player.moveThePet(pet);
+//  }
 
   /**
    * Displays information about the target.
@@ -788,7 +800,7 @@ public final class MyWorld implements World {
             break;
           }
         }
-        if(!isPlayerInGame){
+        if (!isPlayerInGame) {
           System.out.println("Wrong player name. Please enter a valid name:");
         }
       } else {

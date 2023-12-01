@@ -62,6 +62,12 @@ public interface Features {
    */
   void moveThePet();
 
+  void movePetToRoom(int x, int y);
+
+  void setMovePetMode(boolean b);
+
+  boolean getMovePetMode();
+
   /**
    * Display information of a specific room.
    */

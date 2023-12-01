@@ -173,8 +173,12 @@ public class FrameView extends JFrame implements View {
         }
         if (f.getPlayerMoveMode()) {
           f.moveToRoom(x / 40, y / 40);
+          f.setPlayerMoveMode(false);
         }
-        f.setPlayerMoveMode(false);
+        if(f.getMovePetMode()){
+            f.movePetToRoom(x / 40, y / 40);
+            f.setMovePetMode(false);
+        }
       }
     });
 
@@ -329,7 +333,7 @@ public class FrameView extends JFrame implements View {
     JTextArea textArea = new JTextArea(information);
     textArea.setEditable(false);
     JScrollPane scrollPane = new JScrollPane(textArea);
-    scrollPane.setPreferredSize(new Dimension(300, 200));
+    scrollPane.setPreferredSize(new Dimension(500, 200));
 
     JOptionPane.showMessageDialog(this, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
   }
