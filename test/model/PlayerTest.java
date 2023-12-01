@@ -79,7 +79,7 @@ public class PlayerTest {
   @Test
   public void testCanBeSeen() {
     //test when the cat is in the same room as the player, while no players in neighboring room.
-    Pet cat = new Cat("Test Cat", initialLocation);
+    Pet cat = new Cat("Test Pet", initialLocation);
     assertFalse(player.canBeSeen());
 
     // Test when there is no cat in the same room as the player,

@@ -56,7 +56,7 @@ public class VisualController implements Features {
 
   @Override
   public void playNextTurn() {
-    model.catWander();
+    model.petWander();
     model.roundOfTarget();
     view.setDisplay(String.format("Turn %d (max %d).\n Target has moved to the %s.\n",
         model.getNumOfTurnsPlayed(),

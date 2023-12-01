@@ -53,9 +53,9 @@ public interface World extends ReadOnlyWorld {
   void roundOfTarget();
 
   /**
-   * Cat wanders before each turn.
+   * Pet wanders before each turn.
    */
-  void catWander();
+  void petWander();
 
   /**
    * Play the round of player. For each turn, player moves after target moves.

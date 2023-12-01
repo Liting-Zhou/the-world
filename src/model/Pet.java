@@ -1,44 +1,81 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Represents a pet in the game.
- * The pet enters the game in the same space as the target character.
- * Any space that is occupied by the pet cannot be seen by its neighbors.
- * The pet can be moved to a specified space by players.
+ * This class represents a cat in the game.
  */
-public interface Pet {
+public class Pet extends AbstractCharacter {
+  private final List<Room> order;
+  private boolean isMoved = false;
 
   /**
-   * Pet wanders in the world. Maybe follow depth-first traversal.
-   * I use the BST constructed in lab08 to generate a post-order traversal.
-   * [2 1 0 4 5 7 9 8 6 3 11 13 16 15 14 12 18 20 21 19 17 10]
-   * Thus the pet would wander following this order.
-   */
-  void wander();
-
-  /**
-   * If the pet is moved by a player, set the flag to be true.
-   */
-  void setMoved();
-
-  /**
-   * Gets the name of this pet.
+   * Constructs a new Pet object.
    *
-   * @return The name of the pet.
+   * @param name            The name of the cat.
+   * @param currentLocation The starting location of the cat.
    */
-  String getName();
+  public Pet(String name, Room currentLocation) {
+    super();
+    setName(name);
+    setCurrentLocation(currentLocation);
+    currentLocation.setPetFlag(true);
+    this.order = depthFirstTraversal();
+  }
 
   /**
-   * Gets the current location of this pet.
+   * A depth-first traversal algorithm to decide the route of the cat.
    *
-   * @return The current location of the pet.
+   * @return the ordered list of the route.
    */
-  Room getCurrentLocation();
+  private List<Room> depthFirstTraversal() {
+    List<Room> newOrder = new ArrayList<>();
+    newOrder.add(this.getCurrentLocation());
+    depthFirstTraversalHelper(newOrder, this.getCurrentLocation());
+    //System.out.println(newOrder);
+    return newOrder;
+  }
+
+  private void depthFirstTraversalHelper(List<Room> order, Room location) {
+    List<Room> neighbors = location.getNeighbors();
+    for (Room neighbor : neighbors) {
+      if (order.contains(neighbor)) {
+        continue;
+      }
+      order.add(neighbor);
+      depthFirstTraversalHelper(order, neighbor);
+    }
+  }
 
   /**
-   * Updates the location of this pet.
-   *
-   * @param room The new location of this pet.
+   * Pet wanders in the world, following a depth-first traversal order initialized
+   * when the object is instantiated.
+   * If the pet is moved by a played last turn, it will not move this turn.
    */
-  void updateLocation(Room room);
+  public void wander() {
+    if (isMoved) {
+      isMoved = false;
+      return;
+    }
+    int index = order.indexOf(this.getCurrentLocation());
+    if (index == order.size() - 1) {
+      index = 0;
+    } else {
+      index = index + 1;
+    }
+    updateLocation(order.get(index));
+  }
+
+
+  public void setMoved() {
+    isMoved = true;
+  }
+
+
+  public void updateLocation(Room room) {
+    this.getCurrentLocation().setPetFlag(false); //set the pet flag of the previous room to false
+    this.setCurrentLocation(room);
+    this.getCurrentLocation().setPetFlag(true); //set the pet flag of the current room to true
+  }
 }
