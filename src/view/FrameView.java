@@ -42,7 +42,7 @@ import model.WeaponImp;
 
 public class FrameView extends JFrame implements View {
 
-  private final JLabel display;
+  private final JTextArea display;
   private final JButton addPlayerButton;
   private final JButton finishSetUpButton;
   private final JButton playNextTurnButton;
@@ -82,7 +82,10 @@ public class FrameView extends JFrame implements View {
     //add the menu bar to the frame
     setJMenuBar(menuBar);
 
-    display = new JLabel("");
+    display = new JTextArea();
+    display.setEditable(false);
+    display.setLineWrap(true);
+    display.setWrapStyleWord(true);
     display.setPreferredSize(new Dimension(200, 800));
     displayScrollPane = new JScrollPane(display);
     displayScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
