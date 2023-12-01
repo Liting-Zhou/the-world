@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.util.Enumeration;
 import java.util.List;
 import javax.swing.AbstractButton;
@@ -44,15 +45,15 @@ public class FrameView extends JFrame implements View {
 
   private final JTextArea display;
   private final JButton addPlayerButton;
-  private final JButton finishSetUpButton;
+  private final JButton StartGameButton;
   private final JButton playNextTurnButton;
   private final JPanel buttonPanel;
   private final JMenuItem newGameNewWorldItem;
   private final JMenuItem newGameCurrentWorldItem;
   private final JMenuItem quitItem;
   private final GameBoardPanel gameBoard;
-  private final JScrollPane scrollPane;
-  private final JScrollPane displayScrollPane;
+  private final JScrollPane scrollPane; //for game board
+  private final JScrollPane displayScrollPane; //for text display
 
 
   /**
@@ -97,8 +98,8 @@ public class FrameView extends JFrame implements View {
     buttonPanel.setLayout(new FlowLayout());
     addPlayerButton = new JButton("Add Player");
     buttonPanel.add(addPlayerButton);
-    finishSetUpButton = new JButton("Start Game");
-    buttonPanel.add(finishSetUpButton);
+    StartGameButton = new JButton("Start Game");
+    buttonPanel.add(StartGameButton);
     add(buttonPanel, BorderLayout.PAGE_END);
     buttonPanel.setVisible(false);
 
@@ -122,8 +123,18 @@ public class FrameView extends JFrame implements View {
 
   @Override
   public void setFeatures(Features f) {
-    //newGameNewWorldItem.addActionListener(); //TODO: what is the logic here?
+    newGameNewWorldItem.addActionListener(l->{
+      setDisplay("Add some players before starting the game.");
+      displayScrollPane.setVisible(true);
+      try {
+        f.newGameWithNewConfig();
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+      }
+    });
     newGameCurrentWorldItem.addActionListener(l -> {
+      setDisplay("Add some players before starting the game.");
+      displayScrollPane.setVisible(true);
       f.gameSetUp();
     });
     quitItem.addActionListener(l -> {
@@ -132,13 +143,16 @@ public class FrameView extends JFrame implements View {
     addPlayerButton.addActionListener(l -> {
       new AddPlayerDialog(this, "Add Player", true, f).setVisible(true);
     });
-    finishSetUpButton.addActionListener(l -> {
+    StartGameButton.addActionListener(l -> {
       buttonPanel.setVisible(false);
-      displayScrollPane.setVisible(true);
       f.enterGame();
     });
     playNextTurnButton.addActionListener(l -> {
-      f.playNextTurn();
+      if(f.getPlayTurnMode()){
+        setDisplay("You have not finished your turn yet.");
+        resetFocus();
+      }else{
+      f.playNextTurn();}
     });
     gameBoard.addMouseListener(new MouseAdapter() {
       @Override
@@ -174,10 +188,12 @@ public class FrameView extends JFrame implements View {
         if (f.getPlayerMoveMode()) {
           f.moveToRoom(x / 40, y / 40);
           f.setPlayerMoveMode(false);
+          f.setPlayTurnMode(false);
         }
         if(f.getMovePetMode()){
             f.movePetToRoom(x / 40, y / 40);
             f.setMovePetMode(false);
+          f.setPlayTurnMode(false);
         }
       }
     });
@@ -190,25 +206,27 @@ public class FrameView extends JFrame implements View {
 
       @Override
       public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-          case KeyEvent.VK_M:
-            f.setPlayerMoveMode(true);
-            setDisplay("Now click a neighboring room to move to.");
-            break;
-          case KeyEvent.VK_A:
-            f.attack();
-            break;
-          case KeyEvent.VK_P:
-            f.pickUpWeapon();
-            break;
-          case KeyEvent.VK_L:
-            f.lookAround();
-            break;
-          case KeyEvent.VK_T:
-            f.moveThePet();
-            break;
-          default:
-            break;
+        if(f.getPlayTurnMode()){
+          switch (e.getKeyCode()) {
+            case KeyEvent.VK_M:
+              f.setPlayerMoveMode(true);
+              setDisplay("Now click a neighboring room to move to.");
+              break;
+            case KeyEvent.VK_A:
+              f.attack();
+              break;
+            case KeyEvent.VK_P:
+              f.pickUpWeapon();
+              break;
+            case KeyEvent.VK_L:
+              f.lookAround();
+              break;
+            case KeyEvent.VK_T:
+              f.moveThePet();
+              break;
+            default:
+              break;
+          }
         }
       }
 
@@ -227,15 +245,14 @@ public class FrameView extends JFrame implements View {
   }
 
   @Override
-  public void displayGamePanel() {
-    scrollPane.setVisible(true);
-    playNextTurnButton.setVisible(true);
+  public void displayGamePanel(boolean b) {
+    scrollPane.setVisible(b);
+    playNextTurnButton.setVisible(b);
   }
 
   @Override
   public void setDisplay(String s) {
     display.setText(s);
-    //displayScrollPane.setVisible(true);
   }
 
   @Override
@@ -336,6 +353,12 @@ public class FrameView extends JFrame implements View {
     scrollPane.setPreferredSize(new Dimension(500, 200));
 
     JOptionPane.showMessageDialog(this, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
+  }
+
+  @Override
+  public String showInputDialog(String label){
+    String userInput = JOptionPane.showInputDialog(label);
+    return userInput;
   }
 
   /**

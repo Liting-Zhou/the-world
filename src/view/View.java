@@ -12,7 +12,7 @@ public interface View {
 
   void showSetUpPanel();
 
-  void displayGamePanel();
+  void displayGamePanel(boolean b);
 
   /**
    * Sets the display of the View to the given String.
@@ -45,4 +45,6 @@ public interface View {
   void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f);
 
   void showMessageDialog(String title, String information);
+
+  String showInputDialog(String label);
 }

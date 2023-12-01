@@ -1,8 +1,13 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 import model.HumanPlayer;
+import model.MyWorld;
 import model.Player;
+import model.Room;
 import model.Target;
 import model.WeaponImp;
 import model.World;
@@ -10,13 +15,14 @@ import view.View;
 
 public class VisualController implements Features {
 
-  private final World model;
+  private World model;
   private final int maxNumOfTurns;
   private View view;
   private boolean exitGame = false;
   private boolean playerMoveMode = false;
   private boolean movePetMode = false;
-  private boolean displayMode = true;
+  private boolean displayMode = true; //false when in playing turn mode
+  private boolean playTurnMode= false;
 
   /**
    * Constructor.
@@ -42,6 +48,7 @@ public class VisualController implements Features {
   @Override
   public void exitGame() {
     exitGame = true;
+    checkIsGameOver();
   }
 
   @Override
@@ -54,50 +61,14 @@ public class VisualController implements Features {
     view.showSetUpPanel();
   }
 
-
   @Override
-  public void playNextTurn() {
-    model.petWander();
-    model.roundOfTarget();
-//    view.setDisplay(String.format("Turn %d (max %d).\nTarget has moved to the %s.\n",
-//        model.getNumOfTurnsPlayed(),
-//        maxNumOfTurns, model.getTarget().getCurrentLocation().getRoomName()));
-    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
-    view.setDisplay(
-        String.format("Turn %d (max %d).\nNow is %s's turn.\n"
-                + "You can:\n"
-                + "(1) press M and then click a neighbor room to move to\n"
-                + "(2) press P to pick up a weapon if there is any\n"
-                + "(3) press L to look around\n"
-                + "(4) press A to attack the target when you are in the same space\n"
-                + "(5) press T to move the pet", model.getNumOfTurnsPlayed(),
-            maxNumOfTurns, model.getCurrentPlayer().getName()));
-    if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
-      view.setDisplay(model.roundOfPlayer());
-      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
-    } else {
-      //human player
-      view.resetFocus();
-      //set current player index to next player
-      model.updatePlayerTurn();
-    }
-    //add number of turns played
-    model.updateTurnsPlayed();
-    checkIsGameOver();
-  }
-
-  private void checkIsGameOver() {
-    if (model.isGameOver()) {
-      String winner = model.getWinner().getName();
-      view.setDisplay(String.format("Game over! %s wins!", winner));
-    }
-    if (model.getNumOfTurnsPlayed() > maxNumOfTurns) {
-      view.setDisplay(String.format("Oops! You have run out of the maximum number of turns (%d)! "
-          + "GAME OVER!\n", maxNumOfTurns));
-    }
-    if (exitGame) {
-      view.setDisplay("You choose to exit the game. Bye!");
-    }
+  public void newGameWithNewConfig() throws FileNotFoundException {
+    String path=view.showInputDialog("Provide the PATH of the configuration file: ");
+    Readable reader = new BufferedReader(new FileReader(path));
+    model=new MyWorld(reader);
+    String maxTurns=view.showInputDialog("Provide the maximum number of turns: ");
+    model.setMaxNumOfTurns(Integer.parseInt(maxTurns));
+    gameSetUp();
   }
 
   @Override
@@ -112,8 +83,58 @@ public class VisualController implements Features {
           + "(3) Click circle to see the player information. "
           + "Blue represents human player and red represents computer player.\n"
           + "(4) Click the button above to play next turn.\n");
-      view.displayGamePanel();
+      view.displayGamePanel(true);
       view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    }
+  }
+
+  @Override
+  public void playNextTurn() {
+    model.petWander();
+    model.roundOfTarget();
+    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    view.setDisplay(
+        String.format("Turn %d (max %d).\nNow is %s's turn.\n"
+                + "You can:\n"
+                + "(1) press M and then click a neighbor room to move to\n"
+                + "(2) press P to pick up a weapon if there is any\n"
+                + "(3) press L to look around\n"
+                + "(4) press A to attack the target when you are in the same space\n"
+                + "(5) press T to move the pet", model.getNumOfTurnsPlayed(),
+            maxNumOfTurns, model.getCurrentPlayer().getName()));
+    if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
+      view.setDisplay(model.roundOfPlayer()); //update current player index already
+      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+      model.updateTurnsPlayed();
+      checkIsGameOver();
+    } else {
+      //human player
+      playTurnMode = true;
+      view.resetFocus();
+      //set current player index to next player
+    }
+    //add number of turns played
+  }
+
+  private void checkIsGameOver() {
+    //make it prompt
+    if (model.isGameOver()) {
+      String winner = model.getWinner().getName();
+      view.showMessageDialog("Game Over", String.format("Game over! %s wins!", winner));
+      view.displayGamePanel(false);
+      view.setDisplay("You can restart the game by clicking the menu.");
+    }
+    if (model.getNumOfTurnsPlayed() > maxNumOfTurns) {
+      view.showMessageDialog("Game Over", String.format(
+          "Oops! You have run out of the maximum number of turns (%d)! GAME OVER!",
+          maxNumOfTurns));
+      view.displayGamePanel(false);
+      view.setDisplay("You can restart the game by clicking the menu.");
+    }
+    if (exitGame) {
+      view.showMessageDialog("Game Over", String.format("You choose to exit the game. Bye!"));
+      view.displayGamePanel(false);
+      view.setDisplay("You can restart the game by clicking the menu.");
     }
   }
 
@@ -149,6 +170,9 @@ public class VisualController implements Features {
       }
       sb.append(String.format("\n\nThis Turn ended.\nClick the button to play next turn."));
       view.setDisplay(sb.toString());
+      setPlayTurnMode(false);
+      model.updatePlayerTurn();
+      model.updateTurnsPlayed();
       checkIsGameOver();
     } else {
       view.setDisplay(
@@ -188,6 +212,9 @@ public class VisualController implements Features {
     }
     sb.append(String.format("\n\nThis Turn ended.\nClick the button to play next turn."));
     view.setDisplay(sb.toString());
+    setPlayTurnMode(false);
+    model.updatePlayerTurn();
+    model.updateTurnsPlayed();
     checkIsGameOver();
   }
 
@@ -196,13 +223,17 @@ public class VisualController implements Features {
     HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
     if (currentPlayer.getWeaponsCarried().size() == currentPlayer.getMaxNumberOfWeapons()) {
       view.setDisplay(
-          "You have reached the weapon limit. You can not pick up any more weapon.");
+          "You have reached the weapon limit. You can not pick up any more weapon. Choose another action.");
       view.resetFocus();
       return;
     }
     if (currentPlayer.getCurrentLocation().getWeapons().isEmpty()) {
       view.setDisplay(
-          "No weapons in this room.");
+          "No weapons in this room.\n\nThis Turn ended.\nClick the button to play next turn.");
+      setPlayTurnMode(false);
+      model.updatePlayerTurn();
+      model.updateTurnsPlayed();
+      checkIsGameOver();
       return;
     }
     if (currentPlayer.getCurrentLocation().getWeapons().size() == 1) {
@@ -213,6 +244,10 @@ public class VisualController implements Features {
           weapon.getName(),
           weapon.getPower()));
       currentPlayer.getCurrentLocation().removeWeapon(weapon);
+      setPlayTurnMode(false);
+      model.updatePlayerTurn();
+      model.updateTurnsPlayed();
+      checkIsGameOver();
     } else {
       view.setDisplay("Choose a weapon to pick up.");
       view.showWeaponDialogForPickUp(currentPlayer.getCurrentLocation().getWeapons(), this);
@@ -230,6 +265,10 @@ public class VisualController implements Features {
             weapon.getName(),
             weapon.getPower()));
         currentPlayer.getCurrentLocation().removeWeapon(weapon);
+        setPlayTurnMode(false);
+        model.updatePlayerTurn();
+        model.updateTurnsPlayed();
+        checkIsGameOver();
       }
     }
   }
@@ -239,6 +278,10 @@ public class VisualController implements Features {
     Player currentPlayer = model.getCurrentPlayer();
     view.showMessageDialog("Looking Around", currentPlayer.lookAround());
     view.setDisplay(String.format("This Turn ended.\nClick the button to play next turn."));
+    setPlayTurnMode(false);
+    model.updatePlayerTurn();
+    model.updateTurnsPlayed();
+    checkIsGameOver();
   }
 
   @Override
@@ -256,6 +299,9 @@ public class VisualController implements Features {
     view.setDisplay(String.format(
         "You have moved the pet to the %s. Next turn it will stay there.\n\nThis Turn ended.\nClick the button to play next turn.",
         model.getPet().getCurrentLocation().getRoomName()));
+    model.updatePlayerTurn();
+    model.updateTurnsPlayed();
+    checkIsGameOver();
     }
   @Override
   public void setMovePetMode(boolean b) {
@@ -301,6 +347,15 @@ public class VisualController implements Features {
   }
 
   @Override
+  public boolean getPlayTurnMode() {
+    return playTurnMode;
+  }
+
+  @Override
+    public void setPlayTurnMode(boolean b) {
+        playTurnMode = b;   }
+
+  @Override
   public boolean getPlayerMoveMode() {
     return playerMoveMode;
   }
@@ -313,10 +368,20 @@ public class VisualController implements Features {
 
   @Override
   public void moveToRoom(int x, int y) {
+    Room previousRoom = model.getCurrentPlayer().getCurrentLocation();
     model.moveToRoom(x, y);
-    view.setDisplay(String.format(
-        "You have moved to the %s.\n\nThis Turn ended.\nClick the button to play next turn.",
-        model.getCurrentPlayer().getCurrentLocation().getRoomName()));
+    Room currentRoom = model.getCurrentPlayer().getCurrentLocation();
+    if(previousRoom.equals(currentRoom)){
+      view.setDisplay(String.format("You chose the current location or a non-neighboring room.\nYou are still in the %s."
+          + "\n\nThis Turn ended.\nClick the button to play next turn.", currentRoom.getRoomName()));
+    }else{
+      view.setDisplay(String.format(
+          "You have moved to the %s.\n\nThis Turn ended.\nClick the button to play next turn.",
+          model.getCurrentPlayer().getCurrentLocation().getRoomName()));
+    }
     view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    model.updatePlayerTurn();
+    model.updateTurnsPlayed();
+    checkIsGameOver();
   }
 }

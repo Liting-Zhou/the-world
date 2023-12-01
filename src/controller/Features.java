@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import model.Player;
 import model.Target;
@@ -34,6 +35,8 @@ public interface Features {
    * @param playerType   the type of the player, 0 for human, 1 for computer
    */
   void addPlayer(String name, int startingRoom, int weaponLimits, int playerType);
+
+  void newGameWithNewConfig() throws FileNotFoundException;
 
   void playNextTurn();
 
@@ -89,6 +92,10 @@ public interface Features {
   List<Player> getPlayers();
 
   boolean getDisplayMode();
+
+  boolean getPlayTurnMode();
+
+  void setPlayTurnMode(boolean b);
 
   boolean getPlayerMoveMode();
 

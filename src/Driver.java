@@ -32,11 +32,12 @@ public final class Driver {
         throw new IllegalArgumentException("Mode should be either 1 (GUI) or 2 (text-based).");
       }
       Readable reader = new BufferedReader(new FileReader(configFile));
+      //create model
       World world = new MyWorld(reader);
       world.setMaxNumOfTurns(maxNumOfTurns);
 
       if (mode == 2) {
-        //Play with console
+        //play with console
         Readable readable = new StringReader("");
         Appendable appendable = new StringBuilder();
 
@@ -48,7 +49,7 @@ public final class Driver {
         //print the output
         System.out.println(appendable);
       } else {
-        // Play with GUI
+        // play with GUI
         View view = new FrameView();
         VisualController controller = new VisualController(world);
         controller.setView(view);

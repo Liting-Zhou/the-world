@@ -197,8 +197,6 @@ public class ComputerPlayer extends Player {
       }
       sb.append(String.format("%s uses %s to attack the target, target gets %d damage.%n",
           this.getName(), weapon.getName(), weapon.getPower()));
-//      System.out.printf("Computer player %s uses %s to attack the target, target gets %d damage.%n",
-//          this.getName(), weapon.getName(), weapon.getPower());
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
@@ -214,12 +212,12 @@ public class ComputerPlayer extends Player {
   public String moveThePet(Pet pet) {
     StringBuilder sb = new StringBuilder();
     Room currentRoom = pet.getCurrentLocation();
-    sb.append(String.format("The pet is now in room %d, %s.%n", currentRoom.getRoomNumber(),
+    sb.append(String.format("The pet is currently in room %d, the %s.%n", currentRoom.getRoomNumber(),
         currentRoom.getRoomName()));
 
     List<Room> neighbors = currentRoom.getNeighbors();
     Room nextWanderRoom = neighbors.get(random.nextRandomInt(neighbors.size()));
-    sb.append(String.format("Next turn, Fortune the cat will wander to room %d, the %s.%n",
+    sb.append(String.format("Next turn, Fortune the cat will wander to room %d, the %s, as you wish.%n",
         nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);
     pet.setMoved();
