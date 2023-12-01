@@ -484,7 +484,8 @@ public final class MyWorld implements World {
       System.out.println("Now play the next turn!");
       petWander();
       roundOfTarget();
-      roundOfPlayer();
+      String result=roundOfPlayer();
+      System.out.printf(result);
 
       //check health of target, if less than zero, game over and display the winner
       if (target.getHealth() <= 0) {
@@ -530,7 +531,7 @@ public final class MyWorld implements World {
    * Computer player randomly choose an action.
    */
   @Override
-  public void roundOfPlayer() {
+  public String roundOfPlayer() {
     Player player;
     player = players.get(indexOfCurrentPlayer);
     System.out.println();
@@ -565,6 +566,7 @@ public final class MyWorld implements World {
     //System.out.println("-> You can move to the following rooms: ");
     //player.getCurrentLocation().displayNeighborsSimple();
 
+    StringBuilder sb = new StringBuilder();
     //ask which action the player choose
     //if target is here, player can attack
     if (player.getCurrentLocation().isTargetHere()) {
@@ -617,12 +619,12 @@ public final class MyWorld implements World {
         if (p.canBeSeen()) {
           if (p.getCurrentLocation().getWeapons().isEmpty()
               || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-            p.randomActionNoWeapon(pet);
+            sb.append(p.randomActionNoWeapon(pet));
           } else {
-            p.randomAction(pet);
+            sb.append(p.randomAction(pet));
           }
         } else { //if can not be seen, attack
-          p.attack(target);
+          sb.append(p.attack(target));
         }
       }
     } else { // if target is not here.
@@ -672,13 +674,14 @@ public final class MyWorld implements World {
         ComputerPlayer p = (ComputerPlayer) player;
         if (p.getCurrentLocation().getWeapons().isEmpty()
             || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-          p.randomActionNoWeapon(pet);
+          sb.append(p.randomActionNoWeapon(pet));
         } else {
-          p.randomAction(pet);
+          sb.append(p.randomAction(pet));
         }
       }
     }
     updatePlayerTurn();
+    return sb.toString();
   }
 
   @Override

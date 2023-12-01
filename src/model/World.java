@@ -60,7 +60,7 @@ public interface World extends ReadOnlyWorld {
   /**
    * Play the round of player. For each turn, player moves after target moves.
    */
-  void roundOfPlayer();
+  String roundOfPlayer();
 
 
   /**
