@@ -80,7 +80,7 @@ public class ComputerPlayerTest {
 
   @Test
   public void testMoveThePet() {
-    Pet cat = new Cat("pet", computerPlayer.getCurrentLocation());
+    Pet cat = new Pet("pet", computerPlayer.getCurrentLocation());
     computerPlayer.moveThePet(cat);
     assertNotEquals(computerPlayer.getCurrentLocation(), cat.getCurrentLocation());
   }

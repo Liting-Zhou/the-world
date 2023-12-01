@@ -47,7 +47,7 @@ public class RoomImpTest {
     anotherRoom.setNeighbors(new ArrayList<>(List.of(otherRoom)));
     player = new HumanPlayer(1, 0, "jack", otherRoom, 3);
     target = new Target("Test Target", 20, thisRoom);
-    cat = new Cat("cat", thisRoom);
+    cat = new Pet("cat", thisRoom);
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
   }
@@ -84,6 +84,45 @@ public class RoomImpTest {
     assertEquals(2, neighbors.size());
   }
 
+  @Test
+  public void testIsNeighbor(){
+    assertTrue(anotherRoom.isNeighbor(otherRoom));
+    assertFalse(otherRoom.isNeighbor(thisRoom));
+  }
+
+  @Test
+  public void testIsTargetHere(){
+    assertTrue(thisRoom.isTargetHere());
+    assertFalse(otherRoom.isTargetHere());
+  }
+
+  @Test
+  public void testIsPetHere(){
+    assertTrue(thisRoom.isPetHere());
+    assertFalse(otherRoom.isPetHere());
+  }
+
+
+  @Test
+  public void testGetPlayersInTheRoom() {
+    List<Player> playersInTheRoom = otherRoom.getPlayersInTheRoom();
+    assertNotNull(playersInTheRoom);
+    assertEquals(1, playersInTheRoom.size());
+  }
+
+  @Test
+  public void testAddPlayer(){
+    Player player = new HumanPlayer(1, 0, "jack", thisRoom, 3);
+    otherRoom.addPlayer(player);
+    assertEquals(2, otherRoom.getPlayersInTheRoom().size());
+  }
+
+  @Test
+  public void testRemovePlayer(){
+    Player player = new HumanPlayer(1, 0, "jack", otherRoom, 3);
+    otherRoom.removePlayer(player);
+    assertEquals(1, otherRoom.getPlayersInTheRoom().size());
+  }
 
   @Test
   public void testRemoveWeapon() {
@@ -106,33 +145,27 @@ public class RoomImpTest {
   public void testDisplayTarget() {
     target.updateLocation(otherRoom);
     // Simulate target not being in the room
-    thisRoom.displayTarget();
+    String output1=thisRoom.displayTarget();
 
     // Check if the output matches the expected value
     String expectedOutput = "   Target is not here.\n";
-    assertEquals(expectedOutput, outContent.toString());
+    assertEquals(expectedOutput, output1);
 
     // Simulate target being in the room
     target.updateLocation(thisRoom);
-    thisRoom.displayTarget();
+    String output=thisRoom.displayTarget();
 
     String expectedOutputHere =
-        "   Target is not here.\n" + "   Target is in room 1!\n";
-    assertEquals(expectedOutputHere, outContent.toString());
+        "   Target is in room 1!\n";
+    assertEquals(expectedOutputHere, output);
 
-  }
-
-  @Test
-  public void testIsPetHere() {
-    Pet cat = new Cat("cat", thisRoom);
-    assertTrue(thisRoom.isPetHere());
   }
 
   @Test
   public void testDisplayPet() {
-    thisRoom.displayPet();
+    String output=thisRoom.displayPet();
     String expectedOutputHere = "   The cat is in room 1.\n";
-    assertEquals(expectedOutputHere, outContent.toString());
+    assertEquals(expectedOutputHere, output);
   }
 
   @Test
@@ -161,17 +194,17 @@ public class RoomImpTest {
     List<Player> players = new ArrayList<>();
     player.updateLocation(thisRoom);
     Player player2 = new Player(2, 1, "rose", thisRoom, 3);
-    thisRoom.displayPlayers();
+    String output=thisRoom.displayPlayers();
 
     String expectedOutputHere = "   Player jack is in room 1.\n" + "   Player rose is in room 1.\n";
-    assertEquals(expectedOutputHere, outContent.toString());
+    assertEquals(expectedOutputHere, output);
   }
 
   @Test
   public void testDisplayWeapons() {
-    thisRoom.displayWeapons();
+    String output=thisRoom.displayWeapons();
     String expectedOutputHere = "-> Weapon Test weapon with power 3 is in this room.\n";
-    assertEquals(expectedOutputHere, outContent.toString());
+    assertEquals(expectedOutputHere, output);
   }
 
   @Test

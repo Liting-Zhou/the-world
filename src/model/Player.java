@@ -155,40 +155,6 @@ public class Player extends AbstractCharacter {
     sb.append(getCurrentLocation().displayNeighborsAllInfo());
     sb.append("~~~~~~~~~\n");
     return sb.toString();
-
-//    System.out.println("~~~~~~~~~");
-//    System.out.println("By looking around, you got the following information:");
-//    System.out.printf("Your current Location: Room %d, the %s%n",
-//        room.getRoomNumber(),
-//        room.getRoomName());
-//    room.displayWeapons();
-//    if (!room.isAnyOtherPlayerHere(this) && !room.isPetHere()
-//        && !room.isTargetHere()) {
-//      System.out.println("No one else is in this room.");
-//    }
-//    if (room.isTargetHere()) {
-//      System.out.println("The target is in this room.");
-//    }
-//    if (room.isPetHere()) {
-//      System.out.println("The cat is in this room.");
-//    }
-//    if (room.isAnyOtherPlayerHere(this)) {
-//      for (Player p : room.getPlayersInTheRoom()) {
-//        if (p.getCurrentLocation().equals(room) && (!p.equals(this))) {
-//          System.out.printf("%s is here.%n", p.getName());
-//        }
-//      }
-//    }
-//    getCurrentLocation().displayNeighborsAllInfo();
-//    System.out.println("~~~~~~~~~");
-  }
-
-  /**
-   * Displays the player information, including name, weapon carried, current location,
-   * and neighbors.
-   */
-  public void displayLookAroundInformation() {
-
   }
 
   /**

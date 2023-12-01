@@ -35,30 +35,19 @@ public class ComputerPlayer extends Player {
       sb.append(String.format(
           "The random action of computer player %s is to move to a neighboring room.%n",
           this.getName()));
-//      System.out.printf(
-//          "The random action of computer player %s is to move to a neighboring room.%n",
-//          this.getName());
       sb.append(move());
     } else if (action == 1) {
       sb.append(String.format("The random action of computer player %s is to pick up a weapon.%n",
           this.getName()));
-//      System.out.printf("The random action of computer player %s is to pick up a weapon.%n",
-//          this.getName());
       sb.append(pickUpWeapon());
     } else if (action == 2) {
       sb.append(String.format("The random action of computer player %s is to look around.%n",
           this.getName()));
       sb.append(lookAround());
-//      System.out.printf("The random action of computer player %s is to look around.%n",
-//          this.getName());
-//      System.out.printf(lookAround());
     } else {
       sb.append(String.format("The random action of computer player %s is to move the pet.%n",
           this.getName()));
       sb.append(moveThePet(pet));
-//      System.out.printf("The random action of computer player %s is to move the pet.%n",
-//          this.getName());
-//      System.out.printf(moveThePet(pet));
     }
     return sb.toString();
   }
@@ -75,24 +64,15 @@ public class ComputerPlayer extends Player {
       sb.append(String.format(
           "The random action of computer player %s is to move to a neighboring room.%n",
           this.getName()));
-//      System.out.printf(
-//          "The random action of computer player %s is to move to a neighboring room.%n",
-//          this.getName());
       sb.append(move());
     } else if (action == 1) {
       sb.append(String.format("The random action of computer player %s is to look around.%n",
           this.getName()));
       sb.append(lookAround());
-//      System.out.printf("The random action of computer player %s is to look around.%n",
-//          this.getName());
-//      System.out.printf(lookAround());
     } else {
       sb.append(String.format("The random action of computer player %s is to move the pet.%n",
           this.getName()));
       sb.append(moveThePet(pet));
-//      System.out.printf("The random action of computer player %s is to move the pet.%n",
-//          this.getName());
-//      System.out.printf(moveThePet(pet));
     }
     return sb.toString();
   }
@@ -118,7 +98,6 @@ public class ComputerPlayer extends Player {
     //check if the player can carry more weapons
     if (weaponsCarried.size() == maxNumberOfWeapons) {
       sb.append(String.format("Player %s cannot carry more weapons.%n", this.getName()));
-//      System.out.printf("Player %s cannot carry more weapons.%n", this.getName());
       return sb.toString();
     }
     //list the weapons in the room
@@ -126,18 +105,12 @@ public class ComputerPlayer extends Player {
     //see if there is any weapon in the room
     if (weapons.isEmpty()) {
       sb.append("But no weapons in this room.");
-//      System.out.println("But no weapons in this room.");
       //pick up the weapon
     } else if (weapons.size() == 1) {
       weaponsCarried.add(weapons.get(0));
       sb.append(String.format("Player %s picked up %s with power %d.%n", this.getName(),
           weapons.get(0).getName(),
           weapons.get(0).getPower()));
-//      System.out.printf("Player %s picked up %s with power %d.%n", this.getName(),
-//          weapons.get(0).getName(),
-//          weapons.get(0).getPower());
-//      System.out.printf("Now %s", this.getName());
-//      displayWeaponInformation();
       //update the room information with weapons removed
       this.getCurrentLocation().removeWeapon(weapons.get(0));
     } else {
@@ -147,10 +120,6 @@ public class ComputerPlayer extends Player {
       weaponsCarried.add(weapon);
       sb.append(String.format("Player %s picked up %s with power %d.%n", this.getName(),
           weapon.getName(), weapon.getPower()));
-//      System.out.printf((String.format("Player %s picked up %s with power %d.", this.getName(),
-//          weapon.getName(), weapon.getPower())) + "%n");
-//      System.out.printf("Now %s", this.getName());
-//      displayWeaponInformation();
       //update the room information with weapons removed
       this.getCurrentLocation().removeWeapon(weapon);
     }
@@ -172,16 +141,12 @@ public class ComputerPlayer extends Player {
       sb.append(String.format(
           "%s has no weapon. Just poke the target in the eye!%nTarget gets 1 damage.%n",
           this.getName()));
-//      System.out.printf("Computer player %s has no weapon. Just poke the target in the eye!%n",
-//          this.getName());
       target.healthDamage(1);
     } else if (weaponsCarried.size() == 1) {
       //if one weapon carried, use the weapon to attack
       WeaponImp weapon = weaponsCarried.get(0);
       sb.append(String.format("%s uses %s to attack the target, target gets %d damage.%n",
           this.getName(), weapon.getName(), weapon.getPower()));
-//      System.out.printf("Computer player %s uses %s to attack the target, target gets %d damage.%n",
-//          this.getName(), weapon.getName(), weapon.getPower());
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);

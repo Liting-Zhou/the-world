@@ -88,7 +88,7 @@ public class HumanPlayerTest {
 
   @Test
   public void testAttackWhenCanNotBeSeen() {
-    Pet cat = new Cat("cat", humanPlayer.getCurrentLocation());
+    Pet cat = new Pet("cat", humanPlayer.getCurrentLocation());
 
     // 1. Test attacking a target with weapon
     int input1 = random.nextRandomInt(4);
@@ -128,7 +128,7 @@ public class HumanPlayerTest {
   @Test
   public void testAttackWhenCanBeSeen() {
     Room room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
-    Pet cat = new Cat("cat", room3);
+    Pet cat = new Pet("cat", room3);
     Target target = new Target("target", 10, humanPlayer.getCurrentLocation());
 
     Player otherPlayer =
@@ -139,7 +139,7 @@ public class HumanPlayerTest {
 
   @Test
   public void testMoveThePet() {
-    Pet cat = new Cat("cat", humanPlayer.getCurrentLocation());
+    Pet cat = new Pet("cat", humanPlayer.getCurrentLocation());
     int input = random.nextRandomInt(22);
     InputStream in = new ByteArrayInputStream(String.valueOf(input).getBytes());
     System.setIn(in);

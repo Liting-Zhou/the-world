@@ -339,25 +339,6 @@ public final class RoomImp implements Room {
       }
     }
     return sb.toString();
-
-//    if (weapons.isEmpty()) {
-//      System.out.println("-> There is no weapon in this room.");
-//    } else if (weapons.size() == 1) {
-//      //there are numbers of weapons in this room
-//      System.out.printf("-> Weapon %s with power %d is in this room.%n", weapons.get(0).getName(),
-//          weapons.get(0).getPower());
-//    } else {
-//      System.out.printf("-> There are %d weapons in this room: %n", weapons.size());
-//      int i = 1;
-//      for (WeaponImp weapon : weapons) {
-//        for (int j = 0; j < (roomName.length() + 7); j++) {
-//          System.out.print(" ");
-//        }
-//        System.out.printf("(%d) %s with power %d%n", i, weapon.getName(),
-//            weapon.getPower());
-//        i += 1;
-//      }
-//    }
   }
 
   /**

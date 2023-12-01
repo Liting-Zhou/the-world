@@ -724,12 +724,6 @@ public final class MyWorld implements World {
     return null;
   }
 
-//  @Override
-//  public String moveThePet() {
-//    ComputerPlayer player = (ComputerPlayer) players.get(indexOfCurrentPlayer);
-//    return player.moveThePet(pet);
-//  }
-
   /**
    * Displays information about the target.
    */

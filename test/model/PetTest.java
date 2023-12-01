@@ -28,7 +28,7 @@ public class PetTest {
     room2.setNeighbors(List.of(room1, room3));
     room3.setNeighbors(List.of(room2));
     //mansion = new Mansion("test", 20, 20, rooms);
-    catTest = new Cat("cat test", room1);
+    catTest = new Pet("cat test", room1);
   }
 
   @Test
