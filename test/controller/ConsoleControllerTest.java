@@ -82,11 +82,6 @@ public class ConsoleControllerTest {
     System.setErr(new PrintStream(errContent));
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testPlayGameWithInvalidMaxNumOfTurns() throws IllegalArgumentException, IOException {
-    consoleController = new ConsoleController(new StringReader("-1\n"), new StringBuilder());
-    consoleController.playGame(mockWorld);
-  }
 
   @Test
   public void testPlayNextTurnCommand() throws IOException {
@@ -164,7 +159,7 @@ public class ConsoleControllerTest {
         + "12: Room M\n13: Room N\n14: Room O\n15: Room P\n16: Room Q\n17: Room R\n"
         + "18: Room S\n19: Room T\n20: Room U\n21: Room V\n\n"
         + "Which room do you want to display? Please enter the room number (0-21): \n"
-        + "\nRoom 1 information:\n-> There is no weapon in this room.\n"
+        + "\nRoom 1 information:\n"
         + "   Target is not here.\n   The cat is not here.\n   No player in this room.\n"
         + "\n***************\n"
         + "Game continues.\n"

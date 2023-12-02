@@ -45,6 +45,7 @@ public class VisualController implements Features {
     view.setFeatures(this);
   }
 
+
   @Override
   public void exitGame() {
     exitGame = true;

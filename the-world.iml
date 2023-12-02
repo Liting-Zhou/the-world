@@ -41,6 +41,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="system-rules-1.19.0" level="project" />
+    <orderEntry type="library" name="dependencies" level="project" />
   </component>
 </module>
