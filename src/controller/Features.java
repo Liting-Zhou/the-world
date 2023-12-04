@@ -24,6 +24,8 @@ public interface Features {
 
   void enterGame();
 
+  void resetState();
+
   void gameSetUp();
 
   /**

@@ -16,15 +16,15 @@ public final class RoomImp implements Room {
   private final int x2; //right bottom corner
   private final int y2; //right bottom corner
   private final String roomName;
-  private final List<WeaponImp> weapons;
-  private final List<Player> playersInTheRoom = new ArrayList<>(); //record players in this room
+  private List<WeaponImp> weapons;
+  private List<Player> playersInTheRoom = new ArrayList<>(); //record players in this room
   private List<Room> neighbors = new ArrayList<>();
   private boolean targetFlag = false; //record if target is in this room
   private boolean petFlag = false; //record if pet is in this room
   private boolean playerFlag = false; //record if player is in this room
 
   /**
-   * Constructs a new model.RoomImp object.
+   * Constructs a new RoomImp object.
    *
    * @param roomNumber The unique room number.
    * @param x1         The x-coordinate of the left-upper corner.
@@ -43,6 +43,21 @@ public final class RoomImp implements Room {
     this.y2 = y2;
     this.roomName = roomName;
     this.weapons = weapons;
+  }
+
+  public RoomImp(Room room) {
+    this.roomNumber = room.getRoomNumber();
+    this.x1 = room.getX1();
+    this.y1 = room.getY1();
+    this.x2 = room.getX2();
+    this.y2 = room.getY2();
+    this.roomName = room.getRoomName();
+    this.weapons = new ArrayList<>();
+    for(Weapon weapon:room.getWeapons()){
+      this.weapons.add(new WeaponImp(weapon));
+    }
+    //this.weapons = room.getWeapons();
+    this.neighbors = room.getNeighbors();
   }
 
   /**

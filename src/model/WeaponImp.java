@@ -23,6 +23,12 @@ public final class WeaponImp implements Weapon {
     this.belongRoomNumber = belongRoomNumber;
   }
 
+  public WeaponImp(Weapon weapon) {
+    this.power = weapon.getPower();
+    this.name = weapon.getName();
+    this.belongRoomNumber = weapon.getBelongRoomNumber();
+  }
+
   /**
    * Gets the power of the weapon.
    *

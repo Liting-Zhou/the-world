@@ -37,6 +37,8 @@ public interface World extends ReadOnlyWorld {
   void playNextTurn();
 
 
+  void resetState();
+
   /**
    * Saves the map of the mansion.
    */

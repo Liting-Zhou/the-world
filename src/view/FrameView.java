@@ -124,6 +124,7 @@ public class FrameView extends JFrame implements View {
   @Override
   public void setFeatures(Features f) {
     newGameNewWorldItem.addActionListener(l -> {
+      displayGamePanel(false);
       setDisplay("Add some players before starting the game.");
       displayScrollPane.setVisible(true);
       try {
@@ -133,6 +134,8 @@ public class FrameView extends JFrame implements View {
       }
     });
     newGameCurrentWorldItem.addActionListener(l -> {
+      displayGamePanel(false);
+      f.resetState();
       setDisplay("Add some players before starting the game.");
       displayScrollPane.setVisible(true);
       f.gameSetUp();
@@ -311,14 +314,10 @@ public class FrameView extends JFrame implements View {
   public void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f) {
     String[] weaponNames = weapons.stream().map(Weapon::getName).toArray(String[]::new);
 
-    //add "your fist"
-    String[] options = new String[weaponNames.length];
-    System.arraycopy(weaponNames, 0, options, 0, weaponNames.length - 1);
-
     JPanel panel = new JPanel();
     ButtonGroup buttonGroup = new ButtonGroup();
 
-    for (String weapon : options) {
+    for (String weapon : weaponNames) {
       JRadioButton radioButton = new JRadioButton(weapon);
       buttonGroup.add(radioButton);
       panel.add(radioButton);

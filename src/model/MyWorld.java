@@ -17,13 +17,15 @@ import javax.imageio.ImageIO;
  */
 public final class MyWorld implements World {
   private final int startingRoom = 0; //default value
-  private final List<Player> players = new ArrayList<>();
+  private List<Player> players = new ArrayList<>();
   int maxNumOfTurns = 100; //default value
   private List<Room> listOfRooms;
+  private final List<Room> initialRoomsState=new ArrayList<>();
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
   private Target target;
+  private final int targetInitialHealth;
   private Pet pet;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
@@ -57,6 +59,11 @@ public final class MyWorld implements World {
     initializeMansion(lines);
     initializeTarget(lines);
     initializePet(lines);
+
+    for(Room room:listOfRooms){
+      initialRoomsState.add(new RoomImp(room));
+    }
+    targetInitialHealth = target.getHealth();
 
     // describe the world
     worldDescription();
@@ -192,12 +199,11 @@ public final class MyWorld implements World {
     System.arraycopy(targetData, 1, restOfTargetData, 0, targetData.length - 1);
     String targetName = String.join(" ", restOfTargetData);
 
-    // Initialize the starting location
+    // initialize the starting location
     Room currentLocation = listOfRooms.get(startingRoom);
 
-    // Create the target character.
+    // create the target character
     target = new Target(targetName, targetHealth, currentLocation);
-    //mansion.setTarget(target);
   }
 
   /**
@@ -234,6 +240,28 @@ public final class MyWorld implements World {
     // Add the created Player object to the list of players.
     players.add(player);
     //mansion.addPlayer(player);
+  }
+
+  /**
+   * Resets the state of the world.
+   */
+  @Override
+  public void resetState(){
+    players.clear();
+
+    listOfRooms.clear();
+    for(Room room:initialRoomsState){
+      listOfRooms.add(new RoomImp(room));
+    }
+
+    target.updateLocation(listOfRooms.get(startingRoom));
+    target.resetHealth(targetInitialHealth);
+
+    pet.updateLocation(listOfRooms.get(startingRoom));
+
+    numOfTurnsPlayed = 1;
+    indexOfCurrentPlayer = 0;
+
   }
 
   /**
@@ -717,7 +745,7 @@ public final class MyWorld implements World {
   @Override
   public Room findRoomByCoordinates(int x, int y) {
     for (Room room : listOfRooms) {
-      if (room.getX1() <= x && x <= room.getX2() && room.getY1() <= y && y <= room.getY2()) {
+      if (room.getX1() <= x && x < room.getX2() && room.getY1() <= y && y < room.getY2()) {
         return room;
       }
     }

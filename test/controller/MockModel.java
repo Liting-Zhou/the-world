@@ -99,6 +99,11 @@ public class MockModel implements World {
   }
 
   @Override
+  public void resetState() {
+    log.append("model.resetState is invoked\n");
+  }
+
+  @Override
   public void saveMansionMap() {
     log.append("model.saveMansionMap is invoked\n");
   }

@@ -103,6 +103,20 @@ public class MyWorldTest {
   }
 
   @Test
+  public void testResetState(){
+    myWorld.addHumanPlayer("Player1", 0, 1);
+    myWorld.addComputerPlayer("Player2", 1, 2);
+    target.healthDamage(1);
+    assertEquals(19, myWorld.getTarget().getHealth());
+    myWorld.resetState();
+    assertEquals(1, myWorld.getNumOfTurnsPlayed());
+    assertEquals(0, myWorld.getListOfPlayers().size());
+    assertEquals(0, myWorld.getPet().getCurrentLocation().getRoomNumber());
+    assertEquals(0, myWorld.getTarget().getCurrentLocation().getRoomNumber());
+    assertEquals(20, myWorld.getTarget().getHealth());
+  }
+
+  @Test
   public void testAddPlayer() {
     myWorld.addHumanPlayer("Player1", 0, 1);
     myWorld.addComputerPlayer("Player2", 1, 2);

@@ -18,7 +18,8 @@ import view.View;
  */
 public class VisualController implements Features {
 
-  private final int maxNumOfTurns;
+  private int maxNumOfTurns;
+  private final int initStateOfMaxNumOfTurns;
   private World model;
   private View view;
   private boolean exitGame = false;
@@ -34,7 +35,7 @@ public class VisualController implements Features {
    */
   public VisualController(World w) {
     model = w;
-    maxNumOfTurns = model.getMaxNumOfTurns();
+    initStateOfMaxNumOfTurns = model.getMaxNumOfTurns();
   }
 
   /**
@@ -56,6 +57,17 @@ public class VisualController implements Features {
   }
 
   @Override
+  public void resetState(){
+    model.resetState();
+    exitGame = false;
+    playerMoveMode = false;
+    movePetMode = false;
+    displayMode = true;
+    playTurnMode = false;
+    maxNumOfTurns = initStateOfMaxNumOfTurns;
+  }
+
+  @Override
   public void gameSetUp() {
     // display welcome message
     view.showMessageDialog("", "Welcome to the Game of Kill Doctor Happy!\n\n"
@@ -72,6 +84,12 @@ public class VisualController implements Features {
     model = new MyWorld(reader);
     String maxTurns = view.showInputDialog("Provide the maximum number of turns: ");
     model.setMaxNumOfTurns(Integer.parseInt(maxTurns));
+    maxNumOfTurns = Integer.parseInt(maxTurns);
+    exitGame = false;
+    playerMoveMode = false;
+    movePetMode = false;
+    displayMode = true;
+    playTurnMode = false;
     gameSetUp();
   }
 
@@ -117,7 +135,6 @@ public class VisualController implements Features {
       view.resetFocus();
       //set current player index to next player
     }
-    //add number of turns played
   }
 
   private void checkIsGameOver() {

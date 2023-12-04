@@ -36,6 +36,15 @@ public final class Target extends AbstractCharacter {
   }
 
   /**
+   * Resets the health of the target.
+   *
+   * @param health The initial health of the target.
+   */
+  public void resetHealth(int health) {
+    this.health = health;
+  }
+
+  /**
    * Sets the health of the target after an attack.
    *
    * @param power The power of the weapon used in the attack.
