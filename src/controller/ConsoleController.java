@@ -39,7 +39,6 @@ public final class ConsoleController implements Controller {
 
   @Override
   public void playGame(World w) throws IllegalArgumentException, IOException {
-    int maxNumOfTurns = w.getMaxNumOfTurns();
 
     Map<Integer, Function<Scanner, Command>> knownCommands = new HashMap<>();
     knownCommands.put(1, s -> new DisplayRoomInfo());
@@ -53,6 +52,7 @@ public final class ConsoleController implements Controller {
     Scanner s = new Scanner(System.in);
     System.out.println("Game started!\n***************");
 
+    int maxNumOfTurns = w.getMaxNumOfTurns();
     while (!w.isGameOver() && w.getNumOfTurnsPlayed() <= maxNumOfTurns) {
       printOptions();
 

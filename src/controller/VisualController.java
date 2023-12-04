@@ -13,16 +13,19 @@ import model.WeaponImp;
 import model.World;
 import view.View;
 
+/**
+ * This class represents a controller which supports UI interaction.
+ */
 public class VisualController implements Features {
 
-  private World model;
   private final int maxNumOfTurns;
+  private World model;
   private View view;
   private boolean exitGame = false;
   private boolean playerMoveMode = false;
   private boolean movePetMode = false;
   private boolean displayMode = true; //false when in playing turn mode
-  private boolean playTurnMode= false;
+  private boolean playTurnMode = false;
 
   /**
    * Constructor.
@@ -64,10 +67,10 @@ public class VisualController implements Features {
 
   @Override
   public void newGameWithNewConfig() throws FileNotFoundException {
-    String path=view.showInputDialog("Provide the PATH of the configuration file: ");
+    String path = view.showInputDialog("Provide the PATH of the configuration file: ");
     Readable reader = new BufferedReader(new FileReader(path));
-    model=new MyWorld(reader);
-    String maxTurns=view.showInputDialog("Provide the maximum number of turns: ");
+    model = new MyWorld(reader);
+    String maxTurns = view.showInputDialog("Provide the maximum number of turns: ");
     model.setMaxNumOfTurns(Integer.parseInt(maxTurns));
     gameSetUp();
   }
@@ -156,7 +159,8 @@ public class VisualController implements Features {
     Target target = model.getTarget();
     if (currentPlayer.getCurrentLocation() != target.getCurrentLocation()) {
       view.setDisplay(
-          "You can not attack the target because you are not in the same room. Choose another action.");
+          "You can not attack the target because you are not in the same room. "
+              + "Choose another action.");
       view.resetFocus();
       return;
     }
@@ -186,7 +190,7 @@ public class VisualController implements Features {
   public void attackAfterWeaponSelected(String weaponName) {
     HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
     StringBuilder sb = new StringBuilder();
-    if (weaponName.equals("Your fist")) {
+    if (("Your fist").equals(weaponName)) {
       sb.append("You chose to poke the target in the eye!\n");
       currentPlayer.attackWithNoWeapon(model.getTarget());
       if (currentPlayer.canBeSeen()) {
@@ -224,7 +228,8 @@ public class VisualController implements Features {
     HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
     if (currentPlayer.getWeaponsCarried().size() == currentPlayer.getMaxNumberOfWeapons()) {
       view.setDisplay(
-          "You have reached the weapon limit. You can not pick up any more weapon. Choose another action.");
+          "You have reached the weapon limit. You can not pick up any more weapon. "
+              + "Choose another action.");
       view.resetFocus();
       return;
     }
@@ -241,7 +246,8 @@ public class VisualController implements Features {
       WeaponImp weapon = currentPlayer.getCurrentLocation().getWeapons().get(0);
       currentPlayer.getWeaponsCarried().add(weapon);
       view.setDisplay(String.format(
-          "You picked up %s with power %d.\n\nThis Turn ended.\nClick the button to play next turn.",
+          "You picked up %s with power %d.\n\nThis Turn ended."
+              + "\nClick the button to play next turn.",
           weapon.getName(),
           weapon.getPower()));
       currentPlayer.getCurrentLocation().removeWeapon(weapon);
@@ -262,7 +268,8 @@ public class VisualController implements Features {
       if (weapon.getName().equals(weaponName)) {
         currentPlayer.getWeaponsCarried().add(weapon);
         view.setDisplay(String.format(
-            "You picked up %s with power %d.\n\nThis Turn ended.\nClick the button to play next turn.",
+            "You picked up %s with power %d.\n\nThis Turn ended."
+                + "\nClick the button to play next turn.",
             weapon.getName(),
             weapon.getPower()));
         currentPlayer.getCurrentLocation().removeWeapon(weapon);
@@ -289,30 +296,34 @@ public class VisualController implements Features {
   public void moveThePet() {
     StringBuilder sb = new StringBuilder();
     sb.append("You chose to move the pet, ");
-    sb.append(String.format("which is now in room %d.\nClick any room you want to teleport the pet to.", model.getPet().getCurrentLocation().getRoomNumber()));
+    sb.append(
+        String.format("which is now in room %d.\nClick any room you want to teleport the pet to.",
+            model.getPet().getCurrentLocation().getRoomNumber()));
     view.setDisplay(sb.toString());
     setMovePetMode(true);
   }
 
   @Override
-    public void movePetToRoom(int x, int y) {
-        model.movePetToRoom(x, y);
+  public void movePetToRoom(int x, int y) {
+    model.movePetToRoom(x, y);
     view.setDisplay(String.format(
-        "You have moved the pet to the %s. Next turn it will stay there.\n\nThis Turn ended.\nClick the button to play next turn.",
+        "You have moved the pet to the %s. Next turn it will stay there.\n\nThis Turn ended."
+            + "\nClick the button to play next turn.",
         model.getPet().getCurrentLocation().getRoomName()));
     model.updatePlayerTurn();
     model.updateTurnsPlayed();
     checkIsGameOver();
-    }
-  @Override
-  public void setMovePetMode(boolean b) {
-    movePetMode = b;
-    displayMode = !b;
   }
 
   @Override
   public boolean getMovePetMode() {
     return movePetMode;
+  }
+
+  @Override
+  public void setMovePetMode(boolean b) {
+    movePetMode = b;
+    displayMode = !b;
   }
 
   @Override
@@ -353,8 +364,9 @@ public class VisualController implements Features {
   }
 
   @Override
-    public void setPlayTurnMode(boolean b) {
-        playTurnMode = b;   }
+  public void setPlayTurnMode(boolean b) {
+    playTurnMode = b;
+  }
 
   @Override
   public boolean getPlayerMoveMode() {
@@ -372,10 +384,12 @@ public class VisualController implements Features {
     Room previousRoom = model.getCurrentPlayer().getCurrentLocation();
     model.moveToRoom(x, y);
     Room currentRoom = model.getCurrentPlayer().getCurrentLocation();
-    if(previousRoom.equals(currentRoom)){
-      view.setDisplay(String.format("You chose the current location or a non-neighboring room.\nYou are still in the %s."
-          + "\n\nThis Turn ended.\nClick the button to play next turn.", currentRoom.getRoomName()));
-    }else{
+    if (previousRoom.equals(currentRoom)) {
+      view.setDisplay(String.format(
+          "You chose the current location or a non-neighboring room.\nYou are still in the %s."
+              + "\n\nThis Turn ended.\nClick the button to play next turn.",
+          currentRoom.getRoomName()));
+    } else {
       view.setDisplay(String.format(
           "You have moved to the %s.\n\nThis Turn ended.\nClick the button to play next turn.",
           model.getCurrentPlayer().getCurrentLocation().getRoomName()));

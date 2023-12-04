@@ -73,6 +73,11 @@ public class Pet extends AbstractCharacter {
   }
 
 
+  /**
+   * Update the location of the pet.
+   *
+   * @param room the room to be updated to
+   */
   public void updateLocation(Room room) {
     this.getCurrentLocation().setPetFlag(false); //set the pet flag of the previous room to false
     this.setCurrentLocation(room);

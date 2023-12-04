@@ -81,7 +81,7 @@ public class ComputerPlayerTest {
   @Test
   public void testMoveThePet() {
     Pet cat = new Pet("pet", computerPlayer.getCurrentLocation());
-    computerPlayer.moveThePet(cat);
+    computerPlayer.moveThePet(cat, listOfRooms);
     assertNotEquals(computerPlayer.getCurrentLocation(), cat.getCurrentLocation());
   }
 }

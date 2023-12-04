@@ -13,7 +13,6 @@ public class Player extends AbstractCharacter {
   protected List<WeaponImp> weaponsCarried;
   private int indexOfPlayer;
 
-
   /**
    * Constructs a new Player object.
    *
@@ -122,6 +121,8 @@ public class Player extends AbstractCharacter {
 
   /**
    * Player looks around. Displays all the information about current room and neighbors.
+   *
+   * @return the display message of looking around
    */
   public String lookAround() {
     Room room = getCurrentLocation();

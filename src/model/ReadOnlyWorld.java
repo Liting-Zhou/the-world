@@ -3,6 +3,9 @@ package model;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+/**
+ * This interface represents a read-only world for view to directly interact with.
+ */
 public interface ReadOnlyWorld {
 
   /**
@@ -18,6 +21,7 @@ public interface ReadOnlyWorld {
    * @return the target
    */
   Target getTarget();
+
   Pet getPet();
 
   /**
@@ -77,6 +81,8 @@ public interface ReadOnlyWorld {
 
   /**
    * Displays information about the target.
+   *
+   * @return the display message of target information
    */
   String displayTargetInformation();
 
@@ -87,11 +93,17 @@ public interface ReadOnlyWorld {
 
   /**
    * Displays information about the specified player.
+   *
+   * @param player the player to be displayed
+   * @return the display message of player information
    */
   String displayPlayerInformation(Player player);
 
   /**
    * Displays information about the target and players.
+   *
+   * @param room the room to be displayed
+   * @return the display message of room information
    */
   String displayRoomInformation(Room room);
 }

@@ -160,8 +160,9 @@ public class MyWorldTest {
     myWorld.playNextTurn();
     assertEquals(1, myWorld.getNumOfTurnsPlayed());
   }
+
   @Test
-  public void testUpdatePlayerTurn(){
+  public void testUpdatePlayerTurn() {
     myWorld.addHumanPlayer("Player1", 0, 1);
     myWorld.addComputerPlayer("Player2", 1, 2);
     myWorld.updatePlayerTurn();
@@ -170,12 +171,12 @@ public class MyWorldTest {
 
   @Test
   public void testMovePetToRoom() {
-    myWorld.movePetToRoom(5,6);
+    myWorld.movePetToRoom(5, 6);
     assertEquals(1, myWorld.getPet().getCurrentLocation().getRoomNumber());
   }
 
   @Test
-  public void testMoveToRoom(){
+  public void testMoveToRoom() {
     myWorld.addHumanPlayer("Player1", 0, 1);
     myWorld.moveToRoom(4, 3);
     assertEquals(3, myWorld.getListOfPlayers().get(0).getCurrentLocation().getRoomNumber());
@@ -183,12 +184,12 @@ public class MyWorldTest {
 
   @Test
   public void testDisplayTargetInformation() {
-    String output=myWorld.displayTargetInformation();
+    String output = myWorld.displayTargetInformation();
     String expectedOutput = "Target Information:\n"
         + "Name: Target\n" + "Current Location: Room 0, Room A.\n"
         + "Health: 20\n";
 
-    assertEquals(expectedOutput,output);
+    assertEquals(expectedOutput, output);
   }
 
   @Test
@@ -200,24 +201,22 @@ public class MyWorldTest {
     String input = "Player";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     System.setIn(in);
-    String output=myWorld.displayPlayerInformation(player);
-    String expectedOutput ="Information of player Player: \n" +
-        "Maximum number of weapons can carry: 3\n" +
-        "This is a human player.\n" +
-        "Current Location: Room 0, the Room A.\n";
-    assertEquals(expectedOutput,output);
+    String output = myWorld.displayPlayerInformation(player);
+    String expectedOutput = "Information of player Player: \n"
+        + "Maximum number of weapons can carry: 3\n"
+        + "This is a human player.\n"
+        + "Current Location: Room 0, the Room A.\n";
+    assertEquals(expectedOutput, output);
   }
 
   @Test
   public void testDisplayRoomInformation() {
-//    String inputString = "0";
-//    System.setIn(new ByteArrayInputStream(inputString.getBytes()));
-    Room room= rooms.get(0);
-    String output=myWorld.displayRoomInformation(room);
-    String expectedOutput = "Room 0 information:\n" +
-        "   Target is in room 0!\n" +
-        "   The cat is in room 0.\n" +
-        "   No player in this room.\n";
+    Room room = rooms.get(0);
+    String output = myWorld.displayRoomInformation(room);
+    String expectedOutput = "Room 0 information:\n"
+        + "   Target is in room 0!\n"
+        + "   The cat is in room 0.\n"
+        + "   No player in this room.\n";
     assertEquals(expectedOutput, output);
   }
 

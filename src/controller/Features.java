@@ -67,17 +67,22 @@ public interface Features {
 
   void movePetToRoom(int x, int y);
 
-  void setMovePetMode(boolean b);
-
   boolean getMovePetMode();
+
+  void setMovePetMode(boolean b);
 
   /**
    * Display information of a specific room.
+   *
+   * @param x the x coordinate of the room
+   * @param y the y coordinate of the room
    */
   void displayRoomInfo(int x, int y);
 
   /**
    * Display information of a specific player.
+   *
+   * @param player the player to display
    */
   void displayPlayerInfo(Player player);
 

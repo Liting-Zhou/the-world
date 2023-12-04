@@ -153,11 +153,15 @@ public interface Room {
 
   /**
    * Displays pet information.
+   *
+   * @return the display message of pet information
    **/
   String displayPet();
 
   /**
    * Displays target information.
+   *
+   * @return the display message of target information
    **/
   String displayTarget();
 
@@ -178,11 +182,15 @@ public interface Room {
 
   /**
    * Displays information of all players in the room.
+   *
+   * @return the display message of all players in the room
    **/
   String displayPlayers();
 
   /**
    * Displays the weapon information in the room.
+   *
+   * @return the display message of weapon information in the room
    */
   String displayWeapons();
 
@@ -193,6 +201,8 @@ public interface Room {
 
   /**
    * Displays the neighbors of the room with all information.
+   *
+   * @return the display message of all information about the neighbors of the room
    */
   String displayNeighborsAllInfo();
 }

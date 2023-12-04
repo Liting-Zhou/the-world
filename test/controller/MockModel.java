@@ -3,7 +3,6 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import model.ComputerPlayer;
 import model.HumanPlayer;
 import model.Pet;
 import model.Player;
@@ -12,11 +11,14 @@ import model.RoomImp;
 import model.Target;
 import model.World;
 
+/**
+ * This class represents a mock model for testing.
+ */
 public class MockModel implements World {
-private StringBuilder log;
+  private StringBuilder log;
 
   public MockModel(StringBuilder log) {
-this.log = log;
+    this.log = log;
   }
 
   @Override
@@ -26,13 +28,18 @@ this.log = log;
 
   @Override
   public void addComputerPlayer(String playerName, int startingRoomNumber, int maxNumOfWeapons) {
-log.append("model.addComputerPlayer is invoked\n");
+    log.append("model.addComputerPlayer is invoked\n");
   }
 
   @Override
   public int getMaxNumOfTurns() {
     log.append("model.getMaxNumOfTurns is invoked\n");
     return 0;
+  }
+
+  @Override
+  public void setMaxNumOfTurns(int maxNumOfTurns) {
+    log.append("model.setMaxNumOfTurns is invoked\n");
   }
 
   @Override
@@ -60,7 +67,7 @@ log.append("model.addComputerPlayer is invoked\n");
 
   @Override
   public void getRoomAndDisplay() {
-log.append("model.getRoomAndDisplay is invoked\n");
+    log.append("model.getRoomAndDisplay is invoked\n");
   }
 
   @Override
@@ -71,7 +78,7 @@ log.append("model.getRoomAndDisplay is invoked\n");
 
   @Override
   public void displayListOfRooms() {
-log.append("model.displayListOfRooms is invoked\n");
+    log.append("model.displayListOfRooms is invoked\n");
   }
 
   @Override
@@ -87,33 +94,28 @@ log.append("model.displayListOfRooms is invoked\n");
   }
 
   @Override
-  public void setMaxNumOfTurns(int maxNumOfTurns) {
-log.append("model.setMaxNumOfTurns is invoked\n");
-  }
-
-  @Override
   public void playNextTurn() {
-log.append("model.playNextTurn is invoked\n");
+    log.append("model.playNextTurn is invoked\n");
   }
 
   @Override
   public void saveMansionMap() {
-log.append("model.saveMansionMap is invoked\n");
+    log.append("model.saveMansionMap is invoked\n");
   }
 
   @Override
   public void updateTurnsPlayed() {
-log.append("model.updateTurnsPlayed is invoked\n");
+    log.append("model.updateTurnsPlayed is invoked\n");
   }
 
   @Override
   public void roundOfTarget() {
-log.append("model.roundOfTarget is invoked\n");
+    log.append("model.roundOfTarget is invoked\n");
   }
 
   @Override
   public void petWander() {
-log.append("model.petWander is invoked\n");
+    log.append("model.petWander is invoked\n");
   }
 
   @Override
@@ -124,17 +126,17 @@ log.append("model.petWander is invoked\n");
 
   @Override
   public void updatePlayerTurn() {
-log.append("model.updatePlayerTurn is invoked\n");
+    log.append("model.updatePlayerTurn is invoked\n");
   }
 
   @Override
   public void movePetToRoom(int x, int y) {
-log.append("model.movePetToRoom is invoked\n");
+    log.append("model.movePetToRoom is invoked\n");
   }
 
   @Override
   public void moveToRoom(int x, int y) {
-log.append("model.moveToRoom is invoked\n");
+    log.append("model.moveToRoom is invoked\n");
   }
 
   @Override
@@ -154,19 +156,21 @@ log.append("model.moveToRoom is invoked\n");
   @Override
   public Target getTarget() {
     log.append("model.getTarget is invoked\n");
-    return new Target("mock target", 10, new RoomImp(1,2,3,4,5,"mock room",new ArrayList<>()));
+    return new Target("mock target", 10,
+        new RoomImp(1, 2, 3, 4, 5, "mock room", new ArrayList<>()));
   }
 
   @Override
   public Pet getPet() {
     log.append("model.getPet is invoked\n");
-    return new Pet("mock pet",new RoomImp(1,2,3,4,5,"mock room",new ArrayList<>()));
+    return new Pet("mock pet", new RoomImp(1, 2, 3, 4, 5, "mock room", new ArrayList<>()));
   }
 
   @Override
   public Player getCurrentPlayer() {
     log.append("model.getCurrentPlayer is invoked\n");
-    return new HumanPlayer(0, 0, "mock player", new RoomImp(1,2,3,4,5,"mock room",new ArrayList<>()), 0);
+    return new HumanPlayer(0, 0, "mock player",
+        new RoomImp(1, 2, 3, 4, 5, "mock room", new ArrayList<>()), 0);
   }
 
   @Override

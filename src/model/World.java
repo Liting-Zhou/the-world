@@ -59,6 +59,8 @@ public interface World extends ReadOnlyWorld {
 
   /**
    * Play the round of player. For each turn, player moves after target moves.
+   *
+   * @return the display message after player's turn
    */
   String roundOfPlayer();
 
@@ -79,8 +81,4 @@ public interface World extends ReadOnlyWorld {
   void moveToRoom(int x, int y);
 
   Room findRoomByCoordinates(int x, int y);
-
-//  String moveThePet();
-
-
 }

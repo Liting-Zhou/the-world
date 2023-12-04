@@ -26,9 +26,11 @@ public class ComputerPlayer extends Player {
   /**
    * Computer Player randomly picks an action to perform.
    *
-   * @param pet The pet in the game.
+   * @param pet   the pet in the game
+   * @param rooms the list of rooms in the game
+   * @return the display message of the action
    **/
-  public String randomAction(Pet pet) {
+  public String randomAction(Pet pet, List<Room> rooms) {
     StringBuilder sb = new StringBuilder();
     int action = random.nextRandomInt(4);
     if (action == 0) {
@@ -47,7 +49,7 @@ public class ComputerPlayer extends Player {
     } else {
       sb.append(String.format("The random action of computer player %s is to move the pet.%n",
           this.getName()));
-      sb.append(moveThePet(pet));
+      sb.append(moveThePet(pet, rooms));
     }
     return sb.toString();
   }
@@ -55,9 +57,11 @@ public class ComputerPlayer extends Player {
   /**
    * Computer Player randomly picks an action to perform when there is no weapon in the room.
    *
-   * @param pet The pet in the game.
+   * @param pet   the pet in the game
+   * @param rooms the list of rooms in the game
+   * @return the display message of the action
    **/
-  public String randomActionNoWeapon(Pet pet) {
+  public String randomActionNoWeapon(Pet pet, List<Room> rooms) {
     StringBuilder sb = new StringBuilder();
     int action = random.nextRandomInt(3);
     if (action == 0) {
@@ -72,13 +76,15 @@ public class ComputerPlayer extends Player {
     } else {
       sb.append(String.format("The random action of computer player %s is to move the pet.%n",
           this.getName()));
-      sb.append(moveThePet(pet));
+      sb.append(moveThePet(pet, rooms));
     }
     return sb.toString();
   }
 
   /**
    * Player moves to a specific room.
+   *
+   * @return the display message of the action
    **/
   public String move() {
     //randomly move to a neighboring space
@@ -92,6 +98,8 @@ public class ComputerPlayer extends Player {
 
   /**
    * Player picks up a weapon.
+   *
+   * @return the display message of the action
    */
   public String pickUpWeapon() {
     StringBuilder sb = new StringBuilder();
@@ -130,7 +138,8 @@ public class ComputerPlayer extends Player {
    * Attacks the target. Computer player only makes attempt to attack when it can not be seen.
    * Always use the weapon with the highest power.
    *
-   * @param target The target to be attacked.
+   * @param target The target to be attacked
+   * @return the display message of the action
    */
   public String attack(Target target) {
     StringBuilder sb = new StringBuilder();
@@ -170,20 +179,23 @@ public class ComputerPlayer extends Player {
   }
 
   /**
-   * Moves the pet randomly to a neighbor space.
+   * Moves the pet randomly.
    *
-   * @param pet The pet in the game.
+   * @param pet   the pet in the game
+   * @param rooms the list of rooms in the game
+   * @return the display message of the action
    */
-  public String moveThePet(Pet pet) {
+  public String moveThePet(Pet pet, List<Room> rooms) {
     StringBuilder sb = new StringBuilder();
     Room currentRoom = pet.getCurrentLocation();
-    sb.append(String.format("The pet is currently in room %d, the %s.%n", currentRoom.getRoomNumber(),
-        currentRoom.getRoomName()));
+    sb.append(
+        String.format("The pet is currently in room %d, the %s.%n", currentRoom.getRoomNumber(),
+            currentRoom.getRoomName()));
 
-    List<Room> neighbors = currentRoom.getNeighbors();
-    Room nextWanderRoom = neighbors.get(random.nextRandomInt(neighbors.size()));
-    sb.append(String.format("Next turn, Fortune the cat will wander to room %d, the %s, as you wish.%n",
-        nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
+    Room nextWanderRoom = rooms.get(random.nextRandomInt(rooms.size()));
+    sb.append(
+        String.format("Next turn, Fortune the cat will wander to room %d, the %s, as you wish.%n",
+            nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);
     pet.setMoved();
     return sb.toString();

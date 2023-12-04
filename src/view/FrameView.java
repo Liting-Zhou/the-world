@@ -41,11 +41,14 @@ import model.Target;
 import model.Weapon;
 import model.WeaponImp;
 
+/**
+ * This class represents the view of the game.
+ */
 public class FrameView extends JFrame implements View {
 
   private final JTextArea display;
   private final JButton addPlayerButton;
-  private final JButton StartGameButton;
+  private final JButton startGameButton;
   private final JButton playNextTurnButton;
   private final JPanel buttonPanel;
   private final JMenuItem newGameNewWorldItem;
@@ -65,20 +68,17 @@ public class FrameView extends JFrame implements View {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout());
 
-    // create a menu bar
-    JMenuBar menuBar = new JMenuBar();
-    // create a menu
-    JMenu fileMenu = new JMenu("Menu");
-
     newGameNewWorldItem = new JMenuItem("Start with a new world specification");
     newGameCurrentWorldItem = new JMenuItem("Start with the current world specification");
     quitItem = new JMenuItem("Quit the game");
-
+    // create a menu
+    JMenu fileMenu = new JMenu("Menu");
     // add menu items to the menu
     fileMenu.add(newGameNewWorldItem);
     fileMenu.add(newGameCurrentWorldItem);
     fileMenu.add(quitItem);
-
+    // create a menu bar
+    JMenuBar menuBar = new JMenuBar();
     menuBar.add(fileMenu);
     //add the menu bar to the frame
     setJMenuBar(menuBar);
@@ -98,8 +98,8 @@ public class FrameView extends JFrame implements View {
     buttonPanel.setLayout(new FlowLayout());
     addPlayerButton = new JButton("Add Player");
     buttonPanel.add(addPlayerButton);
-    StartGameButton = new JButton("Start Game");
-    buttonPanel.add(StartGameButton);
+    startGameButton = new JButton("Start Game");
+    buttonPanel.add(startGameButton);
     add(buttonPanel, BorderLayout.PAGE_END);
     buttonPanel.setVisible(false);
 
@@ -123,7 +123,7 @@ public class FrameView extends JFrame implements View {
 
   @Override
   public void setFeatures(Features f) {
-    newGameNewWorldItem.addActionListener(l->{
+    newGameNewWorldItem.addActionListener(l -> {
       setDisplay("Add some players before starting the game.");
       displayScrollPane.setVisible(true);
       try {
@@ -143,16 +143,17 @@ public class FrameView extends JFrame implements View {
     addPlayerButton.addActionListener(l -> {
       new AddPlayerDialog(this, "Add Player", true, f).setVisible(true);
     });
-    StartGameButton.addActionListener(l -> {
+    startGameButton.addActionListener(l -> {
       buttonPanel.setVisible(false);
       f.enterGame();
     });
     playNextTurnButton.addActionListener(l -> {
-      if(f.getPlayTurnMode()){
+      if (f.getPlayTurnMode()) {
         setDisplay("You have not finished your turn yet.");
         resetFocus();
-      }else{
-      f.playNextTurn();}
+      } else {
+        f.playNextTurn();
+      }
     });
     gameBoard.addMouseListener(new MouseAdapter() {
       @Override
@@ -190,9 +191,9 @@ public class FrameView extends JFrame implements View {
           f.setPlayerMoveMode(false);
           f.setPlayTurnMode(false);
         }
-        if(f.getMovePetMode()){
-            f.movePetToRoom(x / 40, y / 40);
-            f.setMovePetMode(false);
+        if (f.getMovePetMode()) {
+          f.movePetToRoom(x / 40, y / 40);
+          f.setMovePetMode(false);
           f.setPlayTurnMode(false);
         }
       }
@@ -206,7 +207,7 @@ public class FrameView extends JFrame implements View {
 
       @Override
       public void keyPressed(KeyEvent e) {
-        if(f.getPlayTurnMode()){
+        if (f.getPlayTurnMode()) {
           switch (e.getKeyCode()) {
             case KeyEvent.VK_M:
               f.setPlayerMoveMode(true);
@@ -240,8 +241,8 @@ public class FrameView extends JFrame implements View {
   @Override
   public void showSetUpPanel() {
     buttonPanel.setVisible(true);
-//    System.out.println("After: " + buttonPanel.isVisible());
-//    System.out.println("On EDT: " + SwingUtilities.isEventDispatchThread());
+    //    System.out.println("After: " + buttonPanel.isVisible());
+    //    System.out.println("On EDT: " + SwingUtilities.isEventDispatchThread());
   }
 
   @Override
@@ -356,7 +357,7 @@ public class FrameView extends JFrame implements View {
   }
 
   @Override
-  public String showInputDialog(String label){
+  public String showInputDialog(String label) {
     String userInput = JOptionPane.showInputDialog(label);
     return userInput;
   }
@@ -365,7 +366,7 @@ public class FrameView extends JFrame implements View {
    * Inner class for handling player input dialog.
    */
   private class AddPlayerDialog extends JDialog {
-    private final Features f;
+    private final Features fea;
     private JTextField playerNameField;
     private JTextField startingRoomField;
     private JTextField weaponLimitsField;
@@ -377,11 +378,11 @@ public class FrameView extends JFrame implements View {
       super(parent, title, modal);
       setSize(500, 300);
       setLocationRelativeTo(parent);
-      f = feature;
-      initUI();
+      fea = feature;
+      initDialog();
     }
 
-    private void initUI() {
+    private void initDialog() {
       setLayout(new BorderLayout());
 
       JPanel inputPanel = new JPanel(new GridLayout(3, 2));
@@ -420,7 +421,7 @@ public class FrameView extends JFrame implements View {
       JButton addButton = new JButton("Add");
       addButton.addActionListener(l -> {
         if (checkInput()) {
-          f.addPlayer(getPlayerName(), getStartingRoom(), getWeaponLimits(), getPlayerType());
+          fea.addPlayer(getPlayerName(), getStartingRoom(), getWeaponLimits(), getPlayerType());
           dispose();
         } else {
           JOptionPane.showMessageDialog(this, "Invalid input. Please check the numbers.", "Error",
@@ -529,7 +530,6 @@ public class FrameView extends JFrame implements View {
         int numOfPlayers = players.size();
         for (Player player : players) {
           int[] coordinates = getCharacterCoordinates(player);
-          //System.out.println("Player " + player.getName() + " coordinates: (" + coordinates[0] + ", " + coordinates[1] + ")");
           int x = coordinates[0];
           int y = coordinates[1];
           if (player.getTypeOfPlayer() == 0) {

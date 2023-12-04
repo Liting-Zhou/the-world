@@ -624,9 +624,9 @@ public final class MyWorld implements World {
         if (p.canBeSeen()) {
           if (p.getCurrentLocation().getWeapons().isEmpty()
               || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-            sb.append(p.randomActionNoWeapon(pet));
+            sb.append(p.randomActionNoWeapon(pet, listOfRooms));
           } else {
-            sb.append(p.randomAction(pet));
+            sb.append(p.randomAction(pet, listOfRooms));
           }
         } else { //if can not be seen, attack
           sb.append(p.attack(target));
@@ -679,9 +679,9 @@ public final class MyWorld implements World {
         ComputerPlayer p = (ComputerPlayer) player;
         if (p.getCurrentLocation().getWeapons().isEmpty()
             || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
-          sb.append(p.randomActionNoWeapon(pet));
+          sb.append(p.randomActionNoWeapon(pet, listOfRooms));
         } else {
-          sb.append(p.randomAction(pet));
+          sb.append(p.randomAction(pet, listOfRooms));
         }
       }
     }
@@ -804,7 +804,7 @@ public final class MyWorld implements World {
 
     //3.Display the player information
     System.out.println();
-    displayPlayerInformation(playerDiaplayed);
+    System.out.printf(displayPlayerInformation(playerDiaplayed));
   }
 
   /**

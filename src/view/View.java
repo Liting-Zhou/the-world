@@ -7,8 +7,10 @@ import model.Player;
 import model.Target;
 import model.WeaponImp;
 
+/**
+ * This interface represents a view for the game.
+ */
 public interface View {
-
 
   void showSetUpPanel();
 
@@ -23,6 +25,10 @@ public interface View {
 
   /**
    * Refresh the view to reflect any changes in the game state.
+   *
+   * @param image   the image to be displayed
+   * @param players the list of players
+   * @param target  the target
    */
   void refresh(BufferedImage image, List<Player> players, Target target);
 

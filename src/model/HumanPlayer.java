@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -142,7 +141,12 @@ public class HumanPlayer extends Player {
     }
   }
 
-
+  /**
+   * Player attacks after weapon selected.
+   *
+   * @param weapon the weapon selected
+   * @param target the target to be attacked
+   */
   public void attackWithWeapon(Weapon weapon, Target target) {
     weaponsCarried.remove(weapon);
     System.out.printf("You chose %s to attack the target.%n",
@@ -156,6 +160,11 @@ public class HumanPlayer extends Player {
   }
 
 
+  /**
+   * Player attacks the target without weapon.
+   *
+   * @param target the target to be attacked
+   */
   public void attackWithNoWeapon(Target target) {
     if (canBeSeen()) {
       //if can be seen, no damage made
@@ -175,19 +184,12 @@ public class HumanPlayer extends Player {
    */
   public void moveThePet(Pet pet, List<Room> listOfRooms) {
     Room currentRoom = pet.getCurrentLocation();
-    List<Room> neighbors = currentRoom.getNeighbors();
-    List<Integer> roomNumberOfNeighbors = new ArrayList<>();
-
-    for (Room room : neighbors) {
-      roomNumberOfNeighbors.add(room.getRoomNumber());
-    }
 
     System.out.println();
     System.out.printf("The pet is currently in room %d, %s.%n", currentRoom.getRoomNumber(),
         currentRoom.getRoomName());
     System.out.println(
-        "Where do you want to teleport the pet? Select a room number from the list: ");
-    System.out.println(roomNumberOfNeighbors);
+        "Where do you want to teleport the pet? Enter the room number: ");
 
     Scanner scanner = new Scanner(System.in);
     int number;
@@ -197,7 +199,7 @@ public class HumanPlayer extends Player {
         scanner.next(); // consume the invalid token
       }
       number = scanner.nextInt();
-      if (!roomNumberOfNeighbors.contains(number)) {
+      if (number < 0 || number > listOfRooms.size() - 1) {
         System.out.println("Invalid number. Please enter again:");
       } else {
         break;

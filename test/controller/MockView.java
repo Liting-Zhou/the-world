@@ -2,14 +2,17 @@ package controller;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
-
 import model.Player;
 import model.Target;
 import model.WeaponImp;
 import view.View;
 
+/**
+ * This class represents a mock view for testing.
+ */
 public class MockView implements View {
   private StringBuilder log;
+
   public MockView(StringBuilder log) {
     this.log = log;
   }
