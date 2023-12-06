@@ -33,7 +33,6 @@ public class Pet extends AbstractCharacter {
     List<Room> newOrder = new ArrayList<>();
     newOrder.add(this.getCurrentLocation());
     depthFirstTraversalHelper(newOrder, this.getCurrentLocation());
-    //System.out.println(newOrder);
     return newOrder;
   }
 

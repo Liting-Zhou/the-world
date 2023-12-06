@@ -82,18 +82,18 @@ public class PlayerTest {
     Pet cat = new Pet("Test Pet", initialLocation);
     assertFalse(player.canBeSeen());
 
-    // Test when there is no cat in the same room as the player,
+    // test when there is no cat in the same room as the player,
     // while there are no players in neighboring room.
     cat.updateLocation(neighborLocation);
     assertFalse(player.canBeSeen());
 
-    // Test when there is no cat in the same room as the player,
+    // test when there is no cat in the same room as the player,
     // while there are players in neighboring room.
     Player player1 = new Player(1, 0, "Test Player neighbor",
         neighborLocation, 3);
     assertTrue(player.canBeSeen());
 
-    // Test when the cat is in the same room as the player,
+    // test when the cat is in the same room as the player,
     // while there are players in neighboring room.
     cat.updateLocation(initialLocation);
     assertFalse(player.canBeSeen());

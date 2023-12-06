@@ -45,6 +45,11 @@ public final class RoomImp implements Room {
     this.weapons = weapons;
   }
 
+  /**
+   * A constructor to clone a Room.
+   *
+   * @param room the room to be cloned
+   */
   public RoomImp(Room room) {
     this.roomNumber = room.getRoomNumber();
     this.x1 = room.getX1();
@@ -53,10 +58,9 @@ public final class RoomImp implements Room {
     this.y2 = room.getY2();
     this.roomName = room.getRoomName();
     this.weapons = new ArrayList<>();
-    for(Weapon weapon:room.getWeapons()){
+    for (Weapon weapon : room.getWeapons()) {
       this.weapons.add(new WeaponImp(weapon));
     }
-    //this.weapons = room.getWeapons();
     this.neighbors = room.getNeighbors();
   }
 
@@ -364,7 +368,6 @@ public final class RoomImp implements Room {
     if (neighbors.isEmpty()) {
       System.out.println("This room has no neighboring room.");
     } else {
-      //System.out.println("The neighbors of the room are: ");
       for (Room neighbor : neighbors) {
         if (!neighbor.isPetHere()) {
           System.out.printf("   %d. %s%n", neighbor.getRoomNumber(), neighbor.getRoomName());

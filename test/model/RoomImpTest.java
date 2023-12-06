@@ -144,14 +144,13 @@ public class RoomImpTest {
   @Test
   public void testDisplayTarget() {
     target.updateLocation(otherRoom);
-    // Simulate target not being in the room
+    // simulate target not being in the room
     String output1 = thisRoom.displayTarget();
 
-    // Check if the output matches the expected value
     String expectedOutput = "   Target is not here.\n";
     assertEquals(expectedOutput, output1);
 
-    // Simulate target being in the room
+    // simulate target being in the room
     target.updateLocation(thisRoom);
     String output = thisRoom.displayTarget();
 

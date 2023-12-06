@@ -17,15 +17,15 @@ import javax.imageio.ImageIO;
  */
 public final class MyWorld implements World {
   private final int startingRoom = 0; //default value
-  private List<Player> players = new ArrayList<>();
+  private final List<Room> initialRoomsState = new ArrayList<>();
+  private final int targetInitialHealth;
   int maxNumOfTurns = 100; //default value
+  private List<Player> players = new ArrayList<>();
   private List<Room> listOfRooms;
-  private final List<Room> initialRoomsState=new ArrayList<>();
   private String mansionName;
   private int mansionHeight;
   private int mansionWidth;
   private Target target;
-  private final int targetInitialHealth;
   private Pet pet;
   private List<WeaponImp> weapons;
   private int indexOfCurrentPlayer = 0;
@@ -60,7 +60,7 @@ public final class MyWorld implements World {
     initializeTarget(lines);
     initializePet(lines);
 
-    for(Room room:listOfRooms){
+    for (Room room : listOfRooms) {
       initialRoomsState.add(new RoomImp(room));
     }
     targetInitialHealth = target.getHealth();
@@ -74,18 +74,17 @@ public final class MyWorld implements World {
    */
   private void initializeWeapons(List<String> lines) {
     int weaponsCount =
-        Integer.parseInt(lines.get(26)); // This line contains the total number of weapons.
+        Integer.parseInt(lines.get(26)); // this line contains the total number of weapons
     int lineIndex = 27;
 
-    // Initialize the list of weapons.
     weapons = new ArrayList<>();
 
-    // Iterate through weapon information lines.
+    // iterate through weapon information lines
     for (int i = 0; i < weaponsCount; i++) {
       String weaponInfo = lines.get(lineIndex);
       String[] weaponData = weaponInfo.split(" ");
 
-      // Parse room number, weapon power, and weapon name.
+      // parse room number, weapon power, and weapon name.
       int roomNumber = Integer.parseInt(weaponData[0]);
       int weaponPower = Integer.parseInt(weaponData[1]);
       String weaponName = weaponData[2];
@@ -100,7 +99,7 @@ public final class MyWorld implements World {
         weaponName = String.join(" ", restOfWeaponData);
       }
 
-      // Create a WeaponImp object with the parsed data and add it to the list of weapons.
+      // create a WeaponImp object and add it to the list of weapons.
       WeaponImp weapon = new WeaponImp(weaponPower, weaponName, roomNumber);
       weapons.add(weapon);
 
@@ -114,15 +113,15 @@ public final class MyWorld implements World {
    * @param lines A list of strings representing lines from the configuration file.
    */
   private void initializeRooms(List<String> lines) {
-    int roomCount = Integer.parseInt(lines.get(3)); // Line 3 contains the room count.
-    int lineIndex = 4; // Starting from line 4 for room data.
+    int roomCount = Integer.parseInt(lines.get(3)); // line 3 contains the room number
+    int lineIndex = 4; // starting from line 4 for room data
 
     listOfRooms = new ArrayList<>();
     for (int i = 0; i < roomCount; i++) {
       String roomInfo = lines.get(lineIndex);
       String[] roomData = roomInfo.split(" ");
 
-      // Parse room coordinates and name.
+      // parse room coordinates and name
       int topLeftX = Integer.parseInt(roomData[0]);
       int topLeftY = Integer.parseInt(roomData[1]);
       int bottomRightX = Integer.parseInt(roomData[2]);
@@ -138,7 +137,6 @@ public final class MyWorld implements World {
         roomName = String.join(" ", restOfRoomData);
       }
 
-
       // find the list of weapons belong to a specific room
       List<WeaponImp> listOfWeaponsSpecificRoom = new ArrayList<>();
       for (WeaponImp item : weapons) {
@@ -148,12 +146,11 @@ public final class MyWorld implements World {
         }
       }
 
-      // Create a Room object with the parsed data.
       Room room =
           new RoomImp(lineIndex - 4, topLeftX, topLeftY, bottomRightX, bottomRightY, roomName,
               listOfWeaponsSpecificRoom);
 
-      // Add the created Room object to the list of rooms.
+      // add the room to the list of rooms
       listOfRooms.add(room);
 
       lineIndex++;
@@ -169,14 +166,11 @@ public final class MyWorld implements World {
     }
   }
 
-  /**
-   * Initializes the game's mansion layout.
-   */
   private void initializeMansion(List<String> lines) {
-    String mansionInfo = lines.get(0); // Line 0 contains mansion dimensions and name.
+    String mansionInfo = lines.get(0); // line 0 contains mansion dimensions and name.
     String[] mansionData = mansionInfo.split(" ");
 
-    // Parse mansion dimensions and name.
+    // parse mansion dimensions and name.
     mansionWidth = Integer.parseInt(mansionData[0]);
     mansionHeight = Integer.parseInt(mansionData[1]);
     String[] restOfMansionData = new String[mansionData.length - 2];
@@ -187,13 +181,13 @@ public final class MyWorld implements World {
 
   /**
    * Initializes the game's target character,
-   * who has health 20 and starting location room number 0.
+   * who has initial health and starting location room number.
    */
   private void initializeTarget(List<String> lines) {
-    String targetInfo = lines.get(1); // Line 1 contains target information.
+    String targetInfo = lines.get(1); // line 1 contains target information
     String[] targetData = targetInfo.split(" ");
 
-    // Parse the target's total health and name
+    // parse the target's initial health and name
     int targetHealth = Integer.parseInt(targetData[0]);
     String[] restOfTargetData = new String[targetData.length - 1];
     System.arraycopy(targetData, 1, restOfTargetData, 0, targetData.length - 1);
@@ -202,7 +196,6 @@ public final class MyWorld implements World {
     // initialize the starting location
     Room currentLocation = listOfRooms.get(startingRoom);
 
-    // create the target character
     target = new Target(targetName, targetHealth, currentLocation);
   }
 
@@ -211,14 +204,13 @@ public final class MyWorld implements World {
    * occupied by the pet is not visible to neighbors.
    */
   private void initializePet(List<String> lines) {
-    String info = lines.get(2); // Line 2 contains pet information.
+    String info = lines.get(2); // line 2 contains pet information.
     String[] infoData = info.split(" ");
     String petName = infoData[0];
 
-    // Initialize the starting location
+    // initialize the starting location
     Room currentLocation = listOfRooms.get(startingRoom);
 
-    // Create the pet character.
     pet = new Pet(petName, currentLocation);
   }
 
@@ -237,20 +229,19 @@ public final class MyWorld implements World {
           currentLocation, maxNumOfWeapons);
     }
 
-    // Add the created Player object to the list of players.
+    // add the created Player object to the list of players
     players.add(player);
-    //mansion.addPlayer(player);
   }
 
   /**
-   * Resets the state of the world.
+   * Resets the state of the world when the game is restarted.
    */
   @Override
-  public void resetState(){
+  public void resetState() {
     players.clear();
 
     listOfRooms.clear();
-    for(Room room:initialRoomsState){
+    for (Room room : initialRoomsState) {
       listOfRooms.add(new RoomImp(room));
     }
 
@@ -261,7 +252,6 @@ public final class MyWorld implements World {
 
     numOfTurnsPlayed = 1;
     indexOfCurrentPlayer = 0;
-
   }
 
   /**
@@ -321,13 +311,11 @@ public final class MyWorld implements World {
   @Override
   public void saveMansionMap() {
     BufferedImage mapImage = getBufferedImage();
-    // Save the generated map as an image file
+    // save the generated map as an image file
     try {
       File outputImageFile = new File("./res/mansion_map.png");
       ImageIO.write(mapImage, "png", outputImageFile);
       System.out.println("mansion_map.png saved successfully.");
-      //System.out.println("***************");
-      //System.out.println("Game continues.");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -367,19 +355,19 @@ public final class MyWorld implements World {
     int roomWidth = (room.getX2() - room.getX1()) * scaleFactor;
     int roomHeight = (room.getY2() - room.getY1()) * scaleFactor;
 
-    // Draw the room as a rectangle on the map
+    // draw the room as a rectangle on the map
     g2d.setColor(Color.LIGHT_GRAY);
     g2d.fillRect(roomX, roomY, roomWidth, roomHeight);
 
-    // Draw walls around the room
+    // draw walls around the room
     g2d.setColor(Color.BLACK);
     g2d.drawRect(roomX, roomY, roomWidth, roomHeight);
 
-    Font font = new Font("Arial", Font.PLAIN, 12); // Adjust font and size as needed
+    Font font = new Font("Arial", Font.PLAIN, 12);
     g2d.setFont(font);
     g2d.setColor(Color.BLACK);
 
-    // Draw the room number and name as text
+    // draw the room number and name as text
     g2d.setColor(Color.BLACK);
     g2d.drawString("Room " + room.getRoomNumber(), roomX + 10, roomY + 20);
     g2d.drawString(room.getRoomName(), roomX + 10, roomY + 30);
@@ -557,11 +545,12 @@ public final class MyWorld implements World {
 
   /**
    * Player's turn. Human player can choose from these three actions:
-   * 1. move to a neighboring space.
-   * 2. pick up an item.
-   * 3. look around by displaying information about where a specific player is in the world
-   * including what spaces that can be seen from where they are.
-   * Computer player randomly choose an action.
+   * 1. move to a neighboring space
+   * 2. pick up an item
+   * 3. look around
+   * 4. move the pet
+   * 5. attack the target
+   * Computer player randomly chooses an action.
    */
   @Override
   public String roundOfPlayer() {
@@ -648,7 +637,7 @@ public final class MyWorld implements World {
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
-        //if can be seen, no attack, randomly choose other 4 actions
+        //if can be seen, no attack, randomly choose the other 4 actions
         if (p.canBeSeen()) {
           if (p.getCurrentLocation().getWeapons().isEmpty()
               || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
@@ -775,8 +764,6 @@ public final class MyWorld implements World {
   public String displayPlayerInformation(Player playerDiaplayed) {
     StringBuilder sb = new StringBuilder();
     sb.append(String.format("Information of player %s: %n", playerDiaplayed.getName()));
-    //playerDiaplayed.getName();
-    //playerDiaplayed.displayWeaponInformation();
     sb.append(String.format("Maximum number of weapons can carry: %d%n",
         playerDiaplayed.getMaxNumberOfWeapons()));
     if (playerDiaplayed.getTypeOfPlayer() == 0) {
@@ -798,12 +785,12 @@ public final class MyWorld implements World {
       return;
     }
 
-    // 1.Display list of players
+    // 1.display list of players
     System.out.println("List of players: ");
     for (Player player : players) {
       System.out.println(player.getName());
     }
-    //2.Ask which player to display
+    //2.ask which player to display
     System.out.println();
     System.out.println("Which player do you want to display? Please enter the name: ");
     Scanner scan = new Scanner(System.in);
@@ -830,7 +817,7 @@ public final class MyWorld implements World {
       }
     }
 
-    //3.Display the player information
+    //3.display the player information
     System.out.println();
     System.out.printf(displayPlayerInformation(playerDiaplayed));
   }
@@ -862,12 +849,12 @@ public final class MyWorld implements World {
 
   @Override
   public void getRoomAndDisplay() {
-    // 1.Display list of rooms
+    // 1.display list of rooms
     System.out.println();
     displayListOfRooms();
     System.out.println();
 
-    // 2.Ask which room to display
+    // 2.ask which room to display
     System.out.println("Which room do you want to display? Please enter the room number (0-21): ");
     Scanner scanner = new Scanner(System.in);
     int roomNumber;
@@ -887,7 +874,7 @@ public final class MyWorld implements World {
     Room room = listOfRooms.get(roomNumber);
     System.out.println();
 
-    // 3.Display the room information
+    // 3.display the room information
     System.out.printf(displayRoomInformation(room));
   }
 }

@@ -22,6 +22,11 @@ public interface ReadOnlyWorld {
    */
   Target getTarget();
 
+  /**
+   * Gets the pet.
+   *
+   * @return the pet
+   */
   Pet getPet();
 
   /**
@@ -75,8 +80,14 @@ public interface ReadOnlyWorld {
    */
   Player getWinner();
 
+  /**
+   * Gets the player and display its information.
+   */
   void getPlayerAndDisplay();
 
+  /**
+   * Gets the room and display its information.
+   */
   void getRoomAndDisplay();
 
   /**

@@ -30,6 +30,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -68,14 +69,14 @@ public class FrameView extends JFrame implements View {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout());
 
-    newGameNewWorldItem = new JMenuItem("Start with a new world specification");
-    newGameCurrentWorldItem = new JMenuItem("Start with the current world specification");
+    newGameNewWorldItem = new JMenuItem("Restart with a new world specification");
+    newGameCurrentWorldItem = new JMenuItem("Restart with the current world specification");
     quitItem = new JMenuItem("Quit the game");
     // create a menu
     JMenu fileMenu = new JMenu("Menu");
     // add menu items to the menu
-    fileMenu.add(newGameNewWorldItem);
     fileMenu.add(newGameCurrentWorldItem);
+    fileMenu.add(newGameNewWorldItem);
     fileMenu.add(quitItem);
     // create a menu bar
     JMenuBar menuBar = new JMenuBar();
@@ -83,6 +84,7 @@ public class FrameView extends JFrame implements View {
     //add the menu bar to the frame
     setJMenuBar(menuBar);
 
+    //display panel
     display = new JTextArea();
     display.setEditable(false);
     display.setLineWrap(true);
@@ -94,6 +96,7 @@ public class FrameView extends JFrame implements View {
     this.add(displayScrollPane, BorderLayout.LINE_START);
     displayScrollPane.setVisible(false);
 
+    //add player
     buttonPanel = new JPanel();
     buttonPanel.setLayout(new FlowLayout());
     addPlayerButton = new JButton("Add Player");
@@ -119,6 +122,11 @@ public class FrameView extends JFrame implements View {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
+
+    showMessageDialog("", "Welcome to the Game of Kill Doctor Happy!\n\n"
+        + "Creator: Liting Zhou");
+    showInitialDialog("Game of Kill Doctor Happy", "Choose an option:",
+        "New game with the current world specification", "New game with a new world specification");
   }
 
   @Override
@@ -144,14 +152,16 @@ public class FrameView extends JFrame implements View {
       f.exitGame();
     });
     addPlayerButton.addActionListener(l -> {
-      new AddPlayerDialog(this, "Add Player", true, f).setVisible(true);
+      if (f.checkPlayerNumber()) {
+        new AddPlayerDialog(this, "Add Player", true, f).setVisible(true);
+      }
     });
     startGameButton.addActionListener(l -> {
       buttonPanel.setVisible(false);
       f.enterGame();
     });
     playNextTurnButton.addActionListener(l -> {
-      if (f.getPlayTurnMode()) {
+      if (f.getPlayMode()) {
         setDisplay("You have not finished your turn yet.");
         resetFocus();
       } else {
@@ -192,12 +202,12 @@ public class FrameView extends JFrame implements View {
         if (f.getPlayerMoveMode()) {
           f.moveToRoom(x / 40, y / 40);
           f.setPlayerMoveMode(false);
-          f.setPlayTurnMode(false);
+          f.setPlayMode(false);
         }
         if (f.getMovePetMode()) {
           f.movePetToRoom(x / 40, y / 40);
           f.setMovePetMode(false);
-          f.setPlayTurnMode(false);
+          f.setPlayMode(false);
         }
       }
     });
@@ -210,7 +220,7 @@ public class FrameView extends JFrame implements View {
 
       @Override
       public void keyPressed(KeyEvent e) {
-        if (f.getPlayTurnMode()) {
+        if (f.getPlayMode()) {
           switch (e.getKeyCode()) {
             case KeyEvent.VK_M:
               f.setPlayerMoveMode(true);
@@ -241,11 +251,39 @@ public class FrameView extends JFrame implements View {
     });
   }
 
+  /**
+   * Show the initial dialog when program starts.
+   *
+   * @param title the name of the game
+   * @param message the message to be displayed
+   * @param option1 option 1 for the user to choose
+   * @param option2 option 2 for the user to choose
+   */
+  public void showInitialDialog(String title, String message, String option1, String option2) {
+    SwingUtilities.invokeLater(() -> {
+      Object[] options = {option1, option2};
+      int result = JOptionPane.showOptionDialog(
+          null,
+          message,
+          title,
+          JOptionPane.DEFAULT_OPTION,
+          JOptionPane.INFORMATION_MESSAGE,
+          null,
+          options,
+          options[0]);
+      if (result == 0) {
+        //perform same action as clicking the newGameCurrentWorldItem
+        newGameCurrentWorldItem.doClick();
+      } else if (result == 1) {
+        newGameNewWorldItem.doClick();
+      } else { //do nothing
+      }
+    });
+  }
+
   @Override
   public void showSetUpPanel() {
     buttonPanel.setVisible(true);
-    //    System.out.println("After: " + buttonPanel.isVisible());
-    //    System.out.println("On EDT: " + SwingUtilities.isEventDispatchThread());
   }
 
   @Override

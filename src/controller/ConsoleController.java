@@ -108,7 +108,7 @@ public final class ConsoleController implements Controller {
     System.out.println("2. Generate the mansion_map.png.");
     System.out.println("3. Add a human-controlled player to the game.");
     System.out.println("4. Add a computer-controlled player to the game.");
-    System.out.println("5. Play next turn."); //player can move, pick up weapon, look around
+    System.out.println("5. Play next turn."); //player can move, pick up weapon, look around, etc.
     System.out.println("6. Display a description of a specified player.");
     System.out.println("7. Display a description of the target.");
     System.out.println("99. Quit the game.");

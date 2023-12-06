@@ -3,7 +3,7 @@ package model;
 import java.util.Objects;
 
 /**
- * Represents a weapon in the game "The model.MyWorld."
+ * Represents a weapon in the game.
  */
 public final class WeaponImp implements Weapon {
   private final int power;
@@ -11,7 +11,7 @@ public final class WeaponImp implements Weapon {
   private final int belongRoomNumber;
 
   /**
-   * Constructs a new model.WeaponImp object.
+   * Default Constructor.
    *
    * @param power            The power of the weapon.
    * @param name             The name of the weapon.
@@ -23,6 +23,11 @@ public final class WeaponImp implements Weapon {
     this.belongRoomNumber = belongRoomNumber;
   }
 
+  /**
+   * A constructor to clone a Weapon.
+   *
+   * @param weapon The weapon to be cloned.
+   */
   public WeaponImp(Weapon weapon) {
     this.power = weapon.getPower();
     this.name = weapon.getName();

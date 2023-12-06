@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import model.Player;
 import model.Target;
+import view.View;
 
 /**
  * This interface represents a set of features that the program offers. Each
@@ -17,15 +18,33 @@ import model.Target;
  * functionality.
  */
 public interface Features {
+  void setView(View v);
+
   /**
    * Exit the game.
    **/
   void exitGame();
 
+  /**
+   * check if player number exceeds the limit.
+   *
+   * @return true if player number is within the limit, false otherwise
+   */
+  boolean checkPlayerNumber();
+
+  /**
+   * Enter the game.
+   */
   void enterGame();
 
+  /**
+   * Reset the state when the game is restarted.
+   */
   void resetState();
 
+  /**
+   * Set up the game.
+   */
   void gameSetUp();
 
   /**
@@ -38,8 +57,16 @@ public interface Features {
    */
   void addPlayer(String name, int startingRoom, int weaponLimits, int playerType);
 
+  /**
+   * Start the game with a new configuration.
+   *
+   * @throws FileNotFoundException if the file is not found
+   */
   void newGameWithNewConfig() throws FileNotFoundException;
 
+  /**
+   * Plays the next turn.
+   */
   void playNextTurn();
 
   /**
@@ -48,13 +75,23 @@ public interface Features {
   void attack();
 
 
+  /**
+   * Player attacks after weapon selected.
+   *
+   * @param weaponName the name of the weapon
+   */
   void attackAfterWeaponSelected(String weaponName);
 
   /**
-   * Player picks up a weapon.
+   * Player tries to pick up a weapon.
    */
   void pickUpWeapon();
 
+  /**
+   * Player picks up a weapon after weapon selected.
+   *
+   * @param weaponName the name of the weapon
+   */
   void pickUpAfterWeaponSelected(String weaponName);
 
   /**
@@ -63,14 +100,30 @@ public interface Features {
   void lookAround();
 
   /**
-   * Player moves the pet.
+   * Player tries to move the pet.
    */
   void moveThePet();
 
+  /**
+   * The pet is moved to a specific room.
+   *
+   * @param x the x coordinate of the room
+   * @param y the y coordinate of the room
+   */
   void movePetToRoom(int x, int y);
 
+  /**
+   * Gets whether the pet is moved.
+   *
+   * @return true if the pet is moved, false otherwise
+   */
   boolean getMovePetMode();
 
+  /**
+   * Sets whether the pet is moved.
+   *
+   * @param b true if the pet is moved, false otherwise
+   */
   void setMovePetMode(boolean b);
 
   /**
@@ -93,20 +146,62 @@ public interface Features {
    */
   void displayTargetInfo();
 
-
+  /**
+   * Gets the target.
+   *
+   * @return the target
+   */
   Target getTarget();
 
+  /**
+   * Gets the players.
+   *
+   * @return the players
+   */
   List<Player> getPlayers();
 
+  /**
+   * Gets the display mode. There are two modes, display mode and play mode.
+   * In display mode, user can click the map for information.
+   *
+   * @return true if the display mode is on, false otherwise
+   */
   boolean getDisplayMode();
 
-  boolean getPlayTurnMode();
+  /**
+   * Gets the play mode. There are two modes, display mode and play mode.
+   *
+   * @return true if the play mode is on, false otherwise
+   */
+  boolean getPlayMode();
 
-  void setPlayTurnMode(boolean b);
+  /**
+   * Sets the play mode.
+   *
+   * @param b true if the play mode is on, false otherwise
+   */
+  void setPlayMode(boolean b);
 
+  /**
+   * Gets the player move mode. When this mode is on,
+   * listen to click on the map and move the player.
+   *
+   * @return true if the player move mode is on, false otherwise
+   */
   boolean getPlayerMoveMode();
 
+  /**
+   * Sets the player move mode.
+   *
+   * @param b true if the player move mode is on, false otherwise
+   */
   void setPlayerMoveMode(boolean b);
 
+  /**
+   * Moves the player to a specific room.
+   *
+   * @param x the x coordinate of the room
+   * @param y the y coordinate of the room
+   */
   void moveToRoom(int x, int y);
 }

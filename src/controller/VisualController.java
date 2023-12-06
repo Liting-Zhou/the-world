@@ -18,15 +18,15 @@ import view.View;
  */
 public class VisualController implements Features {
 
-  private int maxNumOfTurns;
   private final int initStateOfMaxNumOfTurns;
+  private int maxNumOfTurns;
   private World model;
   private View view;
   private boolean exitGame = false;
   private boolean playerMoveMode = false;
   private boolean movePetMode = false;
-  private boolean displayMode = true; //false when in playing turn mode
-  private boolean playTurnMode = false;
+  private boolean displayMode = true; //false when in play mode
+  private boolean playMode = false;
 
   /**
    * Constructor.
@@ -43,9 +43,9 @@ public class VisualController implements Features {
    *
    * @param v the view to use
    */
+  @Override
   public void setView(View v) {
     view = v;
-    // give the feature callbacks to the view
     view.setFeatures(this);
   }
 
@@ -57,22 +57,18 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void resetState(){
+  public void resetState() {
     model.resetState();
     exitGame = false;
     playerMoveMode = false;
     movePetMode = false;
     displayMode = true;
-    playTurnMode = false;
+    playMode = false;
     maxNumOfTurns = initStateOfMaxNumOfTurns;
   }
 
   @Override
   public void gameSetUp() {
-    // display welcome message
-    view.showMessageDialog("", "Welcome to the Game of Kill Doctor Happy!\n\n"
-        + "Author: Liting Zhou\n\n"
-        + "Now, add some players to the game.\n");
     // add players
     view.showSetUpPanel();
   }
@@ -89,8 +85,18 @@ public class VisualController implements Features {
     playerMoveMode = false;
     movePetMode = false;
     displayMode = true;
-    playTurnMode = false;
+    playMode = false;
     gameSetUp();
+  }
+
+  @Override
+  public boolean checkPlayerNumber() {
+    if (model.getListOfPlayers().size() > 10) {
+      view.setDisplay("You can not add more than 10 players.");
+      return false;
+    } else {
+      return true;
+    }
   }
 
   @Override
@@ -116,14 +122,15 @@ public class VisualController implements Features {
     model.roundOfTarget();
     view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
     view.setDisplay(
-        String.format("Turn %d (max %d).\nNow is %s's turn.\n"
-                + "You can:\n"
+        String.format("Turn %d (max %d).\nNow is %s's turn.\n%s is in room %d.\n"
+                + "Choose an action:\n"
                 + "(1) press M and then click a neighbor room to move to\n"
                 + "(2) press P to pick up a weapon if there is any\n"
                 + "(3) press L to look around\n"
                 + "(4) press A to attack the target when you are in the same space\n"
                 + "(5) press T to move the pet", model.getNumOfTurnsPlayed(),
-            maxNumOfTurns, model.getCurrentPlayer().getName()));
+            maxNumOfTurns, model.getCurrentPlayer().getName(), model.getCurrentPlayer().getName(),
+            model.getCurrentPlayer().getCurrentLocation().getRoomNumber()));
     if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
       view.setDisplay(model.roundOfPlayer()); //update current player index already
       view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
@@ -131,9 +138,8 @@ public class VisualController implements Features {
       checkIsGameOver();
     } else {
       //human player
-      playTurnMode = true;
+      playMode = true;
       view.resetFocus();
-      //set current player index to next player
     }
   }
 
@@ -192,7 +198,7 @@ public class VisualController implements Features {
       }
       sb.append(String.format("\n\nThis Turn ended.\nClick the button to play next turn."));
       view.setDisplay(sb.toString());
-      setPlayTurnMode(false);
+      setPlayMode(false);
       model.updatePlayerTurn();
       model.updateTurnsPlayed();
       checkIsGameOver();
@@ -234,7 +240,7 @@ public class VisualController implements Features {
     }
     sb.append(String.format("\n\nThis Turn ended.\nClick the button to play next turn."));
     view.setDisplay(sb.toString());
-    setPlayTurnMode(false);
+    setPlayMode(false);
     model.updatePlayerTurn();
     model.updateTurnsPlayed();
     checkIsGameOver();
@@ -253,7 +259,7 @@ public class VisualController implements Features {
     if (currentPlayer.getCurrentLocation().getWeapons().isEmpty()) {
       view.setDisplay(
           "No weapons in this room.\n\nThis Turn ended.\nClick the button to play next turn.");
-      setPlayTurnMode(false);
+      setPlayMode(false);
       model.updatePlayerTurn();
       model.updateTurnsPlayed();
       checkIsGameOver();
@@ -268,7 +274,7 @@ public class VisualController implements Features {
           weapon.getName(),
           weapon.getPower()));
       currentPlayer.getCurrentLocation().removeWeapon(weapon);
-      setPlayTurnMode(false);
+      setPlayMode(false);
       model.updatePlayerTurn();
       model.updateTurnsPlayed();
       checkIsGameOver();
@@ -290,7 +296,7 @@ public class VisualController implements Features {
             weapon.getName(),
             weapon.getPower()));
         currentPlayer.getCurrentLocation().removeWeapon(weapon);
-        setPlayTurnMode(false);
+        setPlayMode(false);
         model.updatePlayerTurn();
         model.updateTurnsPlayed();
         checkIsGameOver();
@@ -303,7 +309,7 @@ public class VisualController implements Features {
     Player currentPlayer = model.getCurrentPlayer();
     view.showMessageDialog("Looking Around", currentPlayer.lookAround());
     view.setDisplay(String.format("This Turn ended.\nClick the button to play next turn."));
-    setPlayTurnMode(false);
+    setPlayMode(false);
     model.updatePlayerTurn();
     model.updateTurnsPlayed();
     checkIsGameOver();
@@ -376,13 +382,13 @@ public class VisualController implements Features {
   }
 
   @Override
-  public boolean getPlayTurnMode() {
-    return playTurnMode;
+  public boolean getPlayMode() {
+    return playMode;
   }
 
   @Override
-  public void setPlayTurnMode(boolean b) {
-    playTurnMode = b;
+  public void setPlayMode(boolean b) {
+    playMode = b;
   }
 
   @Override

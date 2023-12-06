@@ -103,7 +103,7 @@ public class MyWorldTest {
   }
 
   @Test
-  public void testResetState(){
+  public void testResetState() {
     myWorld.addHumanPlayer("Player1", 0, 1);
     myWorld.addComputerPlayer("Player2", 1, 2);
     target.healthDamage(1);

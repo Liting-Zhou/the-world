@@ -2,7 +2,7 @@ package model;
 
 /**
  * An abstract class representing a character in the game.
- * This class serves as a base class for the `model.Target` and `model.Player` classes.
+ * This class serves as a base class for the `Target`, 'Pet' and `Player` classes.
  */
 abstract class AbstractCharacter implements Character {
   protected int maxNumberOfWeapons = 0;

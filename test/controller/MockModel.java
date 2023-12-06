@@ -155,7 +155,6 @@ public class MockModel implements World {
   public BufferedImage getMap() {
     log.append("model.getMap is invoked\n");
     return null;
-    //return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
   }
 
   @Override

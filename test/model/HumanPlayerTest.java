@@ -57,25 +57,25 @@ public class HumanPlayerTest {
 
   @Test
   public void testPickUpWeapon() {
-    // Test picking up the first weapon
+    // test picking up the first weapon
     int input1 = random.nextRandomInt(4);
     InputStream in1 = new ByteArrayInputStream(String.valueOf(input1).getBytes());
     System.setIn(in1);
     humanPlayer.pickUpWeapon();
     assertEquals(1, humanPlayer.weaponsCarried.size());
 
-    // Test picking up the second weapon
+    // test picking up the second weapon
     int input2 = random.nextRandomInt(4);
     InputStream in2 = new ByteArrayInputStream(String.valueOf(input2).getBytes());
     System.setIn(in2);
     humanPlayer.pickUpWeapon();
     assertEquals(2, humanPlayer.weaponsCarried.size());
 
-    // Test trying to pick up a weapon when the player has reached the maximum limit
+    // test trying to pick up a weapon when the player has reached the maximum limit
     humanPlayer.pickUpWeapon();
     assertEquals(2, humanPlayer.weaponsCarried.size());
 
-    //Test picking up a weapon when there is no weapon in the room
+    //test picking up a weapon when there is no weapon in the room
     humanPlayer.weaponsCarried.clear();
     assertEquals(0, humanPlayer.weaponsCarried.size());
     random.nextRandomInt(4);
@@ -90,7 +90,7 @@ public class HumanPlayerTest {
   public void testAttackWhenCanNotBeSeen() {
     Pet cat = new Pet("cat", humanPlayer.getCurrentLocation());
 
-    // 1. Test attacking a target with weapon
+    // 1. test attacking a target with weapon
     int input1 = random.nextRandomInt(4);
     InputStream in1 = new ByteArrayInputStream(String.valueOf(input1).getBytes());
     System.setIn(in1);
@@ -117,7 +117,7 @@ public class HumanPlayerTest {
     assertEquals(6, target.getHealth());
     assertEquals(1, humanPlayer.weaponsCarried.size());
 
-    // Test attacking a target with no weapon
+    // test attacking a target with no weapon
     Room room3 = new RoomImp(3, 2, 0, 3, 3, "Test Room 3", new ArrayList<>());
     HumanPlayer playerWithNoWeapon = new HumanPlayer(2, 0, "Test Player 2", room3, 2);
     target.setCurrentLocation(room3);

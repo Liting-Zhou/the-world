@@ -51,7 +51,6 @@ public class VisualControllerTest {
     controller.gameSetUp();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n"
-        + "view.showMessageDialog is invoked\n"
         + "view.showSetUpPanel is invoked\n";
     assertEquals(expected, log.toString());
   }
@@ -85,6 +84,8 @@ public class VisualControllerTest {
         + "model.getTarget is invoked\n"
         + "view.refresh is invoked\n"
         + "model.getNumOfTurnsPlayed is invoked\n"
+        + "model.getCurrentPlayer is invoked\n"
+        + "model.getCurrentPlayer is invoked\n"
         + "model.getCurrentPlayer is invoked\n"
         + "view.setDisplay is invoked\n"
         + "model.getCurrentPlayer is invoked\n"
@@ -275,7 +276,7 @@ public class VisualControllerTest {
 
   @Test
   public void testGetPlayTurnMode() {
-    controller.getPlayTurnMode();
+    controller.getPlayMode();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n";
     assertEquals(expected, log.toString());
@@ -283,7 +284,7 @@ public class VisualControllerTest {
 
   @Test
   public void testSetPlayTurnMode() {
-    controller.setPlayTurnMode(true);
+    controller.setPlayMode(true);
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n";
     assertEquals(expected, log.toString());

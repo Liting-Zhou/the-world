@@ -23,7 +23,6 @@ public class TargetTest {
   @Before
   public void setUp() {
     firstRoom = new RoomImp(0, 0, 0, 2, 2, "First Room", new ArrayList<>());
-    //mansion = new model.Mansion("Test model.Mansion", 5, 5, new ArrayList<>());
     target = new Target("Test Target", 20, firstRoom);
 
     players = new ArrayList<>();

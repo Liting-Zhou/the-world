@@ -20,9 +20,9 @@ public final class Target extends AbstractCharacter {
   public Target(String name, int health, Room currentLocation) {
     super();
     this.health = health;
-    setName(name); // Set the name of the target using the inherited setName method.
+    setName(name);
     setCurrentLocation(
-        currentLocation); // Set the current location using the inherited setCurrentLocation method.
+        currentLocation);
     currentLocation.setTargetFlag(true);
   }
 

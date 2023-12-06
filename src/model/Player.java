@@ -24,14 +24,14 @@ public class Player extends AbstractCharacter {
    */
   public Player(int indexOfPlayer, int typeOfPlayer, String name, Room currentLocation,
                 int maxNumberOfWeapons) {
-    super(); // Call the constructor of the superclass (model.AbstractCharacter).
+    super();
     this.indexOfPlayer = indexOfPlayer;
     this.typeOfPlayer = typeOfPlayer;
     this.weaponsCarried = new ArrayList<>();
     this.maxNumberOfWeapons = maxNumberOfWeapons;
-    setName(name); // Set the name of the player using the inherited setName method.
+    setName(name);
     setCurrentLocation(
-        currentLocation); // Set the current location using the inherited setCurrentLocation method.
+        currentLocation);
     currentLocation.setPlayerFlag(true);
     currentLocation.addPlayer(this);
   }
@@ -39,7 +39,7 @@ public class Player extends AbstractCharacter {
   /**
    * Gets the index of the player.
    *
-   * @return The index of the player.
+   * @return The index of the player
    */
   public int getIndexOfPlayer() {
     return indexOfPlayer;
@@ -48,7 +48,7 @@ public class Player extends AbstractCharacter {
   /**
    * Sets the index of the player.
    *
-   * @param indexOfPlayer The index of the player to set.
+   * @param indexOfPlayer The index of the player to set
    */
   public void setIndexOfPlayer(int indexOfPlayer) {
     this.indexOfPlayer = indexOfPlayer;
@@ -57,7 +57,7 @@ public class Player extends AbstractCharacter {
   /**
    * Gets the type of the player.
    *
-   * @return The type of the player. 0 for human, 1 for computer.
+   * @return The type of the player. 0 for human, 1 for computer
    */
   public int getTypeOfPlayer() {
     return typeOfPlayer;
@@ -66,12 +66,17 @@ public class Player extends AbstractCharacter {
   /**
    * Gets the maximum number of weapons the player can carry.
    *
-   * @return The maximum number of weapons the player can carry.
+   * @return The maximum number of weapons the player can carry
    */
   public int getMaxNumberOfWeapons() {
     return maxNumberOfWeapons;
   }
 
+  /**
+   * Gets the list of weapons carried by the player.
+   *
+   * @return The list of weapons carried by the player
+   */
   public List<WeaponImp> getWeaponsCarried() {
     return weaponsCarried;
   }
@@ -80,7 +85,7 @@ public class Player extends AbstractCharacter {
    * Updates the location of the player. Also updates the player present flag in the previous
    * and current location.
    *
-   * @param newLocation The new location of the player.
+   * @param newLocation The new location of the player
    */
   public void updateLocation(Room newLocation) {
     Room previousLocation = this.getCurrentLocation();
@@ -183,17 +188,13 @@ public class Player extends AbstractCharacter {
    */
   @Override
   public boolean equals(Object o) {
-    // Fast path for pointer equality:
-    if (this == o) { // backward compatibility with default equals
+    if (this == o) {
       return true;
     }
-    // If o isn't the right class then it can't be equal:
     if (!(o instanceof Player)) {
       return false;
     }
-    // The successful instanceof check means our cast will succeed:
     Player that = (Player) o;
-
     return Objects.equals(getName(), that.getName())
         && Objects.equals(weaponsCarried, that.weaponsCarried)
         && Objects.equals(typeOfPlayer, that.typeOfPlayer);

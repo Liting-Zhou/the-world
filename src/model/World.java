@@ -37,6 +37,9 @@ public interface World extends ReadOnlyWorld {
   void playNextTurn();
 
 
+  /**
+   * Resets the game state when game is restarted.
+   */
   void resetState();
 
   /**
@@ -72,6 +75,12 @@ public interface World extends ReadOnlyWorld {
    */
   void updatePlayerTurn();
 
+  /**
+   * Moves the pet to a specific room, found by the coordinates.
+   *
+   * @param x the x coordinate of the room
+   * @param y the y coordinate of the room
+   */
   void movePetToRoom(int x, int y);
 
   /**
@@ -82,5 +91,12 @@ public interface World extends ReadOnlyWorld {
    */
   void moveToRoom(int x, int y);
 
+  /**
+   * Finds the corresponding room by the given coordinates.
+   *
+   * @param x the x coordinate of the room
+   * @param y the y coordinate of the room
+   * @return the room found
+   */
   Room findRoomByCoordinates(int x, int y);
 }

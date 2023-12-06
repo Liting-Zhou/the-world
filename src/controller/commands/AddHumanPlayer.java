@@ -59,7 +59,7 @@ public final class AddHumanPlayer implements Command {
         scan.next(); // consume the invalid token
       }
       maxNumOfWeapons = scan.nextInt();
-      // for now, assume the limit is 5
+      // assume the limit is 5
       if (maxNumOfWeapons < 0 || maxNumOfWeapons > 5) {
         System.out.println("Invalid number. Please enter again:");
       } else {
