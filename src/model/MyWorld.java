@@ -16,10 +16,10 @@ import javax.imageio.ImageIO;
  * Kill Doctor Lucky.
  */
 public final class MyWorld implements World {
+  int maxNumOfTurns = 100; //default value
   private final int startingRoom = 0; //default value
   private final List<Room> initialRoomsState = new ArrayList<>();
   private final int targetInitialHealth;
-  int maxNumOfTurns = 100; //default value
   private List<Player> players = new ArrayList<>();
   private List<Room> listOfRooms;
   private String mansionName;
@@ -282,7 +282,8 @@ public final class MyWorld implements World {
         + "could be two types of players: human-controlled and computer-controlled.\n"
         + "Player can choose from these 5 actions:\n1. Move to a neighboring room.\n2. Pick up "
         + "a weapon in the room.\n3. Look around.\n4. Move the pet to a specified space."
-        + "\n5. Attack the target.\nComputer player should attemptToAttack the target whenever there "
+        +
+        "\n5. Attack the target.\nComputer player should attemptToAttack the target whenever there "
         +
         "is chance, otherwise randomly choose other actions. \nWhile human player actively chooses"
         + " any possible action.");

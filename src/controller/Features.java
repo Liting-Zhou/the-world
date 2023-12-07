@@ -15,19 +15,17 @@ import view.View;
  * functionality.
  */
 public interface Features {
+  /**
+   * Sets the view for the controller.
+   *
+   * @param v the view
+   */
   void setView(View v);
 
   /**
    * Exit the game.
    **/
   void exitGame();
-
-//  /**
-//   * check if player number exceeds the limit.
-//   *
-//   * @return true if player number is within the limit, false otherwise
-//   */
-//  boolean checkPlayerNumber();
 
   /**
    * Enter the game.
@@ -45,6 +43,13 @@ public interface Features {
   void gameSetUp();
 
   /**
+   * Start the game with a new configuration.
+   *
+   * @throws FileNotFoundException if the file is not found
+   */
+  void newGameWithNewConfig() throws FileNotFoundException;
+
+  /**
    * Add a player.
    *
    * @param name         the name of the player
@@ -55,13 +60,6 @@ public interface Features {
   void addPlayer(String name, int startingRoom, int weaponLimits, int playerType);
 
   /**
-   * Start the game with a new configuration.
-   *
-   * @throws FileNotFoundException if the file is not found
-   */
-  void newGameWithNewConfig() throws FileNotFoundException;
-
-  /**
    * Plays the next turn.
    */
   void playNextTurn();
@@ -70,7 +68,6 @@ public interface Features {
    * Player makes an attempt to attemptToAttack the target.
    */
   void attemptToAttack();
-
 
   /**
    * Player attacks after weapon selected.
@@ -99,7 +96,7 @@ public interface Features {
   /**
    * Player tries to move the pet.
    */
-  void moveThePet();
+  void attemptToMoveThePet();
 
   /**
    * The pet is moved to a specific room.
@@ -123,39 +120,6 @@ public interface Features {
    */
   void setMovePetMode(boolean b);
 
-//  /**
-//   * Display information of a specific room.
-//   *
-//   * @param x the x coordinate of the room
-//   * @param y the y coordinate of the room
-//   */
-//  void displayRoomInfo(int x, int y);
-
-//  /**
-//   * Display information of a specific player.
-//   *
-//   * @param player the player to display
-//   */
-//  void displayPlayerInfo(Player player);
-
-//  /**
-//   * Display information of the target.
-//   */
-//  void displayTargetInfo();
-
-//  /**
-//   * Gets the target.
-//   *
-//   * @return the target
-//   */
-//  Target getTarget();
-
-//  /**
-//   * Gets the players.
-//   *
-//   * @return the players
-//   */
-//  List<Player> getPlayers();
 
   /**
    * Gets the display mode. There are two modes, display mode and play mode.

@@ -3,9 +3,6 @@ package controller;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import model.Player;
-import model.RoomImp;
 import model.World;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +31,13 @@ public class VisualControllerTest {
   }
 
   @Test
+  public void testSetView() {
+    String expected = "model.getMaxNumOfTurns is invoked\n"
+        + "view.setFeatures is invoked\n";
+    assertEquals(expected, log.toString());
+  }
+
+  @Test
   public void testExitGame() {
     controller.exitGame();
     String expected = "model.getMaxNumOfTurns is invoked\n"
@@ -43,6 +47,26 @@ public class VisualControllerTest {
         + "view.showMessageDialog is invoked\n"
         + "view.displayGamePanel is invoked\n"
         + "view.setDisplay is invoked\n";
+    assertEquals(expected, log.toString());
+  }
+
+  @Test
+  public void testEnterGame() {
+    controller.enterGame();
+    String expected = "model.getMaxNumOfTurns is invoked\n"
+        + "view.setFeatures is invoked\n"
+        + "model.getListOfPlayers is invoked\n"
+        + "view.setDisplay is invoked\n"
+        + "view.showSetUpPanel is invoked\n";
+    assertEquals(expected, log.toString());
+  }
+
+  @Test
+  public void testResetState() {
+    controller.resetState();
+    String expected = "model.getMaxNumOfTurns is invoked\n"
+        + "view.setFeatures is invoked\n"
+        + "model.resetState is invoked\n";
     assertEquals(expected, log.toString());
   }
 
@@ -58,39 +82,6 @@ public class VisualControllerTest {
   @Test(expected = FileNotFoundException.class)
   public void testNewGameWithNewConfig() throws FileNotFoundException {
     controller.newGameWithNewConfig();
-  }
-
-
-  @Test
-  public void testEnterGame() {
-    controller.enterGame();
-    String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n"
-        + "model.getListOfPlayers is invoked\n"
-        + "view.setDisplay is invoked\n"
-        + "view.showSetUpPanel is invoked\n";
-    assertEquals(expected, log.toString());
-  }
-
-  @Test
-  public void testPlayNextTurn() {
-    controller.playNextTurn();
-    String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n"
-        + "model.petWander is invoked\n"
-        + "model.roundOfTarget is invoked\n"
-        + "model.getMap is invoked\n"
-        + "model.getListOfPlayers is invoked\n"
-        + "model.getTarget is invoked\n"
-        + "view.refresh is invoked\n"
-        + "model.getNumOfTurnsPlayed is invoked\n"
-        + "model.getCurrentPlayer is invoked\n"
-        + "model.getCurrentPlayer is invoked\n"
-        + "model.getCurrentPlayer is invoked\n"
-        + "view.setDisplay is invoked\n"
-        + "model.getCurrentPlayer is invoked\n"
-        + "view.resetFocus is invoked\n";
-    assertEquals(expected, log.toString());
   }
 
   @Test
@@ -114,7 +105,25 @@ public class VisualControllerTest {
   }
 
   @Test
-  public void testAttack() {
+  public void testPlayNextTurn() {
+    controller.playNextTurn();
+    String expected = "model.getMaxNumOfTurns is invoked\n"
+        + "view.setFeatures is invoked\n"
+        + "model.petWander is invoked\n"
+        + "model.roundOfTarget is invoked\n"
+        + "view.refresh is invoked\n"
+        + "model.getNumOfTurnsPlayed is invoked\n"
+        + "model.getCurrentPlayer is invoked\n"
+        + "model.getCurrentPlayer is invoked\n"
+        + "model.getCurrentPlayer is invoked\n"
+        + "view.setDisplay is invoked\n"
+        + "model.getCurrentPlayer is invoked\n"
+        + "view.resetFocus is invoked\n";
+    assertEquals(expected, log.toString());
+  }
+
+  @Test
+  public void testAttemptToAttack() {
     controller.attemptToAttack();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n"
@@ -140,7 +149,7 @@ public class VisualControllerTest {
   }
 
   @Test
-  public void testPickUpWeapon() {
+  public void testAttemptToPickUpWeapon() {
     controller.attemptToPickUpWeapon();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n"
@@ -175,8 +184,8 @@ public class VisualControllerTest {
   }
 
   @Test
-  public void testMoveThePet() {
-    controller.moveThePet();
+  public void testAttemptToMoveThePet() {
+    controller.attemptToMoveThePet();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n"
         + "model.getPet is invoked\n"
@@ -200,14 +209,6 @@ public class VisualControllerTest {
   }
 
   @Test
-  public void testSetMovePetMode() {
-    controller.setMovePetMode(true);
-    String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n";
-    assertEquals(expected, log.toString());
-  }
-
-  @Test
   public void testGetMovePetMode() {
     controller.getMovePetMode();
     String expected = "model.getMaxNumOfTurns is invoked\n"
@@ -216,53 +217,10 @@ public class VisualControllerTest {
   }
 
   @Test
-  public void testDisplayRoomInfo() {
-    controller.displayRoomInfo(0, 0);
+  public void testSetMovePetMode() {
+    controller.setMovePetMode(true);
     String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n"
-        + "model.findRoomByCoordinates is invoked\n"
-        + "model.displayRoomInformation is invoked\n"
-        + "view.showMessageDialog is invoked\n";
-    assertEquals(expected, log.toString());
-  }
-
-  @Test
-  public void testDisplayPlayerInfo() {
-    controller.displayPlayerInfo(
-        new Player(0, 0, "mock player", new RoomImp(1, 2, 3, 4, 5, "mock room", new ArrayList<>()),
-            0));
-    String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n"
-        + "model.displayPlayerInformation is invoked\n"
-        + "view.showMessageDialog is invoked\n";
-    assertEquals(expected, log.toString());
-  }
-
-  @Test
-  public void testDisplayTargetInfo() {
-    controller.displayTargetInfo();
-    String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n"
-        + "model.displayTargetInformation is invoked\n"
-        + "view.showMessageDialog is invoked\n";
-    assertEquals(expected, log.toString());
-  }
-
-  @Test
-  public void testGetTarget() {
-    controller.getTarget();
-    String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n"
-        + "model.getTarget is invoked\n";
-    assertEquals(expected, log.toString());
-  }
-
-  @Test
-  public void testGetPlayers() {
-    controller.getPlayers();
-    String expected = "model.getMaxNumOfTurns is invoked\n"
-        + "view.setFeatures is invoked\n"
-        + "model.getListOfPlayers is invoked\n";
+        + "view.setFeatures is invoked\n";
     assertEquals(expected, log.toString());
   }
 
@@ -275,7 +233,7 @@ public class VisualControllerTest {
   }
 
   @Test
-  public void testGetPlayTurnMode() {
+  public void testGetPlayMode() {
     controller.getPlayMode();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n";
@@ -283,7 +241,7 @@ public class VisualControllerTest {
   }
 
   @Test
-  public void testSetPlayTurnMode() {
+  public void testSetPlayMode() {
     controller.setPlayMode(true);
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n";
@@ -315,9 +273,6 @@ public class VisualControllerTest {
         + "model.moveToRoom is invoked\n"
         + "model.getCurrentPlayer is invoked\n"
         + "view.setDisplay is invoked\n"
-        + "model.getMap is invoked\n"
-        + "model.getListOfPlayers is invoked\n"
-        + "model.getTarget is invoked\n"
         + "view.refresh is invoked\n"
         + "model.updatePlayerTurn is invoked\n"
         + "model.updateTurnsPlayed is invoked\n"

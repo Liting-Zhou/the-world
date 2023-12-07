@@ -135,7 +135,8 @@ public class ComputerPlayer extends Player {
   }
 
   /**
-   * Attacks the target. Computer player only makes attempt to attemptToAttack when it can not be seen.
+   * Attacks the target.
+   * Computer player only makes attempt to attemptToAttack when it can not be seen.
    * Always use the weapon with the highest power.
    *
    * @param target The target to be attacked
@@ -144,7 +145,8 @@ public class ComputerPlayer extends Player {
   public String attack(Target target) {
     StringBuilder sb = new StringBuilder();
     sb.append(
-        String.format("Computer player %s has chance to attemptToAttack the target.%n", this.getName()));
+        String.format("Computer player %s has chance to attemptToAttack the target.%n",
+            this.getName()));
     //if no weapon carried, poking the target in the eye and reduce 1 health
     if (weaponsCarried.isEmpty()) {
       sb.append(String.format(

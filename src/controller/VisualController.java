@@ -305,7 +305,7 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void moveThePet() {
+  public void attemptToMoveThePet() {
     StringBuilder sb = new StringBuilder();
     sb.append("You chose to move the pet, ");
     sb.append(
@@ -337,32 +337,6 @@ public class VisualController implements Features {
     movePetMode = b;
     displayMode = !b;
   }
-
-//  @Override
-//  public void displayRoomInfo(int x, int y) {
-//    String display = model.displayRoomInformation(model.findRoomByCoordinates(x, y));
-//    view.showMessageDialog("Room Information", display);
-//  }
-
-//  @Override
-//  public void displayPlayerInfo(Player player) {
-//    view.showMessageDialog("Player Information", model.displayPlayerInformation(player));
-//  }
-
-//  @Override
-//  public void displayTargetInfo() {
-//    view.showMessageDialog("Target Information", model.displayTargetInformation());
-//  }
-
-//  @Override
-//  public Target getTarget() {
-//    return model.getTarget();
-//  }
-
-//  @Override
-//  public List<Player> getPlayers() {
-//    return model.getListOfPlayers();
-//  }
 
   @Override
   public boolean getDisplayMode() {
@@ -405,7 +379,6 @@ public class VisualController implements Features {
           "You have moved to the %s.\n\nThis Turn ended.\nClick the button to play next turn.",
           model.getCurrentPlayer().getCurrentLocation().getRoomName()));
     }
-    //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
     view.refresh();
     model.updatePlayerTurn();
     model.updateTurnsPlayed();

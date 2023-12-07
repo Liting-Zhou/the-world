@@ -48,14 +48,14 @@ public interface View {
   /**
    * Shows the weapon dialog for attemptToAttack.
    *
-   * @param f       the set of feature callbacks as a Features object
+   * @param f the set of feature callbacks as a Features object
    */
   void showWeaponDialogForAttack(Features f);
 
   /**
    * Shows the weapon dialog for pick up.
    *
-   * @param f       the set of feature callbacks as a Features object
+   * @param f the set of feature callbacks as a Features object
    */
   void showWeaponDialogForPickUp(Features f);
 

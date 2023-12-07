@@ -9,8 +9,8 @@ import java.util.Objects;
  * and interact with other characters and objects.
  */
 public class Player extends AbstractCharacter {
-  private final int typeOfPlayer; // 0 for human, 1 for computer
   protected List<WeaponImp> weaponsCarried;
+  private final int typeOfPlayer; // 0 for human, 1 for computer
   private int indexOfPlayer;
 
   /**

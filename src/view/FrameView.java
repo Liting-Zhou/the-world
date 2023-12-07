@@ -63,7 +63,10 @@ public class FrameView extends JFrame implements View {
 
 
   /**
-   * Constructor.
+   * Constructor of the view. It takes a read-only model as parameter and thus
+   * it can read some information directly from the model.
+   *
+   * @param model the read-only model
    **/
   public FrameView(ReadOnlyWorld model) {
     super("Game of Kill Doctor Happy");
@@ -244,7 +247,7 @@ public class FrameView extends JFrame implements View {
               f.lookAround();
               break;
             case KeyEvent.VK_T:
-              f.moveThePet();
+              f.attemptToMoveThePet();
               break;
             default:
               break;
