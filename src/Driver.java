@@ -50,7 +50,7 @@ public final class Driver {
         System.out.println(appendable);
       } else {
         // play with GUI
-        View view = new FrameView();
+        View view = new FrameView(world);
         VisualController controller = new VisualController(world);
         controller.setView(view);
       }

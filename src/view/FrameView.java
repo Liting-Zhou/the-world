@@ -37,6 +37,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import model.Character;
 import model.Player;
+import model.ReadOnlyWorld;
 import model.Room;
 import model.Target;
 import model.Weapon;
@@ -47,6 +48,7 @@ import model.WeaponImp;
  */
 public class FrameView extends JFrame implements View {
 
+  private ReadOnlyWorld readOnlyModel;
   private final JTextArea display;
   private final JButton addPlayerButton;
   private final JButton startGameButton;
@@ -63,7 +65,7 @@ public class FrameView extends JFrame implements View {
   /**
    * Constructor.
    **/
-  public FrameView() {
+  public FrameView(ReadOnlyWorld model) {
     super("Game of Kill Doctor Happy");
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,6 +129,7 @@ public class FrameView extends JFrame implements View {
         + "Creator: Liting Zhou");
     showInitialDialog("Game of Kill Doctor Happy", "Choose an option:",
         "New game with the current world specification", "New game with a new world specification");
+    this.readOnlyModel= model;
   }
 
   @Override
