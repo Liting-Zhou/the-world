@@ -25,12 +25,12 @@ public interface Features {
    **/
   void exitGame();
 
-  /**
-   * check if player number exceeds the limit.
-   *
-   * @return true if player number is within the limit, false otherwise
-   */
-  boolean checkPlayerNumber();
+//  /**
+//   * check if player number exceeds the limit.
+//   *
+//   * @return true if player number is within the limit, false otherwise
+//   */
+//  boolean checkPlayerNumber();
 
   /**
    * Enter the game.
@@ -126,39 +126,39 @@ public interface Features {
    */
   void setMovePetMode(boolean b);
 
-  /**
-   * Display information of a specific room.
-   *
-   * @param x the x coordinate of the room
-   * @param y the y coordinate of the room
-   */
-  void displayRoomInfo(int x, int y);
+//  /**
+//   * Display information of a specific room.
+//   *
+//   * @param x the x coordinate of the room
+//   * @param y the y coordinate of the room
+//   */
+//  void displayRoomInfo(int x, int y);
 
-  /**
-   * Display information of a specific player.
-   *
-   * @param player the player to display
-   */
-  void displayPlayerInfo(Player player);
+//  /**
+//   * Display information of a specific player.
+//   *
+//   * @param player the player to display
+//   */
+//  void displayPlayerInfo(Player player);
 
-  /**
-   * Display information of the target.
-   */
-  void displayTargetInfo();
+//  /**
+//   * Display information of the target.
+//   */
+//  void displayTargetInfo();
 
-  /**
-   * Gets the target.
-   *
-   * @return the target
-   */
-  Target getTarget();
+//  /**
+//   * Gets the target.
+//   *
+//   * @return the target
+//   */
+//  Target getTarget();
 
-  /**
-   * Gets the players.
-   *
-   * @return the players
-   */
-  List<Player> getPlayers();
+//  /**
+//   * Gets the players.
+//   *
+//   * @return the players
+//   */
+//  List<Player> getPlayers();
 
   /**
    * Gets the display mode. There are two modes, display mode and play mode.

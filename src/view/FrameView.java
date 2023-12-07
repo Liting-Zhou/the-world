@@ -155,8 +155,10 @@ public class FrameView extends JFrame implements View {
       f.exitGame();
     });
     addPlayerButton.addActionListener(l -> {
-      if (f.checkPlayerNumber()) {
+      if (readOnlyModel.getListOfPlayers().size() <11) {
         new AddPlayerDialog(this, "Add Player", true, f).setVisible(true);
+      }else{
+        showMessageDialog("","You can only add 10 players at most.");
       }
     });
     startGameButton.addActionListener(l -> {
@@ -179,28 +181,32 @@ public class FrameView extends JFrame implements View {
         int y = e.getY();
         if (f.getDisplayMode()) {
           //check if the click is on target
-          int[] targetCoordinates = gameBoard.getCharacterCoordinates(f.getTarget());
+          int[] targetCoordinates = gameBoard.getCharacterCoordinates(readOnlyModel.getTarget());
           int targetX = targetCoordinates[0];
           int targetY = targetCoordinates[1];
           if (x <= targetX + 20 && x >= targetX && y <= targetY + 20 && y >= targetY) {
-            f.displayTargetInfo();
+            showMessageDialog("Target Information", readOnlyModel.displayTargetInformation());
+            //f.displayTargetInfo();
             return;
           }
           //check if the click is on player
-          int numOfPlayers = f.getPlayers().size();
-          for (Player player : f.getPlayers()) {
+          int numOfPlayers = readOnlyModel.getListOfPlayers().size();
+          for (Player player : readOnlyModel.getListOfPlayers()) {
             int[] playerCoordinates = gameBoard.getCharacterCoordinates(player);
             int playerX = playerCoordinates[0];
             int playerY = playerCoordinates[1];
             int index = player.getIndexOfPlayer();
             int baseX = playerX - numOfPlayers / 2 * 20 + index * 20 + 10;
             if (Math.sqrt(Math.pow(x - baseX, 2) + Math.pow(y - playerY, 2)) <= 10) {
-              f.displayPlayerInfo(player);
+              showMessageDialog("Player Information", readOnlyModel.displayPlayerInformation(player));
+              //f.displayPlayerInfo(player);
               return;
             }
           }
           //otherwise, the click is on the room
-          f.displayRoomInfo(x / 40, y / 40);
+          //f.displayRoomInfo(x / 40, y / 40);
+          String display = readOnlyModel.displayRoomInformation(readOnlyModel.findRoomByCoordinates(x/40, y/40));
+          showMessageDialog("Room Information", display);
         }
         if (f.getPlayerMoveMode()) {
           f.moveToRoom(x / 40, y / 40);

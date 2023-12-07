@@ -89,15 +89,15 @@ public class VisualController implements Features {
     gameSetUp();
   }
 
-  @Override
-  public boolean checkPlayerNumber() {
-    if (model.getListOfPlayers().size() > 10) {
-      view.setDisplay("You can not add more than 10 players.");
-      return false;
-    } else {
-      return true;
-    }
-  }
+//  @Override
+//  public boolean checkPlayerNumber() {
+//    if (model.getListOfPlayers().size() > 10) {
+//      view.setDisplay("You can not add more than 10 players.");
+//      return false;
+//    } else {
+//      return true;
+//    }
+//  }
 
   @Override
   public void enterGame() {
@@ -349,32 +349,31 @@ public class VisualController implements Features {
     displayMode = !b;
   }
 
-  @Override
-  public void displayRoomInfo(int x, int y) {
-    String display = model.displayRoomInformation(model.findRoomByCoordinates(x, y));
-    view.showMessageDialog("Room Information", display);
-  }
+//  @Override
+//  public void displayRoomInfo(int x, int y) {
+//    String display = model.displayRoomInformation(model.findRoomByCoordinates(x, y));
+//    view.showMessageDialog("Room Information", display);
+//  }
 
-  @Override
-  public void displayPlayerInfo(Player player) {
-    view.showMessageDialog("Player Information", model.displayPlayerInformation(player));
-  }
+//  @Override
+//  public void displayPlayerInfo(Player player) {
+//    view.showMessageDialog("Player Information", model.displayPlayerInformation(player));
+//  }
 
-  @Override
-  public void displayTargetInfo() {
-    view.showMessageDialog("Target Information", model.displayTargetInformation());
+//  @Override
+//  public void displayTargetInfo() {
+//    view.showMessageDialog("Target Information", model.displayTargetInformation());
+//  }
 
-  }
+//  @Override
+//  public Target getTarget() {
+//    return model.getTarget();
+//  }
 
-  @Override
-  public Target getTarget() {
-    return model.getTarget();
-  }
-
-  @Override
-  public List<Player> getPlayers() {
-    return model.getListOfPlayers();
-  }
+//  @Override
+//  public List<Player> getPlayers() {
+//    return model.getListOfPlayers();
+//  }
 
   @Override
   public boolean getDisplayMode() {

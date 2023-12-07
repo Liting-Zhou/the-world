@@ -91,12 +91,5 @@ public interface World extends ReadOnlyWorld {
    */
   void moveToRoom(int x, int y);
 
-  /**
-   * Finds the corresponding room by the given coordinates.
-   *
-   * @param x the x coordinate of the room
-   * @param y the y coordinate of the room
-   * @return the room found
-   */
-  Room findRoomByCoordinates(int x, int y);
+
 }
