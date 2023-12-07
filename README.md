@@ -4,8 +4,9 @@
 
 ### How to Run
 
-    java -jar <path of jar file> <path of configuration file> <max number of turns>
-    java -jar ./res/the-world.jar ./res/mansion.txt 50
+    java -jar <path of jar file> <path of configuration file> <max number of turns> <play mode>
+    java -jar ./res/the-world.jar ./res/mansion.txt 50 1               // for GUI mode
+    java -jar ./res/the-world.jar ./res/mansion.txt 50 2               // for console mode
 
 ### How to Use the Program
 

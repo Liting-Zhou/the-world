@@ -104,7 +104,7 @@ public class HumanPlayerTest {
     assertEquals(9, target.getHealth());
     assertEquals(1, humanPlayer.weaponsCarried.size());
 
-    //1.2 player has more than a weapon and choose a weapon to attemptToAttack
+    //1.2 player has more than a weapon and choose a weapon to attack
     int input3 = random.nextRandomInt(4);
     InputStream in3 = new ByteArrayInputStream(String.valueOf(input3).getBytes());
     System.setIn(in3);

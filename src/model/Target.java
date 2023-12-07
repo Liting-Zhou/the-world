@@ -45,9 +45,9 @@ public final class Target extends AbstractCharacter {
   }
 
   /**
-   * Sets the health of the target after an attemptToAttack.
+   * Sets the health of the target after an attack.
    *
-   * @param power The power of the weapon used in the attemptToAttack.
+   * @param power The power of the weapon used in the attack.
    */
   public void healthDamage(int power) {
     this.health -= power;
