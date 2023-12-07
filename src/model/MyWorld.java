@@ -156,12 +156,12 @@ public final class MyWorld implements World {
       lineIndex++;
     }
     //initialize the neighbors of the room
-    initializeNeighbors(listOfRooms);
+    initializeNeighbors();
   }
 
-  private void initializeNeighbors(List<Room> rooms) {
-    for (Room room : rooms) {
-      List<Room> neighbors = room.findNeighbors(rooms);
+  private void initializeNeighbors() {
+    for (Room room : listOfRooms) {
+      List<Room> neighbors = room.findNeighbors(listOfRooms);
       room.setNeighbors(neighbors);
     }
   }
@@ -244,6 +244,7 @@ public final class MyWorld implements World {
     for (Room room : initialRoomsState) {
       listOfRooms.add(new RoomImp(room));
     }
+    initializeNeighbors();
 
     target.updateLocation(listOfRooms.get(startingRoom));
     target.resetHealth(targetInitialHealth);
@@ -283,13 +284,13 @@ public final class MyWorld implements World {
         + "Player can choose from these 5 actions:\n1. Move to a neighboring room.\n2. Pick up "
         + "a weapon in the room.\n3. Look around.\n4. Move the pet to a specified space."
         +
-        "\n5. Attack the target.\nComputer player should attemptToAttack the target whenever there "
+        "\n5. Attack the target.\nComputer player should attack the target whenever there "
         +
         "is chance, otherwise randomly choose other actions. \nWhile human player actively chooses"
         + " any possible action.");
     //5. describe the weapon rules by introducing power and name
     System.out.println("Weapon has a power and a name. Once picked up, it will be removed "
-        + "from the room. Once used for attemptToAttack, \nit will be removed from the world.");
+        + "from the room. Once used for attack, \nit will be removed from the world.");
     //6. describe the game rules. Given maximum number of turns, in each round target moves first
     //   and then one player acts. Player acts in the order of being added to the game. Game over if
     //   target's health reaches zero or running out of turns. The winner is the player who finally
@@ -550,7 +551,7 @@ public final class MyWorld implements World {
    * 2. pick up an item
    * 3. look around
    * 4. move the pet
-   * 5. attemptToAttack the target
+   * 5. attack the target
    * Computer player randomly chooses an action.
    */
   @Override
@@ -591,7 +592,7 @@ public final class MyWorld implements World {
 
     StringBuilder sb = new StringBuilder();
     //ask which action the player choose
-    //if target is here, player can attemptToAttack
+    //if target is here, player can attack
     if (player.getCurrentLocation().isTargetHere()) {
       System.out.println();
       System.out.printf(
@@ -638,7 +639,7 @@ public final class MyWorld implements World {
         }
       } else {
         ComputerPlayer p = (ComputerPlayer) player;
-        //if can be seen, no attemptToAttack, randomly choose the other 4 actions
+        //if can be seen, no attack, randomly choose the other 4 actions
         if (p.canBeSeen()) {
           if (p.getCurrentLocation().getWeapons().isEmpty()
               || p.weaponsCarried.size() == p.getMaxNumberOfWeapons()) {
@@ -646,7 +647,7 @@ public final class MyWorld implements World {
           } else {
             sb.append(p.randomAction(pet, listOfRooms));
           }
-        } else { //if can not be seen, attemptToAttack
+        } else { //if can not be seen, attack
           sb.append(p.attack(target));
         }
       }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.FileNotFoundException;
+import model.ReadOnlyWorld;
 import view.View;
 
 /**
@@ -47,7 +48,7 @@ public interface Features {
    *
    * @throws FileNotFoundException if the file is not found
    */
-  void newGameWithNewConfig() throws FileNotFoundException;
+  ReadOnlyWorld newGameWithNewConfig() throws FileNotFoundException;
 
   /**
    * Add a player.

@@ -6,6 +6,7 @@ import java.io.FileReader;
 import model.HumanPlayer;
 import model.MyWorld;
 import model.Player;
+import model.ReadOnlyWorld;
 import model.Room;
 import model.Target;
 import model.WeaponImp;
@@ -73,7 +74,7 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void newGameWithNewConfig() throws FileNotFoundException {
+  public ReadOnlyWorld newGameWithNewConfig() throws FileNotFoundException {
     String path = view.showInputDialog("Provide the PATH of the configuration file: ");
     Readable reader = new BufferedReader(new FileReader(path));
     model = new MyWorld(reader);
@@ -86,6 +87,7 @@ public class VisualController implements Features {
     displayMode = true;
     playMode = false;
     gameSetUp();
+    return model;
   }
 
   @Override
@@ -116,7 +118,7 @@ public class VisualController implements Features {
                 + "(1) press M and then click a neighbor room to move to\n"
                 + "(2) press P to pick up a weapon if there is any\n"
                 + "(3) press L to look around\n"
-                + "(4) press A to attemptToAttack the target when you are in the same space\n"
+                + "(4) press A to attack the target when you are in the same space\n"
                 + "(5) press T to move the pet", model.getNumOfTurnsPlayed(),
             maxNumOfTurns, model.getCurrentPlayer().getName(), model.getCurrentPlayer().getName(),
             model.getCurrentPlayer().getCurrentLocation().getRoomNumber()));
@@ -171,7 +173,7 @@ public class VisualController implements Features {
     Target target = model.getTarget();
     if (currentPlayer.getCurrentLocation() != target.getCurrentLocation()) {
       view.setDisplay(
-          "You can not attemptToAttack the target because you are not in the same room. "
+          "You can not attack the target because you are not in the same room. "
               + "Choose another action.");
       view.resetFocus();
       return;
@@ -193,7 +195,7 @@ public class VisualController implements Features {
       checkIsGameOver();
     } else {
       view.setDisplay(
-          "Choose a weapon to attemptToAttack, or just poke in the eye.");
+          "Choose a weapon to attack, or just poke in the eye.");
       view.showWeaponDialogForAttack(this);
     }
   }
@@ -213,7 +215,7 @@ public class VisualController implements Features {
     } else {
       for (WeaponImp weapon : currentPlayer.getWeaponsCarried()) {
         if (weapon.getName().equals(weaponName)) {
-          sb.append(String.format("You chose %s to attemptToAttack the target.\n",
+          sb.append(String.format("You chose %s to attack the target.\n",
               weapon.getName()));
           currentPlayer.attackWithWeapon(weapon, model.getTarget());
           if (currentPlayer.canBeSeen()) {
@@ -309,7 +311,7 @@ public class VisualController implements Features {
     StringBuilder sb = new StringBuilder();
     sb.append("You chose to move the pet, ");
     sb.append(
-        String.format("which is now in room %d.\nClick any room you want to teleport the pet to.",
+        String.format("who is now in room %d.\nClick any room you want to teleport the pet to.",
             model.getPet().getCurrentLocation().getRoomNumber()));
     view.setDisplay(sb.toString());
     setMovePetMode(true);

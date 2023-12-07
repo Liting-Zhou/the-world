@@ -142,7 +142,8 @@ public class FrameView extends JFrame implements View {
       setDisplay("Add some players before starting the game.");
       displayScrollPane.setVisible(true);
       try {
-        f.newGameWithNewConfig();
+        //f.newGameWithNewConfig();
+        this.readOnlyModel=f.newGameWithNewConfig();
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       }
@@ -459,6 +460,8 @@ public class FrameView extends JFrame implements View {
       playerTypeGroup.add(computerRadioButton);
       radioPanel.add(humanRadioButton);
       radioPanel.add(computerRadioButton);
+
+      humanRadioButton.setSelected(true);
 
       humanRadioButton.addActionListener(l -> {
         playerType = 0; // human

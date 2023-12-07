@@ -136,7 +136,7 @@ public class ComputerPlayer extends Player {
 
   /**
    * Attacks the target.
-   * Computer player only makes attempt to attemptToAttack when it can not be seen.
+   * Computer player only makes attempt to attack when it can not be seen.
    * Always use the weapon with the highest power.
    *
    * @param target The target to be attacked
@@ -145,7 +145,7 @@ public class ComputerPlayer extends Player {
   public String attack(Target target) {
     StringBuilder sb = new StringBuilder();
     sb.append(
-        String.format("Computer player %s has chance to attemptToAttack the target.%n",
+        String.format("Computer player %s has chance to attack the target.%n",
             this.getName()));
     //if no weapon carried, poking the target in the eye and reduce 1 health
     if (weaponsCarried.isEmpty()) {
@@ -154,15 +154,15 @@ public class ComputerPlayer extends Player {
           this.getName()));
       target.healthDamage(1);
     } else if (weaponsCarried.size() == 1) {
-      //if one weapon carried, use the weapon to attemptToAttack
+      //if one weapon carried, use the weapon to attack
       WeaponImp weapon = weaponsCarried.get(0);
-      sb.append(String.format("%s uses %s to attemptToAttack the target, target gets %d damage.%n",
+      sb.append(String.format("%s uses %s to attack the target, target gets %d damage.%n",
           this.getName(), weapon.getName(), weapon.getPower()));
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
     } else {
-      //if more than one weapon carried, use the weapon with the highest power to attemptToAttack
+      //if more than one weapon carried, use the weapon with the highest power to attack
       int maxPower = 0;
       WeaponImp weapon = null;
       for (WeaponImp w : weaponsCarried) {
@@ -171,7 +171,7 @@ public class ComputerPlayer extends Player {
           weapon = w;
         }
       }
-      sb.append(String.format("%s uses %s to attemptToAttack the target, target gets %d damage.%n",
+      sb.append(String.format("%s uses %s to attack the target, target gets %d damage.%n",
           this.getName(), weapon.getName(), weapon.getPower()));
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game
@@ -191,12 +191,12 @@ public class ComputerPlayer extends Player {
     StringBuilder sb = new StringBuilder();
     Room currentRoom = pet.getCurrentLocation();
     sb.append(
-        String.format("The pet is currently in room %d, the %s.%n", currentRoom.getRoomNumber(),
+        String.format("The pet is currently in room %d, the %s.\n", currentRoom.getRoomNumber(),
             currentRoom.getRoomName()));
 
     Room nextWanderRoom = rooms.get(random.nextRandomInt(rooms.size()));
     sb.append(
-        String.format("Next turn, Fortune the cat will wander to room %d, the %s, as you wish.%n",
+        String.format("The pet is moved to room %d, the %s. Next turn it will stay there.\n",
             nextWanderRoom.getRoomNumber(), nextWanderRoom.getRoomName()));
     pet.updateLocation(nextWanderRoom);
     pet.setMoved();
