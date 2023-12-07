@@ -65,6 +65,8 @@ In `./res`.
 - Any space that is occupied by the pet cannot be seen by its neighbors.
 - At most 10 players can be added to the game.
 - Players are assigned different starting room and carry limit.
+- Players can only move to the neighboring rooms.
+- Rooms which share a wall are neighbors.
 
 ### Citations
 
