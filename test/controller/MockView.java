@@ -38,7 +38,7 @@ public class MockView implements View {
   }
 
   @Override
-  public void refresh(BufferedImage image, List<Player> players, Target target) {
+  public void refresh() {
     log.append("view.refresh is invoked\n");
   }
 
@@ -48,7 +48,7 @@ public class MockView implements View {
   }
 
   @Override
-  public void showWeaponDialogForAttack(List<WeaponImp> weapons, Features f) {
+  public void showWeaponDialogForAttack(Features f) {
     log.append("view.showWeaponDialogForAttack is invoked\n");
   }
 

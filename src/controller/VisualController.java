@@ -208,7 +208,7 @@ public class VisualController implements Features {
     } else {
       view.setDisplay(
           "Choose a weapon to attack, or just poke in the eye.");
-      view.showWeaponDialogForAttack(currentPlayer.getWeaponsCarried(), this);
+      view.showWeaponDialogForAttack(this);
     }
   }
 

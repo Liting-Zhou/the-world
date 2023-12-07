@@ -318,7 +318,8 @@ public class FrameView extends JFrame implements View {
   }
 
   @Override
-  public void showWeaponDialogForAttack(List<WeaponImp> weapons, Features f) {
+  public void showWeaponDialogForAttack(Features f) {
+    List<WeaponImp> weapons=readOnlyModel.getCurrentPlayer().getWeaponsCarried();
     String[] weaponNames = weapons.stream().map(Weapon::getName).toArray(String[]::new);
 
     //add "your fist"
