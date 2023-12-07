@@ -66,7 +66,9 @@ public class Pet extends AbstractCharacter {
     updateLocation(order.get(index));
   }
 
-
+  /**
+   * Sets the mode to be true, which denotes the pet is moved.
+   */
   public void setMoved() {
     isMoved = true;
   }

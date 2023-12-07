@@ -8,6 +8,11 @@ import view.View;
 public class MockView implements View {
   private StringBuilder log;
 
+  /**
+   * Constructs a mock view.
+   *
+   * @param log the log
+   */
   public MockView(StringBuilder log) {
     this.log = log;
   }

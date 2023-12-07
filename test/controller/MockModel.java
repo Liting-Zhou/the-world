@@ -17,6 +17,11 @@ import model.World;
 public class MockModel implements World {
   private StringBuilder log;
 
+  /**
+   * Constructs a mock model.
+   *
+   * @param log the log
+   */
   public MockModel(StringBuilder log) {
     this.log = log;
   }
