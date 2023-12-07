@@ -10,16 +10,9 @@
 
 ### How to Use the Program
 
-1. Run the jar file as mentioned in How to Run.
-2. Once the program is running, you will see the description of the game, and a menu of options to choose from.
-3. Add human/computer controlled players with weapon carry limit and starting room.
-4. Choose to play next turn. Human player can choose different actions from move, pick up weapon, look around, move the
-   pet or attack if the target is in the same room, while
-   computer player always attacks when there is a chance, otherwise performs random choice. In each turn, target moves
-   first and then one player can act.
-5. You can choose to display the description of the target, a specific player or a specific space in the world.
-6. There is an option to quit the game. In this case, the program will be interrupted and the game will end.
-7. Game is over if the max turns are exhausted or the health of target is less or equal to zero.
+1. Run the jar file as mentioned in **How to Run**.
+2. There are two ways to play the game: GUI mode and console mode.
+3. Game is over if the max turns are exhausted, the health of target is less or equal to zero, or you choose to exit the game.
 
 ### Example Runs
 
@@ -42,29 +35,36 @@ in this example run:
 
 ### Changes between milestones
 
-#### Changes of milestone 2 compared to milestone 1
+#### Main changes of milestone 2 compared to milestone 1
 
 - Add computer and human player classes which inherit the Player Class.
 - Add player actions (move, pick up weapons and look around).
 - Add a Random interface and corresponding class.
 - Add methods to display information where needed.
 
-#### Changes of milestone 3 compared to milestone 2
+#### Main changes of milestone 3 compared to milestone 2
 
 - Add target description in the world.
 - Add player actions (move the pet and attack the target).
-- Add a Pet interface and corresponding Cat class, and implement a depth-first traversal algorithm which determined the
-  route of cat wandering.
+- Add a Pet class, and implement a depth-first traversal algorithm which determined the
+  route of pet wandering.
+
+#### Main changes of milestone 4 compared to milestone 3
+
+- Add a GUI interface and corresponding class.
 
 ### UML, Testing Plan, and updated UML
 
-In `./res`
+In `./res`.
 
 ### Assumptions
 
 - Target and the pet start from Room 0, which is the Billiards Room.
-- Players are assigned different starting room and maximum number of weapons carried.
+- Target moves in the order of room numbers.
+- Pet moves in an order determined by a depth-first traversal algorithm.
 - Any space that is occupied by the pet cannot be seen by its neighbors.
+- At most 10 players can be added to the game.
+- Players are assigned different starting room and carry limit.
 
 ### Citations
 
