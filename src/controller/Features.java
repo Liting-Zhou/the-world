@@ -1,9 +1,6 @@
 package controller;
 
 import java.io.FileNotFoundException;
-import java.util.List;
-import model.Player;
-import model.Target;
 import view.View;
 
 /**
@@ -70,9 +67,9 @@ public interface Features {
   void playNextTurn();
 
   /**
-   * Player makes an attempt to attack the target.
+   * Player makes an attempt to attemptToAttack the target.
    */
-  void attack();
+  void attemptToAttack();
 
 
   /**
@@ -85,7 +82,7 @@ public interface Features {
   /**
    * Player tries to pick up a weapon.
    */
-  void pickUpWeapon();
+  void attemptToPickUpWeapon();
 
   /**
    * Player picks up a weapon after weapon selected.

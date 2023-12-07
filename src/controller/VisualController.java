@@ -3,7 +3,6 @@ package controller;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.List;
 import model.HumanPlayer;
 import model.MyWorld;
 import model.Player;
@@ -89,16 +88,6 @@ public class VisualController implements Features {
     gameSetUp();
   }
 
-//  @Override
-//  public boolean checkPlayerNumber() {
-//    if (model.getListOfPlayers().size() > 10) {
-//      view.setDisplay("You can not add more than 10 players.");
-//      return false;
-//    } else {
-//      return true;
-//    }
-//  }
-
   @Override
   public void enterGame() {
     if (model.getListOfPlayers().isEmpty()) {
@@ -112,7 +101,6 @@ public class VisualController implements Features {
           + "Blue represents human player and red represents computer player.\n"
           + "(4) Click the button above to play next turn.\n");
       view.displayGamePanel(true);
-      //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
       view.refresh();
     }
   }
@@ -121,7 +109,6 @@ public class VisualController implements Features {
   public void playNextTurn() {
     model.petWander();
     model.roundOfTarget();
-    //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
     view.refresh();
     view.setDisplay(
         String.format("Turn %d (max %d).\nNow is %s's turn.\n%s is in room %d.\n"
@@ -129,13 +116,12 @@ public class VisualController implements Features {
                 + "(1) press M and then click a neighbor room to move to\n"
                 + "(2) press P to pick up a weapon if there is any\n"
                 + "(3) press L to look around\n"
-                + "(4) press A to attack the target when you are in the same space\n"
+                + "(4) press A to attemptToAttack the target when you are in the same space\n"
                 + "(5) press T to move the pet", model.getNumOfTurnsPlayed(),
             maxNumOfTurns, model.getCurrentPlayer().getName(), model.getCurrentPlayer().getName(),
             model.getCurrentPlayer().getCurrentLocation().getRoomNumber()));
     if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
       view.setDisplay(model.roundOfPlayer()); //update current player index already
-      //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
       view.refresh();
       model.updateTurnsPlayed();
       checkIsGameOver();
@@ -180,12 +166,12 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void attack() {
+  public void attemptToAttack() {
     HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
     Target target = model.getTarget();
     if (currentPlayer.getCurrentLocation() != target.getCurrentLocation()) {
       view.setDisplay(
-          "You can not attack the target because you are not in the same room. "
+          "You can not attemptToAttack the target because you are not in the same room. "
               + "Choose another action.");
       view.resetFocus();
       return;
@@ -207,7 +193,7 @@ public class VisualController implements Features {
       checkIsGameOver();
     } else {
       view.setDisplay(
-          "Choose a weapon to attack, or just poke in the eye.");
+          "Choose a weapon to attemptToAttack, or just poke in the eye.");
       view.showWeaponDialogForAttack(this);
     }
   }
@@ -216,7 +202,7 @@ public class VisualController implements Features {
   public void attackAfterWeaponSelected(String weaponName) {
     HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
     StringBuilder sb = new StringBuilder();
-    if (("Your fist").equals(weaponName)) {
+    if (("Your Fingers").equals(weaponName)) {
       sb.append("You chose to poke the target in the eye!\n");
       currentPlayer.attackWithNoWeapon(model.getTarget());
       if (currentPlayer.canBeSeen()) {
@@ -227,7 +213,7 @@ public class VisualController implements Features {
     } else {
       for (WeaponImp weapon : currentPlayer.getWeaponsCarried()) {
         if (weapon.getName().equals(weaponName)) {
-          sb.append(String.format("You chose %s to attack the target.\n",
+          sb.append(String.format("You chose %s to attemptToAttack the target.\n",
               weapon.getName()));
           currentPlayer.attackWithWeapon(weapon, model.getTarget());
           if (currentPlayer.canBeSeen()) {
@@ -250,7 +236,7 @@ public class VisualController implements Features {
   }
 
   @Override
-  public void pickUpWeapon() {
+  public void attemptToPickUpWeapon() {
     HumanPlayer currentPlayer = (HumanPlayer) model.getCurrentPlayer();
     if (currentPlayer.getWeaponsCarried().size() == currentPlayer.getMaxNumberOfWeapons()) {
       view.setDisplay(

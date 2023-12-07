@@ -1,11 +1,6 @@
 package view;
 
 import controller.Features;
-import java.awt.image.BufferedImage;
-import java.util.List;
-import model.Player;
-import model.Target;
-import model.WeaponImp;
 
 /**
  * This interface represents a view for the game.
@@ -31,14 +26,9 @@ public interface View {
    */
   void setDisplay(String s);
 
-//  /**
-//   * Refresh the view to reflect any changes in the game state.
-//   *
-//   * @param image   the image to be displayed
-//   * @param players the list of players
-//   * @param target  the target
-//   */
-//  void refresh(BufferedImage image, List<Player> players, Target target);
+  /**
+   * Refresh the view to reflect any changes in the game state.
+   */
   void refresh();
 
   /**
@@ -55,24 +45,18 @@ public interface View {
   void setFeatures(Features f);
 
 
-//  /**
-//   * Shows the weapon dialog for attack.
-//   *
-//   * @param weapons the list of weapons
-//   * @param f       the set of feature callbacks as a Features object
-//   */
-//  void showWeaponDialogForAttack(List<WeaponImp> weapons, Features f);
-
+  /**
+   * Shows the weapon dialog for attemptToAttack.
+   *
+   * @param f       the set of feature callbacks as a Features object
+   */
   void showWeaponDialogForAttack(Features f);
 
-//  /**
-//   * Shows the weapon dialog for pick up.
-//   *
-//   * @param weapons the list of weapons
-//   * @param f       the set of feature callbacks as a Features object
-//   */
-//  void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f);
-
+  /**
+   * Shows the weapon dialog for pick up.
+   *
+   * @param f       the set of feature callbacks as a Features object
+   */
   void showWeaponDialogForPickUp(Features f);
 
   /**

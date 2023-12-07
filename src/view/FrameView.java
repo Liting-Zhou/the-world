@@ -48,7 +48,6 @@ import model.WeaponImp;
  */
 public class FrameView extends JFrame implements View {
 
-  private ReadOnlyWorld readOnlyModel;
   private final JTextArea display;
   private final JButton addPlayerButton;
   private final JButton startGameButton;
@@ -60,6 +59,7 @@ public class FrameView extends JFrame implements View {
   private final GameBoardPanel gameBoard;
   private final JScrollPane scrollPane; //for game board
   private final JScrollPane displayScrollPane; //for text display
+  private ReadOnlyWorld readOnlyModel;
 
 
   /**
@@ -129,7 +129,7 @@ public class FrameView extends JFrame implements View {
         + "Creator: Liting Zhou");
     showInitialDialog("Game of Kill Doctor Happy", "Choose an option:",
         "New game with the current world specification", "New game with a new world specification");
-    this.readOnlyModel= model;
+    this.readOnlyModel = model;
   }
 
   @Override
@@ -155,10 +155,10 @@ public class FrameView extends JFrame implements View {
       f.exitGame();
     });
     addPlayerButton.addActionListener(l -> {
-      if (readOnlyModel.getListOfPlayers().size() <11) {
+      if (readOnlyModel.getListOfPlayers().size() < 11) {
         new AddPlayerDialog(this, "Add Player", true, f).setVisible(true);
-      }else{
-        showMessageDialog("","You can only add 10 players at most.");
+      } else {
+        showMessageDialog("", "You can only add 10 players at most.");
       }
     });
     startGameButton.addActionListener(l -> {
@@ -186,7 +186,6 @@ public class FrameView extends JFrame implements View {
           int targetY = targetCoordinates[1];
           if (x <= targetX + 20 && x >= targetX && y <= targetY + 20 && y >= targetY) {
             showMessageDialog("Target Information", readOnlyModel.displayTargetInformation());
-            //f.displayTargetInfo();
             return;
           }
           //check if the click is on player
@@ -198,14 +197,14 @@ public class FrameView extends JFrame implements View {
             int index = player.getIndexOfPlayer();
             int baseX = playerX - numOfPlayers / 2 * 20 + index * 20 + 10;
             if (Math.sqrt(Math.pow(x - baseX, 2) + Math.pow(y - playerY, 2)) <= 10) {
-              showMessageDialog("Player Information", readOnlyModel.displayPlayerInformation(player));
-              //f.displayPlayerInfo(player);
+              showMessageDialog("Player Information",
+                  readOnlyModel.displayPlayerInformation(player));
               return;
             }
           }
           //otherwise, the click is on the room
-          //f.displayRoomInfo(x / 40, y / 40);
-          String display = readOnlyModel.displayRoomInformation(readOnlyModel.findRoomByCoordinates(x/40, y/40));
+          String display = readOnlyModel.displayRoomInformation(
+              readOnlyModel.findRoomByCoordinates(x / 40, y / 40));
           showMessageDialog("Room Information", display);
         }
         if (f.getPlayerMoveMode()) {
@@ -236,10 +235,10 @@ public class FrameView extends JFrame implements View {
               setDisplay("Now click a neighboring room to move to.");
               break;
             case KeyEvent.VK_A:
-              f.attack();
+              f.attemptToAttack();
               break;
             case KeyEvent.VK_P:
-              f.pickUpWeapon();
+              f.attemptToPickUpWeapon();
               break;
             case KeyEvent.VK_L:
               f.lookAround();
@@ -263,7 +262,7 @@ public class FrameView extends JFrame implements View {
   /**
    * Show the initial dialog when program starts.
    *
-   * @param title the name of the game
+   * @param title   the name of the game
    * @param message the message to be displayed
    * @param option1 option 1 for the user to choose
    * @param option2 option 2 for the user to choose
@@ -319,13 +318,13 @@ public class FrameView extends JFrame implements View {
 
   @Override
   public void showWeaponDialogForAttack(Features f) {
-    List<WeaponImp> weapons=readOnlyModel.getCurrentPlayer().getWeaponsCarried();
+    List<WeaponImp> weapons = readOnlyModel.getCurrentPlayer().getWeaponsCarried();
     String[] weaponNames = weapons.stream().map(Weapon::getName).toArray(String[]::new);
 
-    //add "your fist"
+    //add "your fingers"
     String[] options = new String[weaponNames.length + 1];
     System.arraycopy(weaponNames, 0, options, 0, weaponNames.length);
-    options[options.length - 1] = "Your Fist";
+    options[options.length - 1] = "Your Fingers";
 
     JPanel panel = new JPanel();
     ButtonGroup buttonGroup = new ButtonGroup();
@@ -360,7 +359,7 @@ public class FrameView extends JFrame implements View {
 
   @Override
   public void showWeaponDialogForPickUp(Features f) {
-    List<WeaponImp> weapons=readOnlyModel.getCurrentPlayer().getCurrentLocation().getWeapons();
+    List<WeaponImp> weapons = readOnlyModel.getCurrentPlayer().getCurrentLocation().getWeapons();
     String[] weaponNames = weapons.stream().map(Weapon::getName).toArray(String[]::new);
 
     JPanel panel = new JPanel();
@@ -564,9 +563,6 @@ public class FrameView extends JFrame implements View {
       this.players = readOnlyModel.getListOfPlayers();
       this.target = readOnlyModel.getTarget();
 
-//      this.image = newImage;
-//      this.players = players;
-//      this.target = target;
       repaint();
     }
 

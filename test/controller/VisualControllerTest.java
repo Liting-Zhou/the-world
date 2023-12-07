@@ -115,7 +115,7 @@ public class VisualControllerTest {
 
   @Test
   public void testAttack() {
-    controller.attack();
+    controller.attemptToAttack();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n"
         + "model.getCurrentPlayer is invoked\n"
@@ -141,7 +141,7 @@ public class VisualControllerTest {
 
   @Test
   public void testPickUpWeapon() {
-    controller.pickUpWeapon();
+    controller.attemptToPickUpWeapon();
     String expected = "model.getMaxNumOfTurns is invoked\n"
         + "view.setFeatures is invoked\n"
         + "model.getCurrentPlayer is invoked\n"

@@ -1,10 +1,5 @@
 package controller;
 
-import java.awt.image.BufferedImage;
-import java.util.List;
-import model.Player;
-import model.Target;
-import model.WeaponImp;
 import view.View;
 
 /**

@@ -135,7 +135,7 @@ public class ComputerPlayer extends Player {
   }
 
   /**
-   * Attacks the target. Computer player only makes attempt to attack when it can not be seen.
+   * Attacks the target. Computer player only makes attempt to attemptToAttack when it can not be seen.
    * Always use the weapon with the highest power.
    *
    * @param target The target to be attacked
@@ -144,7 +144,7 @@ public class ComputerPlayer extends Player {
   public String attack(Target target) {
     StringBuilder sb = new StringBuilder();
     sb.append(
-        String.format("Computer player %s has chance to attack the target.%n", this.getName()));
+        String.format("Computer player %s has chance to attemptToAttack the target.%n", this.getName()));
     //if no weapon carried, poking the target in the eye and reduce 1 health
     if (weaponsCarried.isEmpty()) {
       sb.append(String.format(
@@ -152,15 +152,15 @@ public class ComputerPlayer extends Player {
           this.getName()));
       target.healthDamage(1);
     } else if (weaponsCarried.size() == 1) {
-      //if one weapon carried, use the weapon to attack
+      //if one weapon carried, use the weapon to attemptToAttack
       WeaponImp weapon = weaponsCarried.get(0);
-      sb.append(String.format("%s uses %s to attack the target, target gets %d damage.%n",
+      sb.append(String.format("%s uses %s to attemptToAttack the target, target gets %d damage.%n",
           this.getName(), weapon.getName(), weapon.getPower()));
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game
       weaponsCarried.remove(weapon);
     } else {
-      //if more than one weapon carried, use the weapon with the highest power to attack
+      //if more than one weapon carried, use the weapon with the highest power to attemptToAttack
       int maxPower = 0;
       WeaponImp weapon = null;
       for (WeaponImp w : weaponsCarried) {
@@ -169,7 +169,7 @@ public class ComputerPlayer extends Player {
           weapon = w;
         }
       }
-      sb.append(String.format("%s uses %s to attack the target, target gets %d damage.%n",
+      sb.append(String.format("%s uses %s to attemptToAttack the target, target gets %d damage.%n",
           this.getName(), weapon.getName(), weapon.getPower()));
       target.healthDamage(weapon.getPower());
       //remove the weapon from the game

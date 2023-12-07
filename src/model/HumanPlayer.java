@@ -129,7 +129,7 @@ public class HumanPlayer extends Player {
       } else {
         WeaponImp weapon = weaponsCarried.get(number - 1);
         weaponsCarried.remove(weapon);
-        System.out.printf("You chose %s to attack the target.%n",
+        System.out.printf("You chose %s to attemptToAttack the target.%n",
             weapon.getName());
         if (canBeSeen()) {
           System.out.println("You can be seen by other player. No damage made.");
@@ -149,7 +149,7 @@ public class HumanPlayer extends Player {
    */
   public void attackWithWeapon(Weapon weapon, Target target) {
     weaponsCarried.remove(weapon);
-    System.out.printf("You chose %s to attack the target.%n",
+    System.out.printf("You chose %s to attemptToAttack the target.%n",
         weapon.getName());
     if (canBeSeen()) {
       System.out.println("You can be seen by other player. No damage made.");
