@@ -283,7 +283,7 @@ public class VisualController implements Features {
       checkIsGameOver();
     } else {
       view.setDisplay("Choose a weapon to pick up.");
-      view.showWeaponDialogForPickUp(currentPlayer.getCurrentLocation().getWeapons(), this);
+      view.showWeaponDialogForPickUp(this);
     }
   }
 

@@ -65,13 +65,15 @@ public interface View {
 
   void showWeaponDialogForAttack(Features f);
 
-  /**
-   * Shows the weapon dialog for pick up.
-   *
-   * @param weapons the list of weapons
-   * @param f       the set of feature callbacks as a Features object
-   */
-  void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f);
+//  /**
+//   * Shows the weapon dialog for pick up.
+//   *
+//   * @param weapons the list of weapons
+//   * @param f       the set of feature callbacks as a Features object
+//   */
+//  void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f);
+
+  void showWeaponDialogForPickUp(Features f);
 
   /**
    * Shows a message dialog.

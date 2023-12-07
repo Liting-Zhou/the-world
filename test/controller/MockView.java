@@ -53,7 +53,7 @@ public class MockView implements View {
   }
 
   @Override
-  public void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f) {
+  public void showWeaponDialogForPickUp(Features f) {
     log.append("view.showWeaponDialogForPickUp is invoked\n");
   }
 

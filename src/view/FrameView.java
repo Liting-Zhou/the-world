@@ -359,7 +359,8 @@ public class FrameView extends JFrame implements View {
   }
 
   @Override
-  public void showWeaponDialogForPickUp(List<WeaponImp> weapons, Features f) {
+  public void showWeaponDialogForPickUp(Features f) {
+    List<WeaponImp> weapons=readOnlyModel.getCurrentPlayer().getCurrentLocation().getWeapons();
     String[] weaponNames = weapons.stream().map(Weapon::getName).toArray(String[]::new);
 
     JPanel panel = new JPanel();
