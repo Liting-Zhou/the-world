@@ -31,14 +31,15 @@ public interface View {
    */
   void setDisplay(String s);
 
-  /**
-   * Refresh the view to reflect any changes in the game state.
-   *
-   * @param image   the image to be displayed
-   * @param players the list of players
-   * @param target  the target
-   */
-  void refresh(BufferedImage image, List<Player> players, Target target);
+//  /**
+//   * Refresh the view to reflect any changes in the game state.
+//   *
+//   * @param image   the image to be displayed
+//   * @param players the list of players
+//   * @param target  the target
+//   */
+//  void refresh(BufferedImage image, List<Player> players, Target target);
+  void refresh();
 
   /**
    * Reset the focus on the appropriate part of the view that has the keyboard

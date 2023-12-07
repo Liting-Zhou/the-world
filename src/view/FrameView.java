@@ -307,8 +307,8 @@ public class FrameView extends JFrame implements View {
   }
 
   @Override
-  public void refresh(BufferedImage image, List<Player> players, Target target) {
-    gameBoard.updateMap(image, players, target);
+  public void refresh() {
+    gameBoard.updateMap();
   }
 
   @Override
@@ -557,10 +557,14 @@ public class FrameView extends JFrame implements View {
     private Target target;
 
 
-    public void updateMap(BufferedImage newImage, List<Player> players, Target target) {
-      this.image = newImage;
-      this.players = players;
-      this.target = target;
+    public void updateMap() {
+      this.image = readOnlyModel.getMap();
+      this.players = readOnlyModel.getListOfPlayers();
+      this.target = readOnlyModel.getTarget();
+
+//      this.image = newImage;
+//      this.players = players;
+//      this.target = target;
       repaint();
     }
 

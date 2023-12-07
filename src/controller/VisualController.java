@@ -112,7 +112,8 @@ public class VisualController implements Features {
           + "Blue represents human player and red represents computer player.\n"
           + "(4) Click the button above to play next turn.\n");
       view.displayGamePanel(true);
-      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+      //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+      view.refresh();
     }
   }
 
@@ -120,7 +121,8 @@ public class VisualController implements Features {
   public void playNextTurn() {
     model.petWander();
     model.roundOfTarget();
-    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    view.refresh();
     view.setDisplay(
         String.format("Turn %d (max %d).\nNow is %s's turn.\n%s is in room %d.\n"
                 + "Choose an action:\n"
@@ -133,7 +135,8 @@ public class VisualController implements Features {
             model.getCurrentPlayer().getCurrentLocation().getRoomNumber()));
     if (model.getCurrentPlayer().getTypeOfPlayer() == 1) {
       view.setDisplay(model.roundOfPlayer()); //update current player index already
-      view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+      //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+      view.refresh();
       model.updateTurnsPlayed();
       checkIsGameOver();
     } else {
@@ -416,7 +419,8 @@ public class VisualController implements Features {
           "You have moved to the %s.\n\nThis Turn ended.\nClick the button to play next turn.",
           model.getCurrentPlayer().getCurrentLocation().getRoomName()));
     }
-    view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    //view.refresh(model.getMap(), model.getListOfPlayers(), model.getTarget());
+    view.refresh();
     model.updatePlayerTurn();
     model.updateTurnsPlayed();
     checkIsGameOver();
