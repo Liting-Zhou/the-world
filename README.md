@@ -1,4 +1,4 @@
-# Project of The World
+# Game of Kill Doctor Happy
 
 ### Name: Liting Zhou
 
